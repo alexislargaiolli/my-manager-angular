@@ -1,0 +1,32 @@
+<md-card class="example-card">
+    <md-card-title>
+        <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)">
+            <md-input-container>
+                <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
+            </md-input-container>
+        </form>
+    </md-card-title>
+    <md-card-content>
+        <div class="action-panel" [ngClass]="{'visible' : selectedTask != null}">
+            <div *ngIf="selectedTask">
+                <md-select placeholder="Etat" [(ngModel)]="selectedTask.state" (change)="updateSelected()">
+                    <md-option *ngFor="let state of states | myKeys" [value]="state.key">
+                        {{state.value}}
+                    </md-option>
+                </md-select>
+                <button md-button (click)="deleteTask(selectedTask)" class="btn-remove"><md-icon>delete</md-icon></button>
+            </div>
+        </div>
+        <md-nav-list>
+            <md-list-item *ngFor="let task of tasks" (click)="selectTask(task)">
+                <md-icon md-list-icon *ngIf="task.state == 1">sync</md-icon>
+                <md-icon md-list-icon *ngIf="task.state == 2">check circle</md-icon>
+                <md-icon md-list-icon *ngIf="task.state == 3">cancel</md-icon>
+                <h3 md-line> {{task.title}} {{task.state}}</h3>
+                <p md-line> {{task.createdAt | date}} </p>
+            </md-list-item>
+        </md-nav-list>
+    </md-card-content>
+    <md-card-actions>
+    </md-card-actions>
+</md-card>

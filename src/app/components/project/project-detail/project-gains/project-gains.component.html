@@ -1,0 +1,38 @@
+<md-card>
+    <md-card-title>
+        <h3>Gains</h3>
+    </md-card-title>
+    <form #gainForm="ngForm" (ngSubmit)="create(gainForm)" class="list-create-form">
+        <md-input-container>
+            <input name="title" type="text" mdInput ngModel placeholder="Nouveau gain..." required>
+        </md-input-container>
+        <button md-button type="submit"><md-icon>add</md-icon></button>
+    </form>
+    <md-card-content class="d-flex align-items-center">
+        <md-list>
+            <md-list-item *ngFor="let gain of elements" (click)="select(gain)" class="selectable">
+                <span class="badge badge-primary budget">{{gain.budget ? gain.budget : '? '}}€</span>
+                <span *ngIf="isLate(gain)" class="badge badge-danger">En retard</span>
+                <h4 md-line>{{gain.title}}</h4>
+                <p md-line *ngIf="gain.dueDate">Attendu le {{gain.dueDate | date}} </p>
+            </md-list-item>
+        </md-list>
+        <div class="selected-gain-wrapper" *ngIf="selected">
+            <form #selectedGainForm="ngForm" (ngSubmit)="update(selectedGainForm)" class="d-flex flex-column">
+                <md-input-container>
+                    <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé du gain..." required>
+                </md-input-container>
+                <md-input-container>
+                    <input name="budget" type="number" mdInput [(ngModel)]="selected.budget" placeholder="Budget...">
+                </md-input-container>
+                <div class="form-group">
+                    <my-date-picker name="dueDate" [options]="myDatePickerOptions" [ngModel]="dueDate" required></my-date-picker>
+                </div>
+                <md-checkbox name="devis" [(ngModel)]="selected.devis">Devis</md-checkbox>
+                <md-checkbox name="invoiced" [(ngModel)]="selected.invoiced">Facturé</md-checkbox>
+                <md-checkbox name="paid" [(ngModel)]="selected.paid">Payé</md-checkbox>
+                <button md-button><md-icon>save</md-icon></button>
+            </form>
+        </div>
+    </md-card-content>
+</md-card>

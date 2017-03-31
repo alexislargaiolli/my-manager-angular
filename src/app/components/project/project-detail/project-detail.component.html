@@ -1,0 +1,52 @@
+<md-tab-group *ngIf="project">
+    <md-tab label="Dashboard">
+        <div class="tab-wrapper">
+            <md-card class="project-summary">
+                <md-card-title class="justify-content-between">
+                    <h2>{{project.name}}</h2>
+                    <span class="project-progress">{{project.progress}}%</span>
+                </md-card-title>
+                <md-card-content>
+                    <md-button-toggle-group (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
+                        <md-button-toggle value="0">
+                            Prospection
+                        </md-button-toggle>
+                        <md-button-toggle value="1">
+                            Devis
+                        </md-button-toggle>
+                        <md-button-toggle value="2">
+                            Production
+                        </md-button-toggle>
+                        <md-button-toggle value="3">
+                            Facturé
+                        </md-button-toggle>
+                        <md-button-toggle value="4">
+                            Payé
+                        </md-button-toggle>
+                    </md-button-toggle-group>
+                    <project-client></project-client>
+                </md-card-content>
+            </md-card>
+            <project-gains></project-gains>
+            <note-list></note-list>
+        </div>
+    </md-tab>
+    <md-tab label="Gestion">
+        <div class="tab-wrapper">
+            <project-task></project-task>
+        </div>
+    </md-tab>
+    <md-tab label="Devis">
+        <div class="tab-wrapper">
+        </div>
+    </md-tab>
+    <md-tab label="Facture">
+        <div class="tab-wrapper">
+        </div>
+    </md-tab>
+    <md-tab label="Options">
+        <div class="tab-wrapper">
+            <project-settings [project]="project" (onUpdate)="onSettingsUpdate($event)"></project-settings>
+        </div>
+    </md-tab>
+</md-tab-group>

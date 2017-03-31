@@ -1,0 +1,35 @@
+ul {
+    list-style: none;
+    padding: 0;
+    li {
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            margin: 0;
+            font-family: Oswald;
+            font-size: 15px;
+            line-height: 26px;
+        }
+        md-checkbox {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.action-panel {
+    height: 0;
+    overflow: hidden;
+    transition: height 200ms;
+}
+
+.action-panel.visible {
+    height: 50px;
+}
+
+.action-panel>div {
+    display: flex;
+    justify-content: space-between;
+}
