@@ -24,11 +24,16 @@
                             Payé
                         </md-button-toggle>
                     </md-button-toggle-group>
-                    <project-client></project-client>
                 </md-card-content>
             </md-card>
-            <project-gains></project-gains>
-            <note-list></note-list>
+            <div>
+                <project-client [projectId]="projectId"></project-client>
+                <project-history></project-history>
+            </div>
+            <div>
+                <project-gains></project-gains>
+                <note-list></note-list>
+            </div>
         </div>
     </md-tab>
     <md-tab label="Gestion">

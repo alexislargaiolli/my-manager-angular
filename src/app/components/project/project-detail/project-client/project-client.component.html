@@ -1,3 +1,30 @@
-<p>
-  project-client works!
-</p>
+<md-card *ngIf="clients">
+    <md-card-title>Clients</md-card-title>
+    <md-card-content>
+        <p *ngIf="clients.length === 0">Aucun client assigné...</p>
+        <md-list [hidden]="createFormDisplayed || addListDisplayed">
+            <md-list-item *ngFor="let client of clients" (click)="selectClient(client)" class="selectable" [ngClass]="{'selected-client' : (selected && selected.id == client.id)}">
+                <md-icon md-list-icon>folder</md-icon>
+                <h3 md-line> {{client.firstname}} {{client.lastname}} </h3>
+            </md-list-item>
+        </md-list>
+        <client-create (onCreated)="onClientCreated($event)" *ngIf="createFormDisplayed"></client-create>
+        <md-list *ngIf="addListDisplayed">
+            <md-list-item *ngFor="let client of allClients" (click)="importClient(client)" class="selectable">
+                <md-icon md-list-icon>person_add</md-icon>
+                <h3 md-line> {{client.firstname}} {{client.lastname}} </h3>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+    <md-card-actions>
+        <div [hidden]="addMenuDisplayed">
+            <button md-button (click)="addMenuDisplayed = true">Ajouter un client</button>
+            <button md-button *ngIf="selected" (click)="removeSelected()">Supprimer</button>
+        </div>
+        <div [hidden]="!addMenuDisplayed">
+            <button md-button (click)="cancelAdd()">Annuler</button>
+            <button md-button (click)="showCreateForm()">Créer</button>
+            <button md-button (click)="showAddList()">importer</button>
+        </div>
+    </md-card-actions>
+</md-card>

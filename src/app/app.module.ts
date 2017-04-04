@@ -1,3 +1,6 @@
+import { HistoryEntryService } from './services/history.service';
+import { ProjectHistoryComponent } from './components/project/project-detail/project-history/project-history.component';
+import { ClientCreateComponent } from './components/client/client-create/client-create.component';
 import { NoteService } from './services/note.service';
 import { DialogsService } from './services/dialog.service';
 import { GainService } from './services/gain.service';
@@ -6,9 +9,9 @@ import { ProjectService } from './services/project.service';
 import { ClientService } from './services/client.service';
 import { KeysPipe } from './utils/keys.pipe';
 import { ProjectClientComponent } from './components/project/project-detail/project-client/project-client.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { GainListComponent } from './components/gain-list/gain-list.component';
-import { NoteListComponent } from './components/note-list/note-list.component';
+import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
+import { GainListComponent } from './components/project/gain-list/gain-list.component';
+import { NoteListComponent } from './components/project/note-list/note-list.component';
 import { ClientDetailComponent } from './components/client/client-detail/client-detail.component';
 import { ClientListComponent } from './components/client/client-list/client-list.component';
 import { ClientComponent } from './components/client/home/client.component';
@@ -29,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     GainListComponent,
     ConfirmDialogComponent,
     ProjectClientComponent,
+    ClientCreateComponent,
+    ProjectHistoryComponent,
     KeysPipe
   ],
   imports: [
@@ -56,7 +62,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppRoutingModule,
     MaterialModule,
     MyDatePickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DatepickerModule
   ],
   providers: [
     ClientService,
@@ -64,7 +71,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     TaskService,
     NoteService,
     GainService,
-    DialogsService
+    DialogsService,
+    HistoryEntryService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

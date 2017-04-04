@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 
 export abstract class GenericService<T extends IModel> {
 
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    protected headers = new Headers({ 'Content-Type': 'application/json' });
     constructor(protected http: Http) { }
 
     public getAll(): Observable<T[]> {
@@ -49,6 +49,6 @@ export abstract class GenericService<T extends IModel> {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    protected BASE_URL = "http://localhost:1337";
+    protected BASE_URL = "http://localhost:1337/api";
 
 }

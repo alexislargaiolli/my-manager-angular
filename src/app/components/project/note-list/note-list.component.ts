@@ -1,9 +1,9 @@
-import { GenericProjectListComponent } from '../generics/generic-project-list.component';
-import { KeysPipe } from './../../utils/keys.pipe';
+import { GenericProjectListComponent } from '../../common/generic-project-list.component';
+import { KeysPipe } from './../../../utils/keys.pipe';
 import { NgForm } from '@angular/forms';
-import { Note, NotePriority } from './../../model/note.model';
+import { Note, NotePriority } from './../../../model/note.model';
 import { Observable } from 'rxjs/Observable';
-import { NoteService } from './../../services/note.service';
+import { NoteService } from './../../../services/note.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 

@@ -1,4 +1,4 @@
-import { ConfirmDialogComponent } from './../components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './../components/common/confirm-dialog/confirm-dialog.component';
 import { Observable } from 'rxjs/Rx';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Injectable } from '@angular/core';

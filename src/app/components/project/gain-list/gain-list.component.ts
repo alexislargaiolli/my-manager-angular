@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
-import { GainService } from './../../services/gain.service';
-import { Gain } from './../../model/gain.model';
-import { GenericProjectListComponent } from '../generics/generic-project-list.component';
+import { GainService } from './../../../services/gain.service';
+import { Gain } from './../../../model/gain.model';
+import { GenericProjectListComponent } from '../../common/generic-project-list.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

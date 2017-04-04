@@ -1,0 +1,15 @@
+<form #clientForm="ngForm" (ngSubmit)="createClient(clientForm)" autocomplete="off">
+    <md-input-container>
+        <input mdInput ngModel name="firstname" type="text" placeholder="Prénom..." required>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput ngModel name="lastname" type="text" placeholder="Nom...">
+    </md-input-container>
+    <md-input-container>
+        <input mdInput ngModel name="email" type="email" placeholder="Email...">
+    </md-input-container>
+    <md-input-container>
+        <input mdInput ngModel name="tel" type="tel" placeholder="Téléphone...">
+    </md-input-container>
+    <button md-button type="submit"><md-icon>add box</md-icon>Créer</button>
+</form>

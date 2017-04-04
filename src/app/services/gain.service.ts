@@ -12,6 +12,6 @@ export class GainService extends GenericProjectModelService<Gain> {
     }
 
     protected getApiURL(): string {
-        return this.BASE_URL + '/api/gain';
+        return this.BASE_URL + '/gain';
     }
 }

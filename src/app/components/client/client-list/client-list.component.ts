@@ -1,6 +1,6 @@
 import { ClientService } from './../../../services/client.service';
 import { Client } from './../../../model/client.model';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'client-list',
@@ -9,6 +9,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ClientListComponent implements OnInit {
 
+  @Input()
   public clients: Client[];
 
   @Output()
@@ -17,19 +18,10 @@ export class ClientListComponent implements OnInit {
   constructor(private clientService: ClientService) { }
 
   public ngOnInit() {
-    this.loadClients();
+    
   }
 
   public selectClient(client: Client) {
     this.clientSelect.emit(client);
   }
-
-  private loadClients() {
-    this.clientService.getAll()
-      .subscribe(clients => this.clients = clients,
-      err => {
-        console.log(err);
-      });
-  }
-
 }

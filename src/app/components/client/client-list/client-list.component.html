@@ -1,3 +1,6 @@
-<div *ngFor="let client of clients" (click)="selectClient(client)">
-    {{client.name}}
-</div>
+<md-list>
+    <md-list-item *ngFor="let client of clients" (click)="selectClient(client)">
+        <md-icon md-list-icon>contact_phone</md-icon>
+        <h3 md-line> {{client.firstname}} {{client.lastname}} </h3>
+    </md-list-item>
+</md-list>

@@ -1,5 +1,5 @@
 import { DialogsService } from './../../../../services/dialog.service';
-import { ConfirmDialogComponent } from './../../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './../../../common/confirm-dialog/confirm-dialog.component';
 import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../../../services/project.service';

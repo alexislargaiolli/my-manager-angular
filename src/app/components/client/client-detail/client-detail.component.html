@@ -1,6 +1,2 @@
-<p>
-    Nom : {{client.name}}
-</p>
-<p>
-    Prénom : {{client.firstname}}
-</p>
+<p>{{client | json}}</p>
+<button md-button (click)="delete()">Supprimer</button>

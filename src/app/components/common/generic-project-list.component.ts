@@ -34,20 +34,29 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
         this.service.create(newElt).subscribe(elt => {
             this.elements.push(elt);
             form.reset();
+            this.onElementCreated(elt);
         });
     }
 
     public delete(eltToDelete: T) {
         this.service.delete(eltToDelete).subscribe(res => {
             this.elements.splice(this.elements.findIndex((elt) => elt.id === eltToDelete.id), 1);
+            this.onElementDeleted(eltToDelete);
             this.unselect();
         });
     }
 
+    public deleteSelected() {
+        this.delete(this.selected);
+    }
+
     public updateSelected() {
-        this.service.update(this.selected).subscribe(elt => {
-            this.unselect();
-        });
+        if (this.selected) {
+            this.service.update(this.selected).subscribe(elt => {
+                this.onElementUpdated(this.selected);
+                this.unselect();
+            });
+        }
     }
 
     public select(elt: T) {
@@ -78,6 +87,18 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
     }
 
     protected onElementLoaded() {
+
+    }
+
+    protected onElementCreated(elt:T) {
+
+    }
+
+    protected onElementUpdated(elt:T) {
+
+    }
+
+    protected onElementDeleted(elt:T) {
 
     }
 }

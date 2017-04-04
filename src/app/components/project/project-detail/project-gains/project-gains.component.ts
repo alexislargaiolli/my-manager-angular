@@ -1,6 +1,6 @@
 import { IMyOptions } from 'mydatepicker';
 import { DateUtils } from './../../../../utils/date.utils';
-import { GenericProjectListComponent } from './../../../generics/generic-project-list.component';
+import { GenericProjectListComponent } from './../../../common/generic-project-list.component';
 import { NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Gain } from './../../../../model/gain.model';
@@ -34,7 +34,7 @@ export class ProjectGainsComponent extends GenericProjectListComponent<Gain> imp
   }
 
   public select(gain: Gain) {
-    super.select(gain);
+    this.selected = gain;
     this.dueDate = DateUtils.jsDateToMyDate(this.selected.dueDate);
   }
 

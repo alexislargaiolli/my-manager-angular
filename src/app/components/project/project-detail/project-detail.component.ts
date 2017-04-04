@@ -11,6 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class ProjectDetailComponent implements OnInit {
   public ProjectState = ProjectState;
   public project: Project;
+  public projectId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,10 +19,13 @@ export class ProjectDetailComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.route.params.switchMap((params: Params) => this.projectService.get(+params['projectId']))
-      .subscribe((project: Project) => {
-        this.project = project;
-      });
+    this.route.params.switchMap((params: Params) => {
+      this.projectId = +params['projectId'];
+      return this.projectService.get(this.projectId);
+    })
+    .subscribe((project: Project) => {
+      this.project = project;
+    });
   }
 
   public onSettingsUpdate(event) {

@@ -13,6 +13,6 @@ export class TaskService extends GenericProjectModelService<Task> {
     }
 
     protected getApiURL(): string {
-        return this.BASE_URL + '/api/task';
+        return this.BASE_URL + '/task';
     }
 }

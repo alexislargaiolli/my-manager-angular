@@ -1,6 +1,7 @@
-import { Client } from '../model/client.model';
+import { Client } from './../model/client.model';
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { GenericService } from './generic.service';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class ClientService extends GenericService<Client> {
     }
 
     public getApiURL(): string {
-        return this.BASE_URL + '/api/client';
+        return this.BASE_URL + '/client';
     }
 
 }

@@ -1,3 +1,4 @@
+import { Client } from './client.model';
 import { IModel } from './abstract.model';
 
 export class Project implements IModel {
@@ -13,6 +14,7 @@ export class Project implements IModel {
     public budget: number;
     public progress: number = 0;
     public state: ProjectState = ProjectState.PROSPECTION;
+    public clients:Client[];
 
     constructor() { }
 

@@ -12,7 +12,7 @@ export class NoteService extends GenericProjectModelService<Note> {
     }
 
     protected getApiURL(): string {
-        return this.BASE_URL + '/api/note';
+        return this.BASE_URL + '/note';
     }
 
 }
