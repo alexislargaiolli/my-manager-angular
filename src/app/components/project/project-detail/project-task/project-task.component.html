@@ -1,3 +1,9 @@
+<div class='d-flex justify-content-around' *ngIf="kaban">
+    <div class="kaban-column" *ngFor='let group of groups; let i = index;' [dragula]='"nested-bag"' [attr.column-id]="i">
+        <div *ngFor='let task of group.items' [attr.task-id]="task.id">{{task.title}}</div>
+    </div>
+</div>
+
 <md-card class="example-card">
     <md-card-title>
         <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)">
@@ -7,10 +13,11 @@
         </form>
     </md-card-title>
     <md-card-content>
+
         <div class="action-panel" [ngClass]="{'visible' : selectedTask != null}">
             <div *ngIf="selectedTask">
                 <md-select placeholder="Etat" [(ngModel)]="selectedTask.state" (change)="updateSelected()">
-                    <md-option *ngFor="let state of states | myKeys" [value]="state.key">
+                    <md-option *ngFor="let state of TaskState | myKeys" [value]="state.key">
                         {{state.value}}
                     </md-option>
                 </md-select>

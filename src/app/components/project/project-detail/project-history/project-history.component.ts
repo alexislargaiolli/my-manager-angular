@@ -53,4 +53,11 @@ export class ProjectHistoryComponent extends GenericProjectListComponent<History
     this.sortByDate();
   }
 
+
+  public updateSelected(attributes:Object){
+    if(this.selected.date){
+      attributes['date'] = this.selected.date;
+    }
+    super.updateSelected(attributes);
+  }
 }

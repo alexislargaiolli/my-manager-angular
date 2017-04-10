@@ -1,3 +1,13 @@
+import { MyNotificationComponent } from './components/common/notification-center/my-notification/my-notification.component';
+import { NotificationCenterComponent } from './components/common/notification-center/notification-center.component';
+import { NotificationService, MyNotification } from './services/notification.service';
+import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './guards/auth.guards';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { DropTargetDirective } from './components/common/drag-and-drop/drop-target.directive';
+import { DraggableDirective } from './components/common/drag-and-drop/draggable.directive';
+import { DragService } from './components/common/drag-and-drop/drag.service';
 import { HistoryEntryService } from './services/history.service';
 import { ProjectHistoryComponent } from './components/project/project-detail/project-history/project-history.component';
 import { ClientCreateComponent } from './components/client/client-create/client-create.component';
@@ -28,6 +38,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,7 +64,12 @@ import { DatepickerModule } from 'angular2-material-datepicker';
     ProjectClientComponent,
     ClientCreateComponent,
     ProjectHistoryComponent,
-    KeysPipe
+    KeysPipe,
+    DraggableDirective,
+    DropTargetDirective,
+    LoginComponent,
+    NotificationCenterComponent,
+    MyNotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +79,8 @@ import { DatepickerModule } from 'angular2-material-datepicker';
     MaterialModule,
     MyDatePickerModule,
     BrowserAnimationsModule,
-    DatepickerModule
+    DatepickerModule,
+    DragulaModule  
   ],
   providers: [
     ClientService,
@@ -72,7 +89,12 @@ import { DatepickerModule } from 'angular2-material-datepicker';
     NoteService,
     GainService,
     DialogsService,
-    HistoryEntryService
+    HistoryEntryService, 
+    DragService,
+    AuthGuard,
+    UserService,
+    AuthenticationService,
+    NotificationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

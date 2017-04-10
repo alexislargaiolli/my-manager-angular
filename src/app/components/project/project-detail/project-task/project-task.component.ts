@@ -1,23 +1,35 @@
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Project } from './../../../../model/project.model';
-import { Task, TaskState } from '../../../../model/task.model';
+import { Task, TaskKaban, TaskState } from '../../../../model/task.model';
 import { TaskService } from '../../../../services/task.service';
 
 @Component({
   selector: 'project-task',
   templateUrl: './project-task.component.html',
-  styleUrls: ['./project-task.component.css']
+  styleUrls: ['./project-task.component.scss']
 })
 export class ProjectTaskComponent implements OnInit {
-  public states = TaskState;
+  public TaskState = TaskState;
   public tasks: Task[];
+  public kaban: TaskKaban;
+  public todoTasks: Task[];
+  public inprogressTasks: Task[];
+  public finishedTasks: Task[];
+
   public projectId: number;
   public selectedTask: Task;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute) { }
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private dragulaService: DragulaService) {
+    dragulaService.drop.subscribe((value) => {
+      console.log('from '+value[3].getAttribute('column-id'))
+      console.log('to '+value[2].getAttribute('column-id'))
+      console.log(value[1].getAttribute('task-id'));
+    });
+  }
 
   public ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -55,15 +67,37 @@ export class ProjectTaskComponent implements OnInit {
   }
 
   public updateSelected() {
-    this.taskService.update(this.selectedTask).subscribe(task => {
-      this.selectedTask = task;
-    });
+    // this.taskService.update(this.selectedTask).subscribe(task => {
+    //   this.selectedTask = task;
+    // });
+  }
+
+  public onDropTodo(task: Task) {
+    this.changeState(task, TaskState.TODO);
+  }
+
+  public onDropInprogress(task: Task) {
+    this.changeState(task, TaskState.IN_PROGRESS);
+  }
+
+  public onDropFinished(task: Task) {
+    this.changeState(task, TaskState.FINISHED);
   }
 
   private loadTask() {
     this.taskService.getByProject(this.projectId).subscribe(tasks => {
       this.tasks = tasks;
+      this.kaban = new TaskKaban(tasks);
     });
+  }
+
+  public changeState(task: Task, newState: TaskState) {
+    this.kaban.swap(task, newState);
+    task.state = newState;
+  }
+
+  get groups() {
+    return this.kaban.groups;
   }
 
 }

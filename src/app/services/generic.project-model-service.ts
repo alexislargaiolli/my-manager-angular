@@ -19,9 +19,9 @@ export abstract class GenericProjectModelService<T extends IProjectModel> extend
      */
     public getByProject(projectId: number): Observable<T[]> {
         const url = `${this.getApiURL()}?where={"project":"${projectId}"}`;
-        return this.http.get(url)
+        return this.http.get(url, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err=>this.handleError(err));
     }
 
     /**
@@ -29,9 +29,9 @@ export abstract class GenericProjectModelService<T extends IProjectModel> extend
      */
     public getGenerals(): Observable<T[]> {
         const url = `${this.getApiURL()}?where={"project":null}`;
-        return this.http.get(url)
+        return this.http.get(url, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err=>this.handleError(err));
     }
 
 }

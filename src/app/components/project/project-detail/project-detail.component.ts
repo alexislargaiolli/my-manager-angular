@@ -33,7 +33,7 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   public saveProject() {
-    this.projectService.update(this.project).subscribe();
+    // this.projectService.update(this.project).subscribe();
   }
 
 }

@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth.guards';
+import { LoginComponent } from './components/authentication/login/login.component';
 import { ClientComponent } from './components/client/home/client.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProjectHomeComponent } from './components/project/project-home/project-home.component';
@@ -6,9 +8,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [  
-  { path: 'client', component: ClientComponent },
-  { path: 'project', component: ProjectHomeComponent },
-  { path: 'project/:projectId', component: ProjectDetailComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
+  { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard] },
+  { path: 'project/:projectId', component: ProjectDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

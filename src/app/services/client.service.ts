@@ -1,3 +1,5 @@
+import { AuthenticationService } from './authentication.service';
+import { NotificationService } from './notification.service';
 import { Client } from './../model/client.model';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -7,8 +9,12 @@ import { GenericService } from './generic.service';
 @Injectable()
 export class ClientService extends GenericService<Client> {
 
-    constructor(protected http: Http) {
-        super(http);
+    constructor(
+        protected http: Http,
+        protected notificationService: NotificationService,
+        protected authenticationService: AuthenticationService
+    ) {
+        super(http, notificationService, authenticationService);
     }
 
     public getApiURL(): string {

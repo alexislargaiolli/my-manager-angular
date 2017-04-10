@@ -1,3 +1,5 @@
+import { AuthenticationService } from './authentication.service';
+import { NotificationService } from './notification.service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -7,48 +9,72 @@ import 'rxjs/add/operator/catch';
 
 export abstract class GenericService<T extends IModel> {
 
-    protected headers = new Headers({ 'Content-Type': 'application/json' });
-    constructor(protected http: Http) { }
+    constructor(protected http: Http,
+        protected notificationService: NotificationService,
+        protected authenticationService: AuthenticationService
+    ) { }
 
     public getAll(): Observable<T[]> {
-        return this.http.get(this.getApiURL())
+        return this.http.get(this.getApiURL(), this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err => this.handleError(err));
     }
 
     public get(id: number): Observable<T> {
-        return this.http.get(`${this.getApiURL()}/${id}`)
+        return this.http.get(`${this.getApiURL()}/${id}`, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err => this.handleError(err));
     }
 
     public create(body: Object): Observable<T> {
-        let options = new RequestOptions({ headers: this.headers });
-        return this.http.post(this.getApiURL(), body, options)
+        return this.http.post(this.getApiURL(), body, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err => this.handleError(err));
     }
 
-    public update(eltToUpdate: T): Observable<T> {
-        let options = new RequestOptions({ headers: this.headers });
-        return this.http.put(`${this.getApiURL()}/${eltToUpdate.id}`, eltToUpdate, options)
+    public update(id: number, attributes: Object): Observable<T> {
+        return this.http.patch(`${this.getApiURL()}/${id}`, attributes, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err => this.handleError(err));
     }
 
     public delete(eltToDelete: T) {
-        let options = new RequestOptions({ headers: this.headers });
-        return this.http.delete(`${this.getApiURL()}/${eltToDelete.id}`, options)
+        return this.http.delete(`${this.getApiURL()}/${eltToDelete.id}`, this.generateOptions())
             .map((res: Response) => res.json())
-            .catch(this.handleError);
+            .catch(err => this.handleError(err));
     }
 
     protected abstract getApiURL(): string;
 
-    protected handleError(error: any) {
-        return Observable.throw(error.json().error || 'Server error');
+    protected generateOptions(): RequestOptions {
+        return new RequestOptions({ headers: this.generateHeaders() });
     }
 
-    protected BASE_URL = "http://localhost:1337/api";
+    protected generateHeaders(): Headers {
+        return new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': this.authenticationService.token
+        });
+    }
+
+    protected handleError(error: any) {
+        let msg = null;
+        if (error.status && error.status == 403) {
+            msg = 'Accès interdit.';
+        }
+        try {
+            msg = error.json().err || 'Server error';            
+        }
+        catch (e) {
+            if (msg == null) {
+                msg = 'Erreur inconnue';
+            }
+        }
+        console.error(error);
+        this.notificationService.addError(msg);
+        return Observable.throw(msg);
+    }
+
+    protected BASE_URL = "http://localhost:1337";
 
 }

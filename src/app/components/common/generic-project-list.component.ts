@@ -50,12 +50,16 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
         this.delete(this.selected);
     }
 
-    public updateSelected() {
+    public update(id: number, attributes: Object) {
+        this.service.update(id, attributes).subscribe(elt => {
+            this.onElementUpdated(this.selected);
+            this.unselect();
+        });
+    }
+
+    public updateSelected(attributes: Object) {
         if (this.selected) {
-            this.service.update(this.selected).subscribe(elt => {
-                this.onElementUpdated(this.selected);
-                this.unselect();
-            });
+            this.update(this.selected.id, attributes);
         }
     }
 
@@ -90,15 +94,15 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
 
     }
 
-    protected onElementCreated(elt:T) {
+    protected onElementCreated(elt: T) {
 
     }
 
-    protected onElementUpdated(elt:T) {
+    protected onElementUpdated(elt: T) {
 
     }
 
-    protected onElementDeleted(elt:T) {
+    protected onElementDeleted(elt: T) {
 
     }
 }

@@ -14,16 +14,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectGainsComponent extends GenericProjectListComponent<Gain> implements OnInit {
 
-  public dueDate: Object;
   private today: Date = new Date();
-
-  private myDatePickerOptions: IMyOptions = {
-    dateFormat: 'dd.mm.yyyy',
-    showClearDateBtn: false
-  };
 
   constructor(protected gainService: GainService, protected route: ActivatedRoute) {
     super(gainService, route);
+  }
+
+  public select(elt: Gain) {
+    if (!this.selected) {
+      this.selected = elt;
+      if (elt.dueDate) {
+        this.selected.dueDate = new Date(elt.dueDate);
+      }
+    }
   }
 
   public isLate(gain: Gain): boolean {
@@ -33,14 +36,11 @@ export class ProjectGainsComponent extends GenericProjectListComponent<Gain> imp
     return new Date(gain.dueDate) < this.today;
   }
 
-  public select(gain: Gain) {
-    this.selected = gain;
-    this.dueDate = DateUtils.jsDateToMyDate(this.selected.dueDate);
-  }
-
-  public update(form: NgForm) {
-    this.selected.dueDate = DateUtils.myDateToJsDate(form.value.dueDate);
-    super.updateSelected();
+  public updateSelected(attributes:Object){
+    if(this.selected.dueDate){
+      attributes['dueDate'] = this.selected.dueDate;
+    }
+    super.updateSelected(attributes);
   }
 
 }

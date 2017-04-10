@@ -1,7 +1,7 @@
 <form #projectForm="ngForm" (ngSubmit)="submitForm(projectForm)" autocomplete="off">
     <md-card class="create-project d-flex justify-content-between">
         <md-input-container>
-            <input mdInput name="title" type="text" placeholder="Nouveau projet...">
+            <input mdInput name="name" ngModel type="text" placeholder="Nouveau projet...">
         </md-input-container>
         <button md-button><md-icon>add box</md-icon></button>
     </md-card>
