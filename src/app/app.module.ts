@@ -46,10 +46,12 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { ErrorService } from 'app/services/error.service';
 import { EventsService } from 'app/services/event.service';
+import { HomeComponent } from 'app/components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     ProjectHomeComponent,
     ProjectListComponent,
     ProjectCreateComponent,

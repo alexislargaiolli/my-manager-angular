@@ -11,11 +11,11 @@ export class NotificationCenterComponent implements OnInit {
 
   private notificationSubscription: Subscription;
 
-  private notifications: MyNotification[];
+  public notifications: MyNotification[];
 
   constructor(private notificationService: NotificationService) {
     this.notifications = [];
-   }
+  }
 
   ngOnInit() {
     this.notificationSubscription = this.notificationService.getNotification().subscribe(notification => {
