@@ -1,11 +1,11 @@
-import { GenericService } from './generic.service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Project } from '../model/project.model';
 import { Observable } from 'rxjs/Observable';
-import { IModel } from '../model/abstract.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { IModel } from 'app/core/generics/models/generic.model';
+import { GenericService } from 'app/core/generics/services/generic.service';
 
 /**
  * Generic service for project child model

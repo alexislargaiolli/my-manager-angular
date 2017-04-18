@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs/Rx";
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs/Rx';
 
 export enum NotificationType {
     INFO,
@@ -16,7 +16,7 @@ export class MyNotification {
 @Injectable()
 export class NotificationService {
     private notifications$: Subject<MyNotification>;
-    private idSequence: number = 0;
+    private idSequence = 0;
 
     constructor() {
         this.notifications$ = new Subject<MyNotification>();

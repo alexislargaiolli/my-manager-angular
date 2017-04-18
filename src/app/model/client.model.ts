@@ -1,4 +1,4 @@
-import { IModel } from './abstract.model';
+import { IModel } from 'app/core/generics/models/generic.model';
 import { Address } from './address.model';
 
 export class Client implements IModel {

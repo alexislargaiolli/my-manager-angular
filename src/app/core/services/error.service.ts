@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { NotificationService } from 'app/services/notification.service';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { NotificationService } from 'app/core/services/notification.service';
 
 @Injectable()
 export class ErrorService {

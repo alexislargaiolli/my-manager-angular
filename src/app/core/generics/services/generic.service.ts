@@ -1,13 +1,13 @@
-import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { IModel } from '../model/abstract.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { ErrorService } from 'app/services/error.service';
-import { EventsService } from 'app/services/event.service';
 import { AppSettings } from 'app/app-settings';
+import { CurrentSession } from 'app/core/services/session.service';
+import { IModel } from 'app/core/generics/models/generic.model';
+import { EventsService } from 'app/core/services/event.service';
+import { ErrorService } from 'app/core/services/error.service';
 
 export abstract class GenericService<T extends IModel> {
 
@@ -21,12 +21,12 @@ export abstract class GenericService<T extends IModel> {
 
     constructor(protected http: Http,
         protected errorService: ErrorService,
-        protected authenticationService: AuthenticationService,
+        protected currentSession: CurrentSession,
         protected eventsService: EventsService
     ) { }
 
     protected getApiURL(): string {
-        return `${this.BASE_URL}/mmusers/${this.authenticationService.userId}/${this.getModelName()}`;
+        return `${this.BASE_URL}/mmusers/${this.currentSession.userId}/${this.getModelName()}`;
     }
 
     public getAll(): Observable<T[]> {
@@ -68,7 +68,7 @@ export abstract class GenericService<T extends IModel> {
     protected generateHeaders(): Headers {
         return new Headers({
             'Content-Type': 'application/json',
-            'Authorization': this.authenticationService.token
+            'Authorization': this.currentSession.token
         });
     }
 

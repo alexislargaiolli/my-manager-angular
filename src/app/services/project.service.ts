@@ -1,12 +1,13 @@
 import { AuthenticationService, Session } from './authentication.service';
-import { ErrorService } from 'app/services/error.service';
 import { Observable } from 'rxjs/Observable';
 import { Client } from './../model/client.model';
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions } from '@angular/http';
-import { GenericService } from './generic.service';
 import { Project } from '../model/project.model';
-import { EventsService, AppEvent } from 'app/services/event.service';
+import { ErrorService } from 'app/core/services/error.service';
+import { EventsService } from 'app/core/services/event.service';
+import { CurrentSession } from 'app/core/services/session.service';
+import { GenericService } from 'app/core/generics/services/generic.service';
 
 @Injectable()
 export class ProjectService extends GenericService<Project> {
@@ -14,10 +15,10 @@ export class ProjectService extends GenericService<Project> {
     constructor(
         protected http: Http,
         protected errorService: ErrorService,
-        protected authenticationService: AuthenticationService,
+        protected currentSession: CurrentSession,
         protected eventsService: EventsService
     ) {
-        super(http, errorService, authenticationService, eventsService);
+        super(http, errorService, currentSession, eventsService);
     }
 
     protected getModelName(): string {

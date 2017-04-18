@@ -12,14 +12,14 @@ export class DialogsService {
 
         let dialogRef: MdDialogRef<ConfirmDialogComponent>;
 
-        dialogRef = this.dialog.open(ConfirmDialogComponent);        
+        dialogRef = this.dialog.open(ConfirmDialogComponent);
         dialogRef.componentInstance.title = title;
         dialogRef.componentInstance.message = message;
 
         return dialogRef.afterClosed();
     }
 
-    public confirmGeneric(): Observable<boolean>{
+    public confirmGeneric(): Observable<boolean> {
         return this.confirm('Confirmation', 'Êtes-vous sur ?');
     }
 }

@@ -1,5 +1,5 @@
 import { Client } from './client.model';
-import { IModel } from './abstract.model';
+import { IModel } from 'app/core/generics/models/generic.model';
 
 export class Project implements IModel {
     public id: number;
@@ -12,9 +12,9 @@ export class Project implements IModel {
     public plannedEndDate: Date;
     public endDate: Date;
     public budget: number;
-    public progress: number = 0;
+    public progress = 0;
     public state: ProjectState = ProjectState.PROSPECTION;
-    public clients:Client[];
+    public clients: Client[];
 
     constructor() { }
 

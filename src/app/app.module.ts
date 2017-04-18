@@ -1,8 +1,4 @@
-import { MyNotificationComponent } from './components/common/notification-center/my-notification/my-notification.component';
-import { NotificationCenterComponent } from './components/common/notification-center/notification-center.component';
-import { NotificationService, MyNotification } from './services/notification.service';
 import { AuthenticationService } from './services/authentication.service';
-import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guards';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { DropTargetDirective } from './components/common/drag-and-drop/drop-target.directive';
@@ -44,14 +40,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
-import { ErrorService } from 'app/services/error.service';
-import { EventsService } from 'app/services/event.service';
 import { HomeComponent } from 'app/components/home/home.component';
+import { HeaderComponent } from 'app/components/common/header/header.component';
+import { UserMenuComponent } from 'app/components/common/header/user-menu/user-menu.component';
+import { CoreModule } from 'app/core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     HomeComponent,
+    UserMenuComponent,
     ProjectHomeComponent,
     ProjectListComponent,
     ProjectCreateComponent,
@@ -71,14 +70,13 @@ import { HomeComponent } from 'app/components/home/home.component';
     KeysPipe,
     DraggableDirective,
     DropTargetDirective,
-    LoginComponent,
-    NotificationCenterComponent,
-    MyNotificationComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    CoreModule,
     AppRoutingModule,
     MaterialModule,
     MyDatePickerModule,
@@ -96,11 +94,7 @@ import { HomeComponent } from 'app/components/home/home.component';
     HistoryEntryService,
     DragService,
     AuthGuard,
-    UserService,
     AuthenticationService,
-    NotificationService,
-    ErrorService,
-    EventsService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

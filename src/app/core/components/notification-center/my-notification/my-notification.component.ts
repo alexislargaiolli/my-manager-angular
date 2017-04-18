@@ -1,6 +1,6 @@
-import { MyNotification } from './../../../../services/notification.service';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { MyNotification } from 'app/core/services/notification.service';
 
 @Component({
   selector: 'my-notification',
@@ -13,8 +13,8 @@ export class MyNotificationComponent implements OnInit {
   public notification: MyNotification;
 
   @Input()
-  private lifetime: number = 5000;
-  
+  private lifetime = 5000;
+
   @Output()
   public onLifetimeOver: EventEmitter<MyNotification>;
 
@@ -26,12 +26,12 @@ export class MyNotificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.timerSubscription$ = Observable.timer(5000, 5000).subscribe(t=>{
+    this.timerSubscription$ = Observable.timer(5000, 5000).subscribe(t => {
       this.onLifetimeOver.emit(this.notification);
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.timerSubscription$.unsubscribe();
   }
 

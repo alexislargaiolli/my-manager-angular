@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { log } from 'util';
-import { IModel } from '../../model/abstract.model';
 import { NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Gain } from '../../model/gain.model';
 import { GainService } from '../../services/gain.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { GenericProjectModelService } from '../../services/generic.project-model-service';
+import { IModel } from 'app/core/generics/models/generic.model';
 
 export abstract class GenericProjectListComponent<T extends IModel> implements OnInit {
 

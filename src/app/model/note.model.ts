@@ -1,4 +1,4 @@
-import { IModel } from './abstract.model';
+import { IModel } from 'app/core/generics/models/generic.model';
 
 export class Note implements IModel {
     public id: number;
@@ -7,7 +7,7 @@ export class Note implements IModel {
     public title: string;
     public project: number;
     public priority: NotePriority;
-    public done: boolean = false;
+    public done = false;
 }
 
 export enum NotePriority {
