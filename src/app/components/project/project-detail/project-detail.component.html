@@ -8,7 +8,7 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <md-button-toggle-group (change)="saveProject()" [ngModel]="project.state" class="project-state-buttons">
+                    <md-button-toggle-group (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
                         <md-button-toggle value="0">
                             Prospection
                         </md-button-toggle>
@@ -29,17 +29,17 @@
             </md-card>
             <div>
                 <project-client [projectId]="projectId"></project-client>
-                <project-history></project-history>
+                <project-history [projectId]="projectId"></project-history>
             </div>
             <div>
-                <project-gains></project-gains>
-                <note-list></note-list>
+                <project-gains [projectId]="projectId"></project-gains>
+                <app-note-list [projectId]="projectId"></app-note-list>
             </div>
         </div>
     </md-tab>
     <md-tab label="Gestion">
         <div class="tab-wrapper">
-            <project-task></project-task>
+            <project-task [projectId]="projectId"></project-task>
         </div>
     </md-tab>
     <md-tab label="Devis">

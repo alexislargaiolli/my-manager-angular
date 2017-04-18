@@ -15,7 +15,7 @@
                 <p md-line [hidden]="selected?.id == entry.id">{{entry.content}} </p>
                 <p md-line [hidden]="selected?.id == entry.id">{{entry.date | date}} </p>
                 <div md-line *ngIf="selected?.id == entry.id" class="update-form-wrapper">
-                    <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected(selectedEntryForm.value)" class="d-flex flex-column">
+                    <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
                         <md-input-container>
                             <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
                         </md-input-container>

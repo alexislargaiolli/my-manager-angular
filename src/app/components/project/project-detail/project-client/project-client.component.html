@@ -5,14 +5,14 @@
         <md-list [hidden]="createFormDisplayed || addListDisplayed">
             <md-list-item *ngFor="let client of clients" (click)="selectClient(client)" class="selectable" [ngClass]="{'selected-client' : (selected && selected.id == client.id)}">
                 <md-icon md-list-icon>folder</md-icon>
-                <h3 md-line> {{client.firstname}} {{client.lastname}} </h3>
+                <h3 md-line> {{client.name}} </h3>
             </md-list-item>
         </md-list>
         <client-create (onCreated)="onClientCreated($event)" *ngIf="createFormDisplayed"></client-create>
         <md-list *ngIf="addListDisplayed">
             <md-list-item *ngFor="let client of allClients" (click)="importClient(client)" class="selectable">
                 <md-icon md-list-icon>person_add</md-icon>
-                <h3 md-line> {{client.firstname}} {{client.lastname}} </h3>
+                <h3 md-line> {{client.name}} </h3>
             </md-list-item>
         </md-list>
     </md-card-content>

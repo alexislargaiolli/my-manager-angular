@@ -11,29 +11,29 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProjectClientComponent implements OnInit {
 
-  constructor(private projectService: ProjectService, private clientService: ClientService) { }
-
   @Input()
   public projectId: number;
   public clients: Client[];
-  public selected:Client;
-  public addMenuDisplayed: boolean = false;
-  public createFormDisplayed: boolean = false;
-  public addListDisplayed: boolean = false;
+  public selected: Client;
+  public addMenuDisplayed = false;
+  public createFormDisplayed = false;
+  public addListDisplayed = false;
   public allClients: Client[];
 
-  ngOnInit() {
+  constructor(private projectService: ProjectService, private clientService: ClientService) { }
+
+  public ngOnInit() {
     this.loadClients();
   }
 
-  public selectClient(client){
-    if(this.selected && client.id == this.selected.id){
+  public selectClient(client) {
+    if (this.selected && client.id === this.selected.id) {
       return this.unselect();
     }
     this.selected = client;
   }
 
-  public unselect(){
+  public unselect() {
     this.selected = null;
   }
 
@@ -64,21 +64,21 @@ export class ProjectClientComponent implements OnInit {
     this.addClient(client);
   }
 
-  public removeSelected(){
-    this.projectService.removeClient(this.projectId, this.selected.id).subscribe(project => {
+  public removeSelected() {
+    this.clientService.removeFromProject(this.projectId, this.selected.id).subscribe(project => {
       this.clients.splice(this.clients.findIndex((c) => c.id === this.selected.id), 1);
       this.unselect();
     });
   }
 
   private addClient(client) {
-    this.projectService.addClient(this.projectId, client.id).subscribe(project => {
+    this.clientService.addToProject(this.projectId, client.id).subscribe(project => {
       this.clients.push(client);
     });
   }
 
   private loadClients() {
-    this.projectService.getProjectClient(this.projectId).subscribe(clients => {
+    this.clientService.getByProject(this.projectId).subscribe(clients => {
       this.clients = clients;
     });
   }

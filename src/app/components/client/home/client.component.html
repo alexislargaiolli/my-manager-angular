@@ -4,5 +4,5 @@
         <client-create></client-create>
     </md-card>
     <client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)"></client-list>
-    <client-detail [client]="selectedClient" *ngIf="selectedClient" (onDelete)="deleteClient($event)"></client-detail>
+    <client-detail [client]="selectedClient" *ngIf="selectedClient" (onDelete)="deleteSelectedClient($event)"></client-detail>
 </div>

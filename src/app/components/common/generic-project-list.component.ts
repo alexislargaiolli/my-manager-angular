@@ -1,37 +1,28 @@
 import { Observable } from 'rxjs/Observable';
 import { log } from 'util';
-import { IProjectModel } from '../../model/abstract-project.model';
 import { IModel } from '../../model/abstract.model';
 import { NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Gain } from '../../model/gain.model';
 import { GainService } from '../../services/gain.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GenericProjectModelService } from '../../services/generic.project-model-service';
 
-export abstract class GenericProjectListComponent<T extends IProjectModel> implements OnInit {
+export abstract class GenericProjectListComponent<T extends IModel> implements OnInit {
 
-    public elements: T[];
+    @Input()
     public projectId: number;
+    public elements: T[];
     public selected: T;
-    /**
-     * True to load all element and ignore projectId parameter
-     */
-    protected loadAll: boolean = false;
 
-    constructor(protected service: GenericProjectModelService<T>, protected route: ActivatedRoute) { }
+    constructor(protected service: GenericProjectModelService<T>) { }
 
     public ngOnInit() {
-        this.route.params.subscribe((params: Params) => {
-            this.projectId = params['projectId'];
-            this.loadElements();
-        });
+        this.loadElements();
     }
 
     public create(form: NgForm) {
-        let newElt: T = form.value;
-        newElt.project = this.projectId;
-        this.service.create(newElt).subscribe(elt => {
+        this.service.createByProject(this.projectId, form.value).subscribe(elt => {
             this.elements.push(elt);
             form.reset();
             this.onElementCreated(elt);
@@ -39,7 +30,7 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
     }
 
     public delete(eltToDelete: T) {
-        this.service.delete(eltToDelete).subscribe(res => {
+        this.service.deleteByProject(this.projectId, eltToDelete.id).subscribe(res => {
             this.elements.splice(this.elements.findIndex((elt) => elt.id === eltToDelete.id), 1);
             this.onElementDeleted(eltToDelete);
             this.unselect();
@@ -50,16 +41,16 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
         this.delete(this.selected);
     }
 
-    public update(id: number, attributes: Object) {
-        this.service.update(id, attributes).subscribe(elt => {
+    public update(element: T) {
+        this.service.updateByProject(this.projectId, element).subscribe(elt => {
             this.onElementUpdated(this.selected);
             this.unselect();
         });
     }
 
-    public updateSelected(attributes: Object) {
+    public updateSelected() {
         if (this.selected) {
-            this.update(this.selected.id, attributes);
+            this.update(this.selected);
         }
     }
 
@@ -77,12 +68,10 @@ export abstract class GenericProjectListComponent<T extends IProjectModel> imple
 
     protected loadElements() {
         let elements$: Observable<T[]>;
-        if (this.loadAll) {
-            elements$ = this.service.getAll();
-        } else if (this.projectId) {
+        if (this.projectId) {
             elements$ = this.service.getByProject(this.projectId);
         } else {
-            elements$ = this.service.getGenerals();
+            elements$ = this.service.getAll();
         }
         elements$.subscribe(elements => {
             this.elements = elements;

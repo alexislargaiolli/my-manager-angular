@@ -1,18 +1,33 @@
 import { AuthenticationService } from './authentication.service';
-import { NotificationService } from './notification.service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IModel } from '../model/abstract.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { ErrorService } from 'app/services/error.service';
+import { EventsService } from 'app/services/event.service';
+import { AppSettings } from 'app/app-settings';
 
 export abstract class GenericService<T extends IModel> {
 
+    protected BASE_URL = AppSettings.API_ENDPOINT;
+    protected GET_ALL_BASE_URL: string;
+    protected GET_BASE_URL: string;
+    protected CREATE_BASE_URL: string;
+    protected UPDATE_BASE_URL: string;
+    protected DELETE_BASE_URL: string;
+    protected HEADERS_OPTIONS: RequestOptions;
+
     constructor(protected http: Http,
-        protected notificationService: NotificationService,
-        protected authenticationService: AuthenticationService
+        protected errorService: ErrorService,
+        protected authenticationService: AuthenticationService,
+        protected eventsService: EventsService
     ) { }
+
+    protected getApiURL(): string {
+        return `${this.BASE_URL}/mmusers/${this.authenticationService.userId}/${this.getModelName()}`;
+    }
 
     public getAll(): Observable<T[]> {
         return this.http.get(this.getApiURL(), this.generateOptions())
@@ -32,8 +47,8 @@ export abstract class GenericService<T extends IModel> {
             .catch(err => this.handleError(err));
     }
 
-    public update(id: number, attributes: Object): Observable<T> {
-        return this.http.patch(`${this.getApiURL()}/${id}`, attributes, this.generateOptions())
+    public update(element: T): Observable<T> {
+        return this.http.put(`${this.getApiURL()}/${element.id}`, element, this.generateOptions())
             .map((res: Response) => res.json())
             .catch(err => this.handleError(err));
     }
@@ -44,7 +59,7 @@ export abstract class GenericService<T extends IModel> {
             .catch(err => this.handleError(err));
     }
 
-    protected abstract getApiURL(): string;
+    protected abstract getModelName(): string;
 
     protected generateOptions(): RequestOptions {
         return new RequestOptions({ headers: this.generateHeaders() });
@@ -53,28 +68,11 @@ export abstract class GenericService<T extends IModel> {
     protected generateHeaders(): Headers {
         return new Headers({
             'Content-Type': 'application/json',
-            'x-access-token': this.authenticationService.token
+            'Authorization': this.authenticationService.token
         });
     }
 
-    protected handleError(error: any) {
-        let msg = null;
-        if (error.status && error.status == 403) {
-            msg = 'Accès interdit.';
-        }
-        try {
-            msg = error.json().err || 'Server error';            
-        }
-        catch (e) {
-            if (msg == null) {
-                msg = 'Erreur inconnue';
-            }
-        }
-        console.error(error);
-        this.notificationService.addError(msg);
-        return Observable.throw(msg);
+    protected handleError(error: Response) {
+        return this.errorService.handleNetworkError(this.constructor.name, error.status, error.statusText, error.json());
     }
-
-    protected BASE_URL = "http://localhost:1337";
-
 }

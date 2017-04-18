@@ -1,6 +1,6 @@
-import { IProjectModel } from './abstract-project.model';
+import { IModel } from './abstract.model';
 
-export class Task implements IProjectModel {
+export class Task implements IModel {
     public id: number;
     public createdAt: Date;
     public updatedAt: Date;
@@ -18,46 +18,45 @@ export enum TaskState {
 }
 
 export class TaskKaban {
-    public todos: Task[];
-    public inprogress: Task[];
-    public finished: Task[];
     public groups: Array<any> = [];
-    
-    constructor(tasks: Task[]) {
-        this.addGroup('TODO', TaskKaban.filterByState(tasks, TaskState.TODO));
-        this.addGroup('INPROGRESS', TaskKaban.filterByState(tasks, TaskState.IN_PROGRESS));
-        this.addGroup('FINISHED', TaskKaban.filterByState(tasks, TaskState.FINISHED));
-    }
-
-    private addGroup(groupName:string, tasks:Task[]){
-        this.groups.push({
-            name : groupName,
-            items: tasks
-        });
-    }
-
-    public getByState(state: TaskState) {
-        switch (state) {
-            case TaskState.TODO:
-                return this.todos;
-            case TaskState.IN_PROGRESS:
-                return this.inprogress;
-            case TaskState.FINISHED:
-                return this.finished;
-        }
-        return null;
-    }
-
-    public swap(task: Task, newState: TaskState) {
-        let from = this.getByState(task.state);
-        let to = this.getByState(newState);
-        from.splice(from.findIndex((t) => t.id === task.id), 1);
-        to.push(task);
-    }
+    public tasks: Task[] = [];
 
     public static filterByState(tasks: Task[], state: TaskState): Task[] {
         return tasks.filter(task => {
             return task.state === state;
         });
+    }
+
+    constructor(tasks: Task[]) {
+        tasks.forEach(task => this.tasks[task.id] = task);
+        this.addGroup('TODO', TaskState.TODO, TaskKaban.filterByState(tasks, TaskState.TODO));
+        this.addGroup('INPROGRESS', TaskState.IN_PROGRESS, TaskKaban.filterByState(tasks, TaskState.IN_PROGRESS));
+        this.addGroup('FINISHED', TaskState.FINISHED, TaskKaban.filterByState(tasks, TaskState.FINISHED));
+    }
+
+    public swap(taskId: number, oldState: TaskState, newState: TaskState) {
+        const task = this.tasks[taskId];
+        task.state = newState;
+        return task;
+    }
+
+    public createTask(task: Task) {
+        this.tasks[task.id] = task;
+        this.findByState(task.state).push(task);
+    }
+
+    private addGroup(groupName: string, state: TaskState, tasks: Task[]) {
+        this.groups[state] = {
+            name: groupName,
+            items: tasks
+        };
+    }
+
+    public findTask(taskId: number): Task {
+        return this.tasks[taskId];
+    }
+
+    public findByState(state: TaskState): Task[] {
+        return this.groups[state].items;
     }
 }

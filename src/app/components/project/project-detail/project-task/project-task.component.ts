@@ -13,29 +13,23 @@ import { TaskService } from '../../../../services/task.service';
   styleUrls: ['./project-task.component.scss']
 })
 export class ProjectTaskComponent implements OnInit {
-  public TaskState = TaskState;
-  public tasks: Task[];
-  public kaban: TaskKaban;
-  public todoTasks: Task[];
-  public inprogressTasks: Task[];
-  public finishedTasks: Task[];
-
+  @Input()
   public projectId: number;
+  public state = TaskState;
+  public kaban: TaskKaban;
   public selectedTask: Task;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private dragulaService: DragulaService) {
+  constructor(private taskService: TaskService, private dragulaService: DragulaService) {
     dragulaService.drop.subscribe((value) => {
-      console.log('from '+value[3].getAttribute('column-id'))
-      console.log('to '+value[2].getAttribute('column-id'))
-      console.log(value[1].getAttribute('task-id'));
+      const taskId = +value[1].getAttribute('task-id');
+      const oldState: number = +value[3].getAttribute('column-id');
+      const newState: number = +value[2].getAttribute('column-id');
+      this.changeState(taskId, oldState, newState);
     });
   }
 
   public ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.projectId = params['projectId'];
-      this.loadTask();
-    });
+    this.loadTask();
   }
 
   public selectTask(task: Task) {
@@ -51,17 +45,14 @@ export class ProjectTaskComponent implements OnInit {
   }
 
   public createTask(form: NgForm) {
-    const task = form.value;
-    task.project = this.projectId;
-    this.taskService.create(task).subscribe(t => {
+    this.taskService.createByProject(this.projectId, form.value).subscribe(t => {
       form.reset();
-      this.tasks.push(t);
+      this.kaban.createTask(t);
     });
   }
 
   public deleteTask(taskToDelete: Task) {
-    this.taskService.delete(taskToDelete).subscribe(res => {
-      this.tasks.splice(this.tasks.findIndex((task) => task.id === taskToDelete.id), 1);
+    this.taskService.delete(taskToDelete).subscribe(res => {     
       this.unselect();
     });
   }
@@ -72,32 +63,16 @@ export class ProjectTaskComponent implements OnInit {
     // });
   }
 
-  public onDropTodo(task: Task) {
-    this.changeState(task, TaskState.TODO);
-  }
-
-  public onDropInprogress(task: Task) {
-    this.changeState(task, TaskState.IN_PROGRESS);
-  }
-
-  public onDropFinished(task: Task) {
-    this.changeState(task, TaskState.FINISHED);
-  }
-
   private loadTask() {
     this.taskService.getByProject(this.projectId).subscribe(tasks => {
-      this.tasks = tasks;
       this.kaban = new TaskKaban(tasks);
     });
   }
 
-  public changeState(task: Task, newState: TaskState) {
-    this.kaban.swap(task, newState);
-    task.state = newState;
+  public changeState(taskId: number, oldState: TaskState, newState: TaskState) {
+    // console.log('swap %d from %s to %s', taskId, oldState, newState);
+    const task = this.kaban.swap(taskId, oldState, newState);
+    this.taskService.updateByProject(this.projectId, task).subscribe();
   }
-
-  get groups() {
-    return this.kaban.groups;
-  }
-
+  
 }

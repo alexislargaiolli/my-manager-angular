@@ -14,8 +14,8 @@ import { GenericProjectListComponent } from './../../../common/generic-project-l
 })
 export class ProjectHistoryComponent extends GenericProjectListComponent<HistoryEntry> implements OnInit {
 
-  constructor(protected historyService: HistoryEntryService, protected route: ActivatedRoute) {
-    super(historyService, route)
+  constructor(protected historyService: HistoryEntryService) {
+    super(historyService)
   }
 
   protected onElementLoaded() {
@@ -51,13 +51,5 @@ export class ProjectHistoryComponent extends GenericProjectListComponent<History
 
   protected onElementUpdated(elt: HistoryEntry) {
     this.sortByDate();
-  }
-
-
-  public updateSelected(attributes:Object){
-    if(this.selected.date){
-      attributes['date'] = this.selected.date;
-    }
-    super.updateSelected(attributes);
   }
 }

@@ -22,7 +22,7 @@
                 </p>
 
                 <div md-line *ngIf="selected?.id == gain.id">
-                    <form #selectedGainForm="ngForm" (ngSubmit)="updateSelected(selectedGainForm.value)" class="d-flex flex-column">
+                    <form #selectedGainForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
                         <md-input-container>
                             <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé du gain..." required>
                         </md-input-container>

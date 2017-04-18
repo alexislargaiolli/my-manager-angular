@@ -1,6 +1,7 @@
 import { AuthenticationService } from './../../../services/authentication.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'app/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
     // reset login status
@@ -33,6 +35,9 @@ export class LoginComponent implements OnInit {
           this.error = 'Username or password is incorrect';
           this.loading = false;
         }
+      },
+      err => {
+        this.notificationService.addError(err);
       });
   }
 }

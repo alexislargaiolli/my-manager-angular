@@ -23,9 +23,9 @@ export class ProjectDetailComponent implements OnInit {
       this.projectId = +params['projectId'];
       return this.projectService.get(this.projectId);
     })
-    .subscribe((project: Project) => {
-      this.project = project;
-    });
+      .subscribe((project: Project) => {
+        this.project = project;
+      });
   }
 
   public onSettingsUpdate(event) {
@@ -33,7 +33,7 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   public saveProject() {
-    // this.projectService.update(this.project).subscribe();
+    this.projectService.update(this.project).subscribe();
   }
 
 }

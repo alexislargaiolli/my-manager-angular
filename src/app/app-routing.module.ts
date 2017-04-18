@@ -7,7 +7,7 @@ import { ProjectDetailComponent } from './components/project/project-detail/proj
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [  
+const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
   { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard] },

@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'note-list',
+  selector: 'app-note-list',
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss']
 })
@@ -16,8 +16,8 @@ export class NoteListComponent extends GenericProjectListComponent<Note> impleme
 
   public priorities = NotePriority;
 
-  constructor(protected noteService: NoteService, protected route: ActivatedRoute) {
-    super(noteService, route);
+  constructor(protected noteService: NoteService) {
+    super(noteService);
   }
 
   public select(note: Note) {
@@ -27,5 +27,5 @@ export class NoteListComponent extends GenericProjectListComponent<Note> impleme
       note.done = true;
     }
   }
-  
+
 }

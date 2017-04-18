@@ -44,6 +44,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
+import { ErrorService } from 'app/services/error.service';
+import { EventsService } from 'app/services/event.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,7 @@ import { DatepickerModule } from 'angular2-material-datepicker';
     MyDatePickerModule,
     BrowserAnimationsModule,
     DatepickerModule,
-    DragulaModule  
+    DragulaModule
   ],
   providers: [
     ClientService,
@@ -89,12 +91,14 @@ import { DatepickerModule } from 'angular2-material-datepicker';
     NoteService,
     GainService,
     DialogsService,
-    HistoryEntryService, 
+    HistoryEntryService,
     DragService,
     AuthGuard,
     UserService,
     AuthenticationService,
-    NotificationService
+    NotificationService,
+    ErrorService,
+    EventsService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

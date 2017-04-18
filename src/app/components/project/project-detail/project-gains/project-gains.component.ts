@@ -16,8 +16,8 @@ export class ProjectGainsComponent extends GenericProjectListComponent<Gain> imp
 
   private today: Date = new Date();
 
-  constructor(protected gainService: GainService, protected route: ActivatedRoute) {
-    super(gainService, route);
+  constructor(protected gainService: GainService) {
+    super(gainService);
   }
 
   public select(elt: Gain) {
@@ -34,13 +34,6 @@ export class ProjectGainsComponent extends GenericProjectListComponent<Gain> imp
       return false;
     }
     return new Date(gain.dueDate) < this.today;
-  }
-
-  public updateSelected(attributes:Object){
-    if(this.selected.dueDate){
-      attributes['dueDate'] = this.selected.dueDate;
-    }
-    super.updateSelected(attributes);
   }
 
 }

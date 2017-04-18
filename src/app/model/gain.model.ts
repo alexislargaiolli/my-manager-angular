@@ -1,6 +1,6 @@
-import { IProjectModel } from './abstract-project.model';
+import { IModel } from './abstract.model';
 
-export class Gain implements IProjectModel {
+export class Gain implements IModel {
     public id: number;
     public createdAt: Date;
     public updatedAt: Date;

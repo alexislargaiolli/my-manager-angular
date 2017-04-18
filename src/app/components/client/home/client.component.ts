@@ -26,7 +26,7 @@ export class ClientComponent implements OnInit {
     this.selectedClient = null;
   }
 
-  public deleteClient(client) {
+  public deleteSelectedClient() {
     this.clientService.delete(this.selectedClient).subscribe(client => {
       this.clients.splice(this.clients.findIndex(c => c.id == this.selectedClient.id), 1);
       this.unselect();

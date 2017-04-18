@@ -1,24 +1,26 @@
 import { AuthenticationService } from './authentication.service';
-import { NotificationService } from './notification.service';
+import { ErrorService } from 'app/services/error.service';
 import { Client } from './../model/client.model';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { GenericService } from './generic.service';
+import { EventsService } from 'app/services/event.service';
+import { GenericProjectModelService } from 'app/services/generic.project-model-service';
 
 @Injectable()
-export class ClientService extends GenericService<Client> {
+export class ClientService extends GenericProjectModelService<Client> {
 
     constructor(
         protected http: Http,
-        protected notificationService: NotificationService,
-        protected authenticationService: AuthenticationService
+        protected errorService: ErrorService,
+        protected authenticationService: AuthenticationService,
+        protected eventsService: EventsService
     ) {
-        super(http, notificationService, authenticationService);
+        super(http, errorService, authenticationService, eventsService);
     }
 
-    public getApiURL(): string {
-        return this.BASE_URL + '/client';
+    protected getModelName(): string {
+        return 'clients';
     }
 
 }

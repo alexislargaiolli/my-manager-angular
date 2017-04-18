@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'app works!';
 
-  constructor(private authenticationService:AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.initialize();

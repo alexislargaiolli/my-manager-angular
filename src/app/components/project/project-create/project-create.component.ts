@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'project-create',
+  selector: 'app-project-create',
   templateUrl: './project-create.component.html',
   styleUrls: ['./project-create.component.scss']
 })
@@ -19,8 +19,8 @@ export class ProjectCreateComponent implements OnInit {
 
   }
 
-  public submitForm(form:NgForm) {
-    let newProject = form.value;
+  public submitForm(form: NgForm) {
+    const newProject = form.value;
     this.projectService.create(newProject).subscribe(project => this.router.navigate(['/project', project.id]));
   }
 

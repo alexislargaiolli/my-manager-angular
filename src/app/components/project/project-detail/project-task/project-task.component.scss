@@ -9,16 +9,23 @@
     border: 0;
 }
 
+.create-task-form {
+    md-input-container {
+        display: block;
+    }
+}
+
 .kaban-column {
-    background-color: #eee;
     min-width: 300px;
+    min-height: 300px;
 }
 
 .kaban-column div,
 .gu-mirror {
-    margin: 10px;
+    margin: 10px 0;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.2);
+    font-family: 'PT sans-serif';
+    background-color: rgba(0, 0, 0, 0.1);
     transition: opacity 0.4s ease-in-out;
 }
 
@@ -53,32 +60,4 @@
 nested-repeat-example .kaban-column span {
     display: block;
     padding: 8px;
-}
-
-md-card-header .mat-card-header-text {
-    margin-left: 0;
-}
-
-.list-group {
-    max-width: 350px;
-}
-
-.note-item.selected {
-    transition: background-color 500ms;
-    background-color: #ddd;
-}
-
-.action-panel {
-    height: 0;
-    overflow: hidden;
-    transition: height 200ms;
-}
-
-.action-panel.visible {
-    height: 50px;
-}
-
-.action-panel>div {
-    display: flex;
-    justify-content: space-between;
 }
