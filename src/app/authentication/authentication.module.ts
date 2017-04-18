@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AuthenticationService } from 'app/authentication/services/authentication.service';
 import { AuthGuard } from 'app/authentication/guards/auth.guards';
 import { LoginComponent } from 'app/authentication/components/login/login.component';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpModule,
-  ],
+  imports: [SharedModule],
   declarations: [
     LoginComponent
   ],
