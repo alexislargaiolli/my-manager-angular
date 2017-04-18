@@ -1,4 +1,3 @@
-import { AuthenticationService } from './authentication.service';
 import { HistoryEntry } from './../model/historyentry.model';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Response } from '@angular/http';

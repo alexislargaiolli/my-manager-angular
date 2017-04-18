@@ -1,6 +1,3 @@
-import { AuthenticationService } from './services/authentication.service';
-import { AuthGuard } from './guards/auth.guards';
-import { LoginComponent } from './components/authentication/login/login.component';
 import { DropTargetDirective } from './components/common/drag-and-drop/drop-target.directive';
 import { DraggableDirective } from './components/common/drag-and-drop/draggable.directive';
 import { DragService } from './components/common/drag-and-drop/drag.service';
@@ -44,6 +41,7 @@ import { HomeComponent } from 'app/components/home/home.component';
 import { HeaderComponent } from 'app/components/common/header/header.component';
 import { UserMenuComponent } from 'app/components/common/header/user-menu/user-menu.component';
 import { CoreModule } from 'app/core/core.module';
+import { AuthenticationModule } from 'app/authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -69,14 +67,14 @@ import { CoreModule } from 'app/core/core.module';
     ProjectHistoryComponent,
     KeysPipe,
     DraggableDirective,
-    DropTargetDirective,
-    LoginComponent
+    DropTargetDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     CoreModule,
+    AuthenticationModule,
     AppRoutingModule,
     MaterialModule,
     MyDatePickerModule,
@@ -92,9 +90,7 @@ import { CoreModule } from 'app/core/core.module';
     GainService,
     DialogsService,
     HistoryEntryService,
-    DragService,
-    AuthGuard,
-    AuthenticationService,
+    DragService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

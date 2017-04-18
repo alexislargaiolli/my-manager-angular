@@ -1,4 +1,3 @@
-import { AuthenticationService } from './authentication.service';
 import { Project } from '../model/project.model';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';

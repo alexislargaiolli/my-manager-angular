@@ -1,7 +1,7 @@
-import { AuthenticationService } from './../../../services/authentication.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/core/services/notification.service';
+import { AuthenticationService } from 'app/authentication/services/authentication.service';
 
 @Component({
   selector: 'app-login',

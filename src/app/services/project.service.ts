@@ -1,4 +1,3 @@
-import { AuthenticationService, Session } from './authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { Client } from './../model/client.model';
 import { Injectable } from '@angular/core';

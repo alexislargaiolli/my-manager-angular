@@ -7,17 +7,9 @@ import { NotificationService } from 'app/core/services/notification.service';
 import { EventsService } from 'app/core/services/event.service';
 import { CurrentSession } from 'app/core/services/session.service';
 
-export interface Session {
-    userId: number;
-    token: string;
-}
-
 @Injectable()
 export class AuthenticationService {
-    private session: Session;
     protected BASE_URL = AppSettings.API_ENDPOINT;
-
-    public authenticated: Promise<boolean>;
 
     constructor(private http: Http,
         protected notificationService: NotificationService,

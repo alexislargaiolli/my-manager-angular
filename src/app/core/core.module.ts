@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { UserService } from 'app/core/services/user.service';
 import { ErrorService } from 'app/core/services/error.service';
 import { NotificationService } from 'app/core/services/notification.service';
@@ -10,7 +12,9 @@ import { CurrentSession } from 'app/core/services/session.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    HttpModule
   ],
   declarations: [
     NotificationCenterComponent,
