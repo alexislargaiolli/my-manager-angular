@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/core/services/notification.service';
 import { AuthenticationService } from 'app/authentication/services/authentication.service';
+import { NavigationService } from 'app/my-manager/services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,8 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(
-    private router: Router,
     private authenticationService: AuthenticationService,
+    private navigationService: NavigationService,
     private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['/']);
+          this.navigationService.goProjectDashboard();
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.notificationService.addError(err);
+        this.loading = false;
       });
   }
 }

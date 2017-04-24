@@ -10,6 +10,10 @@ export class NavigationService {
         this.router.navigate(['home']);
     }
 
+    public goProjectDashboard() {
+        this.router.navigate(['project']);
+    }
+
     public goToLogin() {
         this.router.navigate(['login']);
     }
