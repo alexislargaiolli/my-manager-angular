@@ -19,6 +19,7 @@ export class ProjectTaskComponent implements OnInit {
   public selectedTask: Task;
 
   constructor(private taskService: TaskService, private dragulaService: DragulaService) {
+    this.kaban = new TaskKaban();
     dragulaService.drop.subscribe((value) => {
       const taskId = +value[1].getAttribute('task-id');
       const oldState: number = +value[3].getAttribute('column-id');
@@ -64,7 +65,7 @@ export class ProjectTaskComponent implements OnInit {
 
   private loadTask() {
     this.taskService.getByProject(this.projectId).subscribe(tasks => {
-      this.kaban = new TaskKaban(tasks);
+      this.kaban.setTask(tasks);
     });
   }
 

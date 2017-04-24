@@ -1,7 +1,4 @@
 <app-project-create></app-project-create>
-<div>
-    <button md-button (click)="sortProjects()">Filter</button>
-</div>
 
 <div class="d-flex align-content-start flex-wrap">
     <md-card *ngFor="let p of projects" [routerLink]="['./', p.id]" class="project-item d-flex flex-column justify-content-between">

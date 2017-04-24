@@ -5,7 +5,7 @@ import { GainService } from 'app/my-manager/services/gain.service';
 @Component({
   selector: 'app-gain-list',
   templateUrl: './gain-list.component.html',
-  styleUrls: ['./gain-list.component.css']
+  styleUrls: ['./gain-list.component.scss']
 })
 export class GainListComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class GainListComponent implements OnInit {
 
   protected onElementLoaded() {
     this.gainService.getTotals().subscribe(totals => {
-      this.totalPaid = totals['total'];
+      this.totalPaid = totals['paid'];
       this.totalInvoiced = totals['invoiced'];
       this.totalPotential = totals['potential'];
     });

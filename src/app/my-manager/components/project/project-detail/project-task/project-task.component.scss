@@ -1,5 +1,11 @@
 :host {
     width: 100%;
+    flex: 1;
+    display: flex;
+}
+
+md-card {
+    flex-grow: 1;
 }
 
 .gh-fork {
@@ -16,8 +22,15 @@
 }
 
 .kaban-column {
-    min-width: 300px;
     min-height: 300px;
+}
+
+.kaban-column-list-item {
+    color: #444;
+    md-icon {
+        float: left;
+        margin-right: 10px;
+    }
 }
 
 .kaban-column div,

@@ -20,19 +20,35 @@ export abstract class GenericProjectListComponent<T extends IModel> implements O
     }
 
     public create(form: NgForm) {
-        this.service.createByProject(this.projectId, form.value).subscribe(elt => {
-            this.elements.push(elt);
-            form.reset();
-            this.onElementCreated(elt);
-        });
+        if (this.projectId != null) {
+            this.service.createByProject(this.projectId, form.value).subscribe(elt => {
+                this.elements.push(elt);
+                form.reset();
+                this.onElementCreated(elt);
+            });
+        } else {
+            this.service.create(form.value).subscribe(elt => {
+                this.elements.push(elt);
+                form.reset();
+                this.onElementCreated(elt);
+            });
+        }
     }
 
     public delete(eltToDelete: T) {
-        this.service.deleteByProject(this.projectId, eltToDelete.id).subscribe(res => {
-            this.elements.splice(this.elements.findIndex((elt) => elt.id === eltToDelete.id), 1);
-            this.onElementDeleted(eltToDelete);
-            this.unselect();
-        });
+        if (this.projectId != null) {
+            this.service.deleteByProject(this.projectId, eltToDelete.id).subscribe(res => {
+                this.elements.splice(this.elements.findIndex((elt) => elt.id === eltToDelete.id), 1);
+                this.onElementDeleted(eltToDelete);
+                this.unselect();
+            });
+        } else {
+            this.service.delete(eltToDelete).subscribe(res => {
+                this.elements.splice(this.elements.findIndex((elt) => elt.id === eltToDelete.id), 1);
+                this.onElementDeleted(eltToDelete);
+                this.unselect();
+            });
+        }
     }
 
     public deleteSelected() {
@@ -40,10 +56,17 @@ export abstract class GenericProjectListComponent<T extends IModel> implements O
     }
 
     public update(element: T) {
-        this.service.updateByProject(this.projectId, element).subscribe(elt => {
-            this.onElementUpdated(this.selected);
-            this.unselect();
-        });
+        if (this.projectId != null) {
+            this.service.updateByProject(this.projectId, element).subscribe(elt => {
+                this.onElementUpdated(this.selected);
+                this.unselect();
+            });
+        } else {
+            this.service.update(element).subscribe(elt => {
+                this.onElementUpdated(this.selected);
+                this.unselect();
+            });
+        }
     }
 
     public updateSelected() {

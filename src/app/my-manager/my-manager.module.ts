@@ -30,6 +30,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { MyManagerComponent } from './my-manager.component';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
+import { FooterComponent } from 'app/my-manager/components/common/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { NavigationService } from 'app/my-manager/services/navigation.service';
   ],
   declarations: [
     HeaderComponent,
+    FooterComponent,
     HomeComponent,
     UserMenuComponent,
     ProjectHomeComponent,
@@ -70,7 +72,8 @@ import { NavigationService } from 'app/my-manager/services/navigation.service';
     NavigationService
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 export class MyManagerModule { }

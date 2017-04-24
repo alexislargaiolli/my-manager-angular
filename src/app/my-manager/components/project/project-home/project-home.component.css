@@ -1,5 +1,14 @@
-.content {
+:host {
+    flex: 1;
     padding: 20px;
     display: flex;
     justify-content: space-around;
+}
+
+project-list {
+    flex: 2;
+}
+
+.project-home-right {
+    flex: 1;
 }

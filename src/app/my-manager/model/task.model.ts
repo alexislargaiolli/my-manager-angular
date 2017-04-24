@@ -27,7 +27,11 @@ export class TaskKaban {
         });
     }
 
-    constructor(tasks: Task[]) {
+    constructor() {
+
+    }
+
+    public setTask(tasks: Task[]) {
         tasks.forEach(task => this.tasks[task.id] = task);
         this.addGroup('TODO', TaskState.TODO, TaskKaban.filterByState(tasks, TaskState.TODO));
         this.addGroup('INPROGRESS', TaskState.IN_PROGRESS, TaskKaban.filterByState(tasks, TaskState.IN_PROGRESS));

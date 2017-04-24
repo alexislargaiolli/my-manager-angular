@@ -1,7 +1,24 @@
-.tab-wrapper {
-    padding: 20px;
+:host {
+    flex: 1;
     display: flex;
-    justify-content: space-around;
+}
+
+md-tab-group {
+    flex: 1;
+}
+
+:host /deep/ .mat-tab-body-wrapper {
+    flex: 1;
+    .mat-tab-body-content {
+        display: flex;
+    }
+}
+
+.project-summary,
+.dashboard-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-summary {

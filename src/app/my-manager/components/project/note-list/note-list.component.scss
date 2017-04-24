@@ -1,21 +1,17 @@
-ul {
-    list-style: none;
-    padding: 0;
-    li {
-        padding: 5px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        p {
-            margin: 0;
-            font-family: Oswald;
-            font-size: 15px;
-            line-height: 26px;
-        }
-        md-checkbox {
-            width: 20px;
-            height: 20px;
-        }
+.note-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .post-it {
+        margin: 10px;
+        background: #fff9c4;
+        min-width: 150px;
+        min-height: 150px;
+    }
+    .post-it.done {
+        background: #ddd;
+        opacity: 0.5;
+        text-decoration: line-through;
     }
 }
 

@@ -19,12 +19,13 @@ export class NoteListComponent extends GenericProjectListComponent<Note> impleme
     super(noteService);
   }
 
-  public select(note: Note) {
+  public toggleState(note: Note) {
     if (note.done === true) {
       note.done = false;
     } else {
       note.done = true;
     }
+    this.update(note);
   }
 
 }
