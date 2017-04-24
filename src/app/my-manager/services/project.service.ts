@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { Client } from './../model/client.model';
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Project } from '../model/project.model';
 import { ErrorService } from 'app/core/services/error.service';
 import { EventsService } from 'app/core/services/event.service';

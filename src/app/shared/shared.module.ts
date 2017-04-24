@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import {
   MdButtonModule, MdMenuModule, MdProgressBarModule, MdCardModule,
   MdInputModule, MdCheckboxModule, MdSelectModule, MdDialogModule,
-  MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule
+  MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule, MdProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -32,7 +32,8 @@ import {
     MdButtonToggleModule,
     MdTabsModule,
     MdIconModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdProgressSpinnerModule
   ]
 })
 export class SharedModule { }

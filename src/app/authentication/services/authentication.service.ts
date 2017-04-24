@@ -39,7 +39,17 @@ export class AuthenticationService {
             });
     }
 
-    logout(): void {
-        this.currentSession.destroySession();
+    logout(): Observable<boolean> {
+        const options = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.currentSession.token
+            })
+        });
+        return this.http.post(`${this.BASE_URL}/mmusers/logout`, {}, options)
+            .map((response: Response) => {
+                this.currentSession.destroySession();
+                return true;
+            });
     }
 }

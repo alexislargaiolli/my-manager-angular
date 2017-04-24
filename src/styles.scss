@@ -5,6 +5,18 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/dragula/dist/dragula.css';
 @import url('https://fonts.googleapis.com/css?family=Oswald|PT+Sans');
+html,
+body {
+    height: 100%;
+}
+
+.full-page-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .mat-card-title {
     text-transform: uppercase;
     text-align: center;

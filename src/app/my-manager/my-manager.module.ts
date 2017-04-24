@@ -29,6 +29,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { MyManagerComponent } from './my-manager.component';
+import { NavigationService } from 'app/my-manager/services/navigation.service';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { MyManagerComponent } from './my-manager.component';
     TaskService,
     NoteService,
     GainService,
-    HistoryEntryService
+    HistoryEntryService,
+    NavigationService
   ],
   exports: [
     HeaderComponent

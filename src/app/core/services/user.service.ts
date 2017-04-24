@@ -1,24 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { CurrentSession } from 'app/core/services/session.service';
+import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { GenericService } from 'app/core/generics/services/generic.service';
-import { EventsService } from 'app/core/services/event.service';
-import { ErrorService } from 'app/core/services/error.service';
 import { User } from 'app/core/models/user.model';
+import { ErrorService } from './error.service';
+import { EventsService } from './event.service';
+import { CurrentSession } from './session.service';
+import { BasicService } from 'app/core/generics/services/base.service';
+import { Observable } from 'rxjs/Observable';
+import { UserSession } from 'app/core/models/user-session.model';
 
 @Injectable()
-export class UserService extends GenericService<User> {
+export class UserService extends BasicService<User> {
+
     constructor(
         protected http: Http,
         protected errorService: ErrorService,
-        protected currentSession: CurrentSession,
-        protected eventsService: EventsService) {
-        super(http, errorService, currentSession, eventsService);
+        protected eventsService: EventsService
+    ) {
+        super(http, errorService, eventsService);
     }
 
     protected getModelName(): string {
-        return 'users';
+        return 'mmusers';
+    }
+
+    public me(userSession: UserSession): Observable<User> {
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': userSession.token
+        });
+        const options = new RequestOptions({ headers: headers });
+
+        return this.http.get(`${this.getApiURL()}/${userSession.userId}`, options)
+            .map((res: Response) => res.json())
+            .catch(err => this.handleError(err));
     }
 }

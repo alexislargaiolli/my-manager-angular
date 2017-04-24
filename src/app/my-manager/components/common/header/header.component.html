@@ -1,9 +1,11 @@
 <md-toolbar class="header-nav">
     <span>ManageAll</span>
-    <button md-button [routerLink]=" ['./project'] ">Projets</button>
-    <button md-button [routerLink]=" ['./client'] ">Clients</button>
-
+    <div *ngIf="authenticated">
+        <button md-button [routerLink]=" ['./project'] ">Projets</button>
+        <button md-button [routerLink]=" ['./client'] ">Clients</button>
+    </div>
     <span class="header-spacer"></span>
 
-    <app-user-menu></app-user-menu>
+    <app-user-menu *ngIf="authenticated"></app-user-menu>
+    <button md-button *ngIf="!authenticated" [routerLink]=" ['./login'] ">Se connecter</button>
 </md-toolbar>
