@@ -1,5 +1,5 @@
 import { MdDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IMyOptions, IMyDateModel } from 'mydatepicker';
@@ -7,19 +7,17 @@ import { ProjectService } from 'app/my-manager/services/project.service';
 import { Project } from 'app/my-manager/model/project.model';
 import { DialogsService } from 'app/core/services/dialog.service';
 import { DateUtils } from 'app/shared/utils/date.utils';
+import { NotificationService } from "app/core/services/notification.service";
 
 @Component({
-  selector: 'project-settings',
+  selector: 'app-project-settings',
   templateUrl: './project-settings.component.html',
   styleUrls: ['./project-settings.component.css']
 })
 export class ProjectSettingsComponent implements OnInit {
 
-  @Input()
+  public projectId: number;
   public project: Project;
-
-  @Output()
-  public onUpdate: EventEmitter<Project> = new EventEmitter<Project>();
   public plannedStartDate: Object;
   public startDate: Object;
   public plannedEndDate: Object;
@@ -30,18 +28,24 @@ export class ProjectSettingsComponent implements OnInit {
     showClearDateBtn: false
   };
 
-  constructor(private projectService: ProjectService, private router: Router, public dialogsService: DialogsService) { }
+  constructor(private projectService: ProjectService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public dialogsService: DialogsService,
+    private notificationService: NotificationService) { }
 
-  public ngOnInit() { }
-
-  public ngOnChanges() {
-    if (this.project) {
-      this.plannedStartDate = DateUtils.jsDateToMyDate(this.project.plannedStartDate);
-      this.startDate = DateUtils.jsDateToMyDate(this.project.startDate);
-      this.plannedEndDate = DateUtils.jsDateToMyDate(this.project.plannedEndDate);
-      this.endDate = DateUtils.jsDateToMyDate(this.project.endDate);
-    }
-  };
+  public ngOnInit() {
+    this.route.parent.params.subscribe(params => {
+      this.projectId = +params['projectId'];
+      this.projectService.get(this.projectId).subscribe(p => {
+        this.project = p;
+        this.plannedStartDate = DateUtils.jsDateToMyDate(this.project.plannedStartDate);
+        this.startDate = DateUtils.jsDateToMyDate(this.project.startDate);
+        this.plannedEndDate = DateUtils.jsDateToMyDate(this.project.plannedEndDate);
+        this.endDate = DateUtils.jsDateToMyDate(this.project.endDate);
+      });
+    });
+  }
 
   public saveSettings(form: NgForm) {
     this.project.name = form.value.name;
@@ -50,7 +54,10 @@ export class ProjectSettingsComponent implements OnInit {
     this.project.startDate = DateUtils.myDateToJsDate(form.value.startDate);
     this.project.plannedEndDate = DateUtils.myDateToJsDate(form.value.plannedEndDate);
     this.project.endDate = DateUtils.myDateToJsDate(form.value.endDate);
-    this.onUpdate.emit(this.project);
+    this.projectService.update(this.project).subscribe(p=>{
+      this.notificationService.addInfo('Sauvegarde réussie');
+    });
+    // this.onUpdate.emit(this.project);
   };
 
   public deleteProject() {

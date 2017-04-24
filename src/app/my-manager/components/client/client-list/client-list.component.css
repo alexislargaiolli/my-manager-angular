@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+md-card {
+    margin: 10px;
+}

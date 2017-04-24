@@ -1,8 +1,5 @@
-<h1>Clients</h1>
-<div class="d-flex">
-    <md-card>
-        <client-create></client-create>
-    </md-card>
-    <client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)"></client-list>
-    <client-detail [client]="selectedClient" *ngIf="selectedClient" (onDelete)="deleteSelectedClient($event)"></client-detail>
-</div>
+<client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)"></client-list>
+<client-detail [client]="selectedClient" *ngIf="selectedClient" (onDelete)="deleteSelectedClient($event)"></client-detail>
+<md-card>
+    <client-create (onCreated)="addClient($event)"></client-create>
+</md-card>

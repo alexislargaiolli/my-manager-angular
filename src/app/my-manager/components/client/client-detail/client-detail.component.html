@@ -1,2 +1,8 @@
-<p>{{client | json}}</p>
-<button md-button (click)="delete()">Supprimer</button>
+<md-card>
+    <p>Nom:{{client.name}}</p>
+    <p>Prénom: {{client.firstname}}</p>
+    <p>Nom de famille{{client.lastname}}</p>
+    <p>Email: {{client.email}}</p>
+    <p>Téléphone: {{client.phone}}</p>
+    <button md-button (click)="delete()">Supprimer</button>
+</md-card>

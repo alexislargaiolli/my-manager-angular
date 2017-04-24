@@ -41,4 +41,8 @@ export class ClientComponent implements OnInit {
       });
   }
 
+  public addClient(client: Client){
+    this.clients.push(client);
+  }
+
 }

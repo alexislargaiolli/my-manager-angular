@@ -1,1 +1,10 @@
-.project-settings {}
+:host {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+nav /deep/ .mat-tab-links {
+    display: flex;
+    flex-direction: column;
+}

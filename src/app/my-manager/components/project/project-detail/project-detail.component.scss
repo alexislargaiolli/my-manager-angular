@@ -1,39 +1,10 @@
 :host {
     flex: 1;
     display: flex;
-}
-
-md-tab-group {
-    flex: 1;
-}
-
-:host /deep/ .mat-tab-body-wrapper {
-    flex: 1;
-    .mat-tab-body-content {
-        display: flex;
-    }
-}
-
-.project-summary,
-.dashboard-left {
-    flex: 1;
-    display: flex;
     flex-direction: column;
 }
 
-.project-summary {
-    md-card-title {
-        display: flex;
-        justify-content: space-around;
-        .project-progress {
-            color: #666;
-            margin-left: 20px;
-        }
-    }
-}
-
-.project-state-buttons {
-    md-button-toggle {
-        padding-top: .5rem;
-    }
+/deep/ .project-state-buttons {
+    margin: 0 10px;
+    background: #fff;
 }

@@ -1,4 +1,4 @@
-<div class="project-settings">
+<md-card *ngIf="project">
     <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)" *ngIf="project" class="container">
         <div class="row justify-content-md-center">
             <div class="col d-flex flex-column justify-content-between">
@@ -41,4 +41,4 @@
             </div>
         </div>
     </form>
-</div>
+</md-card>

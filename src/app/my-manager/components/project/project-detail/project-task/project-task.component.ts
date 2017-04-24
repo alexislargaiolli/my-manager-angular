@@ -7,19 +7,20 @@ import { Task, TaskState, TaskKaban } from 'app/my-manager/model/task.model';
 import { TaskService } from 'app/my-manager/services/task.service';
 
 @Component({
-  selector: 'project-task',
+  selector: 'app-project-task',
   templateUrl: './project-task.component.html',
   styleUrls: ['./project-task.component.scss']
 })
 export class ProjectTaskComponent implements OnInit {
-  @Input()
+
   public projectId: number;
   public state = TaskState;
   public kaban: TaskKaban;
   public selectedTask: Task;
 
-  constructor(private taskService: TaskService, private dragulaService: DragulaService) {
+  constructor(private route: ActivatedRoute, private taskService: TaskService, private dragulaService: DragulaService) {
     this.kaban = new TaskKaban();
+
     dragulaService.drop.subscribe((value) => {
       const taskId = +value[1].getAttribute('task-id');
       const oldState: number = +value[3].getAttribute('column-id');
@@ -29,7 +30,10 @@ export class ProjectTaskComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.loadTask();
+    this.route.parent.params.subscribe(params => {
+      this.projectId = +params['projectId'];
+      this.loadTask();
+    });
   }
 
   public selectTask(task: Task) {
@@ -52,7 +56,7 @@ export class ProjectTaskComponent implements OnInit {
   }
 
   public deleteTask(taskToDelete: Task) {
-    this.taskService.delete(taskToDelete).subscribe(res => {     
+    this.taskService.delete(taskToDelete).subscribe(res => {
       this.unselect();
     });
   }
@@ -74,5 +78,5 @@ export class ProjectTaskComponent implements OnInit {
     const task = this.kaban.swap(taskId, oldState, newState);
     this.taskService.updateByProject(this.projectId, task).subscribe();
   }
-  
+
 }
