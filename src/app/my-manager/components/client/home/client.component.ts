@@ -10,6 +10,7 @@ import { ClientService } from 'app/my-manager/services/client.service';
 export class ClientComponent implements OnInit {
 
   public selectedClient: Client;
+  public loading = false;
   public clients: Client[];
 
   constructor(private clientService: ClientService) { }
@@ -34,14 +35,15 @@ export class ClientComponent implements OnInit {
   }
 
   private loadClients() {
+    this.loading = true;
     this.clientService.getAll()
-      .subscribe(clients => this.clients = clients,
-      err => {
-        console.log(err);
+      .subscribe(clients => {
+        this.clients = clients;
+        this.loading = false;
       });
   }
 
-  public addClient(client: Client){
+  public addClient(client: Client) {
     this.clients.push(client);
   }
 

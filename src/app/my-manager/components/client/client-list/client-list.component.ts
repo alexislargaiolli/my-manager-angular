@@ -12,6 +12,9 @@ export class ClientListComponent implements OnInit {
   @Input()
   public clients: Client[];
 
+  @Input()
+  public loading: Client[];
+
   @Output()
   public clientSelect = new EventEmitter();
 

@@ -12,12 +12,19 @@ export class ProjectListComponent implements OnInit {
   public ProjectState = ProjectState;
   public projects: Project[];
   public today: Date = new Date();
+  public loading = false;
 
   constructor(private projectService: ProjectService) { }
 
   public ngOnInit() {
+    this.loadProject();
+  }
+
+  public loadProject() {
+    this.loading = true;
     this.projectService.getAll().subscribe(projects => {
       this.projects = projects;
+      this.loading = false;
     });
   }
 

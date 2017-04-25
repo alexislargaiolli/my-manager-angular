@@ -1,5 +1,10 @@
-<md-card *ngFor="let client of clients" (click)="selectClient(client)" class="selectable">
-    <h4 md-line>
-        <md-icon>perm_contact_calendar</md-icon> {{client.name}} </h4>
-    <p md-line>{{client.firstname}} {{client.lastname}}</p>
-</md-card>
+<div class="d-flex justify-content-center" *ngIf="loading">
+    <md-progress-spinner mode="indeterminate" color="primary"></md-progress-spinner>
+</div>
+<div class="client-list" *ngIf="!loading">
+    <md-card *ngFor="let client of clients" (click)="selectClient(client)" class="selectable">
+        <h4 md-line>
+            <md-icon>perm_contact_calendar</md-icon> {{client.name}} </h4>
+        <p md-line>{{client.firstname}} {{client.lastname}}</p>
+    </md-card>
+</div>

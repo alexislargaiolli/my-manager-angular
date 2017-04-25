@@ -1,4 +1,4 @@
-<client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)"></client-list>
+<client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)" [loading]="loading"></client-list>
 <client-detail [client]="selectedClient" *ngIf="selectedClient" (onDelete)="deleteSelectedClient($event)"></client-detail>
 <md-card>
     <client-create (onCreated)="addClient($event)"></client-create>
