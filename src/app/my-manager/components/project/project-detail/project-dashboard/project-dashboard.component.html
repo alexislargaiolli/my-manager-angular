@@ -1,29 +1,35 @@
-<div class="dashboard-left">
-    <md-card class="project-summary" *ngIf="project">
-
-        <md-button-toggle-group *ngIf="project" name="state" (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
-            <md-button-toggle value="0">
-                Prospection
-            </md-button-toggle>
-            <md-button-toggle value="1">
-                Devis
-            </md-button-toggle>
-            <md-button-toggle value="2">
-                Production
-            </md-button-toggle>
-            <md-button-toggle value="3">
-                Facturé
-            </md-button-toggle>
-            <md-button-toggle value="4">
-                Payé
-            </md-button-toggle>
-        </md-button-toggle-group>
-        <span class="project-progress">{{project.progress}}%</span>
+<div class="container mt-2" *ngIf="project">
+    <md-button-toggle-group name="state" (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
+        <md-button-toggle value="0">
+            Prospection
+        </md-button-toggle>
+        <md-button-toggle value="1">
+            Devis
+        </md-button-toggle>
+        <md-button-toggle value="2">
+            Production
+        </md-button-toggle>
+        <md-button-toggle value="3">
+            Facturé
+        </md-button-toggle>
+        <md-button-toggle value="4">
+            Payé
+        </md-button-toggle>
+    </md-button-toggle-group>
+    <md-card class="mt-2">
+        <div class="tasksCount my-3" *ngIf="taskCountByState">
+            <div><span>{{taskCountByState[0]}}</span> Tâches restantes</div>
+            <div><span>{{taskCountByState[1]}}</span>Tâche en cours</div>
+            <div><span>{{taskCountByState[2]}}</span>Tâches faites</div>
+        </div>
     </md-card>
-    <project-gains [projectId]="projectId"></project-gains>
-    <project-client [projectId]="projectId"></project-client>
+    <div fxLayout="row">
+        <div fxFlex="70" class="mt-2">
+            <app-devis-preview [projectId]="projectId"></app-devis-preview>
+            <project-history [projectId]="projectId" class="mt-2"></project-history>
+        </div>
+        <div fxFlex="30" class="mt-2 ml-2">
+            <app-note-list [projectId]="projectId"></app-note-list>
+        </div>
+    </div>
 </div>
-
-<project-history [projectId]="projectId"></project-history>
-
-<app-note-list [projectId]="projectId"></app-note-list>

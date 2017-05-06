@@ -1,38 +1,39 @@
-<md-card>
-    <md-card-title>
-        Historique</md-card-title>
-    <md-card-content *ngIf="elements">
-        <form #historyForm="ngForm" (ngSubmit)="create(historyForm)" class="list-create-form">
+<md-card *ngIf="elements" fxFlex="100">
+    <form #historyForm="ngForm" (ngSubmit)="create(historyForm)" class="list-create-form">
+        <md-input-container>
+            <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
+        </md-input-container>
+        <button md-button type="submit"><md-icon>add</md-icon></button>
+    </form>
+    <p *ngIf="elements.length == 0">Aucun historique...</p>
+</md-card>
+<md-card *ngFor="let entry of elements" (click)="select(entry)" class="history-item selectable" [ngClass]="{'selected-item my-2': selected?.id == entry.id}">
+    <div class="history-item-content" [hidden]="selected?.id == entry.id">
+        <span class="history-date">{{entry.date | date}}</span>
+        <span class="history-spacer fa fa-circle-o"></span>
+        <div class="history-content-wrapper">
+            <div class="history-title" [hidden]="selected?.id == entry.id">{{entry.title}}</div>
+            <div class="history-content" [hidden]="selected?.id == entry.id">{{entry.content}} </div>
+        </div>
+    </div>
+    <div md-line *ngIf="selected?.id == entry.id" class="update-form-wrapper">
+        <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
+            <div fxLayout="row" class="justify-content-between">
+                <md-input-container fxFlex="70">
+                    <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
+                </md-input-container>
+                <material-datepicker name="date" [(date)]="selected.date"></material-datepicker>
+            </div>
             <md-input-container>
-                <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
+                <input name="content" type="text" mdInput [(ngModel)]="selected.content" placeholder="Description...">
             </md-input-container>
-            <button md-button type="submit"><md-icon>add</md-icon></button>
+
+
+            <div class="d-flex justify-content-end">
+                <button md-button type="submit"><md-icon>save</md-icon></button>
+                <button md-button type="button" (click)="unselect();$event.stopPropagation()"><md-icon>cancel</md-icon></button>
+                <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
+            </div>
         </form>
-        <p *ngIf="elements.length == 0">Aucun historique...</p>
-
-        <md-list>
-            <md-list-item *ngFor="let entry of elements" (click)="select(entry)" class="selectable" [ngClass]="{'selected-item': selected?.id == entry.id}">
-                <h4 md-line [hidden]="selected?.id == entry.id">{{entry.title}}</h4>
-                <p md-line [hidden]="selected?.id == entry.id">{{entry.content}} </p>
-                <p md-line [hidden]="selected?.id == entry.id">{{entry.date | date}} </p>
-                <div md-line *ngIf="selected?.id == entry.id" class="update-form-wrapper">
-                    <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
-                        <md-input-container>
-                            <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
-                        </md-input-container>
-                        <md-input-container>
-                            <input name="content" type="text" mdInput [(ngModel)]="selected.content" placeholder="Description...">
-                        </md-input-container>
-                        <material-datepicker name="date" [(date)]="selected.date"></material-datepicker>
-
-                        <div class="d-flex justiry-content-around">
-                            <button md-button type="submit"><md-icon>save</md-icon></button>
-                            <button md-button type="button" (click)="unselect();$event.stopPropagation()"><md-icon>cancel</md-icon></button>
-                            <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
-                        </div>
-                    </form>
-                </div>
-            </md-list-item>
-        </md-list>
-    </md-card-content>
+    </div>
 </md-card>

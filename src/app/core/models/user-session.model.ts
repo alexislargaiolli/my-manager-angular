@@ -1,5 +1,7 @@
-export interface UserSession {
-    userId: number;
-    token: string;
-    username: string;
+import { User } from 'app/core/models/user.model';
+
+export class UserSession {
+    user: User;
+
+    constructor(public userId: number, public token: string){}
 }

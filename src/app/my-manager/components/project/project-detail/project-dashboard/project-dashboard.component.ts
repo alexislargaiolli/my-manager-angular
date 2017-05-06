@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'app/my-manager/model/project.model';
+import { TaskState } from 'app/my-manager/model/task.model';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -11,8 +12,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class ProjectDashboardComponent implements OnInit {
 
   public ProjectState = this.ProjectState;
+  public TaskState = this.TaskState;
   public project: Project;
   public projectId: number;
+  public taskCountByState;
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 
@@ -23,6 +26,9 @@ export class ProjectDashboardComponent implements OnInit {
     })
       .subscribe((project: Project) => {
         this.project = project;
+        this.projectService.getTaskCount(this.projectId).subscribe(res => {
+          this.taskCountByState = res;
+        });
       });
   }
 

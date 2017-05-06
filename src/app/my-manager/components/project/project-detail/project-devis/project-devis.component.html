@@ -1,3 +1,24 @@
-<p>
-  project-devis works!
-</p>
+<div class="container mt-2">
+    <md-toolbar color="primary">
+        <span>Gestion des devis</span>
+        <span class="toolbar-spacer"></span>
+        <button [routerLink]="['./', 'create']" md-button><md-icon>add</md-icon></button>
+    </md-toolbar>
+
+    <div class="mat-elevation-z2 p-3 d-flex justify-content-center" *ngIf="loading">
+        <md-progress-spinner mode="indeterminate" color="accent"></md-progress-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        <md-card class="card-list-item devis-list-item" *ngFor="let devi of devis" [routerLink]="['./', devi.id]">
+            <md-card-header>
+                <md-icon color="primary">insert_drive_file</md-icon>
+                <md-card-title>{{devi.title}}</md-card-title>
+                <md-card-subtitle>{{devi.createDate | date}}</md-card-subtitle>
+            </md-card-header>
+        </md-card>
+        <div class="mat-elevation-z2 p-3 d-flex justify-content-center" *ngIf="devis.length == 0">
+            Aucun devis
+        </div>
+    </div>
+</div>

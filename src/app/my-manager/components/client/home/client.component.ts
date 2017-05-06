@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Client } from 'app/my-manager/model/client.model';
 import { ClientService } from 'app/my-manager/services/client.service';
+import { NotificationService } from "app/core/services/notification.service";
 
 @Component({
   selector: 'app-client',
@@ -13,7 +14,9 @@ export class ClientComponent implements OnInit {
   public loading = false;
   public clients: Client[];
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService, private notification: NotificationService) {
+    this.clientService.activeDebug();
+  }
 
   public ngOnInit() {
     this.loadClients();
@@ -27,11 +30,17 @@ export class ClientComponent implements OnInit {
     this.selectedClient = null;
   }
 
-  public deleteSelectedClient() {
-    this.clientService.delete(this.selectedClient).subscribe(client => {
-      this.clients.splice(this.clients.findIndex(c => c.id === this.selectedClient.id), 1);
-      this.unselect();
-    });
+  public deleteClient(client) {
+    this.clients.splice(this.clients.findIndex(c => c.id === this.selectedClient.id), 1);
+    this.unselect();
+  }
+
+  public addClient(client: Client) {
+    this.clients.push(client);
+  }
+
+  public onUpdate(client: Client) {
+
   }
 
   private loadClients() {
@@ -41,10 +50,6 @@ export class ClientComponent implements OnInit {
         this.clients = clients;
         this.loading = false;
       });
-  }
-
-  public addClient(client: Client) {
-    this.clients.push(client);
   }
 
 }

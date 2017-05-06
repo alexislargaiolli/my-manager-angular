@@ -1,0 +1,40 @@
+<div class="container mt-2" *ngIf="devis">
+    <md-toolbar color="primary">
+        <button md-button (click)="goBack()"><md-icon>backspace</md-icon></button>
+        <span>Devis</span>
+        <span class="toolbar-spacer"></span>
+        <button (click)="devisForm.ngSubmit.emit()" [disabled]="!devisForm.form.valid" md-button><md-icon>save</md-icon></button>
+        <button (click)="remove()" md-button><md-icon>delete</md-icon></button>
+    </md-toolbar>
+    <div class="mat-elevation-z2">
+        <form fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around" #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off">
+            <div fxLayout="column" fxFlex="50" class="p-3">
+                <md-input-container>
+                    <input mdInput name="title" [(ngModel)]="devis.title" type="text" required placeholder="Titre du devis">
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput name="budget" [(ngModel)]="devis.budget" type="number" min="0" required placeholder="Budget">
+                </md-input-container>
+            </div>
+            <div fxLayout="column">
+                <div class="p-3">
+                    <label>Créer le </label>
+                    <material-datepicker placeholder="Date création" name="createDate" [(date)]="devis.createDate"></material-datepicker>
+                </div>
+                <div class="p-3" *ngIf="devis.state == devisState.ACCEPTED">
+                    <label>Validé le </label>
+                    <material-datepicker placeholder="Date validation" name="acceptedDate" [(date)]="devis.acceptedDate"></material-datepicker>
+                </div>
+                <div class="p-3">
+                    <md-radio-group [(ngModel)]="devis.state" name="state">
+                        <md-radio-button [value]="devisState.DRAFT">Brouillon</md-radio-button>
+                        <md-radio-button [value]="devisState.PENDING">En attente</md-radio-button>
+                        <md-radio-button [value]="devisState.ACCEPTED">Accepté</md-radio-button>
+                        <md-radio-button [value]="devisState.REFUSED">Refusé</md-radio-button>
+                        <md-radio-button [value]="devisState.PAID">Payé</md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

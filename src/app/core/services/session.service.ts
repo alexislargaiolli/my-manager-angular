@@ -26,36 +26,44 @@ export class CurrentSession {
     }
 
     public setSession(userId: number, token: string) {
-        this.session = { userId: userId, token: token, username: '' };
+        this.session = new UserSession(userId, token);
         // store username and jwt _token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentSession', JSON.stringify(this.session));
+        this.userService.authenticationToken = token;
         this.authenticated = Promise.resolve(true);
         this.eventsService.broadcast(AppEvent.AUTHENTICATION_SUCCESS, this.session);
 
-        this.retriveUserInfo().then(() => console.log(this.session));
+        this.retriveUserInfo().then(u => { });
     }
 
     public destroySession() {
-        this.session = { userId: null, token: null, username: null };
+        this.session = null;
         localStorage.removeItem('currentSession');
+        this.userService.authenticationToken = null;
         this.authenticated = Promise.resolve(false);
         this.eventsService.broadcast(AppEvent.LOGGED_OUT);
     }
 
     private retriveUserInfo(): Promise<any> {
-        return this.userService.me(this.session).toPromise().then(user => this.session.username = user['username']);
+        return this.userService.me(this.session).toPromise().then(user => {
+            this.session.user = user;
+        });
     }
 
     get token() {
-        return this.session.token;
+        return this.session != null ? this.session.token : null;
     }
 
     get userId() {
-        return this.session.userId;
+        return this.session != null ? this.session.userId : null;
     }
 
     get username() {
-        return this.session.username;
+        return this.session != null && this.session.user != null ? this.session.user.username : null;
+    }
+
+    get user() {
+        return this.session != null ? this.session.user : null;
     }
 
     get userSession(): UserSession {

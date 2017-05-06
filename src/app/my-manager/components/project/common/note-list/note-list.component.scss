@@ -1,12 +1,9 @@
 .note-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
     .post-it {
-        margin: 10px;
-        background: #fff9c4;
-        min-width: 150px;
-        min-height: 150px;
+        margin-bottom: 10px;
+        padding: 10px 20px;
     }
     .post-it.done {
         background: #ddd;

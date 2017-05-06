@@ -1,0 +1,15 @@
+<div class="container mt-2">
+    <div class="mat-elevation-z2" fxLayout="row">
+        <ul class="side-menu" fxFlex="30">
+            <li [routerLink]="['./general']">
+                <md-icon>info</md-icon>Général
+            </li>
+            <li [routerLink]="['./password']">
+                <md-icon>lock</md-icon>Mot de passe
+            </li>
+        </ul>
+        <div fxFlex="70">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

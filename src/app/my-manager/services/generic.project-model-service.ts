@@ -22,9 +22,24 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public getByProject(projectId: number): Observable<T[]> {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.get(url, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.get(url, this.generateOptions()));
+    }
+
+    public getOneByProject(projectId: number, id: number): Observable<T> {
+        const url = this.getByProjectBaseUrl(projectId);
+        return this.handleResponse(this.http.get(`${url}/${id}`, this.generateOptions()));
+    }
+
+    /**
+     * Create an element if id is null, update it otherwise
+     * @param projectId id of a project
+     * @param body element to save
+     */
+    public saveByProject(projectId: number, body): Observable<T> {
+        if (body['id']) {
+            return this.updateByProject(projectId, body);
+        }
+        return this.createByProject(projectId, body);
     }
 
     /**
@@ -34,9 +49,7 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public createByProject(projectId: number, body: Object): Observable<T> {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.post(url, body, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.post(url, body, this.generateOptions()));
     }
 
     /**
@@ -46,9 +59,7 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public updateByProject(projectId: number, element: T): Observable<T> {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.put(`${url}/${element.id}`, element, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.put(`${url}/${element.id}`, element, this.generateOptions()));
     }
 
     /**
@@ -58,9 +69,7 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public deleteByProject(projectId: number, eltId: number) {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.delete(`${url}/${eltId}`, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.delete(`${url}/${eltId}`, this.generateOptions()));
     }
 
     /**
@@ -70,9 +79,7 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public removeFromProject(projectId: number, eltId: number) {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.delete(`${url}/rel/${eltId}`, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.delete(`${url}/rel/${eltId}`, this.generateOptions()));
     }
 
     /**
@@ -82,9 +89,7 @@ export abstract class GenericProjectModelService<T extends IModel> extends Gener
      */
     public addToProject(projectId: number, eltId: number): Observable<Object> {
         const url = this.getByProjectBaseUrl(projectId);
-        return this.http.put(`${url}/rel/${eltId}`, {}, this.generateOptions())
-            .map((res: Response) => res.json())
-            .catch(err => this.handleError(err));
+        return this.handleResponse(this.http.put(`${url}/rel/${eltId}`, {}, this.generateOptions()));
     }
 
 }

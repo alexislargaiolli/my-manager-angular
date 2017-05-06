@@ -1,0 +1,26 @@
+<md-toolbar color="accent">
+    <button (click)="unselect()" md-button [hidden]="!selected"><md-icon>backspace</md-icon></button>
+    <span>Adresses</span>
+    <span class="toolbar-spacer"></span>
+    <button (click)="select()" md-button [hidden]="selected"><md-icon>add</md-icon></button>
+    <button (click)="addressForm.ngSubmit.emit()" [disabled]="!addressForm.form.valid" md-button [hidden]="!selected"><md-icon>save</md-icon></button>
+    <button (click)="delete(selected)" md-button [hidden]="!selected"><md-icon>delete</md-icon></button>
+</md-toolbar>
+<div [hidden]="selected" class="basic-list">
+    <div *ngFor="let address of addresses" (click)="select(address)" class="basic-list-item">
+        <md-icon md-list-icon>contact_mail</md-icon>
+        <div>{{address | myAddress}}</div>
+    </div>
+    <div *ngIf="addresses.length == 0" class="p-2">Aucune addresse...</div>
+</div>
+<form #addressForm="ngForm" (ngSubmit)="save(addressForm)" autocomplete="off" [hidden]="!selected" fxLayout="column" class="p-4">
+    <md-input-container>
+        <input mdInput [ngModel]="selected?.street" name="street" type="text" required placeholder="Rue">
+    </md-input-container>
+    <md-input-container>
+        <input mdInput [ngModel]="selected?.zipcode" name="zipcode" type="text" required placeholder="Code postal">
+    </md-input-container>
+    <md-input-container>
+        <input mdInput [ngModel]="selected?.city" name="city" type="text" required placeholder="Ville">
+    </md-input-container>
+</form>

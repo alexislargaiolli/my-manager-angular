@@ -1,8 +1,14 @@
+<md-toolbar>
+    <span>Client</span>
+    <span class="toolbar-spacer"></span>
+    <button md-button (click)="delete()"><md-icon>delete</md-icon></button>
+</md-toolbar>
 <md-card>
     <p>Nom:{{client.name}}</p>
     <p>Prénom: {{client.firstname}}</p>
     <p>Nom de famille{{client.lastname}}</p>
     <p>Email: {{client.email}}</p>
     <p>Téléphone: {{client.tel}}</p>
-    <button md-button (click)="delete()">Supprimer</button>
+    <app-address-list [(addresses)]="addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)"></app-address-list>
+
 </md-card>

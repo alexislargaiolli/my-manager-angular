@@ -1,5 +1,8 @@
 import { Client } from 'app/my-manager/model/client.model';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Address } from 'app/my-manager/model/address.model';
+import { ClientService } from "app/my-manager/services/client.service";
+import { ModelUtils } from "app/core/generics/models/model.utils";
 
 @Component({
   selector: 'client-detail',
@@ -7,19 +10,58 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./client-detail.component.css']
 })
 export class ClientDetailComponent implements OnInit {
+  public _client: Client;
 
-  @Input()
-  public client: Client;
+  private addresses: Address[] = [];
 
   @Output()
   public onDelete: EventEmitter<Client> = new EventEmitter<Client>();
 
-  constructor() { }
+  @Output()
+  public onUpdate: EventEmitter<Client> = new EventEmitter<Client>();
 
-  public ngOnInit() { }
+  constructor(private clientService: ClientService) { }
+
+  public ngOnInit() {
+
+  }
+
+  private loadAddresses() {
+    this.addresses = [];
+    this.clientService.getAddresses(this.client).subscribe(addresses => this.addresses = addresses);
+  }
 
   public delete() {
-    this.onDelete.emit(this.client);
+    this.clientService.delete(this.client).subscribe(c => {
+      this.onDelete.emit(this.client);
+    });
+  }
+
+  public update() {
+
+    this.onUpdate.emit(this.client);
+  }
+
+  public saveAddress(address: Address) {
+    this.clientService.saveAddress(this.client, address).subscribe(a => {
+      ModelUtils.addOrUpdate(this.addresses, a);
+    });
+  }
+
+  public deleteAddress(address: Address) {
+    this.clientService.deleteAddress(this.client, address).subscribe(a => {
+      ModelUtils.remove(this.addresses, address);
+    });
+  }
+
+  get client(): Client {
+    return this._client;
+  }
+
+  @Input('client')
+  set client(client: Client) {
+    this._client = client;
+    this.loadAddresses();
   }
 
 }

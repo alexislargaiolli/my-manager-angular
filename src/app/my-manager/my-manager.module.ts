@@ -32,8 +32,17 @@ import { MyManagerComponent } from './my-manager.component';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
 import { FooterComponent } from 'app/my-manager/components/common/footer/footer.component';
 import { ProjectDashboardComponent } from 'app/my-manager/components/project/project-detail/project-dashboard/project-dashboard.component';
-import { ProjectInvoiceComponent } from "app/my-manager/components/project/project-detail/project-invoice/project-invoice.component";
-import { ProjectDevisComponent } from "app/my-manager/components/project/project-detail/project-devis/project-devis.component";
+import { ProjectInvoiceComponent } from 'app/my-manager/components/project/project-detail/project-invoice/project-invoice.component';
+import { ProjectDevisComponent } from 'app/my-manager/components/project/project-detail/project-devis/project-devis.component';
+import { ProjectDevisEditionComponent } from 'app/my-manager/components/project/project-detail/project-devis/project-devis-edition/project-devis-edition.component';
+import { DevisService } from 'app/my-manager/services/devis.service';
+import { AddressListComponent } from 'app/my-manager/components/common/address-list/address-list.component';
+import { AddressPipe } from 'app/my-manager/components/common/address.pipe';
+import { DevisStatePipe } from 'app/my-manager/components/common/devisState.pipe';
+import { UserProfilComponent } from 'app/my-manager/components/common/user-profil/user-profil.component';
+import { UserProfilGeneralComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-general/user-profil-general.component';
+import { UserProfilPasswordComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-password/user-profil-password.component';
+import { DevisPreviewComponent } from 'app/my-manager/components/project/common/devis-preview/devis-preview.component';
 
 @NgModule({
   imports: [
@@ -66,8 +75,16 @@ import { ProjectDevisComponent } from "app/my-manager/components/project/project
     MyManagerComponent,
     ProjectDashboardComponent,
     ProjectDevisComponent,
-    ProjectInvoiceComponent
-],
+    ProjectInvoiceComponent,
+    ProjectDevisEditionComponent,
+    AddressListComponent,
+    AddressPipe,
+    UserProfilComponent,
+    UserProfilGeneralComponent,
+    UserProfilPasswordComponent,
+    DevisPreviewComponent,
+    DevisStatePipe
+  ],
   providers: [
     ClientService,
     ProjectService,
@@ -75,7 +92,8 @@ import { ProjectDevisComponent } from "app/my-manager/components/project/project
     NoteService,
     GainService,
     HistoryEntryService,
-    NavigationService
+    NavigationService,
+    DevisService
   ],
   exports: [
     HeaderComponent,

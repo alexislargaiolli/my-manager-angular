@@ -1,9 +1,37 @@
 :host {
     display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 :host /deep/ .selected-item .mat-list-text,
 .update-form-wrapper,
 .update-form-wrapper>div {
     overflow: visible!important;
+}
+
+.history-item-content {
+    display: flex;
+    align-items: center;
+}
+
+.history-date {
+    font-size: 11px;
+    color: #666;
+}
+
+.history-spacer {
+    margin: 0 10px;
+    color: #444;
+}
+
+.history-content-wrapper {
+    flex: 1;
+    .history-title {
+        color: #444;
+        font-size: 12px;
+    }
+    .history-content {
+        font-size: 10px;
+    }
 }
