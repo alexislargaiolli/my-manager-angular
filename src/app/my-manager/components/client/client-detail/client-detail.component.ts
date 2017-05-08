@@ -12,7 +12,7 @@ import { ModelUtils } from "app/core/generics/models/model.utils";
 export class ClientDetailComponent implements OnInit {
   public _client: Client;
 
-  private addresses: Address[] = [];
+  public addresses: Address[] = [];
 
   @Output()
   public onDelete: EventEmitter<Client> = new EventEmitter<Client>();

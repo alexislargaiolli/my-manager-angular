@@ -10,20 +10,20 @@ import { NgForm } from '@angular/forms';
 export class AddressListComponent implements OnInit {
 
   @Input()
-  private addresses: Address[];
+  public addresses: Address[];
 
   @Output()
-  private onSaved: EventEmitter<Address>;
+  public onSaved: EventEmitter<Address>;
 
   @Output()
-  private onDelete: EventEmitter<Address>;
+  public onDelete: EventEmitter<Address>;
 
   /**
    * True to show create form
    */
-  private creation = false;
+  public creation = false;
 
-  private selected: Address = null;
+  public selected: Address = null;
 
   constructor() {
     this.onSaved = new EventEmitter<Address>();

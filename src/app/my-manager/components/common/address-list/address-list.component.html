@@ -2,7 +2,7 @@
     <button (click)="unselect()" md-button [hidden]="!selected"><md-icon>backspace</md-icon></button>
     <span>Adresses</span>
     <span class="toolbar-spacer"></span>
-    <button (click)="select()" md-button [hidden]="selected"><md-icon>add</md-icon></button>
+    <button (click)="select(null)" md-button [hidden]="selected"><md-icon>add</md-icon></button>
     <button (click)="addressForm.ngSubmit.emit()" [disabled]="!addressForm.form.valid" md-button [hidden]="!selected"><md-icon>save</md-icon></button>
     <button (click)="delete(selected)" md-button [hidden]="!selected"><md-icon>delete</md-icon></button>
 </md-toolbar>
