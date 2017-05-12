@@ -5,16 +5,13 @@ import { IModel } from 'app/core/generics/models/generic.model';
 import { AppSettings } from 'app/app-settings';
 import { RepositoryRequest } from 'app/core/generics/repositories/repository-request';
 import { ErrorService } from 'app/core/services/error.service';
+import { BaseHttpService } from 'app/core/generics/repositories/base-http.service';
 
 @Injectable()
 export class RepositoriesService {
-
-    protected BASE_URL = AppSettings.API_ENDPOINT;
-    protected debug = false;
     private manageClasses: Map<string, string> = new Map();
 
-    constructor(protected http: Http, protected errorService: ErrorService) {
-    }
+    constructor(protected http: Http, private baseHttpService: BaseHttpService) { }
 
     public addManageClass(className: string, apiUrl: string) {
         this.manageClasses.set(className, apiUrl);
@@ -30,11 +27,24 @@ export class RepositoriesService {
         return request;
     }
 
+    public update<T extends IModel>(className: string, elt: T): RepositoryRequest<T> {
+        const request = this.createBaseRequest<T>(className, null, RequestMethod.Put);
+        request.body = elt;
+        return request;
+    }
+
     /**
      * Get a list if id is null, one instance if id is defined
      */
     public get<T extends IModel>(className: string, id: number): RepositoryRequest<T> {
         return this.createBaseRequest<T>(className, id, RequestMethod.Get);
+    }
+
+    /**
+     * Delete a model by id
+     */
+    public delete<T extends IModel>(className: string, id: number): RepositoryRequest<T> {
+        return this.createBaseRequest<T>(className, id, RequestMethod.Delete);
     }
 
     /**
@@ -55,7 +65,7 @@ export class RepositoriesService {
 
     public execute(request: RepositoryRequest<any>): Observable<any> {
         let res: Observable<Response>;
-        const url = `${this.BASE_URL}/${request.url}`;
+        const url = `${this.baseHttpService.config.baseUrl}/${request.url}`;
         switch (request.method) {
             case RequestMethod.Post:
                 res = this.http.post(url, request.body, request.options);
@@ -71,45 +81,6 @@ export class RepositoriesService {
                 break;
         }
 
-        return this.handleResponse(res);
-    }
-
-    protected handleResponse(response: Observable<Response>) {
-        return response.map((res: Response) => {
-            const data = res.json();
-            this.trace(data);
-            return data;
-        })
-            .catch(err => this.handleError(err));
-    }
-
-    protected handleError(error: Response) {
-        return this.errorService.handleNetworkError(this.constructor.name, error.status, error.statusText, error.json());
-    }
-
-    public activeDebug() {
-        this.debug = true;
-    }
-
-    public traceBefore(body: Object) {
-        if (this.debug) {
-            console.log('Before>');
-            if (body instanceof Array) {
-                console.table(body);
-            } else {
-                console.log(body);
-            }
-        }
-    }
-
-    protected trace(body: Object) {
-        if (this.debug) {
-            console.log('Result>');
-            if (body instanceof Array) {
-                console.table(body);
-            } else {
-                console.log(body);
-            }
-        }
+        return this.baseHttpService.handleResponse(res);
     }
 }

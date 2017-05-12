@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  api_endpoint: 'http://localhost:3000/api/v1'
+  api_endpoint: 'http://localhost:3000/api/v1',
+  login_endpoint: 'mmusers/login',
+  logout_endpoint: 'mmusers/logout'
 };

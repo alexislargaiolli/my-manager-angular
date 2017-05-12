@@ -4,7 +4,7 @@ import { RepositoriesService } from 'app/core/generics/repositories/repositories
 import { Project } from 'app/my-manager/model/project.model';
 import { User } from 'app/core/models/user.model';
 import { Client } from 'app/my-manager/model/client.model';
-import { Address } from "app/my-manager/model/address.model";
+import { Address } from 'app/my-manager/model/address.model';
 
 @Component({
   selector: 'app-root',
