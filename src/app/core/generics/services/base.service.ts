@@ -83,7 +83,7 @@ export abstract class BasicService<T extends IModel> {
 
     protected generateHeaders(): Headers {
         return new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json'            
         });
     }
 

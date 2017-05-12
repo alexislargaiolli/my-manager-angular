@@ -9,6 +9,7 @@ import { DialogsService } from 'app/core/services/dialog.service';
 import { NotificationCenterComponent } from 'app/core/components/notification-center/notification-center.component';
 import { MyNotificationComponent } from 'app/core/components/notification-center/my-notification/my-notification.component';
 import { ConfirmDialogComponent } from 'app/core/components/confirm-dialog/confirm-dialog.component';
+import { RepositoriesService } from 'app/core/generics/repositories/repositories.service';
 
 @NgModule({
   imports: [SharedModule],
@@ -27,7 +28,8 @@ import { ConfirmDialogComponent } from 'app/core/components/confirm-dialog/confi
     ErrorService,
     UserService,
     CurrentSession,
-    DialogsService
+    DialogsService,
+    RepositoriesService
   ],
   entryComponents: [
     ConfirmDialogComponent
