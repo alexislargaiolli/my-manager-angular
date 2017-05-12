@@ -5,7 +5,7 @@ import { Devis } from "app/my-manager/model/devis.model";
 @Component({
   selector: 'app-devis-preview',
   templateUrl: './devis-preview.component.html',
-  styleUrls: ['./devis-preview.component.css']
+  styleUrls: ['./devis-preview.component.scss']
 })
 export class DevisPreviewComponent implements OnInit {
   @Input()

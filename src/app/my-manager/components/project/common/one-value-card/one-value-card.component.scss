@@ -1,0 +1,35 @@
+@import 'variables';
+@import 'components';
+:host {
+    @extend .panel;
+    min-width: 200px;
+    color: $text-color;
+    &>div {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        .icon {
+            width: 50px;
+            height: 43px;
+            font-size: 50px;
+            text-align: center;
+        }
+        .right {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            margin-left: 10px;
+            .value {
+                font-size: 25px;
+                line-height: 25px;
+                height: 30px;
+            }
+            .label {
+                font-size: 13px;
+                height: 13px;
+                line-height: 13px;
+                color: #666;
+            }
+        }
+    }
+}

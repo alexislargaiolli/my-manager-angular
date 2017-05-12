@@ -1,8 +1,10 @@
+@import 'variables';
 .header-nav {
+    background: #fff;
     .header-left {
         padding-left: 20px;
     }
     button {
-        text-transform: uppercase;
+        color: $primary-color;
     }
 }

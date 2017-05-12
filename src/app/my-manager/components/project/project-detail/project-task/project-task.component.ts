@@ -1,18 +1,21 @@
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, HostBinding } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Task, TaskState, TaskKaban } from 'app/my-manager/model/task.model';
 import { TaskService } from 'app/my-manager/services/task.service';
+import { slideInDownAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-task',
   templateUrl: './project-task.component.html',
-  styleUrls: ['./project-task.component.scss']
+  styleUrls: ['./project-task.component.scss'],
+  animations: [slideInDownAnimation]
 })
 export class ProjectTaskComponent implements OnInit {
-
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  
   public projectId: number;
   public state = TaskState;
   public kaban: TaskKaban;

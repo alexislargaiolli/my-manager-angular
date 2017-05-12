@@ -1,0 +1,4 @@
+@import '../project-details-variables';
+:host {
+    @include project-details-container;
+}

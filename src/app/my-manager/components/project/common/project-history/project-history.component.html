@@ -1,4 +1,5 @@
-<md-card *ngIf="elements" fxFlex="100">
+<div>
+    <h2 class="panel-header">Activités</h2>
     <form #historyForm="ngForm" (ngSubmit)="create(historyForm)" class="list-create-form">
         <md-input-container>
             <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
@@ -6,34 +7,34 @@
         <button md-button type="submit"><md-icon>add</md-icon></button>
     </form>
     <p *ngIf="elements.length == 0">Aucun historique...</p>
-</md-card>
-<md-card *ngFor="let entry of elements" (click)="select(entry)" class="history-item selectable" [ngClass]="{'selected-item my-2': selected?.id == entry.id}">
-    <div class="history-item-content" [hidden]="selected?.id == entry.id">
-        <span class="history-date">{{entry.date | date}}</span>
-        <span class="history-spacer fa fa-circle-o"></span>
-        <div class="history-content-wrapper">
-            <div class="history-title" [hidden]="selected?.id == entry.id">{{entry.title}}</div>
-            <div class="history-content" [hidden]="selected?.id == entry.id">{{entry.content}} </div>
-        </div>
-    </div>
-    <div md-line *ngIf="selected?.id == entry.id" class="update-form-wrapper">
-        <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
-            <div fxLayout="row" class="justify-content-between">
+</div>
+<div>
+    <div *ngFor="let entry of elements" (click)="select(entry)" class="history-item selectable" [ngClass]="{'selected-item': selected?.id == entry.id}">
+
+        <div *ngIf="selected?.id == entry.id" class="update-form-wrapper" [@itemState]="true">
+            <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
                 <md-input-container fxFlex="70">
                     <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
                 </md-input-container>
+                <md-input-container>
+                    <input name="content" type="text" mdInput [(ngModel)]="selected.content" placeholder="Description...">
+                </md-input-container>
                 <material-datepicker name="date" [(date)]="selected.date"></material-datepicker>
-            </div>
-            <md-input-container>
-                <input name="content" type="text" mdInput [(ngModel)]="selected.content" placeholder="Description...">
-            </md-input-container>
 
-
-            <div class="d-flex justify-content-end">
-                <button md-button type="submit"><md-icon>save</md-icon></button>
-                <button md-button type="button" (click)="unselect();$event.stopPropagation()"><md-icon>cancel</md-icon></button>
-                <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
+                <div class="d-flex justify-content-end">
+                    <button md-button type="submit"><md-icon>save</md-icon></button>
+                    <button md-button type="button" (click)="unselect();$event.stopPropagation()"><md-icon>cancel</md-icon></button>
+                    <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
+                </div>
+            </form>
+        </div>
+        <div class="history-item-content" [hidden]="selected?.id == entry.id">
+            <span class="fa fa-folder p-2"></span>
+            <div class="history-content-wrapper">
+                <div class="history-title" [hidden]="selected?.id == entry.id">{{entry.title}}</div>
+                <div class="history-content" [hidden]="selected?.id == entry.id">{{entry.content}} </div>
+                <span class="history-date">{{entry.date | date}}</span>
             </div>
-        </form>
+        </div>
     </div>
-</md-card>
+</div>

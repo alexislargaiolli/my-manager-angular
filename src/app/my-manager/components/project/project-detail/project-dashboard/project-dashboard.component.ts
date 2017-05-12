@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Project } from 'app/my-manager/model/project.model';
 import { TaskState } from 'app/my-manager/model/task.model';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { slideInDownAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-dashboard',
   templateUrl: './project-dashboard.component.html',
-  styleUrls: ['./project-dashboard.component.scss']
+  styleUrls: ['./project-dashboard.component.scss'],
+  animations: [slideInDownAnimation]
 })
 export class ProjectDashboardComponent implements OnInit {
+  @HostBinding('@routeAnimation') routeAnimation = true;
 
   public ProjectState = this.ProjectState;
   public TaskState = this.TaskState;
   public project: Project;
   public projectId: number;
-  public taskCountByState;
+  public taskCountByState = [];
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 

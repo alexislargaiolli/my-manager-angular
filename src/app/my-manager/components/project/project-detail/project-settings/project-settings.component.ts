@@ -1,21 +1,23 @@
 import { MdDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, HostBinding } from '@angular/core';
 import { IMyOptions, IMyDateModel } from 'mydatepicker';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { Project } from 'app/my-manager/model/project.model';
 import { DialogsService } from 'app/core/services/dialog.service';
 import { DateUtils } from 'app/shared/utils/date.utils';
-import { NotificationService } from "app/core/services/notification.service";
+import { NotificationService } from 'app/core/services/notification.service';
+import { slideInDownAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-settings',
   templateUrl: './project-settings.component.html',
-  styleUrls: ['./project-settings.component.css']
+  styleUrls: ['./project-settings.component.scss'],
+  animations: [slideInDownAnimation]
 })
 export class ProjectSettingsComponent implements OnInit {
-
+  @HostBinding('@routeAnimation') routeAnimation = true;
   public projectId: number;
   public project: Project;
   public plannedStartDate: Object;
@@ -54,7 +56,7 @@ export class ProjectSettingsComponent implements OnInit {
     this.project.startDate = DateUtils.myDateToJsDate(form.value.startDate);
     this.project.plannedEndDate = DateUtils.myDateToJsDate(form.value.plannedEndDate);
     this.project.endDate = DateUtils.myDateToJsDate(form.value.endDate);
-    this.projectService.update(this.project).subscribe(p=>{
+    this.projectService.update(this.project).subscribe(p => {
       this.notificationService.addInfo('Sauvegarde réussie');
     });
     // this.onUpdate.emit(this.project);

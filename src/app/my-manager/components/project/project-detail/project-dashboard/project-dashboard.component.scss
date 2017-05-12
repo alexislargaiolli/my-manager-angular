@@ -1,15 +1,19 @@
+@import '../project-details-variables';
+@import 'variables';
 :host {
     flex: 1;
+    @include project-details-container;
 }
 
 $state-btn-height: 50px;
-$state-btn-accent-color: #d68a3a;
+$state-btn-accent-color: $primary-color;
 $state-btn-active-color: #e0e0e0;
 $state-btn-bg-color: #ffffff;
 .project-state-buttons {
     margin: 0;
     height: $state-btn-height;
     width: 100%;
+    box-shadow: none;
     /deep/ md-button-toggle {
         text-align: center;
         flex: 1;
@@ -44,6 +48,16 @@ $state-btn-bg-color: #ffffff;
             z-index: 2;
             top: 1px;
         }
+    }
+}
+
+.one-value-card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
+    app-one-value-card {
+        flex: 1;
     }
 }
 

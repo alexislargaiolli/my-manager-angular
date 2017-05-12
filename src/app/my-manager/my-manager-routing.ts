@@ -21,6 +21,7 @@ const routes: Routes = [
   {
     path: '', component: MyManagerComponent,
     children: [
+      { path: '', redirectTo: '/project', pathMatch: 'full' },
       {
         path: 'profil', component: UserProfilComponent, canActivate: [AuthGuard],
         children: [
@@ -33,6 +34,7 @@ const routes: Routes = [
       {
         path: 'project/:projectId', component: ProjectDetailComponent,
         children: [
+          {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
           { path: 'dashboard', component: ProjectDashboardComponent },
           { path: 'tasks', component: ProjectTaskComponent },
           { path: 'devis', component: ProjectDevisComponent },

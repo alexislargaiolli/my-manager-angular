@@ -10,7 +10,7 @@ import {
   MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule,
   MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule
 } from '@angular/material';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     CommonModule
@@ -22,6 +22,7 @@ import {
     CommonModule,
     HttpModule,
     FormsModule,
+    BrowserAnimationsModule,
     FlexLayoutModule,
     KeysPipe,
     MdButtonModule,

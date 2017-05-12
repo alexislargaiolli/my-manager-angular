@@ -1,7 +1,8 @@
+@import '../project-details-variables';
 :host {
-    width: 100%;
     flex: 1;
     display: flex;
+    @include project-details-container;
 }
 
 md-card {

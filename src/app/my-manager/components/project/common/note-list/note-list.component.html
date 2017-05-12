@@ -1,24 +1,14 @@
-<div class="action-panel" [ngClass]="{'visible' : selected != null}">
-    <div *ngIf="selected">
-        <md-select placeholder="Priorité" [(ngModel)]="selected.priority" (change)="updateSelected()">
-            <md-option *ngFor="let priority of priorities | myKeys" [value]="priority.key">
-                {{priority.value}}
-            </md-option>
-        </md-select>
-        <button md-button (click)="delete(selected)" class="btn-remove"><md-icon>delete</md-icon></button>
+<h2 class="panel-header">Post it</h2>
+
+<form #noteForm="ngForm" (ngSubmit)="create(noteForm)" class="list-create-form">
+    <md-input-container>
+        <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
+    </md-input-container>
+    <button md-button type="submit"><md-icon>add</md-icon></button>
+</form>
+
+<div class="note-list">
+    <div *ngFor="let note of elements" (click)="toggleState(note)" class="post-it selectable" [ngClass]="{'done' : note.done}">
+        {{note.title}}
     </div>
 </div>
-<md-card class="mat-elevation-z4">
-    <form #noteForm="ngForm" (ngSubmit)="create(noteForm)" class="list-create-form">
-        <md-input-container>
-            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
-        </md-input-container>
-        <button md-button type="submit"><md-icon>add</md-icon></button>
-    </form>
-
-    <div class="note-list">
-        <div *ngFor="let note of elements" (click)="toggleState(note)" class="post-it selectable mat-elevation-z1" [ngClass]="{'done' : note.done}">
-            {{note.title}}
-        </div>
-    </div>
-</md-card>

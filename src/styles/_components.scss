@@ -1,0 +1,8 @@
+@import 'variables';
+.panel {
+    background: #fff;
+    border: 1px solid $border-color;
+    padding: 10px;
+    display: inline-block;
+    color: $text-color;
+}

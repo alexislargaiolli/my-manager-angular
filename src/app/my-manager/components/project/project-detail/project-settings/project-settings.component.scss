@@ -1,7 +1,9 @@
+@import '../project-details-variables';
 :host {
     display: flex;
     flex: 1;
     justify-content: center;
+    @include project-details-container;
 }
 
 nav /deep/ .mat-tab-links {

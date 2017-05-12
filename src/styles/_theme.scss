@@ -1,0 +1,40 @@
+@import '~@angular/material/theming';
+@import 'variables';
+@include mat-core();
+$md-canetton: ( 50: #e9f7f5, 100: #c9ebe6, 200: #a5ded6, 300: #80d1c5, 400: #65c7b8, 500: #4abdac, 600: #43b7a5, 700: #3aae9b, 800: #32a692, 900: #229882, A100: #d5fff7, A200: #a2ffec, A400: #6fffe2, A700: #56ffdd, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-vermillon: ( 50: #ffe9e4, 100: #fec9ba, 200: #fea58d, 300: #fd805f, 400: #fc653c, 500: #fc4a1a, 600: #fc4317, 700: #fb3a13, 800: #fb320f, 900: #fa2208, A100: #ffffff, A200: #fff0ef, A400: #ffc1bc, A700: #ffa9a2, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+// mandatory stuff for theming
+$bv-pp-primary: mat-palette($md-canetton);
+$bv-pp-accent: mat-palette($md-vermillon);
+// include the custom theme components into a theme object
+$bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
+// include the custom theme object into the angular material theme
+@include angular-material-theme($bv-pp-theme);
+$mat-font-family: 'PT sans',
+sans-serif;
+// body or wrapper class
+.mat-button-toggle,
+%mat-button-base,
+.mat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-card,
+.mat-checkbox,
+.mat-input-container,
+.mat-list,
+.mat-menu-item,
+.mat-radio-button,
+.mat-select,
+.mat-list .mat-list-item .mat-list-item-content,
+.mat-nav-list .mat-list-item .mat-list-item-content,
+.mat-simple-snackbar,
+.mat-tab-label,
+.mat-slide-toggle-content,
+.mat-toolbar,
+.mat-tooltip,
+body {
+    font-family: $mat-font-family;
+    color: $text-color;
+}

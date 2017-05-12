@@ -1,4 +1,4 @@
-<div class="container mt-2" *ngIf="project">
+<div class="container p-2" *ngIf="project">
     <md-button-toggle-group name="state" (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
         <md-button-toggle value="0">
             Prospection
@@ -16,20 +16,19 @@
             Payé
         </md-button-toggle>
     </md-button-toggle-group>
-    <md-card class="mt-2">
-        <div class="tasksCount my-3" *ngIf="taskCountByState">
-            <div><span>{{taskCountByState[0]}}</span> Tâches restantes</div>
-            <div><span>{{taskCountByState[1]}}</span>Tâche en cours</div>
-            <div><span>{{taskCountByState[2]}}</span>Tâches faites</div>
+    <div class="d-flex mt-2">
+        <div class="grow-1">
+            <div class="one-value-card-wrapper">
+                <app-one-value-card label="Tâches restantes" [value]="taskCountByState[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâche en cours" [value]="taskCountByState[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâches faites" [value]="taskCountByState[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Progression" [value]="project.progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
+            </div>
+            <div class="d-flex mt-2">
+                <app-devis-preview class="grow-1 mr-2" [projectId]="projectId"></app-devis-preview>
+                <app-note-list [projectId]="projectId" class="ml-2"></app-note-list>
+            </div>
         </div>
-    </md-card>
-    <div fxLayout="row">
-        <div fxFlex="70" class="mt-2">
-            <app-devis-preview [projectId]="projectId"></app-devis-preview>
-            <project-history [projectId]="projectId" class="mt-2"></project-history>
-        </div>
-        <div fxFlex="30" class="mt-2 ml-2">
-            <app-note-list [projectId]="projectId"></app-note-list>
-        </div>
+        <project-history [projectId]="projectId" class="ml-2"></project-history>
     </div>
 </div>

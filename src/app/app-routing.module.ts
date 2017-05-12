@@ -4,7 +4,7 @@ import { AuthGuard } from 'app/authentication/guards/auth.guards';
 import { LoginComponent } from 'app/authentication/components/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'project', pathMatch: 'full' },
+  { path: '', redirectTo: '/project', pathMatch: 'full' },
   { path: 'login', component: LoginComponent }
 ];
 

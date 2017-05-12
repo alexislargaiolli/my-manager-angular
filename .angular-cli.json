@@ -18,9 +18,17 @@
         "testTsconfig": "tsconfig.spec.json",
         "prefix": "app",
         "styles": [
+            "styles/reset.css",
+            "styles/utils.scss",
+            "styles/_components.scss",
             "../node_modules/font-awesome/css/font-awesome.min.css",
             "styles.scss"
         ],
+        "stylePreprocessorOptions": {
+            "includePaths": [
+                "styles"
+            ]
+        },
         "scripts": [],
         "environmentSource": "environments/environment.ts",
         "environments": {

@@ -1,8 +1,23 @@
-<nav md-tab-nav-bar>
-    <a md-tab-link [routerLink]="['./dashboard']">Dashboard</a>
-    <a md-tab-link [routerLink]="['./tasks']">Gestion des tâches</a>
-    <a md-tab-link [routerLink]="['./devis']">Devis</a>
-    <a md-tab-link [routerLink]="['./invoices']">Factures</a>
-    <a md-tab-link [routerLink]="['./settings']">Options</a>
-</nav>
+<div class="side-nav-bar">
+    <a [routerLink]="['./dashboard']" routerLinkActive="active" title="Dashboard">
+        <md-icon>dashboard</md-icon>
+        <span>Dashboard</span>
+    </a>
+    <a [routerLink]="['./tasks']" routerLinkActive="active" title="Gestion des tâches">
+        <md-icon>list</md-icon>
+        <span>Tâches</span>
+    </a>
+    <a [routerLink]="['./devis']" routerLinkActive="active" title="Devis">
+        <md-icon>assignment</md-icon>
+        <span>Devis</span>
+    </a>
+    <a [routerLink]="['./invoices']" routerLinkActive="active" title="Factures">
+        <md-icon>monetization_on</md-icon>
+        <span>Factures</span>
+    </a>
+    <a [routerLink]="['./settings']" routerLinkActive="active" title="Options">
+        <md-icon>settings</md-icon>
+        <span>Options</span>
+    </a>
+</div>
 <router-outlet></router-outlet>

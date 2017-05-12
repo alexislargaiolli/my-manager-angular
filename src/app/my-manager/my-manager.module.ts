@@ -43,6 +43,7 @@ import { UserProfilComponent } from 'app/my-manager/components/common/user-profi
 import { UserProfilGeneralComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-general/user-profil-general.component';
 import { UserProfilPasswordComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-password/user-profil-password.component';
 import { DevisPreviewComponent } from 'app/my-manager/components/project/common/devis-preview/devis-preview.component';
+import { OneValueCardComponent } from "app/my-manager/components/project/common/one-value-card/one-value-card.component";
 
 @NgModule({
   imports: [
@@ -83,7 +84,8 @@ import { DevisPreviewComponent } from 'app/my-manager/components/project/common/
     UserProfilGeneralComponent,
     UserProfilPasswordComponent,
     DevisPreviewComponent,
-    DevisStatePipe
+    DevisStatePipe,
+    OneValueCardComponent
   ],
   providers: [
     ClientService,

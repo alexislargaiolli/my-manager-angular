@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Devis } from 'app/my-manager/model/devis.model';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
 import { DevisService } from 'app/my-manager/services/devis.service';
 import { ActivatedRoute } from '@angular/router';
+import { slideInDownAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-devis',
   templateUrl: './project-devis.component.html',
-  styleUrls: ['./project-devis.component.css']
+  styleUrls: ['./project-devis.component.scss'],
+  animations: [slideInDownAnimation]
 })
 export class ProjectDevisComponent implements OnInit {
-
+  @HostBinding('@routeAnimation') routeAnimation = true;
   public devis = [];
   public loading = false;
   public projectId: number;

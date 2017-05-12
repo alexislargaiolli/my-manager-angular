@@ -5,11 +5,32 @@ import { Component, OnInit } from '@angular/core';
 import { HistoryEntryService } from 'app/my-manager/services/history.service';
 import { GenericProjectListComponent } from 'app/my-manager/components/common/generic-project-list.component';
 import { HistoryEntry } from 'app/my-manager/model/historyentry.model';
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: 'project-history',
   templateUrl: './project-history.component.html',
-  styleUrls: ['./project-history.component.scss']
+  styleUrls: ['./project-history.component.scss'],
+  animations: [
+    trigger('itemState', [
+      state('*', style({
+        transform: 'scale(1)',
+      })),
+      transition(':enter', [
+        style({
+          transform: 'scale(0)'
+        }),
+        animate('250ms ease-out')
+
+      ]),
+      transition(':leave', [
+        animate('250ms ease-in',
+          style({
+            transform: 'scale(0)',
+          }))
+      ])
+    ])
+  ]
 })
 export class ProjectHistoryComponent extends GenericProjectListComponent<HistoryEntry> implements OnInit {
 
@@ -42,6 +63,10 @@ export class ProjectHistoryComponent extends GenericProjectListComponent<History
         this.selected.date = new Date(elt.date);
       }
     }
+  }
+
+  public itemState(elt: HistoryEntry) {
+    return this.selected && this.selected === elt ? 'active' : 'inactive';
   }
 
   protected onElementCreated(elt: HistoryEntry) {
