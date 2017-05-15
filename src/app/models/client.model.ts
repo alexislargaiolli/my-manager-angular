@@ -1,4 +1,4 @@
-import { IModel } from 'app/core';
+import { IModel } from 'app/modules/core';
 import { Address } from './address.model';
 
 export class Client implements IModel {

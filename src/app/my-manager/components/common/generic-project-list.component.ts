@@ -3,7 +3,7 @@ import { log } from 'util';
 import { NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { IModel } from 'app/core';
+import { IModel } from 'app/modules/core';
 import { GenericProjectModelService } from 'app/my-manager/services/generic.project-model-service';
 
 export abstract class GenericProjectListComponent<T extends IModel> implements OnInit {

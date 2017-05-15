@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Project, Task, TaskState } from 'app/models';
-import { ErrorService } from 'app/core/services/error.service';
-import { EventsService } from 'app/core/services/event.service';
-import { CurrentSession } from 'app/core/services/session.service';
-import { GenericService } from 'app/core/services/generic.service';
 import { Observable } from 'rxjs/Observable';
+import { Project, Task, TaskState } from 'app/models';
+import { ErrorService, EventsService, CurrentSession, GenericService } from 'app/modules/core';
 
 @Injectable()
 export class ProjectService extends GenericService<Project> {

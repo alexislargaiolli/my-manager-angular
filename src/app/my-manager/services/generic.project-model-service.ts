@@ -4,8 +4,8 @@ import { Project } from 'app/models';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { IModel } from 'app/core';
-import { GenericService } from 'app/core/services/generic.service';
+import { IModel } from 'app/modules/core';
+import { GenericService } from 'app/modules/core';
 
 /**
  * Generic service for project child model

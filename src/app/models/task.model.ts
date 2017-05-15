@@ -1,4 +1,4 @@
-import { IModel } from 'app/core';
+import { IModel } from 'app/modules/core';
 
 export class Task implements IModel {
     public id: number;

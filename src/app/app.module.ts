@@ -1,13 +1,16 @@
-import {ClientModule} from './client/client.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CoreModule } from 'app/core/core.module';
-import { AuthenticationModule } from 'app/auth/authentication.module';
-import { MyManagerModule } from 'app/my-manager/my-manager.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './modules/core/core.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ClientModule } from './modules/client/client.module';
+import { LayoutModule } from './modules/layout/layout.module';
+import { UserProfileModule } from './modules/user-profile/user-profile.module';
+import { MyManagerModule } from './my-manager/my-manager.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AppSettings } from 'app/app-settings';
+import { AppSettings } from './app-settings';
+import { AppComponent } from './root-component/app.component';
+
 
 @NgModule({
   declarations: [
@@ -21,8 +24,10 @@ import { AppSettings } from 'app/app-settings';
       loginEndpoint: AppSettings.LOGIN_ENDPOINT,
       logoutEndpoint: AppSettings.LOGOUT_ENDPOINT
     }),
-    AuthenticationModule,
+    LayoutModule,
+    AuthModule,
     ClientModule,
+    UserProfileModule,
     MyManagerModule,
     AppRoutingModule
   ],

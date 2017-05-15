@@ -3,11 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output, HostBinding } from '@angular/core';
 import { IMyOptions, IMyDateModel } from 'mydatepicker';
-import { DialogsService } from 'app/core';
+import { DialogsService, NotificationService } from 'app/modules/core';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { Project } from 'app/models';
-import { DateUtils } from 'app/shared/utils/date.utils';
-import { NotificationService } from 'app/core/services/notification.service';
+import { DateUtils } from 'app/modules/shared';
 import { slideInDownAnimation } from 'app/animations';
 
 @Component({

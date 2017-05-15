@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { GenericProjectModelService } from './generic.project-model-service';
-import { ErrorService } from 'app/core/services/error.service';
-import { EventsService } from 'app/core/services/event.service';
-import { CurrentSession } from 'app/core/services/session.service';
+import { ErrorService, EventsService, CurrentSession } from 'app/modules/core';
 import { Devis } from 'app/models';
 
 @Injectable()

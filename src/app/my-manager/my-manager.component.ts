@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentSession } from 'app/core/services/session.service';
+import { CurrentSession } from 'app/modules/core';
 
 @Component({
   selector: 'app-my-manager',

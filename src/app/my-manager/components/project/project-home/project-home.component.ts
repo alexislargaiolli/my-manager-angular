@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoriesService } from 'app/core/services/repositories/repositories.service';
+import { RepositoriesService, CurrentSession } from 'app/modules/core';
 import { Project } from 'app/models';
-import { User } from 'app/core/models/user.model';
-import { CurrentSession } from 'app/core/services/session.service';
+import { User } from 'app/modules/core/models/user.model';
 import { Client } from 'app/models';
 import { Address } from 'app/models';
 

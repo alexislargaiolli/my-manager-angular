@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Devis, DevisState } from 'app/models';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Devis, DevisState } from 'app/models';
+import { NotificationService, DialogsService } from 'app/modules/core';
 import { DevisService } from 'app/my-manager/services/devis.service';
-import { NotificationService } from 'app/core/services/notification.service';
-import { DialogsService } from 'app/core';
 
 @Component({
   selector: 'app-project-devis-edition',
