@@ -27,6 +27,11 @@ export class RepositoryRequest<T> {
         return this;
     }
 
+    public disableAuth(): RepositoryRequest<T> {
+        this.options.headers.delete('Authorization');
+        return this;
+    }
+
     public exec(): Observable<any> {
         return this.repositoriesService.execute(this);
     }

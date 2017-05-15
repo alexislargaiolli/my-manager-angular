@@ -30,8 +30,8 @@ export class ProjectHomeComponent implements OnInit {
     //   console.log(user);
     // });
 
-    this.repositoriesService.get(Address.name, null).by(Client.name, 4).auth(token).exec().subscribe(client => {
-      console.log(client);
+    this.repositoriesService.get(Address.name, null).by(Client.name, 4).exec().subscribe(client => {
+      console.table(client);
     });
   }
 

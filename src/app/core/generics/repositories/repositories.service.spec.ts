@@ -1,8 +1,6 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, async, inject } from '@angular/core/testing';
 import { RepositoriesService } from './repositories.service';
-import { Model } from "app/core/generics/models/abstract.model";
+import { IModel } from 'app/core/generics/models/generic.model';
 
 describe('Service: Repositories', () => {
   beforeEach(() => {

@@ -6,12 +6,22 @@ import { AppSettings } from 'app/app-settings';
 import { RepositoryRequest } from 'app/core/generics/repositories/repository-request';
 import { ErrorService } from 'app/core/services/error.service';
 import { BaseHttpService } from 'app/core/generics/repositories/base-http.service';
+import { EventsService, AppEvent } from 'app/core/services/event.service';
+import { UserSession } from 'app/core/models/user-session.model';
 
 @Injectable()
 export class RepositoriesService {
     private manageClasses: Map<string, string> = new Map();
+    private authToken: string;
 
-    constructor(protected http: Http, private baseHttpService: BaseHttpService) { }
+    constructor(protected http: Http, private baseHttpService: BaseHttpService, private eventsService: EventsService) {
+        eventsService.on(AppEvent.AUTHENTICATION_SUCCESS, (session: UserSession) => {
+            this.authToken = session.token;
+        });
+        eventsService.on(AppEvent.LOGGED_OUT, (session: UserSession) => {
+            this.authToken = null;
+        });
+    }
 
     public addManageClass(className: string, apiUrl: string) {
         this.manageClasses.set(className, apiUrl);
@@ -53,6 +63,9 @@ export class RepositoriesService {
     private createBaseRequest<T extends IModel>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
+        if (this.authToken) {
+            request.auth(this.authToken);
+        }
         if (!request.url) {
             throw new Error('Try to use respositories with a non register model. Don\'t forget to register all model with addManageClass.');
         }
