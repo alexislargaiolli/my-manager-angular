@@ -8,7 +8,7 @@
                 <h3 md-line> {{client.name}} </h3>
             </md-list-item>
         </md-list>
-        <client-create (onCreated)="onClientCreated($event)" *ngIf="createFormDisplayed"></client-create>
+        <!--<client-create (onCreated)="onClientCreated($event)" *ngIf="createFormDisplayed"></client-create>-->
         <md-list *ngIf="addListDisplayed">
             <md-list-item *ngFor="let client of allClients" (click)="importClient(client)" class="selectable">
                 <md-icon md-list-icon>person_add</md-icon>

@@ -15,13 +15,9 @@ import { ProjectDetailComponent } from 'app/my-manager/components/project/projec
 import { ProjectTaskComponent } from 'app/my-manager/components/project/project-detail/project-task/project-task.component';
 import { ProjectSettingsComponent } from 'app/my-manager/components/project/project-detail/project-settings/project-settings.component';
 import { NoteListComponent } from 'app/my-manager/components/project/common/note-list/note-list.component';
-import { ClientDetailComponent } from 'app/my-manager/components/client/client-detail/client-detail.component';
-import { ClientListComponent } from 'app/my-manager/components/client/client-list/client-list.component';
-import { ClientComponent } from 'app/my-manager/components/client/home/client.component';
 import { ProjectGainsComponent } from 'app/my-manager/components/project/common/project-gains/project-gains.component';
 import { ProjectClientComponent } from 'app/my-manager/components/project/common/project-client/project-client.component';
 import { GainListComponent } from 'app/my-manager/components/project/common/gain-list/gain-list.component';
-import { ClientCreateComponent } from 'app/my-manager/components/client/client-create/client-create.component';
 import { ProjectHistoryComponent } from 'app/my-manager/components/project/common/project-history/project-history.component';
 import { MyManagerRoutingModule } from 'app/my-manager/my-manager-routing';
 import { SharedModule } from 'app/shared/shared.module';
@@ -36,14 +32,12 @@ import { ProjectInvoiceComponent } from 'app/my-manager/components/project/proje
 import { ProjectDevisComponent } from 'app/my-manager/components/project/project-detail/project-devis/project-devis.component';
 import { ProjectDevisEditionComponent } from 'app/my-manager/components/project/project-detail/project-devis/project-devis-edition/project-devis-edition.component';
 import { DevisService } from 'app/my-manager/services/devis.service';
-import { AddressListComponent } from 'app/my-manager/components/common/address-list/address-list.component';
-import { AddressPipe } from 'app/my-manager/components/common/address.pipe';
 import { DevisStatePipe } from 'app/my-manager/components/common/devisState.pipe';
 import { UserProfilComponent } from 'app/my-manager/components/common/user-profil/user-profil.component';
 import { UserProfilGeneralComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-general/user-profil-general.component';
 import { UserProfilPasswordComponent } from 'app/my-manager/components/common/user-profil/children/user-profil-password/user-profil-password.component';
 import { DevisPreviewComponent } from 'app/my-manager/components/project/common/devis-preview/devis-preview.component';
-import { OneValueCardComponent } from "app/my-manager/components/project/common/one-value-card/one-value-card.component";
+import { OneValueCardComponent } from 'app/my-manager/components/project/common/one-value-card/one-value-card.component';
 
 @NgModule({
   imports: [
@@ -65,21 +59,15 @@ import { OneValueCardComponent } from "app/my-manager/components/project/common/
     ProjectTaskComponent,
     ProjectSettingsComponent,
     ProjectGainsComponent,
-    ClientComponent,
-    ClientListComponent,
-    ClientDetailComponent,
     NoteListComponent,
     GainListComponent,
     ProjectClientComponent,
-    ClientCreateComponent,
     ProjectHistoryComponent,
     MyManagerComponent,
     ProjectDashboardComponent,
     ProjectDevisComponent,
     ProjectInvoiceComponent,
     ProjectDevisEditionComponent,
-    AddressListComponent,
-    AddressPipe,
     UserProfilComponent,
     UserProfilGeneralComponent,
     UserProfilPasswordComponent,

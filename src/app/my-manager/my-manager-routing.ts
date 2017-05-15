@@ -1,4 +1,3 @@
-import { ClientComponent } from './components/client/home/client.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProjectHomeComponent } from './components/project/project-home/project-home.component';
 import { ProjectDetailComponent } from './components/project/project-detail/project-detail.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
           { path: 'password', component: UserProfilPasswordComponent, canActivate: [AuthGuard] },
         ]
       },
-      { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
       { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard] },
       {
         path: 'project/:projectId', component: ProjectDetailComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Address } from 'app/models';
 import { NgForm } from '@angular/forms';
+import { Address } from 'app/models';
 
 @Component({
   selector: 'app-address-list',

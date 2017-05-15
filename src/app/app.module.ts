@@ -1,3 +1,4 @@
+import {ClientModule} from './client/client.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from 'app/core/core.module';
@@ -21,6 +22,7 @@ import { AppSettings } from 'app/app-settings';
       logoutEndpoint: AppSettings.LOGOUT_ENDPOINT
     }),
     AuthenticationModule,
+    ClientModule,
     MyManagerModule,
     AppRoutingModule
   ],

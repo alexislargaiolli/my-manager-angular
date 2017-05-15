@@ -11,12 +11,20 @@ import {
   MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddressPipe } from './utils/address.pipe';
+import { AddressListComponent } from './components/address-list/address-list.component';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    MdInputModule,
+    MdIconModule,
+    MdButtonModule
   ],
   declarations: [
-    KeysPipe
+    KeysPipe,
+    AddressListComponent,
+    AddressPipe
   ],
   exports: [
     CommonModule,
@@ -39,7 +47,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MdToolbarModule,
     MdProgressSpinnerModule,
     MdSlideToggleModule,
-    MdRadioModule
+    MdRadioModule,
+    AddressListComponent,
+    AddressPipe
   ]
 })
 export class SharedModule { }
