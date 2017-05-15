@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GenericProjectListComponent } from 'app/my-manager/components/common/generic-project-list.component';
-import { Gain } from 'app/my-manager/model/gain.model';
+import { Gain } from 'app/models';
 import { GainService } from 'app/my-manager/services/gain.service';
 
 @Component({

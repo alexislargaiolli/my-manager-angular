@@ -1,4 +1,4 @@
-import { IModel } from 'app/core/generics/models/generic.model';
+import { IModel } from 'app/core';
 
 export class Gain implements IModel {
     public id: number;

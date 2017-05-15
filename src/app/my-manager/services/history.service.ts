@@ -1,4 +1,4 @@
-import { HistoryEntry } from './../model/historyentry.model';
+import { HistoryEntry } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Response } from '@angular/http';
 import { GenericProjectModelService } from './generic.project-model-service';

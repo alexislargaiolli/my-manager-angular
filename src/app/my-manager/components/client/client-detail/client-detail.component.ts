@@ -1,8 +1,8 @@
-import { Client } from 'app/my-manager/model/client.model';
+import { Client } from 'app/models';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Address } from 'app/my-manager/model/address.model';
-import { ClientService } from "app/my-manager/services/client.service";
-import { ModelUtils } from "app/core/generics/models/model.utils";
+import { Address } from 'app/models';
+import { ClientService } from 'app/my-manager/services/client.service';
+import { ModelUtils } from 'app/core';
 
 @Component({
   selector: 'client-detail',

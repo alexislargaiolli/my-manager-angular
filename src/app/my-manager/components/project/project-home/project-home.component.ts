@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoriesService } from 'app/core/generics/repositories/repositories.service';
-import { Project } from 'app/my-manager/model/project.model';
+import { RepositoriesService } from 'app/core/services/repositories/repositories.service';
+import { Project } from 'app/models';
 import { User } from 'app/core/models/user.model';
 import { CurrentSession } from 'app/core/services/session.service';
-import { Client } from 'app/my-manager/model/client.model';
-import { Address } from 'app/my-manager/model/address.model';
+import { Client } from 'app/models';
+import { Address } from 'app/models';
 
 @Component({
   selector: 'project-home',

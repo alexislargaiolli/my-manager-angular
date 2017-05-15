@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Devis } from 'app/my-manager/model/devis.model';
+import { Devis } from 'app/models';
 
 @Injectable()
 export class NavigationService {

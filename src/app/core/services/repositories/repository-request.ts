@@ -1,7 +1,8 @@
 import { RequestOptions, RequestMethod, Http, Headers } from '@angular/http';
-import { RepositoriesService } from 'app/core/generics/repositories/repositories.service';
+import { RepositoriesService } from 'app/core/services/repositories/repositories.service';
 import { Observable } from 'rxjs/Observable';
 import { Injector } from '@angular/core';
+import { User } from 'app/core/models/user.model';
 
 export class RepositoryRequest<T> {
     url: string;
@@ -19,6 +20,14 @@ export class RepositoryRequest<T> {
     public by(className: string, id: number): RepositoryRequest<T> {
         const prefix = this.repositoriesService.getApiUrl(className);
         this.url = `${prefix}/${id}/${this.url}`;
+        return this;
+    }
+
+    public byCurrentUser(): RepositoryRequest<T> {
+        if (this.repositoriesService.session) {
+            const prefix = this.repositoriesService.getApiUrl(User.name);
+            this.url = `${prefix}/${this.repositoriesService.session.userId}/${this.url}`;
+        }
         return this;
     }
 

@@ -1,5 +1,5 @@
 import { Client } from './client.model';
-import { IModel } from 'app/core/generics/models/generic.model';
+import { IModel } from 'app/core';
 
 export class Project implements IModel {
     public id: number;

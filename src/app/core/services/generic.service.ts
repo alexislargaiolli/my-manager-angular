@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AppSettings } from 'app/app-settings';
+import { IModel } from 'app/core';
 import { CurrentSession } from 'app/core/services/session.service';
-import { IModel } from 'app/core/generics/models/generic.model';
 import { EventsService } from 'app/core/services/event.service';
 import { ErrorService } from 'app/core/services/error.service';
-import { BasicService } from 'app/core/generics/services/base.service';
+import { BasicService } from 'app/core/services/base.service';
 
 export abstract class GenericService<T extends IModel> extends BasicService<T> {
 

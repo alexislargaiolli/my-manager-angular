@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DevisState } from 'app/my-manager/model/devis.model';
+import { DevisState } from 'app/models';
 
 @Pipe({
   name: 'devisState'

@@ -1,4 +1,4 @@
-import { Client } from './../model/client.model';
+import { Client } from 'app/models';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
@@ -6,7 +6,7 @@ import { ErrorService } from 'app/core/services/error.service';
 import { EventsService } from 'app/core/services/event.service';
 import { CurrentSession } from 'app/core/services/session.service';
 import { GenericProjectModelService } from 'app/my-manager/services/generic.project-model-service';
-import { Address } from "app/my-manager/model/address.model";
+import { Address } from 'app/models';
 
 @Injectable()
 export class ClientService extends GenericProjectModelService<Client> {

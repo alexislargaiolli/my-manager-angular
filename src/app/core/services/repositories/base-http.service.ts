@@ -1,9 +1,9 @@
 import { Injectable, Optional } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ErrorService } from 'app/core/services/error.service';
-import { AppSettings } from 'app/app-settings';
 import { RequestMethod, Http, Response } from '@angular/http';
-import { BackendConfig } from 'app/core/interfaces/backend.config';
+import { Observable } from 'rxjs/Observable';
+import { AppSettings } from 'app/app-settings';
+import { BackendConfig } from 'app/core/models/backend.config';
+import { ErrorService } from 'app/core/services/error.service';
 
 @Injectable()
 export class BaseHttpService {

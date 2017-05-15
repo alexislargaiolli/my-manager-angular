@@ -1,5 +1,5 @@
-import { IModel } from 'app/core/generics/models/generic.model';
-import { Address } from 'app/my-manager/model/address.model';
+import { IModel } from './generic.model';
+import { Address } from 'app/models';
 
 export class User implements IModel {
     public id: number;

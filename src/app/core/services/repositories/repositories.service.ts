@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { RequestMethod, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { IModel } from 'app/core/generics/models/generic.model';
+import { IModel } from 'app/core';
 import { AppSettings } from 'app/app-settings';
-import { RepositoryRequest } from 'app/core/generics/repositories/repository-request';
+import { RepositoryRequest } from './repository-request';
 import { ErrorService } from 'app/core/services/error.service';
-import { BaseHttpService } from 'app/core/generics/repositories/base-http.service';
+import { BaseHttpService } from 'app/core/services/repositories/base-http.service';
 import { EventsService, AppEvent } from 'app/core/services/event.service';
 import { UserSession } from 'app/core/models/user-session.model';
 
 @Injectable()
 export class RepositoriesService {
     private manageClasses: Map<string, string> = new Map();
-    private authToken: string;
+    private _session: UserSession;
 
     constructor(protected http: Http, private baseHttpService: BaseHttpService, private eventsService: EventsService) {
         eventsService.on(AppEvent.AUTHENTICATION_SUCCESS, (session: UserSession) => {
-            this.authToken = session.token;
+            this._session = session;
         });
         eventsService.on(AppEvent.LOGGED_OUT, (session: UserSession) => {
-            this.authToken = null;
+            this._session = null;
         });
     }
 
@@ -29,6 +29,13 @@ export class RepositoriesService {
 
     public getApiUrl(className: string): string {
         return this.manageClasses.get(className);
+    }
+
+    public save<T extends IModel>(className: string, body: any): RepositoryRequest<T> {
+        if (body['id']) {
+            return this.update<T>(className, body);
+        }
+        return this.create<T>(className, body);
     }
 
     public create<T extends IModel>(className: string, body: any): RepositoryRequest<T> {
@@ -63,8 +70,8 @@ export class RepositoriesService {
     private createBaseRequest<T extends IModel>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
-        if (this.authToken) {
-            request.auth(this.authToken);
+        if (this._session) {
+            request.auth(this._session.token);
         }
         if (!request.url) {
             throw new Error('Try to use respositories with a non register model. Don\'t forget to register all model with addManageClass.');
@@ -95,5 +102,9 @@ export class RepositoriesService {
         }
 
         return this.baseHttpService.handleResponse(res);
+    }
+
+    public get session(): UserSession {
+        return this._session;
     }
 }

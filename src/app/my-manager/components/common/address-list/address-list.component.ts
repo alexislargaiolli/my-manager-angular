@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Address } from 'app/my-manager/model/address.model';
+import { Address } from 'app/models';
 import { NgForm } from '@angular/forms';
 
 @Component({

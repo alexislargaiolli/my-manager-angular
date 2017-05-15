@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DevisService } from 'app/my-manager/services/devis.service';
-import { Devis } from "app/my-manager/model/devis.model";
+import { Devis } from 'app/models';
 
 @Component({
   selector: 'app-devis-preview',

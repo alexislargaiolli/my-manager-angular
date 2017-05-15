@@ -3,7 +3,7 @@ import { Component, OnInit, Inject, Input, HostBinding } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Task, TaskState, TaskKaban } from 'app/my-manager/model/task.model';
+import { Task, TaskState, TaskKaban } from 'app/models';
 import { TaskService } from 'app/my-manager/services/task.service';
 import { slideInDownAnimation } from 'app/animations';
 

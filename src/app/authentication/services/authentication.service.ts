@@ -3,12 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AppSettings } from 'app/app-settings';
-import { NotificationService } from 'app/core/services/notification.service';
-import { EventsService } from 'app/core/services/event.service';
-import { CurrentSession } from 'app/core/services/session.service';
-import { BaseHttpService } from 'app/core/generics/repositories/base-http.service';
-import { ErrorService } from 'app/core/services/error.service';
-import { BackendConfig } from 'app/core/interfaces/backend.config';
+import { NotificationService, EventsService, CurrentSession, BaseHttpService, ErrorService, BackendConfig } from 'app/core';
 
 @Injectable()
 export class AuthenticationService {

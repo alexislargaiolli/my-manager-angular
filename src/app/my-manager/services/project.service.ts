@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Project } from '../model/project.model';
-import { Task, TaskState } from '../model/task.model';
+import { Project, Task, TaskState } from 'app/models';
 import { ErrorService } from 'app/core/services/error.service';
 import { EventsService } from 'app/core/services/event.service';
 import { CurrentSession } from 'app/core/services/session.service';
-import { GenericService } from 'app/core/generics/services/generic.service';
+import { GenericService } from 'app/core/services/generic.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { GenericProjectModelService } from './generic.project-model-service';
 import { ErrorService } from 'app/core/services/error.service';
 import { EventsService } from 'app/core/services/event.service';
 import { CurrentSession } from 'app/core/services/session.service';
-import { Devis } from 'app/my-manager/model/devis.model';
+import { Devis } from 'app/models';
 
 @Injectable()
 export class DevisService extends GenericProjectModelService<Devis> {

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HistoryEntryService } from 'app/my-manager/services/history.service';
 import { GenericProjectListComponent } from 'app/my-manager/components/common/generic-project-list.component';
-import { HistoryEntry } from 'app/my-manager/model/historyentry.model';
+import { HistoryEntry } from 'app/models';
 import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({

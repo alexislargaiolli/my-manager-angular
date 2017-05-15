@@ -1,4 +1,4 @@
-import { Client } from 'app/my-manager/model/client.model';
+import { Client } from 'app/models';
 import { ClientService } from 'app/my-manager/services/client.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';

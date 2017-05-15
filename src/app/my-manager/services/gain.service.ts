@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Gain } from '../model/gain.model';
+import { Gain } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { GenericProjectModelService } from './generic.project-model-service';

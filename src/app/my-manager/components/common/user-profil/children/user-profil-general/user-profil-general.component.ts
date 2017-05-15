@@ -1,8 +1,10 @@
+import { RepositoriesService } from 'app/core/services/repositories/repositories.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'app/core/services/user.service';
+
 import { CurrentSession } from 'app/core/services/session.service';
-import { Address } from 'app/my-manager/model/address.model';
-import { ModelUtils } from 'app/core/generics/models/model.utils';
+import { Address } from 'app/models';
+import { ModelUtils } from 'app/core';
+import { User } from 'app/core/models/user.model';
 
 @Component({
   selector: 'app-user-profil-general',
@@ -13,23 +15,23 @@ export class UserProfilGeneralComponent implements OnInit {
 
   public addresses: Address[] = [];
 
-  constructor(private currentSession: CurrentSession, private userService: UserService) { }
+  constructor(private currentSession: CurrentSession, private repo: RepositoriesService) { }
 
   ngOnInit() {
-    this.userService.getAddresses(this.currentSession.userId).subscribe(addresses => {
+    this.repo.get<Address>(Address.name, null).byCurrentUser().exec().subscribe(addresses => {
       this.addresses = addresses;
     });
   }
 
   public saveAddress(address: Address) {
-    this.userService.saveAddress(this.currentSession.userId, address).subscribe(a => {
+    this.repo.save(Address.name, address).byCurrentUser().exec().subscribe(a => {
       ModelUtils.addOrUpdate(this.addresses, a);
     });
   }
 
   public deleteAddress(address: Address) {
-    this.userService.deleteAddress(this.currentSession.userId, address).subscribe(a => {
-      ModelUtils.remove(this.addresses, address);
+    this.repo.delete(Address.name, address.id).byCurrentUser().exec().subscribe(a => {
+      ModelUtils.remove(this.addresses, a);
     });
   }
 

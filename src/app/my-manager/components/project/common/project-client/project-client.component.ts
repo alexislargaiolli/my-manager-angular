@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { ClientService } from 'app/my-manager/services/client.service';
-import { Client } from 'app/my-manager/model/client.model';
+import { Client } from 'app/models';
 
 @Component({
   selector: 'project-client',

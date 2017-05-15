@@ -4,10 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AppSettings } from 'app/app-settings';
-import { CurrentSession } from 'app/core/services/session.service';
-import { IModel } from 'app/core/generics/models/generic.model';
-import { EventsService } from 'app/core/services/event.service';
-import { ErrorService } from 'app/core/services/error.service';
+import { IModel, EventsService, ErrorService, CurrentSession } from 'app/core';
 
 export abstract class BasicService<T extends IModel> {
 

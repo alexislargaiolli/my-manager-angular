@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { Devis } from 'app/my-manager/model/devis.model';
+import { Devis } from 'app/models';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
 import { DevisService } from 'app/my-manager/services/devis.service';
 import { ActivatedRoute } from '@angular/router';

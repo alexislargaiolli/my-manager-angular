@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Project, ProjectState } from 'app/my-manager/model/project.model';
+import { Project, ProjectState } from 'app/models';
 import { ProjectService } from 'app/my-manager/services/project.service';
 
 @Component({

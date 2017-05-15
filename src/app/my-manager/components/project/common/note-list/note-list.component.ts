@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GenericProjectListComponent } from 'app/my-manager/components/common/generic-project-list.component';
 import { NoteService } from 'app/my-manager/services/note.service';
-import { Note, NotePriority } from 'app/my-manager/model/note.model';
+import { Note, NotePriority } from 'app/models';
 
 @Component({
   selector: 'app-note-list',

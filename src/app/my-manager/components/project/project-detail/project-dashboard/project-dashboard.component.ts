@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { Project } from 'app/my-manager/model/project.model';
-import { TaskState } from 'app/my-manager/model/task.model';
+import { Project } from 'app/models';
+import { TaskState } from 'app/models';
 import { ProjectService } from 'app/my-manager/services/project.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { slideInDownAnimation } from 'app/animations';
