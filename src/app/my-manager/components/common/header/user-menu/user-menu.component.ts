@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentSession } from 'app/core/services/session.service';
-import { AuthenticationService } from 'app/authentication/services/authentication.service';
+import { AuthenticationService } from 'app/auth';
 import { NotificationService } from 'app/core/services/notification.service';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
 

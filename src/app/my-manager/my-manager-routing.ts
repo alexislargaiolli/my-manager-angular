@@ -4,8 +4,8 @@ import { ProjectHomeComponent } from './components/project/project-home/project-
 import { ProjectDetailComponent } from './components/project/project-detail/project-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'app/authentication/guards/auth.guards';
-import { LoginComponent } from 'app/authentication/components/login/login.component';
+import { AuthGuard } from 'app/auth';
+import { LoginComponent } from 'app/auth';
 import { MyManagerComponent } from 'app/my-manager/my-manager.component';
 import { ProjectDashboardComponent } from 'app/my-manager/components/project/project-detail/project-dashboard/project-dashboard.component';
 import { ProjectTaskComponent } from 'app/my-manager/components/project/project-detail/project-task/project-task.component';

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/core/services/notification.service';
-import { AuthenticationService } from 'app/authentication/services/authentication.service';
+import { AuthenticationService } from 'app/auth/services/authentication.service';
 import { NavigationService } from 'app/my-manager/services/navigation.service';
 
 @Component({

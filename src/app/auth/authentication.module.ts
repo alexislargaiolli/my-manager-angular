@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { AuthenticationService } from 'app/authentication/services/authentication.service';
-import { AuthGuard } from 'app/authentication/guards/auth.guards';
-import { LoginComponent } from 'app/authentication/components/login/login.component';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guards';
+import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
