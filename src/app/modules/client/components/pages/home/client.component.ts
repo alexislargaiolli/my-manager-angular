@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Client } from 'app/models';
-import { ClientService } from 'app/my-manager/services/client.service';
+import { ClientService } from '../../../../project/services/client.service';
 import { NotificationService } from 'app/modules/core';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentSession, NotificationService } from 'app/modules/core';
 import { AuthenticationService } from 'app/modules/auth';
-import { NavigationService } from 'app/my-manager/services/navigation.service';
+import { NavigationService } from '../../../../project/services/navigation.service';
 
 @Component({
   selector: 'app-user-menu',

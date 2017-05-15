@@ -1,7 +1,7 @@
 import { Client } from 'app/models';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Address } from 'app/models';
-import { ClientService } from 'app/my-manager/services/client.service';
+import { ClientService } from '../../../../project/services/client.service';
 import { ModelUtils } from 'app/modules/core';
 
 @Component({

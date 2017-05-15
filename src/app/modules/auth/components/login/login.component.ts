@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/modules/core';
-import { NavigationService } from 'app/my-manager/services/navigation.service';
+import { NavigationService } from '../../../project/services/navigation.service';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
