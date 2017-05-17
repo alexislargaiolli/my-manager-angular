@@ -10,6 +10,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppSettings } from './app-settings';
 import { AppComponent } from './root-component/app.component';
+import { StoreModule } from './modules/store/store.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AppComponent } from './root-component/app.component';
       loginEndpoint: AppSettings.LOGIN_ENDPOINT,
       logoutEndpoint: AppSettings.LOGOUT_ENDPOINT
     }),
+    StoreModule,
     LayoutModule,
     AuthModule,
     ClientModule,

@@ -17,7 +17,7 @@ export class AuthenticationService {
         protected baseHttpService: BaseHttpService) {
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(username: string, password: string) {
         const options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -25,33 +25,16 @@ export class AuthenticationService {
         });
         const url = `${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.loginEndpoint}`;
         const body = JSON.stringify({ email: username, password: password });
-        return this.baseHttpService.handleResponse(this.http.post(url, body, options)).map((response: Response) => {
-            // login successful if there's a jwt _token in the response
-            const token = response.json().id;
-            const id = response.json().userId;
-            if (token && id) {
-                this.currentSession.setSession(id, token);
-                // return session to userIndicate successful login
-                return true;
-            } else {
-                this.currentSession.destroySession();
-                // return false to indicate failed login
-                return false;
-            }
-        });
+        return this.baseHttpService.handleResponse(this.http.post(url, body, options));
     }
 
-    logout(): Observable<boolean> {
+    logout() {
         const options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': this.currentSession.token
             })
         });
-        return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {}, options)
-            .map((response: Response) => {
-                this.currentSession.destroySession();
-                return true;
-            });
+        return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {}, options);
     }
 }

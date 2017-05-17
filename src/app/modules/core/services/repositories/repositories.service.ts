@@ -8,19 +8,14 @@ import { ErrorService } from '../error.service';
 import { BaseHttpService } from './base-http.service';
 import { EventsService, AppEvent } from '../event.service';
 import { UserSession } from '../../models/user-session.model';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from "app/modules/store";
 
 @Injectable()
 export class RepositoriesService {
     private manageClasses: Map<string, string> = new Map();
-    private _session: UserSession;
 
-    constructor(protected http: Http, private baseHttpService: BaseHttpService, private eventsService: EventsService) {
-        eventsService.on(AppEvent.AUTHENTICATION_SUCCESS, (session: UserSession) => {
-            this._session = session;
-        });
-        eventsService.on(AppEvent.LOGGED_OUT, (session: UserSession) => {
-            this._session = null;
-        });
+    constructor(protected http: Http, private baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
     }
 
     public addManageClass(className: string, apiUrl: string) {
@@ -70,8 +65,8 @@ export class RepositoriesService {
     private createBaseRequest<T extends IModel>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
-        if (this._session) {
-            request.auth(this._session.token);
+        if (this._ngRedux.getState().session.authenticated) {
+            request.auth(this._ngRedux.getState().session.token);
         }
         if (!request.url) {
             throw new Error('Try to use respositories with a non register model. Don\'t forget to register all model with addManageClass.');
@@ -97,7 +92,7 @@ export class RepositoriesService {
                 res = this.http.get(url, request.options);
                 break;
             case RequestMethod.Delete:
-                res = this.http.get(url, request.options);
+                res = this.http.delete(url, request.options);
                 break;
         }
 
@@ -105,6 +100,6 @@ export class RepositoriesService {
     }
 
     public get session(): UserSession {
-        return this._session;
+        return this._ngRedux.getState().session;
     }
 }

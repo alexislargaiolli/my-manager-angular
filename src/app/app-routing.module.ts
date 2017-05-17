@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './modules/auth';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/project', pathMatch: 'full' },
   { path: 'client', loadChildren: './modules/client/client.module#ClientModule' },
-  { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
-  { path: 'login', component: LoginComponent }
+  { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' }
 ];
 
 @NgModule({

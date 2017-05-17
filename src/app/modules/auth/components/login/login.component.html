@@ -1,14 +1,14 @@
 <md-card>
     <md-card-title>Connexion</md-card-title>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <md-input-container [hidden]="loading">
-            <input mdInput name="username" [(ngModel)]="model.username" placeholder="Nom d'utilisateur" required>
+    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login(loginForm)" [hidden]="loading$ | async">
+        <md-input-container>
+            <input mdInput [ngModel]="'test@test.fr'" name="username" placeholder="Nom d'utilisateur" required>
         </md-input-container>
-        <md-input-container [hidden]="loading">
-            <input mdInput type="password" name="password" [(ngModel)]="model.password" placeholder="Mot de passe" required>
+        <md-input-container>
+            <input mdInput [ngModel]="'password'" name="password" placeholder="Mot de passe" type="password" required>
         </md-input-container>
-        <button md-button [hidden]="loading">Connexion</button>
-        <md-spinner [hidden]="!loading"></md-spinner>
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <button md-button [disabled]="!loginForm.valid">Connexion</button>
     </form>
+    <md-spinner [hidden]="!(loading$ | async)"></md-spinner>
+    <div *ngIf="error$ | async" class="alert alert-danger">{{error$ | async}}</div>
 </md-card>

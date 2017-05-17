@@ -1,45 +1,31 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService } from 'app/modules/core';
 import { NavigationService } from '../../../project/services/navigation.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { SessionActions } from '../../redux/session/session.actions';
+import { select } from '@angular-redux/store';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  model: any = {};
-  loading = false;
-  error = '';
 
-  constructor(
-    private authenticationService: AuthenticationService,
-    private navigationService: NavigationService,
-    private notificationService: NotificationService) { }
+  @select(['session', 'logging_in'])
+  loading$;
 
-  ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
-  }
+  @select(['session', 'error'])
+  error$;
 
-  login() {
-    this.loading = true;
-    this.authenticationService.login(this.model.username, this.model.password)
-      .subscribe(result => {
-        if (result === true) {
-          // login successful
-          this.navigationService.goProjectDashboard();
-        } else {
-          // login failed
-          this.error = 'Username or password is incorrect';
-          this.loading = false;
-        }
-      },
-      err => {
-        this.notificationService.addError(err);
-        this.loading = false;
-      });
+  constructor(private _sessionAction: SessionActions) { }
+
+  ngOnInit() { }
+
+  login(form: NgForm) {
+    this._sessionAction.dispatchLogin(form.value);
   }
 }

@@ -5,6 +5,9 @@ import { UserSession } from '../models/user-session.model';
 import { User } from '../models/user.model';
 import { EventsService, AppEvent } from './event.service';
 import { RepositoriesService } from './repositories/repositories.service';
+import { NgRedux } from '@angular-redux/store';
+import { getTestBed } from '@angular/core/testing';
+import { IAppState } from 'app/modules/store';
 
 @Injectable()
 export class CurrentSession {
@@ -12,7 +15,7 @@ export class CurrentSession {
     private session: UserSession;
     public authenticated: Promise<boolean>;
 
-    constructor(private eventsService: EventsService, private repo: RepositoriesService) { }
+    constructor(private eventsService: EventsService, private repo: RepositoriesService, private _ngRedux: NgRedux<IAppState>) { }
 
     initialize() {
         const session = localStorage.getItem('currentSession');
@@ -27,20 +30,20 @@ export class CurrentSession {
     }
 
     public setSession(userId: number, token: string) {
-        this.session = new UserSession(userId, token);
-        // store username and jwt _token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentSession', JSON.stringify(this.session));
-        this.authenticated = Promise.resolve(true);
-        this.eventsService.broadcast(AppEvent.AUTHENTICATION_SUCCESS, this.session);
+        // this.session = new UserSession(userId, token);
+        // // store username and jwt _token in local storage to keep user logged in between page refreshes
+        // localStorage.setItem('currentSession', JSON.stringify(this.session));
+        // this.authenticated = Promise.resolve(true);
+        // this.eventsService.broadcast(AppEvent.AUTHENTICATION_SUCCESS, this.session);
 
-        this.retriveUserInfo().then(u => { });
+        // this.retriveUserInfo().then(u => { });
     }
 
     public destroySession() {
-        this.session = null;
-        localStorage.removeItem('currentSession');
-        this.authenticated = Promise.resolve(false);
-        this.eventsService.broadcast(AppEvent.LOGGED_OUT);
+        // this.session = null;
+        // localStorage.removeItem('currentSession');
+        // this.authenticated = Promise.resolve(false);
+        // this.eventsService.broadcast(AppEvent.LOGGED_OUT);
     }
 
     private retriveUserInfo(): Promise<any> {
@@ -50,22 +53,22 @@ export class CurrentSession {
     }
 
     get token() {
-        return this.session != null ? this.session.token : null;
+        return this._ngRedux.getState().session.token;
     }
 
     get userId() {
-        return this.session != null ? this.session.userId : null;
+        return this._ngRedux.getState().session.userId;
     }
 
     get username() {
-        return this.session != null && this.session.user != null ? this.session.user.username : null;
+        return this._ngRedux.getState().session.user.username;
     }
 
     get user() {
-        return this.session != null ? this.session.user : null;
+        return this._ngRedux.getState().session.user;
     }
 
     get userSession(): UserSession {
-        return this.session;
+        return this._ngRedux.getState().session;
     }
 }
