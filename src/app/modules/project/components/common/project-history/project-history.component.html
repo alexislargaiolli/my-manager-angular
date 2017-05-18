@@ -1,17 +1,17 @@
 <div>
     <h2 class="panel-header">Activités</h2>
-    <form #historyForm="ngForm" (ngSubmit)="create(historyForm)" class="list-create-form">
+    <form #historyForm="ngForm" (ngSubmit)="createEntry(historyForm.value)" class="list-create-form">
         <md-input-container>
             <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
         </md-input-container>
         <button md-button type="submit"><md-icon>add</md-icon></button>
     </form>
-    <p *ngIf="elements.length == 0">Aucun historique...</p>
+    <p *ngIf="(historyEntries$ | async)?.length == 0">Aucun historique...</p>
 </div>
 <div>
-    <div *ngFor="let entry of elements" (click)="select(entry)" class="history-item selectable" [ngClass]="{'selected-item': selected?.id == entry.id}">
+    <div *ngFor="let entry of (historyEntries$ | async)" class="history-item selectable">
 
-        <div *ngIf="selected?.id == entry.id" class="update-form-wrapper" [@itemState]="true">
+        <!--<div *ngIf="selected?.id == entry.id" class="update-form-wrapper" [@itemState]="true">
             <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
                 <md-input-container fxFlex="70">
                     <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
@@ -27,14 +27,15 @@
                     <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
                 </div>
             </form>
-        </div>
-        <div class="history-item-content" [hidden]="selected?.id == entry.id">
+        </div>-->
+        <div class="history-item-content">
             <span class="fa fa-folder p-2"></span>
             <div class="history-content-wrapper">
-                <div class="history-title" [hidden]="selected?.id == entry.id">{{entry.title}}</div>
-                <div class="history-content" [hidden]="selected?.id == entry.id">{{entry.content}} </div>
+                <div class="history-title">{{entry.title}}</div>
+                <div class="history-content">{{entry.content}} </div>
                 <span class="history-date">{{entry.date | date}}</span>
             </div>
         </div>
     </div>
+    <div *ngIf="loading$ | async">Chargement...</div>
 </div>

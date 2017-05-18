@@ -7,6 +7,8 @@ import { Client } from 'app/models';
 import { Address } from 'app/models';
 import { IAppState } from '../../../store/store.types';
 import { ProjectActions } from '../../../store/reducers/project/project.actions';
+import { Observable } from 'rxjs/Rx';
+import { SelectedProjectActions } from 'app/modules/store';
 
 @Component({
   selector: 'project-home',
@@ -16,45 +18,35 @@ import { ProjectActions } from '../../../store/reducers/project/project.actions'
 export class ProjectHomeComponent implements OnInit {
 
   @select(['projects', 'items'])
-  projects$;
+  projects$: Observable<Project[]>;
+
+  @select(['projects', 'boolean'])
+  loading$: Observable<boolean>;
 
   ProjectState = ProjectState;
 
   constructor(
-    private repositoriesService: RepositoriesService,
-    private currentSession: CurrentSession,
-    private projectActions: ProjectActions,
+    private _projectActions: ProjectActions,
+    private _selectedProjectAction: SelectedProjectActions,
     private _ngRedux: NgRedux<IAppState>
   ) {
 
   }
 
   public ngOnInit() {
-    this._ngRedux.dispatch(this.projectActions.load());
+    this._ngRedux.dispatch(this._projectActions.load());
   }
 
-  public createProject() {
-    this._ngRedux.dispatch(this.projectActions.create({ name: 'test redux' }));
+  public createProject(project) {
+    this._ngRedux.dispatch(this._projectActions.create(project));
   }
 
   public delete(project) {
-    this._ngRedux.dispatch(this.projectActions.delete(project.id))
+    this._ngRedux.dispatch(this._projectActions.delete(project.id))
   }
 
-  public test() {
-    const userId = this.currentSession.userId;
-    const token = this.currentSession.token;
-    // this.repositoriesService.get(Project.name, 1).by(User.name, userId).auth(token).exec().subscribe(projects => {
-    //   console.table(projects);
-    // });
-
-    // this.repositoriesService.get(User.name, userId).auth(token).exec().subscribe(user => {
-    //   console.log(user);
-    // });
-
-    this.repositoriesService.get(Address.name, null).by(Client.name, 4).exec().subscribe(client => {
-      console.table(client);
-    });
+  public onSelect(project) {
+    this._ngRedux.dispatch(this._selectedProjectAction.selectProject(project));
   }
 
 }

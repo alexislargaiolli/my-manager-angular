@@ -1,42 +1,68 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { Project } from 'app/models';
-import { TaskState } from 'app/models';
-import { ProjectService } from '../../../services/project.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Project, Note, HistoryEntry, ProjectState, Devis } from 'app/models';
 import { slideInDownAnimation } from 'app/animations';
+import { Observable } from 'rxjs/Observable';
+import { select, NgRedux } from '@angular-redux/store';
+import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions } from 'app/modules/store';
+import { Subscription } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-dashboard',
   templateUrl: './project-dashboard.component.html',
-  styleUrls: ['./project-dashboard.component.scss'],
-  animations: [slideInDownAnimation]
+  styleUrls: ['./project-dashboard.component.scss']
 })
 export class ProjectDashboardComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
 
-  public ProjectState = this.ProjectState;
-  public TaskState = this.TaskState;
-  public project: Project;
-  public projectId: number;
-  public taskCountByState = [];
+  @select(SelectedProjectActions.currentProject)
+  currentProject$: Observable<Project>;
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
+  @select(ProjectTaskActions.todoTaskCount)
+  totalTodo$: Observable<number[]>;
 
-  public ngOnInit() {
-    this.route.parent.params.switchMap((params: Params) => {
-      this.projectId = +params['projectId'];
-      return this.projectService.get(this.projectId);
-    })
-      .subscribe((project: Project) => {
-        this.project = project;
-        this.projectService.getTaskCount(this.projectId).subscribe(res => {
-          this.taskCountByState = res;
-        });
-      });
+  @select(['projectNotes', 'items'])
+  notes$: Observable<Note[]>;
+
+  @select(['projectNotes', 'loading'])
+  notesLoading$: Observable<boolean>;
+
+  @select(['projectHistory', 'items'])
+  historyEntries$: Observable<HistoryEntry[]>;
+
+  @select(['projectHistory', 'loading'])
+  historyLoading$: Observable<boolean>;
+
+  @select(['projectDevis', 'items'])
+  devis$: Observable<Devis[]>;
+
+  @select(['projectDevis', 'loading'])
+  devisLoading$: Observable<boolean>;
+
+  constructor(
+    private _ngRedux: NgRedux<IAppState>,
+    private _projectAction: ProjectActions,
+    private _projectNoteActions: ProjectNoteActions,
+    private _projectHistoryActions: ProjectHistoryEntryActions,
+    private _router: Router
+  ) { }
+
+  public ngOnInit() { }
+
+  public changeState(state: ProjectState) {
+    const project = ProjectActions.findProject(this._ngRedux.getState(), this._ngRedux.getState().selectedProject.id);
+    this._projectAction.dispatchUpdateState(project, state);
   }
 
-  public saveProject() {
-    this.projectService.update(this.project).subscribe();
+  public createNote(note: Note) {
+    this._projectNoteActions.dispatchCreate(note, this._ngRedux.getState().selectedProject.id);
+  }
+
+  public createHistoryEntry(entry: HistoryEntry) {
+    this._projectHistoryActions.dispatchCreate(entry, this._ngRedux.getState().selectedProject.id);
+  }
+
+  public onDevisClicked(devis: Devis) {
+    this._router.navigate(['./devis', devis.id]);
   }
 
 }

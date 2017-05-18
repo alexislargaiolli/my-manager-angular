@@ -1,12 +1,8 @@
 <div>
-    <button (click)="createProject()"> Create </button>
-    <div *ngFor="let project of projects$ | async">
-        {{project.name}} - {{project.state}}
-        <!--<button (click)="projectActions.changeState(project.id, ProjectState.FACTURATION)">Change state</button>-->
-        <button (click)="delete(project)">Remove</button>
-    </div>
+    <app-project-create (create)="createProject($event)"></app-project-create>
+    <project-list [projects]="projects$" [loading]="loading$" (select)="onSelect($event)">
+    </project-list>
 </div>
-<project-list></project-list>
 <div class="project-home-right">
     <app-gain-list></app-gain-list>
     <app-note-list></app-note-list>

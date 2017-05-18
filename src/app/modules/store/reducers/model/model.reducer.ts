@@ -5,7 +5,7 @@ import { ActionUtils } from './action.utils';
 
 
 
-export function modelReducer<T extends IModel>(modelName: string, state: IModelList<T>, action: IPayloadAction<any, any>) {
+export function modelReducer<T extends IModel>(modelName: string, state: IModelList<T>, action: IPayloadAction<any, any>): IModelList<T> {
     switch (action.type) {
         case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.REQUEST):
             return {
@@ -16,7 +16,7 @@ export function modelReducer<T extends IModel>(modelName: string, state: IModelL
         case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.SUCCESS):
             return {
                 items: action.payload,
-                loading: true,
+                loading: false,
                 error: null
             }
         case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.ERROR):
@@ -24,13 +24,13 @@ export function modelReducer<T extends IModel>(modelName: string, state: IModelL
                 items: [],
                 loading: false,
                 error: action.error
-            };
+            }
         case ActionUtils.asyncActionType(modelName, ModelActions.CREATE, ActionUtils.SUCCESS):
             return {
                 items: state.items.concat(action.payload),
                 loading: false,
                 error: null
-            };
+            }
         case ActionUtils.asyncActionType(modelName, ModelActions.UPDATE, ActionUtils.SUCCESS):
             const i = state.items.findIndex(a => a.id === action.payload.id);
             return {

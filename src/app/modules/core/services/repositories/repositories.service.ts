@@ -40,7 +40,7 @@ export class RepositoriesService {
     }
 
     public update<T extends IModel>(className: string, elt: T): RepositoryRequest<T> {
-        const request = this.createBaseRequest<T>(className, null, RequestMethod.Put);
+        const request = this.createBaseRequest<T>(className, elt.id, RequestMethod.Put);
         request.body = elt;
         return request;
     }

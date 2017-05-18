@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Project, ProjectState } from 'app/models';
 import { ProjectService } from '../../../services/project.service';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'project-list',
@@ -9,24 +10,22 @@ import { ProjectService } from '../../../services/project.service';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
+
+  @Input('projects')
+  projects$: Observable<Project>;
+
+  @Input('loading')
+  loading$: Observable<boolean>;
+
+  @Output()
+  public select: EventEmitter<Project> = new EventEmitter<Project>();
+
   public ProjectState = ProjectState;
-  public projects: Project[];
   public today: Date = new Date();
-  public loading = false;
 
-  constructor(private projectService: ProjectService) { }
+  constructor() { }
 
-  public ngOnInit() {
-    this.loadProject();
-  }
-
-  public loadProject() {
-    this.loading = true;
-    this.projectService.getAll().subscribe(projects => {
-      this.projects = projects;
-      this.loading = false;
-    });
-  }
+  public ngOnInit() { }
 
   public isLate(p: Project): boolean {
     if (p.plannedEndDate) {
@@ -34,17 +33,4 @@ export class ProjectListComponent implements OnInit {
     }
     return false;
   }
-
-  public sortProjects() {
-    this.projects.sort((a, b) => {
-      if (a.name > b.name) {
-        return -1;
-      } else if (a.name < b.name) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
 }

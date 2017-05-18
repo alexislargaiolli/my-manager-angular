@@ -16,7 +16,6 @@ const routes: Routes = [
   {
     path: 'project/:projectId', component: ProjectDetailComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: ProjectDashboardComponent },
       { path: 'tasks', component: ProjectTaskComponent },
       { path: 'devis', component: ProjectDevisComponent },

@@ -10,10 +10,13 @@ export abstract class ModelActions<T extends IModel> {
     public static readonly UPDATE = 'UPDATE';
     public static readonly DELETE = 'DELETE';
 
-    constructor(protected repo: RepositoriesService, protected modelName: string) { }
+    constructor(protected _ngRedux: NgRedux<IAppState>, protected repo: RepositoriesService, protected modelName: string) { }
 
-    load() {
-        return ActionUtils.createAction(this.modelName, ModelActions.LOAD, ActionUtils.REQUEST, null);
+
+    // Load
+
+    load(projectId?: number) {
+        return ActionUtils.createAction(this.modelName, ModelActions.LOAD, ActionUtils.REQUEST, projectId);
     }
 
     loadSuccess(models) {
@@ -24,8 +27,16 @@ export abstract class ModelActions<T extends IModel> {
         return ActionUtils.createAction(this.modelName, ModelActions.LOAD, ActionUtils.ERROR, error);
     }
 
-    create(body) {
-        return ActionUtils.createAction(this.modelName, ModelActions.CREATE, ActionUtils.REQUEST, body);
+    dispatchLoad(projectId?: number) {
+        this._ngRedux.dispatch(this.load(projectId));
+    }
+
+
+
+    // Create
+
+    create(model, projectId?: number) {
+        return ActionUtils.createAction(this.modelName, ModelActions.CREATE, ActionUtils.REQUEST, { model, projectId });
     }
 
     createSuccess(body) {
@@ -36,8 +47,15 @@ export abstract class ModelActions<T extends IModel> {
         return ActionUtils.createAction(this.modelName, ModelActions.CREATE, ActionUtils.ERROR, error);
     }
 
-    update(model: T) {
-        return ActionUtils.createAction(this.modelName, ModelActions.UPDATE, ActionUtils.REQUEST, model);
+    dispatchCreate(model, projectId?: number) {
+        this._ngRedux.dispatch(this.create(model, projectId));
+    }
+
+
+    // Update
+
+    update(model: T, projectId?: number) {
+        return ActionUtils.createAction(this.modelName, ModelActions.UPDATE, ActionUtils.REQUEST, { model, projectId });
     }
 
     updateSuccess(model: T) {
@@ -48,8 +66,16 @@ export abstract class ModelActions<T extends IModel> {
         return ActionUtils.createAction(this.modelName, ModelActions.UPDATE, ActionUtils.ERROR, error);
     }
 
-    delete(id) {
-        return ActionUtils.createAction(this.modelName, ModelActions.DELETE, ActionUtils.REQUEST, id);
+    dispatchUpdate(model: T, projectId?: number) {
+        this._ngRedux.dispatch(this.update(model, projectId));
+    }
+
+
+
+    // Delete 
+
+    delete(id: number, projectId?: number) {
+        return ActionUtils.createAction(this.modelName, ModelActions.DELETE, ActionUtils.REQUEST, { id, projectId });
     }
 
     deleteSuccess(id) {
@@ -59,6 +85,13 @@ export abstract class ModelActions<T extends IModel> {
     deleteError(error) {
         return ActionUtils.createAction(this.modelName, ModelActions.DELETE, ActionUtils.ERROR, error);
     }
+
+    dispatchDelete(id: number, projectId?: number) {
+        this._ngRedux.dispatch(this.delete(id, projectId));
+    }
+
+
+
 
     save(body) {
         if (body['id'])

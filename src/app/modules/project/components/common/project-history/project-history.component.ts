@@ -1,16 +1,19 @@
 import { NgForm } from '@angular/forms';
 import { IMyOptions } from 'mydatepicker';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { HistoryEntryService } from '../../../services/history.service';
 import { GenericProjectListComponent } from '../generic-project-list.component';
 import { HistoryEntry } from 'app/models';
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'project-history',
   templateUrl: './project-history.component.html',
   styleUrls: ['./project-history.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('itemState', [
       state('*', style({
@@ -32,10 +35,24 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
     ])
   ]
 })
-export class ProjectHistoryComponent extends GenericProjectListComponent<HistoryEntry> implements OnInit {
+export class ProjectHistoryComponent implements OnInit {
 
-  constructor(protected historyService: HistoryEntryService) {
-    super(historyService)
+
+  @Input('historyEntries')
+  historyEntries$: Observable<HistoryEntry>;
+
+  @Input('loading')
+  loading$: Observable<boolean>;
+
+  @Output()
+  create: EventEmitter<HistoryEntry> = new EventEmitter<HistoryEntry>();
+
+  constructor() { }
+
+  ngOnInit() { }
+
+  public createEntry(entry) {
+    this.create.emit(entry);
   }
 
   protected onElementLoaded() {
@@ -43,30 +60,30 @@ export class ProjectHistoryComponent extends GenericProjectListComponent<History
   }
 
   public sortByDate() {
-    this.elements.sort((a, b) => {
-      let dateA = new Date(a.date);
-      let dateB = new Date(b.date);
-      if (dateA > dateB) {
-        return -1;
-      } else if (dateA < dateB) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    // this.elements.sort((a, b) => {
+    //   let dateA = new Date(a.date);
+    //   let dateB = new Date(b.date);
+    //   if (dateA > dateB) {
+    //     return -1;
+    //   } else if (dateA < dateB) {
+    //     return 1;
+    //   } else {
+    //     return 0;
+    //   }
+    // });
   }
 
   public select(elt: HistoryEntry) {
-    if (!this.selected) {
-      this.selected = elt;
-      if (elt.date) {
-        this.selected.date = new Date(elt.date);
-      }
-    }
+    // if (!this.selected) {
+    //   this.selected = Object.assign({}, elt);
+    //   if (elt.date) {
+    //     this.selected.date = new Date(elt.date);
+    //   }
+    // }
   }
 
   public itemState(elt: HistoryEntry) {
-    return this.selected && this.selected === elt ? 'active' : 'inactive';
+    // return this.selected && this.selected === elt ? 'active' : 'inactive';
   }
 
   protected onElementCreated(elt: HistoryEntry) {

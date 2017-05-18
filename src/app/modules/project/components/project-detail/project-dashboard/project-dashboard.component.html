@@ -1,34 +1,18 @@
-<div class="container p-2" *ngIf="project">
-    <md-button-toggle-group name="state" (change)="saveProject()" [(ngModel)]="project.state" class="project-state-buttons">
-        <md-button-toggle value="0">
-            Prospection
-        </md-button-toggle>
-        <md-button-toggle value="1">
-            Devis
-        </md-button-toggle>
-        <md-button-toggle value="2">
-            Production
-        </md-button-toggle>
-        <md-button-toggle value="3">
-            Facturé
-        </md-button-toggle>
-        <md-button-toggle value="4">
-            Payé
-        </md-button-toggle>
-    </md-button-toggle-group>
+<div class="container p-2">
+    <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)"></app-project-state>
     <div class="d-flex mt-2">
         <div class="grow-1">
             <div class="one-value-card-wrapper">
-                <app-one-value-card label="Tâches restantes" [value]="taskCountByState[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Tâche en cours" [value]="taskCountByState[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Tâches faites" [value]="taskCountByState[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Progression" [value]="project.progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Progression" [value]="(currentProject$|async).progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
             </div>
             <div class="d-flex mt-2">
-                <app-devis-preview class="grow-1 mr-2" [projectId]="projectId"></app-devis-preview>
-                <app-note-list [projectId]="projectId" class="ml-2"></app-note-list>
+                <app-devis-preview class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-preview>
+                <app-project-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-project-note-list>
             </div>
         </div>
-        <project-history [projectId]="projectId" class="ml-2"></project-history>
+        <project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" class="ml-2"></project-history>
     </div>
 </div>

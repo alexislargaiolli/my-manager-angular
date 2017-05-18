@@ -1,4 +1,4 @@
-<form #projectForm="ngForm" (ngSubmit)="submitForm(projectForm)" autocomplete="off">
+<form #projectForm="ngForm" (ngSubmit)="create.emit(projectForm.value)" autocomplete="off">
     <md-card class="create-project d-flex justify-content-between">
         <md-input-container>
             <input mdInput name="name" ngModel type="text" placeholder="Nouveau projet...">

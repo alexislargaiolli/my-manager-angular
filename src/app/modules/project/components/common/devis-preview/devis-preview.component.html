@@ -1,4 +1,4 @@
-<div *ngFor="let dev of devis" class="devis-item selectable" fxLayout="row" [routerLink]="['./devis', dev.id]">
+<div *ngFor="let dev of (devis$ | async)" class="devis-item selectable" fxLayout="row" (click)="selectDevis.emit(dev)">
     <span fxFlexAlign="center" class="fa fa-file-text-o fa-2x devis-icon"></span>
     <div fxFlexAlign="center">
         <div class="devis-title">Devis du {{dev.createDate | date}} - {{dev.budget}}€</div>

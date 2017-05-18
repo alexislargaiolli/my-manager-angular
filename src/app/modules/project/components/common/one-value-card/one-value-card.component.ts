@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-one-value-card',
   templateUrl: './one-value-card.component.html',
-  styleUrls: ['./one-value-card.component.scss']
+  styleUrls: ['./one-value-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OneValueCardComponent implements OnInit {
 

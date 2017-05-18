@@ -1,24 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { DevisService } from '../../../services/devis.service';
 import { Devis } from 'app/models';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-devis-preview',
   templateUrl: './devis-preview.component.html',
-  styleUrls: ['./devis-preview.component.scss']
+  styleUrls: ['./devis-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DevisPreviewComponent implements OnInit {
-  @Input()
-  public projectId: number;
 
-  public devis: Devis[] = [];
+  @Input('devis')
+  devis$: Observable<Devis>;
 
-  constructor(private devisService: DevisService) { }
+  @Input('loading')
+  loading$: Observable<boolean>;
 
-  ngOnInit() {
-    this.devisService.getByProject(this.projectId).subscribe(devis => {
-      this.devis = devis;
-    });
-  }
+  @Output()
+  selectDevis: EventEmitter<Devis> = new EventEmitter<Devis>();
+
+  constructor() { }
+
+  ngOnInit() { }
 
 }

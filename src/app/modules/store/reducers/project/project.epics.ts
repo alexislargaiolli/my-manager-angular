@@ -6,6 +6,9 @@ import { of } from 'rxjs/observable/of';
 import { createEpicMiddleware } from 'redux-observable';
 import { ModelEpics } from '../model/model.epics';
 import { Epic } from 'redux-observable-decorator';
+import { UPDATE_LOCATION } from "@angular-redux/router/lib/es5";
+import { Observable } from 'rxjs/Observable';
+import { SelectedProjectActions } from '../selected-project/selected-project.actions';
 
 @Injectable()
 export class ProjectEpics extends ModelEpics<Project>{
@@ -29,4 +32,7 @@ export class ProjectEpics extends ModelEpics<Project>{
     @Epic()
     deleteProject = this.delete;
 
+    @Epic()
+    updateState = action$ => action$.ofType(ProjectActions.UPDATE_STATE)
+        .map(action => this._projectActions.update(Object.assign({}, action.payload.project, { state: action.payload.state })));
 }

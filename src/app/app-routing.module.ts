@@ -4,7 +4,7 @@ import { LoginComponent } from './modules/auth';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/project', pathMatch: 'full' },
+  { path: 'project', loadChildren: './modules/project/project.module#ProjectModule' },
   { path: 'client', loadChildren: './modules/client/client.module#ClientModule' },
   { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' }
 ];

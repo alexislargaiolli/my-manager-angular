@@ -30,6 +30,8 @@ import { ProjectDevisEditionComponent } from './components/project-detail/projec
 import { DevisStatePipe } from './services/devisState.pipe';
 import { DevisPreviewComponent } from './components/common/devis-preview/devis-preview.component';
 import { OneValueCardComponent } from './components/common/one-value-card/one-value-card.component';
+import { ProjectStateComponent } from './components/common/project-state/project-state.component';
+import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
 
 @NgModule({
   imports: [
@@ -57,7 +59,9 @@ import { OneValueCardComponent } from './components/common/one-value-card/one-va
     ProjectDevisEditionComponent,
     DevisPreviewComponent,
     DevisStatePipe,
-    OneValueCardComponent
+    OneValueCardComponent,
+    ProjectStateComponent,
+    ProjectNoteListComponent
   ],
   providers: [
     ClientService,

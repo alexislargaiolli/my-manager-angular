@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../../services/project.service';
+import { Project } from 'app/models';
 
 @Component({
   selector: 'app-project-create',
@@ -10,17 +11,11 @@ import { ProjectService } from '../../../services/project.service';
 })
 export class ProjectCreateComponent implements OnInit {
 
-  constructor(private projectService: ProjectService, private router: Router) {
+  @Output()
+  public create: EventEmitter<Project> = new EventEmitter<Project>();
 
-  }
+  constructor() { }
 
-  public ngOnInit() {
-
-  }
-
-  public submitForm(form: NgForm) {
-    const newProject = form.value;
-    this.projectService.create(newProject).subscribe(project => this.router.navigate(['/project', project.id]));
-  }
+  public ngOnInit() { }
 
 }

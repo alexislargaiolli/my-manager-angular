@@ -9,29 +9,24 @@ import { ProjectState } from 'app/models';
 @Injectable()
 export class ProjectActions extends ModelActions<Project> {
 
-    constructor(protected _repo: RepositoriesService) {
-        super(_repo, Project.name);
+    constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
+        super(_ngRedux, _repo, Project.name);
+    }
+
+    public static findProject(state: IAppState, projectId) {
+        return state.projects.items.find(p => p.id == projectId);
+    }
+
+    public static readonly UPDATE_STATE = 'UPDATE_STATE';
+    updateState(project: Project, state: ProjectState) {
+        return {
+            type: ProjectActions.UPDATE_STATE,
+            payload: { state, project }
+        }
+    }
+
+    public dispatchUpdateState(project: Project, state: ProjectState) {
+        this._ngRedux.dispatch(this.updateState(project, state));
     }
 
 }
-
-// @Injectable()
-// export class ProjectActions extends ModelActions<Project>{
-
-//     public static readonly PROJECT_CHANGE_STATE = 'PROJECT_CHANGE_STATE';
-
-//     constructor(protected repo: RepositoriesService, protected _ngRedux: NgRedux<IAppState>) {
-//         super(repo, _ngRedux, Project.name)
-//     }
-
-//     changeState(id: number, state: ProjectState) {
-//         this._ngRedux.dispatch({
-//             type: ProjectActions.PROJECT_CHANGE_STATE,
-//             payload: {
-//                 id,
-//                 state
-//             }
-//         })
-//     }
-
-// }

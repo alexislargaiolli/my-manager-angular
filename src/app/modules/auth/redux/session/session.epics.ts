@@ -34,12 +34,12 @@ export class SessionEpics {
     @Epic()
     loginSuccess = action$ => action$
         .ofType(SessionActions.LOGIN_SUCCESS)
-        .switchMap((action) => of(this._sessionAction.getUserInfo(action.payload.userId)));
+        .map((action) => this._sessionAction.getUserInfo(action.payload.userId));
 
     @Epic()
     storeAfterLogin = action$ => action$
         .ofType(SessionActions.LOGIN_SUCCESS)
-        .switchMap((action) => of(this._sessionAction.storeInLocalStorage()));
+        .map((action) => this._sessionAction.storeInLocalStorage());
 
     @Epic()
     logout = action$ => action$
@@ -52,7 +52,7 @@ export class SessionEpics {
 
     @Epic()
     logoutSuccess = action$ => action$.ofType(SessionActions.LOGOUT_SUCCESS)
-        .switchMap((action) => of(this._sessionAction.removeFromLocalStorage()));
+        .map((action) => this._sessionAction.removeFromLocalStorage());
 
     @Epic()
     getUserInfo = action$ => action$
