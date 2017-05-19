@@ -45,6 +45,24 @@ export class RepositoriesService {
         return request;
     }
 
+    public patch<T extends IModel>(className: string, id: number, attributes): RepositoryRequest<T> {
+        const request = this.createBaseRequest<T>(className, id, RequestMethod.Patch);
+        request.body = attributes;
+        return request;
+    }
+
+    public addRelation<T extends IModel>(className: string, elt: T): RepositoryRequest<T> {
+        const request = this.createBaseRequest<T>(className, elt.id, RequestMethod.Put);
+        request.url = request.url.replace(`/${elt.id}`, `/rel/${elt.id}`);
+        return request;
+    }
+
+    public removeRelation<T extends IModel>(className: string, id: number): RepositoryRequest<T> {
+        const request = this.createBaseRequest<T>(className, id, RequestMethod.Delete);
+        request.url = request.url.replace(`/${id}`, `/rel/${id}`);
+        return request;
+    }
+
     /**
      * Get a list if id is null, one instance if id is defined
      */

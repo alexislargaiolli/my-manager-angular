@@ -1,7 +1,7 @@
 <md-toolbar>
     <span>Client</span>
     <span class="toolbar-spacer"></span>
-    <button md-button (click)="delete()"><md-icon>delete</md-icon></button>
+    <button md-button (click)="delete.emit(client)"><md-icon>delete</md-icon></button>
 </md-toolbar>
 <md-card>
     <p>Nom:{{client.name}}</p>
@@ -9,6 +9,6 @@
     <p>Nom de famille{{client.lastname}}</p>
     <p>Email: {{client.email}}</p>
     <p>Téléphone: {{client.tel}}</p>
-    <app-address-list [(addresses)]="addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)"></app-address-list>
+    <app-address-list [(addresses)]="client.addresses" (onSaved)="addAddress.emit($event)" (onDelete)="removeAddress.emit($event)"></app-address-list>
 
 </md-card>

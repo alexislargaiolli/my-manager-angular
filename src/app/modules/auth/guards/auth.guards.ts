@@ -1,7 +1,6 @@
 import { AuthenticationService } from './../services/authentication.service';
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { CurrentSession } from 'app/modules/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store/store.types';
 import { Observable } from 'rxjs/Observable';

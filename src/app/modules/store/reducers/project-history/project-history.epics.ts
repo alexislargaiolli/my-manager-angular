@@ -19,10 +19,16 @@ export class ProjectHistoryEntryEpics extends ModelEpics<HistoryEntry>{
     }
 
     @Epic()
-    loadHistoryEntry = this.load;
+    load = this.load;
 
     @Epic()
-    createHistoryEntry = this.create;
+    create = this.create;
+
+    @Epic()
+    update = this.update;
+
+    @Epic()
+    delete = this.delete;
 
     @Epic()
     projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)

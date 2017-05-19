@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentSession, RepositoriesService } from 'app/modules/core';
+import { RepositoriesService } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
 import { Project, Task, Devis, Note, HistoryEntry } from 'app/models';
 import { Client } from 'app/models';
@@ -13,7 +13,7 @@ import { SessionActions } from '../modules/auth/redux/session/session.actions';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private currentSession: CurrentSession, private repositoriesService: RepositoriesService, private _sessionActions: SessionActions) { }
+  constructor(private repositoriesService: RepositoriesService, private _sessionActions: SessionActions) { }
 
   ngOnInit() {
     this.repositoriesService.addManageClass(User.name, 'mmusers');

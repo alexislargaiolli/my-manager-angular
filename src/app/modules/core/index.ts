@@ -6,8 +6,6 @@ export { DialogsService } from './services/dialog.service';
 export { ErrorService } from './services/error.service';
 export { EventsService } from './services/event.service';
 export { NotificationService } from './services/notification.service';
-export { CurrentSession } from './services/session.service';
-export { GenericService } from './services/generic.service';
 
 // COMPONENTS
 export { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';

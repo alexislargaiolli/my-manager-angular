@@ -20,10 +20,16 @@ export class ProjectDevisEpics extends ModelEpics<Devis> {
     }
 
     @Epic()
-    loadNote = this.load;
+    load = this.load;
 
     @Epic()
-    createNote = this.create;
+    create = this.create;
+
+    @Epic()
+    update = this.update;
+
+    @Epic()
+    delete = this.delete;
 
     @Epic()
     projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)

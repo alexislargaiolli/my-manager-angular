@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Address } from 'app/models';
-import { ModelUtils, CurrentSession, RepositoriesService } from 'app/modules/core';
+import { ModelUtils, RepositoriesService } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
+import { ProfilActions } from "app/modules/store";
 
 @Component({
   templateUrl: './user-profile-general.component.html',
@@ -10,26 +13,23 @@ import { User } from 'app/modules/core/models/user.model';
 })
 export class UserProfileGeneralComponent implements OnInit {
 
-  public addresses: Address[] = [];
+  @select(['profil', 'addresses', 'items'])
+  public addresses$: Observable<Address[]>;
 
-  constructor(private currentSession: CurrentSession, private repo: RepositoriesService) { }
+  @select(['profil', 'addresses', 'loading'])
+  public loading$: Observable<boolean>;
+
+  constructor(private _profilActions: ProfilActions) { }
 
   ngOnInit() {
-    this.repo.get<Address>(Address.name, null).byCurrentUser().exec().subscribe(addresses => {
-      this.addresses = addresses;
-    });
   }
 
   public saveAddress(address: Address) {
-    this.repo.save(Address.name, address).byCurrentUser().exec().subscribe(a => {
-      ModelUtils.addOrUpdate(this.addresses, a);
-    });
+
   }
 
   public deleteAddress(address: Address) {
-    this.repo.delete(Address.name, address.id).byCurrentUser().exec().subscribe(a => {
-      ModelUtils.remove(this.addresses, a);
-    });
+
   }
 
 }

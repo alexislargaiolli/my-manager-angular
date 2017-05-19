@@ -4,14 +4,7 @@ import { DatepickerModule } from 'angular2-material-datepicker';
 import { DragulaModule } from 'ng2-dragula';
 import { SharedModule } from 'app/modules/shared/shared.module';
 import { MyManagerRoutingModule } from './project-routing';
-import { ClientService } from './services/client.service';
-import { ProjectService } from './services/project.service';
-import { TaskService } from './services/task.service';
-import { GainService } from './services/gain.service';
-import { NoteService } from './services/note.service';
 import { NavigationService } from './services/navigation.service';
-import { HistoryEntryService } from './services/history.service';
-import { DevisService } from './services/devis.service';
 import { ProjectHomeComponent } from './components/project-home/project-home.component';
 import { ProjectListComponent } from './components/common/project-list/project-list.component';
 import { ProjectCreateComponent } from './components/common/project-create/project-create.component';
@@ -19,7 +12,6 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
 import { ProjectTaskComponent } from './components/project-detail/project-task/project-task.component';
 import { ProjectSettingsComponent } from './components/project-detail/project-settings/project-settings.component';
 import { NoteListComponent } from './components/common/note-list/note-list.component';
-import { ProjectGainsComponent } from './components/common/project-gains/project-gains.component';
 import { ProjectClientComponent } from './components/common/project-client/project-client.component';
 import { GainListComponent } from './components/common/gain-list/gain-list.component';
 import { ProjectHistoryComponent } from './components/common/project-history/project-history.component';
@@ -32,6 +24,9 @@ import { DevisPreviewComponent } from './components/common/devis-preview/devis-p
 import { OneValueCardComponent } from './components/common/one-value-card/one-value-card.component';
 import { ProjectStateComponent } from './components/common/project-state/project-state.component';
 import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
+import { ProjectDevisListComponent } from './components/common/project-devis-list/project-devis-list.component';
+import { KabanColumnComponent } from './components/common/task-kaban/kaban-column/kaban-column.component';
+import { TaskKabanComponent } from './components/common/task-kaban/task-kaban.component';
 
 @NgModule({
   imports: [
@@ -48,7 +43,6 @@ import { ProjectNoteListComponent } from './components/common/project-note-list/
     ProjectDetailComponent,
     ProjectTaskComponent,
     ProjectSettingsComponent,
-    ProjectGainsComponent,
     NoteListComponent,
     GainListComponent,
     ProjectClientComponent,
@@ -61,17 +55,13 @@ import { ProjectNoteListComponent } from './components/common/project-note-list/
     DevisStatePipe,
     OneValueCardComponent,
     ProjectStateComponent,
-    ProjectNoteListComponent
+    ProjectNoteListComponent,
+    ProjectDevisListComponent,
+    TaskKabanComponent,
+    KabanColumnComponent
   ],
   providers: [
-    ClientService,
-    ProjectService,
-    TaskService,
-    NoteService,
-    GainService,
-    HistoryEntryService,
-    NavigationService,
-    DevisService
+    NavigationService
   ],
   exports: []
 })

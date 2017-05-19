@@ -1,42 +1,67 @@
-import { Project, Client, Note, Task, Devis, HistoryEntry } from 'app/models';
+import { Project, Client, Note, Task, Devis, HistoryEntry, Address } from 'app/models';
 import { User, IModelList, IModel, UserSession } from 'app/modules/core';
 
 export interface IAppState {
+    profil?: IProfilState,
     projects?: IModelList<Project>,
     session?: UserSession,
-    // clients?: IModelList<Client>;
-    // notes?: IModelList<Note>;
+    clients?: IClientState;
+    notes?: INoteState;
     selectedProject?: ISelectedProjectState,
     projectTasks?: IProjectTaskState,
-    projectDevis?: IModelList<Devis>,
+    projectDevis?: IProjectDevisState,
     projectNotes?: IProjectNoteState,
-    projectHistory?: IModelList<HistoryEntry>
-    //     project: Project;
-    //     tasks?: IModelList<Task>;
-    //     devis?: IModelList<Devis>;
-    //     history?: IModelList<HistoryEntry>;
-    //     notes?: IModelList<Note>;
-    // }
+    projectHistory?: IProjectHistoryState,
+    projectClient?: IProjectClientState
+}
+
+export interface IProfilState {
+    addresses: IModelList<Address>
 }
 
 export interface ISelectedProjectState {
     id: number
 }
 
-export interface IProjectTaskState {
+export interface IProjectTaskState extends IModelList<Task> {
     items: Task[],
     loading: boolean,
     error: string
 }
 
-export interface IProjectDevisState {
-    items: Task[],
+export interface IProjectDevisState extends IModelList<Devis> {
+    items: Devis[],
     loading: boolean,
     error: string
 }
 
-export interface IProjectNoteState {
+export interface IProjectNoteState extends IModelList<Note> {
     items: Note[],
+    loading: boolean,
+    error: string
+}
+
+export interface IProjectHistoryState extends IModelList<HistoryEntry> {
+    items: HistoryEntry[],
+    loading: boolean,
+    error: string
+}
+
+export interface INoteState extends IModelList<Note> {
+    items: Note[],
+    loading: boolean,
+    error: string
+}
+
+export interface IClientState extends IModelList<Client> {
+    items: Client[],
+    loading: boolean,
+    error: string,
+    selectedId: number
+}
+
+export interface IProjectClientState extends IModelList<Client> {
+    items: Client[],
     loading: boolean,
     error: string
 }

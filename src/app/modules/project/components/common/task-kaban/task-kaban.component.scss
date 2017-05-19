@@ -1,0 +1,21 @@
+:host {
+    flex: 1;
+    display: flex;
+}
+
+md-card {
+    flex-grow: 1;
+}
+
+.gh-fork {
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+.create-task-form {
+    md-input-container {
+        display: block;
+    }
+}

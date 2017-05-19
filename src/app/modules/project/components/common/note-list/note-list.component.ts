@@ -1,31 +1,32 @@
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { GenericProjectListComponent } from '../generic-project-list.component';
-import { NoteService } from '../../../services/note.service';
 import { Note, NotePriority } from 'app/models';
 
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
-  styleUrls: ['./note-list.component.scss']
+  styleUrls: ['./note-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NoteListComponent extends GenericProjectListComponent<Note> implements OnInit {
+export class NoteListComponent implements OnInit {
 
-  public priorities = NotePriority;
+  @Input('notes')
+  notes$: Observable<Note[]>;
 
-  constructor(protected noteService: NoteService) {
-    super(noteService);
-  }
+  @Input('loading')
+  loading$: Observable<boolean>;
 
-  public toggleState(note: Note) {
-    if (note.done === true) {
-      note.done = false;
-    } else {
-      note.done = true;
-    }
-    this.update(note);
+  @Output()
+  create: EventEmitter<Note> = new EventEmitter<Note>();
+
+  @Output()
+  toggle: EventEmitter<Note> = new EventEmitter<Note>();
+
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
 }

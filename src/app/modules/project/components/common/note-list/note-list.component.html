@@ -1,6 +1,6 @@
 <h2 class="panel-header">Post it</h2>
 
-<form #noteForm="ngForm" (ngSubmit)="create(noteForm)" class="list-create-form">
+<form #noteForm="ngForm" (ngSubmit)="create.emit(noteForm.value)" class="list-create-form">
     <md-input-container>
         <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
     </md-input-container>
@@ -8,7 +8,7 @@
 </form>
 
 <div class="note-list">
-    <div *ngFor="let note of elements" (click)="toggleState(note)" class="post-it selectable" [ngClass]="{'done' : note.done}">
+    <div *ngFor="let note of (notes$ | async)" (click)="toggle.emit(note)" class="post-it selectable" [ngClass]="{'done' : note.done}">
         {{note.title}}
     </div>
 </div>

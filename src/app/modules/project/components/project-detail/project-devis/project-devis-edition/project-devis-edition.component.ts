@@ -4,7 +4,9 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Devis, DevisState } from 'app/models';
 import { NotificationService, DialogsService } from 'app/modules/core';
-import { DevisService } from '../../../../services/devis.service';
+import { NgRedux, select } from '@angular-redux/store';
+import { IAppState } from 'app/modules/store';
+import { ProjectDevisActions } from '../../../../../store/reducers/project-devis/project-devis.actions';
 
 @Component({
   selector: 'app-project-devis-edition',
@@ -13,36 +15,31 @@ import { DevisService } from '../../../../services/devis.service';
 })
 export class ProjectDevisEditionComponent implements OnInit {
   private devisState = DevisState;
-  private projectId: number;
-  private loading = false;
   public devis: Devis;
 
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private devisService: DevisService,
     private dialog: DialogsService,
-    private notification: NotificationService
+    private _ngRedux: NgRedux<IAppState>,
+    private _devisActions: ProjectDevisActions
   ) { }
 
   ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.projectId = +params['projectId'];
-    });
-    this.route.params.subscribe(params => {
-      const devisId = params['devisId'];
-      this.loadDevis(devisId);
-    });
+    const devisId = +this.route.snapshot.params['devisId'];
+    this.loadDevis(devisId);
   }
 
   public loadDevis(devisId) {
     if (devisId === 'create') {
       this.createDevis();
     } else {
-      this.loading = true;
-      this.devisService.getOneByProject(this.projectId, devisId).subscribe(d => {
-        this.devis = d;
-        this.devis.createDate = new Date(this.devis.createDate);
+      this._ngRedux.select(['projectDevis', 'items']).subscribe((devisList: Devis[]) => {
+        this.devis = Object.assign({}, devisList.find(devis => devis.id === devisId));
+        if (this.devis.createDate)
+          this.devis.createDate = new Date(this.devis.createDate);
+        if (this.devis.acceptedDate)
+          this.devis.acceptedDate = new Date(this.devis.acceptedDate);
       });
     }
   }
@@ -54,9 +51,8 @@ export class ProjectDevisEditionComponent implements OnInit {
   }
 
   public submitForm(form: NgForm) {
-    this.devisService.saveByProject(this.projectId, this.devis).subscribe(d => {
-      this.notification.addInfo('Sauvegardé.');
-    });
+    this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
+    this.goBack();
   }
 
   public onStateChange() {
@@ -67,10 +63,8 @@ export class ProjectDevisEditionComponent implements OnInit {
 
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
-      this.devisService.deleteByProject(this.projectId, this.devis.id).subscribe(() => {
-        this.notification.addInfo('Devis supprimé.');
-        this.goBack();
-      });
+      this._devisActions.dispatchDelete(this.devis.id, this._ngRedux.getState().selectedProject.id);
+      this.goBack();
     });
   }
 

@@ -25,4 +25,18 @@ export class ModelUtils {
         }
         return map;
     }
+
+    public static immutableRemove<T extends IModel>(items: T[], eltToRemoveId: number): T[] {
+        const i = items.findIndex(a => a.id === eltToRemoveId);
+        return [...items.slice(0, i), ...items.slice(i + 1)];
+    }
+
+    public static immutableUpdate<T extends IModel>(items: T[], elt: T): T[] {
+        const i = items.findIndex(a => a.id === elt.id);
+        return [
+            ...items.slice(0, i),
+            elt,
+            ...items.slice(i + 1)
+        ]
+    }
 }

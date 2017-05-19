@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
-import { DevisService } from '../../../services/devis.service';
 import { Devis } from 'app/models';
 import { Observable } from 'rxjs/Rx';
 

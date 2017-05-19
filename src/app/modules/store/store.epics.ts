@@ -7,20 +7,40 @@ import { SelectedProjectEpics } from './reducers/selected-project/selected-proje
 import { ProjectDevisEpics } from './reducers/project-devis/project-devis.epics';
 import { ProjectNoteEpics } from './reducers/project-note/project-note.epics';
 import { ProjectHistoryEntryEpics } from './reducers/project-history/project-history.epics';
+import { NoteEpics } from './reducers/note/note.epics';
+import { ClientEpics } from './reducers/client/client.epics';
+import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
+import { ProfilEpics } from './reducers/profil/profil.epics';
 
 @Injectable()
 export class RootEpics {
     constructor(
         private _projectEpics: ProjectEpics,
+        private _noteEpics: NoteEpics,
         private _selectedProjectEpics: SelectedProjectEpics,
         private _sessionEpics: SessionEpics,
         private _taskEpics: ProjectTaskEpics,
         private _devisEpics: ProjectDevisEpics,
-        private _noteEpics: ProjectNoteEpics,
-        private _historyEpics: ProjectHistoryEntryEpics
+        private _noteProjectEpics: ProjectNoteEpics,
+        private _historyEpics: ProjectHistoryEntryEpics,
+        private _clientEpics: ClientEpics,
+        private _projectClientEpics: ProjectClientEpics,
+        private _profilEpics: ProfilEpics
     ) { }
 
     public createEpics() {
-        return createEpics(this._projectEpics, this._sessionEpics, this._taskEpics, this._selectedProjectEpics, this._devisEpics, this._noteEpics, this._historyEpics);
+        return createEpics(
+            this._projectEpics,
+            this._noteEpics,
+            this._sessionEpics,
+            this._taskEpics,
+            this._selectedProjectEpics,
+            this._devisEpics,
+            this._noteProjectEpics,
+            this._historyEpics,
+            this._clientEpics,
+            this._projectClientEpics,
+            this._profilEpics
+        );
     }
 }

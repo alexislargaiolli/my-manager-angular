@@ -9,6 +9,7 @@ import { Epic } from 'redux-observable-decorator';
 import { UPDATE_LOCATION } from "@angular-redux/router/lib/es5";
 import { Observable } from 'rxjs/Observable';
 import { SelectedProjectActions } from '../selected-project/selected-project.actions';
+import { SessionActions } from 'app/modules/auth';
 
 @Injectable()
 export class ProjectEpics extends ModelEpics<Project>{
@@ -31,6 +32,11 @@ export class ProjectEpics extends ModelEpics<Project>{
 
     @Epic()
     deleteProject = this.delete;
+
+
+    @Epic()
+    onLogin = (action$) => action$.ofType(SessionActions.LOGIN_SUCCESS)
+        .map(action => this._projectActions.load());
 
     @Epic()
     updateState = action$ => action$.ofType(ProjectActions.UPDATE_STATE)

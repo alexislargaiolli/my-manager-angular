@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RepositoriesService } from 'app/modules/core';
-import { Project } from 'app/models';
+import { Project, Client } from 'app/models';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store.types';
 import { ModelActions } from '../model/model.actions';

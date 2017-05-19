@@ -1,9 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Devis } from 'app/models';
 import { NavigationService } from '../../../services/navigation.service';
-import { DevisService } from '../../../services/devis.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { slideInDownAnimation } from 'app/animations';
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-project-devis',
@@ -13,31 +14,22 @@ import { slideInDownAnimation } from 'app/animations';
 })
 export class ProjectDevisComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
-  public devis = [];
-  public loading = false;
-  public projectId: number;
+
+  @select(['projectDevis', 'items'])
+  devis$: Observable<Devis[]>;
+
+  @select(['projectDevis', 'loading'])
+  loading$: Observable<boolean>;
 
   constructor(
-    private route: ActivatedRoute,
-    private navitation: NavigationService,
-    private devisService: DevisService
-  ) {
-    // this.devisService.activeDebug();
-  }
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) { }
 
-  ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.projectId = +params['projectId'];
-      this.load();
-    });
-  }
+  ngOnInit() { }
 
-  private load() {
-    this.loading = true;
-    this.devisService.getByProject(this.projectId).subscribe(devis => {
-      this.devis = devis;
-      this.loading = false;
-    });
+  onDevisClick(devis: Devis) {
+    this._router.navigate([devis.id], { relativeTo: this._route });
   }
 
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Client } from 'app/models';
-import { ClientService } from '../../../../project/services/client.service';
+import { Client, Address } from 'app/models';
 import { NotificationService } from 'app/modules/core';
+import { Observable } from 'rxjs/Observable';
+import { select, NgRedux } from '@angular-redux/store';
+import { ClientActions } from '../../../../store/reducers/client/client.actions';
+import { IAppState } from 'app/modules/store';
 
 @Component({
   selector: 'app-client',
@@ -10,46 +13,46 @@ import { NotificationService } from 'app/modules/core';
 })
 export class ClientComponent implements OnInit {
 
-  public selectedClient: Client;
-  public loading = false;
-  public clients: Client[];
+  @select(['clients', 'items'])
+  public clients$: Observable<Client[]>;
 
-  constructor(private clientService: ClientService, private notification: NotificationService) {
-    this.clientService.activeDebug();
-  }
+  @select(['clients', 'boolean'])
+  public loading$: Observable<boolean>;
 
-  public ngOnInit() {
-    this.loadClients();
-  }
+  @select((state: IAppState) => state.clients.items.find(c => c.id === state.clients.selectedId))
+  public selectedClient$: Observable<Client>;
 
-  public onSelectClient(client) {
-    this.selectedClient = client;
+  constructor(private _clientActions: ClientActions, private _ngRedux: NgRedux<IAppState>) { }
+
+  public ngOnInit() { }
+
+  public onSelectClient(client: Client) {
+    this._clientActions.dispatchSelectClient(client.id);
   }
 
   public unselect() {
-    this.selectedClient = null;
+    this._clientActions.dispatchUnSelectClient();
   }
 
-  public deleteClient(client) {
-    this.clients.splice(this.clients.findIndex(c => c.id === this.selectedClient.id), 1);
+  public deleteClient(client: Client) {
+    this._clientActions.dispatchDelete(client.id);
     this.unselect();
   }
 
-  public addClient(client: Client) {
-    this.clients.push(client);
+  public createClient(client: Client) {
+    this._clientActions.dispatchCreate(client);
   }
 
   public onUpdate(client: Client) {
 
   }
 
-  private loadClients() {
-    this.loading = true;
-    this.clientService.getAll()
-      .subscribe(clients => {
-        this.clients = clients;
-        this.loading = false;
-      });
+  public addAddress(address: Address) {
+    this._clientActions.dispatchAddAddress(this._ngRedux.getState().clients.selectedId, address);
+  }
+
+  public removeAddress(address: Address) {
+    this._clientActions.dispatchRemoveAddress(this._ngRedux.getState().clients.selectedId, address.id)
   }
 
 }

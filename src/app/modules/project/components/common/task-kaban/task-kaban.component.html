@@ -1,0 +1,17 @@
+<md-card>
+    <md-card-title>A faire</md-card-title>
+    <form #taskForm="ngForm" (ngSubmit)="create.emit(taskForm.values)" *ngIf="i == 0" class="create-task-form">
+        <md-input-container>
+            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
+        </md-input-container>
+    </form>
+    <app-kaban-column [tasks]="todoTasks$" [name]="'KABAN'" [columnId]="0"></app-kaban-column>
+</md-card>
+<md-card>
+    <md-card-title>En cours</md-card-title>
+    <app-kaban-column [tasks]="inProgressTasks$" [name]="'KABAN'" [columnId]="1"></app-kaban-column>
+</md-card>
+<md-card>
+    <md-card-title>Fait</md-card-title>
+    <app-kaban-column [tasks]="finishedTasks$" [name]="'KABAN'" [columnId]="2"></app-kaban-column>
+</md-card>

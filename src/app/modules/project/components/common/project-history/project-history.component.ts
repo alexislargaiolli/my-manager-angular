@@ -2,8 +2,6 @@ import { NgForm } from '@angular/forms';
 import { IMyOptions } from 'mydatepicker';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { HistoryEntryService } from '../../../services/history.service';
-import { GenericProjectListComponent } from '../generic-project-list.component';
 import { HistoryEntry } from 'app/models';
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { Observable } from 'rxjs/Observable';

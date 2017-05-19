@@ -1,28 +1,27 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Client } from 'app/models';
-import { ClientService } from '../../../../project/services/client.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'client-list',
   templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.css']
+  styleUrls: ['./client-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientListComponent implements OnInit {
 
-  @Input()
-  public clients: Client[];
+  @Input('clients')
+  public clients$: Observable<Client[]>;
 
-  @Input()
-  public loading: Client[];
+  @Input('loading')
+  public loading$: Observable<boolean>;
 
   @Output()
   public clientSelect = new EventEmitter();
 
-  constructor(private clientService: ClientService) { }
+  constructor() { }
 
-  public ngOnInit() {
-
-  }
+  public ngOnInit() { }
 
   public selectClient(client: Client) {
     this.clientSelect.emit(client);

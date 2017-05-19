@@ -1,0 +1,53 @@
+.kaban-column {
+    min-height: 300px;
+}
+
+.kaban-column-list-item {
+    color: #444;
+    md-icon {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+.kaban-column div,
+.gu-mirror {
+    margin: 10px 0;
+    padding: 10px;
+    font-family: 'PT sans-serif';
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: opacity 0.4s ease-in-out;
+}
+
+.kaban-column div {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.gu-mirror {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.kaban-column .ex-moved {
+    background-color: #e74c3c;
+}
+
+.kaban-column.ex-over {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.handle {
+    padding: 0 5px;
+    margin-right: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: move;
+}
+
+nested-repeat-example .kaban-column span {
+    display: block;
+    padding: 8px;
+}

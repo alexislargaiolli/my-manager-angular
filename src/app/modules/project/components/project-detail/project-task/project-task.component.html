@@ -1,16 +1,1 @@
-<md-card *ngFor='let group of kaban.groups; let i = index;'>
-    <md-card-title>{{group.name}}</md-card-title>
-    <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)" *ngIf="i == 0" class="create-task-form">
-        <md-input-container>
-            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
-        </md-input-container>
-    </form>
-    <div class="kaban-column" [dragula]='"nested-bag"' [dragulaModel]='kaban.groups[i].items' [attr.column-id]="i">
-        <div class="kaban-column-list-item" *ngFor='let task of group.items' [attr.task-id]="task.id">
-            <md-icon [hidden]="task.state != state.TODO">check_box_outline_blank</md-icon>
-            <md-icon [hidden]="task.state != state.IN_PROGRESS">update</md-icon>
-            <md-icon class="state_finished" [hidden]="task.state != state.FINISHED">check_box</md-icon>
-            {{task.title}}
-        </div>
-    </div>
-</md-card>
+<app-task-kaban [todoTasks]="todoTasks$" [inProgressTasks]="inProgressTasks$" [finishedTasks]="finishedTasks$" (stateChange)="onStateChanged($event)" (create)="createTask($event)"></app-task-kaban>

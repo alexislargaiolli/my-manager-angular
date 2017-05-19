@@ -1,3 +1,6 @@
+export { ProfilActions } from './reducers/profil/profil.actions';
+export { NoteActions } from './reducers/note/note.actions';
+export { ProjectClientActions } from './reducers/project-client/project-client.actions';
 export { ProjectHistoryEntryActions } from './reducers/project-history/project-history.actions';
 export { ProjectDevisActions } from './reducers/project-devis/project-devis.actions';
 export { ProjectNoteActions } from './reducers/project-note/project-note.actions';

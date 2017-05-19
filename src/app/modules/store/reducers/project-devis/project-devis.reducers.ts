@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     error: null
 };
 
-export function projectDevisReducer(state: IModelList<Devis> = INITIAL_STATE, action) {
-    state = modelReducer<Devis>(Devis.name, state, action);
+export function projectDevisReducer(state: IProjectDevisState = INITIAL_STATE, action) {
+    state = modelReducer<Devis>(Devis.name, Devis.name, state, action);
     return state;
 }

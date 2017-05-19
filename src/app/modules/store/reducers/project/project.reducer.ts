@@ -13,7 +13,7 @@ const INITIAL_STATE: IModelList<Project> = {
 };
 
 export function projectReducer(state: IModelList<Project> = INITIAL_STATE, action) {
-    state = modelReducer<Project>(Project.name, state, action);
+    state = modelReducer<Project>(Project.name, Project.name, state, action);
 
     return state;
 }

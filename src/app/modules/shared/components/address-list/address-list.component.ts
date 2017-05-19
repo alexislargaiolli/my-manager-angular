@@ -42,7 +42,7 @@ export class AddressListComponent implements OnInit {
   }
 
   public select(address: Address) {
-    this.selected = address;
+    this.selected = Object.assign({}, address);
     if (this.selected == null) {
       this.selected = new Address();
     }

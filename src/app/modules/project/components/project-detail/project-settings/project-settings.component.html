@@ -1,13 +1,13 @@
-<md-card *ngIf="project">
-    <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)" *ngIf="project" class="container">
+<md-card>
+    <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)" class="container">
         <div class="row justify-content-md-center">
             <div class="col d-flex flex-column justify-content-between">
                 <div class="col d-flex flex-column">
                     <md-input-container>
-                        <input name="name" type="text" mdInput placeholder="Nom du projet" [ngModel]="project.name" required>
+                        <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
                     </md-input-container>
                     <md-input-container>
-                        <textarea name="description" mdInput placeholder="Description" [ngModel]="project.description"></textarea>
+                        <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
                     </md-input-container>
                 </div>
                 <div class="col d-flex flex-column">
@@ -20,25 +20,26 @@
                         Supprimer
                     </button>
                 </div>
-                <project-client [projectId]="projectId"></project-client>
+
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="plannedStartDate">Date de départ prévu</label>
-                    <my-date-picker name="plannedStartDate" [options]="myDatePickerOptions" [ngModel]="plannedStartDate"></my-date-picker>
+                    <material-datepicker placeholder="Date de départ prévu" name="plannedStartDate" [(date)]="project.plannedStartDate"></material-datepicker>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Date de départ effectif</label>
-                    <my-date-picker name="startDate" [options]="myDatePickerOptions" [ngModel]="startDate"></my-date-picker>
+                    <material-datepicker placeholder="Date de départ effectif" name="startDate" [(date)]="project.startDate"></material-datepicker>
                 </div>
                 <div class="form-group">
                     <label for="plannedEndDate">Date de fin prévu</label>
-                    <my-date-picker name="plannedEndDate" [options]="myDatePickerOptions" [ngModel]="plannedEndDate"></my-date-picker>
+                    <material-datepicker placeholder="Date de fin prévu" name="plannedEndDate" [(date)]="project.plannedEndDate"></material-datepicker>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Date de fin effective</label>
-                    <my-date-picker name="endDate" [options]="myDatePickerOptions" [ngModel]="endDate"></my-date-picker>
+                    <material-datepicker placeholder="Date de fin effective" name="endDate" [(date)]="project.endDate"></material-datepicker>
                 </div>
+                <project-client [clients]="clients$" [allClient]="allClient$" (add)="addClient($event)" (remove)="removeClient($event)"></project-client>
             </div>
         </div>
     </form>

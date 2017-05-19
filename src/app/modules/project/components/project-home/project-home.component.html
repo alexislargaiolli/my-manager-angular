@@ -5,5 +5,5 @@
 </div>
 <div class="project-home-right">
     <app-gain-list></app-gain-list>
-    <app-note-list></app-note-list>
+    <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-note-list>
 </div>

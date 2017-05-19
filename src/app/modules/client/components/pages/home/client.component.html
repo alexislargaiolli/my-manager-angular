@@ -1,5 +1,5 @@
-<client-list [(clients)]="clients" (clientSelect)="onSelectClient($event)" [loading]="loading"></client-list>
-<client-detail [client]="selectedClient" *ngIf="selectedClient" (onUpdate)="onUpdate($event)" (onDelete)="deleteClient($event)"></client-detail>
+<client-list [clients]="clients$" (clientSelect)="onSelectClient($event)" [loading]="loading$"></client-list>
+<client-detail [client]="selectedClient$ | async" (save)="onUpdate($event)" (delete)="deleteClient($event)" (addAddress)="addAddress($event)" (removeAddress)="removeAddress($event)" *ngIf="selectedClient$ | async"></client-detail>
 <md-card>
-    <client-create (onCreated)="addClient($event)"></client-create>
+    <client-create (create)="createClient($event)"></client-create>
 </md-card>

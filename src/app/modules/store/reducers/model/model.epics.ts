@@ -15,12 +15,19 @@ export abstract class ModelEpics<T extends IModel> {
         protected _modelAction: ModelActions<T>
     ) { }
 
+    /**
+     * Define the action source to use in event name. Default is model name.
+     */
+    protected getActionSource(): string {
+        return this._modelName;
+    }
+
     public static createEpic<T extends IModel>(actionName, request: RepositoryRequest<T>, mapFunction, catchFunction) {
         return action$ => action$.ofType(actionName).switchMap((action) => request.exec().map(mapFunction).catch(catchFunction));
     }
 
     protected load = action$ => action$
-        .ofType(ActionUtils.asyncActionType(this._modelName, ModelActions.LOAD, ActionUtils.REQUEST))
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD, ActionUtils.REQUEST))
         .switchMap((action) => {
             const request = this._repo.get(this._modelName, null);
             action.payload == null ? request.byCurrentUser() : request.by(Project.name, action.payload);
@@ -30,7 +37,7 @@ export abstract class ModelEpics<T extends IModel> {
         });
 
     protected create = action$ => action$
-        .ofType(ActionUtils.asyncActionType(this._modelName, ModelActions.CREATE, ActionUtils.REQUEST))
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.create(this._modelName, action.payload.model);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
@@ -40,7 +47,7 @@ export abstract class ModelEpics<T extends IModel> {
         });
 
     protected update = action$ => action$
-        .ofType(ActionUtils.asyncActionType(this._modelName, ModelActions.UPDATE, ActionUtils.REQUEST))
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.UPDATE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.update(this._modelName, action.payload.model);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
@@ -51,7 +58,7 @@ export abstract class ModelEpics<T extends IModel> {
         );
 
     protected delete = action$ => action$
-        .ofType(ActionUtils.asyncActionType(this._modelName, ModelActions.DELETE, ActionUtils.REQUEST))
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.delete(this._modelName, action.payload.id).byCurrentUser();
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);

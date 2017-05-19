@@ -4,8 +4,10 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Task, TaskState, TaskKaban } from 'app/models';
-import { TaskService } from '../../../services/task.service';
 import { slideInDownAnimation } from 'app/animations';
+import { IAppState, ProjectTaskActions } from 'app/modules/store';
+import { select, NgRedux } from '@angular-redux/store';
+import { IKabanChangeStateEvent } from '../../common/task-kaban/task-kaban.component';
 
 @Component({
   selector: 'app-project-task',
@@ -15,71 +17,34 @@ import { slideInDownAnimation } from 'app/animations';
 })
 export class ProjectTaskComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
-  
-  public projectId: number;
-  public state = TaskState;
-  public kaban: TaskKaban;
-  public selectedTask: Task;
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private dragulaService: DragulaService) {
-    this.kaban = new TaskKaban();
+  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.TODO))
+  todoTasks$: Observable<Task[]>;
 
-    dragulaService.drop.subscribe((value) => {
-      const taskId = +value[1].getAttribute('task-id');
-      const oldState: number = +value[3].getAttribute('column-id');
-      const newState: number = +value[2].getAttribute('column-id');
-      this.changeState(taskId, oldState, newState);
-    });
+  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.IN_PROGRESS))
+  inProgressTasks$: Observable<Task[]>;
+
+  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.FINISHED))
+  finishedTasks$: Observable<Task[]>;
+
+  constructor(private _taskAction: ProjectTaskActions, private _ngRedux: NgRedux<IAppState>) {
   }
 
-  public ngOnInit() {
-    this.route.parent.params.subscribe(params => {
-      this.projectId = +params['projectId'];
-      this.loadTask();
-    });
+  public ngOnInit() { }
+
+  public onStateChanged(event: IKabanChangeStateEvent) {
+    const previousTask = this._ngRedux.getState().projectTasks.items.find(t => t.id === event.taskId);
+    const task = Object.assign({}, previousTask, { state: event.nextState });
+
+    this._taskAction.dispatchUpdate(task, this._ngRedux.getState().selectedProject.id);
   }
 
-  public selectTask(task: Task) {
-    if (this.selectedTask === task) {
-      this.unselect();
-    } else {
-      this.selectedTask = task;
-    }
-  }
-
-  public unselect() {
-    this.selectedTask = null;
-  }
-
-  public createTask(form: NgForm) {
-    this.taskService.createByProject(this.projectId, form.value).subscribe(t => {
-      form.reset();
-      this.kaban.createTask(t);
-    });
+  public createTask(task) {
+    this._taskAction.dispatchCreate(task, this._ngRedux.getState().selectedProject.id);
   }
 
   public deleteTask(taskToDelete: Task) {
-    this.taskService.delete(taskToDelete).subscribe(res => {
-      this.unselect();
-    });
-  }
-
-  public updateSelected() {
-    // this.taskService.update(this.selectedTask).subscribe(task => {
-    //   this.selectedTask = task;
-    // });
-  }
-
-  private loadTask() {
-    this.taskService.getByProject(this.projectId).subscribe(tasks => {
-      this.kaban.setTask(tasks);
-    });
-  }
-
-  public changeState(taskId: number, oldState: TaskState, newState: TaskState) {
-    // console.log('swap %d from %s to %s', taskId, oldState, newState);
-    const task = this.kaban.swap(taskId, oldState, newState);
-    this.taskService.updateByProject(this.projectId, task).subscribe();
+    this._taskAction.dispatchDelete(taskToDelete.id, this._ngRedux.getState().selectedProject.id);
   }
 
 }

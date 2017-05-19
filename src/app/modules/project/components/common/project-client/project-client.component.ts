@@ -1,29 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ProjectService } from '../../../services/project.service';
-import { ClientService } from '../../../services/client.service';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Client } from 'app/models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'project-client',
   templateUrl: './project-client.component.html',
-  styleUrls: ['./project-client.component.css']
+  styleUrls: ['./project-client.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectClientComponent implements OnInit {
 
-  @Input()
-  public projectId: number;
-  public clients: Client[];
+  @Input('clients')
+  public clients$: Observable<Client[]>;
+
+  @Input('allClient')
+  public allClients$: Observable<Client[]>;
+
+  @Output()
+  add: EventEmitter<Client> = new EventEmitter<Client>();
+
+  @Output()
+  remove: EventEmitter<Client> = new EventEmitter<Client>();
+
   public selected: Client;
   public addMenuDisplayed = false;
   public createFormDisplayed = false;
   public addListDisplayed = false;
-  public allClients: Client[];
 
-  constructor(private projectService: ProjectService, private clientService: ClientService) { }
+  constructor() { }
 
-  public ngOnInit() {
-    this.loadClients();
-  }
+  public ngOnInit() { }
 
   public selectClient(client) {
     if (this.selected && client.id === this.selected.id) {
@@ -44,7 +50,6 @@ export class ProjectClientComponent implements OnInit {
   public showAddList() {
     this.createFormDisplayed = false;
     this.addListDisplayed = true;
-    this.loadAllClients();
   }
 
   public cancelAdd() {
@@ -64,27 +69,11 @@ export class ProjectClientComponent implements OnInit {
   }
 
   public removeSelected() {
-    this.clientService.removeFromProject(this.projectId, this.selected.id).subscribe(project => {
-      this.clients.splice(this.clients.findIndex((c) => c.id === this.selected.id), 1);
-      this.unselect();
-    });
+    this.remove.emit(this.selected);
   }
 
   private addClient(client) {
-    this.clientService.addToProject(this.projectId, client.id).subscribe(project => {
-      this.clients.push(client);
-    });
+    this.add.emit(client);
   }
 
-  private loadClients() {
-    this.clientService.getByProject(this.projectId).subscribe(clients => {
-      this.clients = clients;
-    });
-  }
-
-  private loadAllClients() {
-    this.clientService.getAll().subscribe(clients => {
-      this.allClients = clients;
-    });
-  }
 }

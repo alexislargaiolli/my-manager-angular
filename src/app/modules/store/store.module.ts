@@ -19,6 +19,14 @@ import { ProjectNoteEpics } from './reducers/project-note/project-note.epics';
 import { ProjectNoteActions } from './reducers/project-note/project-note.actions';
 import { ProjectHistoryEntryActions } from './reducers/project-history/project-history.actions';
 import { ProjectHistoryEntryEpics } from './reducers/project-history/project-history.epics';
+import { NoteActions } from './reducers/note/note.actions';
+import { NoteEpics } from './reducers/note/note.epics';
+import { ClientEpics } from './reducers/client/client.epics';
+import { ClientActions } from './reducers/client/client.actions';
+import { ProjectClientActions } from './reducers/project-client/project-client.actions';
+import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
+import { ProfilActions } from './reducers/profil/profil.actions';
+import { ProfilEpics } from './reducers/profil/profil.epics';
 
 @NgModule({
   imports: [
@@ -33,6 +41,8 @@ import { ProjectHistoryEntryEpics } from './reducers/project-history/project-his
     RootEpics,
     ProjectActions,
     ProjectEpics,
+    NoteActions,
+    NoteEpics,
     SelectedProjectActions,
     SelectedProjectEpics,
     ProjectTaskActions,
@@ -43,7 +53,13 @@ import { ProjectHistoryEntryEpics } from './reducers/project-history/project-his
     ProjectNoteActions,
     ProjectNoteEpics,
     ProjectHistoryEntryActions,
-    ProjectHistoryEntryEpics
+    ProjectHistoryEntryEpics,
+    ProjectClientActions,
+    ProjectClientEpics,
+    ClientActions,
+    ClientEpics,
+    ProfilActions,
+    ProfilEpics
   ]
 })
 export class StoreModule {

@@ -8,6 +8,7 @@ export class RepositoryRequest<T> {
     url: string;
     options: RequestOptions;
     method: RequestMethod;
+    private _includes: string[] = null;
     body: any;
 
     constructor(private repositoriesService: RepositoriesService) {
@@ -31,8 +32,22 @@ export class RepositoryRequest<T> {
         return this;
     }
 
+    public include(field: string): RepositoryRequest<T> {
+        if (this._includes === null) {
+            this._includes = [];
+        }
+        this._includes.push(field);
+        return this;
+    }
+
     public auth(token: string): RepositoryRequest<T> {
         this.options.headers.append('Authorization', token);
+        return this;
+    }
+
+    public overrideModelUrl(url, modelName): RepositoryRequest<T> {
+        const modelUrl = this.repositoriesService.getApiUrl(modelName);
+        this.url = this.url.replace(modelUrl, url)
         return this;
     }
 
@@ -42,6 +57,9 @@ export class RepositoryRequest<T> {
     }
 
     public exec(): Observable<any> {
+        if (this._includes !== null && this._includes.length > 0) {
+            this.url = this._includes.reduce((previousUrl: string, include, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[include][${include}]`, this.url);
+        }
         return this.repositoriesService.execute(this);
     }
 }

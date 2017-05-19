@@ -3,7 +3,9 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AppSettings } from 'app/app-settings';
-import { NotificationService, EventsService, CurrentSession, BaseHttpService, ErrorService, BackendConfig } from 'app/modules/core';
+import { NotificationService, EventsService, BaseHttpService, ErrorService, BackendConfig } from 'app/modules/core';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../../store/store.types';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,8 +15,7 @@ export class AuthenticationService {
         protected http: Http,
         protected notificationService: NotificationService,
         protected eventsService: EventsService,
-        protected currentSession: CurrentSession,
-        protected baseHttpService: BaseHttpService) {
+        protected baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
     }
 
     login(username: string, password: string) {
@@ -29,10 +30,11 @@ export class AuthenticationService {
     }
 
     logout() {
+        //To replace by BaseToken implementation
         const options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': this.currentSession.token
+                'Authorization': this._ngRedux.getState().session.token
             })
         });
         return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {}, options);

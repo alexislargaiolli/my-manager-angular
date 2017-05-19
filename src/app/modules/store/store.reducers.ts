@@ -9,14 +9,22 @@ import { IAppState } from 'app/modules/store';
 import { projectDevisReducer } from './reducers/project-devis/project-devis.reducers';
 import { projectNoteReducer } from './reducers/project-note/project-note.reducers';
 import { projectHistoryEntryReducer } from './reducers/project-history/project-history.reducers';
+import { noteReducer } from './reducers/note/note.reducers';
+import { clientReducer } from './reducers/client/client.reducers';
+import { projectClientReducer } from './reducers/project-client/project-client.reducers';
+import { profilReducer } from './reducers/profil/profil.reducers';
 
 export const reducers = combineReducers<IAppState>({
     projects: projectReducer,
+    profil: profilReducer,
+    notes: noteReducer,
+    clients: clientReducer,
     session: sessionReducer,
     selectedProject: selectedProjectReducer,
     projectTasks: projectTaskReducer,
     projectDevis: projectDevisReducer,
     projectNotes: projectNoteReducer,
     projectHistory: projectHistoryEntryReducer,
+    projectClient: projectClientReducer,
     router: routerReducer
 });

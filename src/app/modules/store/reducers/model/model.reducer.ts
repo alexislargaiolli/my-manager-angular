@@ -1,54 +1,32 @@
 
-import { IModelList, IPayloadAction, IModel } from 'app/modules/core';
+import { IModelList, IPayloadAction, IModel, ModelUtils } from 'app/modules/core';
 import { ModelActions } from './model.actions';
 import { ActionUtils } from './action.utils';
 
 
 
-export function modelReducer<T extends IModel>(modelName: string, state: IModelList<T>, action: IPayloadAction<any, any>): IModelList<T> {
+export function modelReducer<T extends IModel>(modelName: string, actionSource: string, state: IModelList<T>, action: IPayloadAction<any, any>): any {
     switch (action.type) {
-        case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.REQUEST):
-            return {
-                items: [],
-                loading: true,
-                error: null
-            }
-        case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.SUCCESS):
-            return {
-                items: action.payload,
-                loading: false,
-                error: null
-            }
-        case ActionUtils.asyncActionType(modelName, ModelActions.LOAD, ActionUtils.ERROR):
-            return {
-                items: [],
-                loading: false,
-                error: action.error
-            }
-        case ActionUtils.asyncActionType(modelName, ModelActions.CREATE, ActionUtils.SUCCESS):
-            return {
-                items: state.items.concat(action.payload),
-                loading: false,
-                error: null
-            }
-        case ActionUtils.asyncActionType(modelName, ModelActions.UPDATE, ActionUtils.SUCCESS):
-            const i = state.items.findIndex(a => a.id === action.payload.id);
-            return {
-                items: [
-                    ...state.items.slice(0, i),
-                    action.payload,
-                    ...state.items.slice(i + 1)
-                ],
-                loading: false,
-                error: null
-            };
-        case ActionUtils.asyncActionType(modelName, ModelActions.DELETE, ActionUtils.SUCCESS):
-            const index = state.items.findIndex(a => a.id === action.payload);
-            return {
-                items: state.items.filter(m => m.id !== action.payload),
-                loading: false,
-                error: null
-            };
+        case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD, ActionUtils.REQUEST):
+            return Object.assign({}, state, { loading: true, items: [], error: null });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: action.payload, loading: false });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD, ActionUtils.ERROR):
+            return Object.assign({}, state, { items: [], loading: false, error: action.payload });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.CREATE, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: state.items.concat(action.payload), loading: false, error: null });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.UPDATE, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), loading: false, error: null });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.PATCH, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), loading: false, error: null });
+
+        case ActionUtils.asyncActionType(actionSource, ModelActions.DELETE, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: ModelUtils.immutableRemove(state.items, action.payload), loading: false, error: null });
     }
     return state;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentSession } from 'app/modules/core';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
+import { User } from 'app/modules/core';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +10,15 @@ import { CurrentSession } from 'app/modules/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private currentSession: CurrentSession) { }
+  @select(['session', 'authenticated'])
+  authenticated$: Observable<boolean>;
+
+  @select(['session', 'user'])
+  user$: Observable<User>;
+
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  public get authenticated(){
-    return this.currentSession.userId != null;
   }
 
 }
