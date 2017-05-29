@@ -7,12 +7,15 @@ import {
   MdButtonModule, MdMenuModule, MdProgressBarModule, MdCardModule,
   MdInputModule, MdCheckboxModule, MdSelectModule, MdDialogModule,
   MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule,
-  MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule
+  MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule, MdNativeDateModule,
+  MdDatepickerModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeysPipe } from './utils/keys.pipe';
 import { AddressPipe } from './utils/address.pipe';
 import { AddressListComponent } from './components/address-list/address-list.component';
+import { AddressInputComponent } from './components/address-input/address-input.component';
+import { InplaceComponent } from './components/inplace/inplace.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,6 +27,8 @@ import { AddressListComponent } from './components/address-list/address-list.com
   declarations: [
     KeysPipe,
     AddressListComponent,
+    AddressInputComponent,
+    InplaceComponent,
     AddressPipe
   ],
   exports: [
@@ -48,8 +53,12 @@ import { AddressListComponent } from './components/address-list/address-list.com
     MdProgressSpinnerModule,
     MdSlideToggleModule,
     MdRadioModule,
+    MdNativeDateModule,
+    MdDatepickerModule,
     AddressListComponent,
-    AddressPipe
+    AddressPipe,
+    AddressInputComponent,
+    InplaceComponent
   ]
 })
 export class SharedModule { }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Project, ProjectState } from 'app/models';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { SelectedProjectActions } from 'app/modules/store';
 
 @Component({
   selector: 'app-project-detail',
@@ -10,6 +11,12 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./project-detail.component.scss']
 })
 export class ProjectDetailComponent implements OnInit {
-  constructor() { }
+
+  @select(SelectedProjectActions.currentProject)
+  currentProject$: Observable<Project>;
+
+  constructor(private _selectedProjectAction: SelectedProjectActions, private activatedRoute: ActivatedRoute) {
+    this._selectedProjectAction.dispatchSelectProject(activatedRoute.snapshot.params['projectId']);
+  }
   public ngOnInit() { }
 }

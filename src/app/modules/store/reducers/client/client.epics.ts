@@ -23,14 +23,7 @@ export class ClientEpics extends ModelEpics<Client> {
     }
 
     @Epic()
-    load = action$ => action$
-        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD, ActionUtils.REQUEST))
-        .switchMap((action) => {
-            const request = this._repo.get(this._modelName, null).byCurrentUser().include('addresses');
-            return request.exec()
-                .map(models => this._clientActions.loadSuccess(models))
-                .catch(error => of(this._clientActions.loadError(error)))
-        });
+    load = this.load;
 
     @Epic()
     create = this.create;
@@ -44,25 +37,5 @@ export class ClientEpics extends ModelEpics<Client> {
     @Epic()
     onLogin = (action$) => action$.ofType(SessionActions.LOGIN_SUCCESS)
         .map(action => this._clientActions.load());
-
-    @Epic()
-    addAddress = action$ => action$
-        .ofType(ClientActions.CLIENT_ADD_ADDRESS)
-        .switchMap((action) => {
-            const request = this._repo.create<Client>(Address.name, action.payload.address).by(Client.name, action.payload.clientId).include('addresses');
-            return request.exec()
-                .map(models => this._clientActions.addAddressSuccess(action.payload.clientId, action.payload.address))
-                .catch(error => of(this._clientActions.updateError(error)))
-        });
-
-    @Epic()
-    removeAddress = action$ => action$
-        .ofType(ClientActions.CLIENT_REMOVE_ADDRESS)
-        .switchMap((action) => {
-            const request = this._repo.delete<Client>(Address.name, action.payload.addressId).by(Client.name, action.payload.clientId).include('addresses');
-            return request.exec()
-                .map(models => this._clientActions.removeAddressSuccess(action.payload.clientId, action.payload.addressId))
-                .catch(error => of(this._clientActions.deleteError(error)))
-        });
 
 }

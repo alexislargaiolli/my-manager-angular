@@ -1,0 +1,21 @@
+@import '../../project-details-variables';
+:host {
+    @include project-details-container;
+}
+
+.devis-form {
+    background: #fff;
+}
+
+app-address-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-wrapper {
+    background: #aaa;
+    padding: 10px;
+    .mat-input-container {
+        display: block;
+    }
+}

@@ -44,15 +44,6 @@ export class ClientComponent implements OnInit {
   }
 
   public onUpdate(client: Client) {
-
+    this._clientActions.dispatchUpdate(client);
   }
-
-  public addAddress(address: Address) {
-    this._clientActions.dispatchAddAddress(this._ngRedux.getState().clients.selectedId, address);
-  }
-
-  public removeAddress(address: Address) {
-    this._clientActions.dispatchRemoveAddress(this._ngRedux.getState().clients.selectedId, address.id)
-  }
-
 }

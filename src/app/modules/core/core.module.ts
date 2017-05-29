@@ -10,13 +10,15 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { RepositoriesService } from './services/repositories/repositories.service';
 import { BaseHttpService } from './services/repositories/base-http.service';
 import { BackendConfig } from './models/backend.config';
+import { PageNotFoundComponent } from "app/modules/core/components/page-not-found/page-not-found.component";
 
 @NgModule({
   imports: [SharedModule],
   declarations: [
     NotificationCenterComponent,
     MyNotificationComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PageNotFoundComponent
   ],
   exports: [
     NotificationCenterComponent,

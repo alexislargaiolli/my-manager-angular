@@ -1,40 +1,100 @@
-<div class="container mt-2" *ngIf="devis">
-    <md-toolbar color="primary">
-        <button md-button (click)="goBack()"><md-icon>backspace</md-icon></button>
-        <span>Devis</span>
-        <span class="toolbar-spacer"></span>
-        <button (click)="devisForm.ngSubmit.emit()" [disabled]="!devisForm.form.valid" md-button><md-icon>save</md-icon></button>
-        <button (click)="remove()" md-button><md-icon>delete</md-icon></button>
-    </md-toolbar>
-    <div class="mat-elevation-z2">
-        <form fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around" #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off">
-            <div fxLayout="column" fxFlex="50" class="p-3">
-                <md-input-container>
-                    <input mdInput name="title" [(ngModel)]="devis.title" type="text" required placeholder="Titre du devis">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput name="budget" [(ngModel)]="devis.budget" type="number" min="0" required placeholder="Budget">
-                </md-input-container>
-            </div>
-            <div fxLayout="column">
-                <div class="p-3">
-                    <label>Créer le </label>
-                    <material-datepicker placeholder="Date création" name="createDate" [(date)]="devis.createDate"></material-datepicker>
+<div class="d-flex justify-content-around p-2">
+    <div *ngIf="devis">
+        <md-toolbar color="primary">
+            <button md-button (click)="goBack()"><md-icon>backspace</md-icon></button>
+            <span>Devis</span>
+            <span class="toolbar-spacer"></span>
+            <button (click)="save()" [disabled]="!devisForm.form.valid" md-button><md-icon>save</md-icon></button>
+            <button (click)="remove()" md-button><md-icon>delete</md-icon></button>
+        </md-toolbar>
+        <div class="devis-form">
+            <form #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off">
+                <div class="p-2 d-flex flex-column">
+                    <div>
+                        <h3>Devis</h3>
+                        <div class="d-flex flex-row">
+                            <md-input-container>
+                                <input mdInput [mdDatepicker]="createDatePicker" placeholder="Date de création" [ngModel]="devis.createDate" name="createDate">
+                                <button mdSuffix [mdDatepickerToggle]="createDatePicker"></button>
+                            </md-input-container>
+                            <md-datepicker #createDatePicker></md-datepicker>
+                            <md-input-container>
+                                <input mdInput [mdDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [ngModel]="devis.validityDate" name="validityDate">
+                                <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
+                            </md-input-container>
+                            <md-datepicker #validityDatePicker></md-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3>Mes coordonnées</h3>
+                            <app-inplace>
+                                <div class="inplace-output">
+                                    <span *ngIf="devis.userStreet != null || devis.userCity || devis.userZipcode; else emptyUserAddress">
+                                        {{devis.userStreet}} {{devis.userZipcode}} {{devis.userCity}}
+                                    </span>
+                                    <ng-template #emptyUserAddress>
+                                        Saisissez votre adresse
+                                    </ng-template>
+                                </div>
+                                <div class="inplace-input">
+                                    <app-address-input [(street)]="devis.userStreet" [(city)]="devis.userCity" [(zipcode)]="devis.userZipcode"></app-address-input>
+                                </div>
+                            </app-inplace>
+                        </div>
+                        <div>
+                            <h3>Client</h3>
+                            <app-inplace>
+                                <div class="inplace-output">
+                                    <span *ngIf="devis.clientStreet != null || devis.clientCity || devis.clientZipcode; else emptyClientAddress">
+                                        {{devis.clientStreet}} {{devis.clientZipcode}} {{devis.clientCity}}
+                                    </span>
+                                    <ng-template #emptyClientAddress>
+                                        Saisissez l'adresse du client
+                                    </ng-template>
+                                </div>
+                                <div class="inplace-input">
+                                    <app-address-input [(street)]="devis.clientStreet" [(city)]="devis.clientCity" [(zipcode)]="devis.clientZipcode"></app-address-input>
+                                </div>
+                            </app-inplace>
+                        </div>
+                    </div>
+                    <div class="title-wrapper">
+                        <md-input-container>
+                            <input mdInput name="title" [(ngModel)]="devis.title" type="text" placeholder="Titre du devis">
+                        </md-input-container>
+                    </div>
                 </div>
-                <div class="p-3" *ngIf="devis.state == devisState.ACCEPTED">
-                    <label>Validé le </label>
-                    <material-datepicker placeholder="Date validation" name="acceptedDate" [(date)]="devis.acceptedDate"></material-datepicker>
+                <!--<div fxLayout="column" fxFlex="50" class="p-3">
+                    <md-input-container>
+                        <input mdInput name="title" [(ngModel)]="devis.title" type="text" required placeholder="Titre du devis">
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput name="budget" [(ngModel)]="devis.budget" type="number" min="0" required placeholder="Budget">
+                    </md-input-container>
                 </div>
-                <div class="p-3">
-                    <md-radio-group [(ngModel)]="devis.state" name="state">
-                        <md-radio-button [value]="devisState.DRAFT">Brouillon</md-radio-button>
-                        <md-radio-button [value]="devisState.PENDING">En attente</md-radio-button>
-                        <md-radio-button [value]="devisState.ACCEPTED">Accepté</md-radio-button>
-                        <md-radio-button [value]="devisState.REFUSED">Refusé</md-radio-button>
-                        <md-radio-button [value]="devisState.PAID">Payé</md-radio-button>
-                    </md-radio-group>
-                </div>
-            </div>
-        </form>
+                <div fxLayout="column">
+                    <div class="p-3">
+                        <label>Créer le </label>
+                        <material-datepicker placeholder="Date création" name="createDate" [(date)]="devis.createDate"></material-datepicker>
+                    </div>
+                    <div class="p-3" *ngIf="devis.state == devisState.ACCEPTED">
+                        <label>Validé le </label>
+                        <material-datepicker placeholder="Date validation" name="acceptedDate" [(date)]="devis.acceptedDate"></material-datepicker>
+                    </div>
+                    <div class="p-3">
+                        <md-radio-group [(ngModel)]="devis.state" name="state">
+                            <md-radio-button [value]="devisState.DRAFT">Brouillon</md-radio-button>
+                            <md-radio-button [value]="devisState.PENDING">En attente</md-radio-button>
+                            <md-radio-button [value]="devisState.ACCEPTED">Accepté</md-radio-button>
+                            <md-radio-button [value]="devisState.REFUSED">Refusé</md-radio-button>
+                            <md-radio-button [value]="devisState.PAID">Payé</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                </div>-->
+            </form>
+        </div>
     </div>
+    <app-devis-preview [devis]="devis" *ngIf="devis"></app-devis-preview>
 </div>

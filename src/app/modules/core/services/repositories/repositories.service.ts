@@ -39,8 +39,8 @@ export class RepositoriesService {
         return request;
     }
 
-    public update<T extends IModel>(className: string, elt: T): RepositoryRequest<T> {
-        const request = this.createBaseRequest<T>(className, elt.id, RequestMethod.Put);
+    public update<T extends IModel>(className: string, elt: T, withoutId?: boolean): RepositoryRequest<T> {
+        const request = this.createBaseRequest<T>(className, withoutId ? null : elt.id, RequestMethod.Put);
         request.body = elt;
         return request;
     }

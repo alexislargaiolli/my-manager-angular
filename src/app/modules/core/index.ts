@@ -9,6 +9,7 @@ export { NotificationService } from './services/notification.service';
 
 // COMPONENTS
 export { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+export { PageNotFoundComponent } from 'app/modules/core/components/page-not-found/page-not-found.component';
 
 // MODELS
 export { IModel } from './models/generic.model';

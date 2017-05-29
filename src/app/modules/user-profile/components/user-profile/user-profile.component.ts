@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileActions, IAppState } from 'app/modules/store';
+import { NgRedux } from '@angular-redux/store';
 
 @Component({
   selector: 'app-profil',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _profileActions: ProfileActions, private _redux: NgRedux<IAppState>) { }
 
   ngOnInit() {
+    this._profileActions.dispatchLoad();
   }
 
 }

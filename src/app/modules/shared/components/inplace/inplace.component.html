@@ -1,0 +1,7 @@
+<div [hidden]="display" (click)="toggle()">
+    <ng-content select=".inplace-output"></ng-content>
+</div>
+<div [hidden]="!display">
+    <ng-content select=".inplace-input"></ng-content>
+    <button md-raised-button (click)="toggle()"><md-icon>save</md-icon></button>
+</div>

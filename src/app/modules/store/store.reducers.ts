@@ -12,11 +12,11 @@ import { projectHistoryEntryReducer } from './reducers/project-history/project-h
 import { noteReducer } from './reducers/note/note.reducers';
 import { clientReducer } from './reducers/client/client.reducers';
 import { projectClientReducer } from './reducers/project-client/project-client.reducers';
-import { profilReducer } from './reducers/profil/profil.reducers';
+import { profileReducer } from './reducers/profile/profile.reducers';
 
 export const reducers = combineReducers<IAppState>({
     projects: projectReducer,
-    profil: profilReducer,
+    profile: profileReducer,
     notes: noteReducer,
     clients: clientReducer,
     session: sessionReducer,

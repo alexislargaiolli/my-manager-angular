@@ -1,8 +1,8 @@
-import { Project, Client, Note, Task, Devis, HistoryEntry, Address } from 'app/models';
+import { Project, Client, Note, Task, Devis, HistoryEntry, Address, Profile } from 'app/models';
 import { User, IModelList, IModel, UserSession } from 'app/modules/core';
 
 export interface IAppState {
-    profil?: IProfilState,
+    profile?: IProfileState,
     projects?: IModelList<Project>,
     session?: UserSession,
     clients?: IClientState;
@@ -15,8 +15,10 @@ export interface IAppState {
     projectClient?: IProjectClientState
 }
 
-export interface IProfilState {
-    addresses: IModelList<Address>
+export interface IProfileState {
+    profile: Profile,
+    loading: boolean,
+    error: string
 }
 
 export interface ISelectedProjectState {

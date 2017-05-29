@@ -20,15 +20,17 @@ export class SelectedProjectActions {
     }
 
     public static readonly SELECT_PROJECT = 'SELECT_PROJECT';
-    selectProject(project: Project) {
+    selectProject(projectId: number) {
         return {
             type: SelectedProjectActions.SELECT_PROJECT,
-            payload: project
+            payload: {
+                id: projectId
+            }
         }
     }
 
-    public dispatchSelectProject(project: Project) {
-        this._ngRedux.dispatch(this.selectProject(project));
+    public dispatchSelectProject(projectId: number) {
+        this._ngRedux.dispatch(this.selectProject(projectId));
     }
 
 }

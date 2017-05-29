@@ -9,6 +9,6 @@
     <p>Nom de famille{{client.lastname}}</p>
     <p>Email: {{client.email}}</p>
     <p>Téléphone: {{client.tel}}</p>
-    <app-address-list [(addresses)]="client.addresses" (onSaved)="addAddress.emit($event)" (onDelete)="removeAddress.emit($event)"></app-address-list>
+    <app-address-list [(addresses)]="client.addresses" (onSaved)="addAddress($event)" (onDelete)="removeAddress($event)"></app-address-list>
 
 </md-card>

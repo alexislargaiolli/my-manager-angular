@@ -5,7 +5,7 @@ import { Devis } from 'app/models';
 @Component({
   selector: 'app-project-devis-list',
   templateUrl: './project-devis-list.component.html',
-  styleUrls: ['./project-devis-list.component.css'],
+  styleUrls: ['./project-devis-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectDevisListComponent implements OnInit {
@@ -17,11 +17,14 @@ export class ProjectDevisListComponent implements OnInit {
   loading$: Observable<boolean>;
 
   @Output()
-  click: EventEmitter<Devis> = new EventEmitter<Devis>();
+  select: EventEmitter<Devis> = new EventEmitter<Devis>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  selectDevis(devis) {
+    this.select.emit(devis);
+  }
 }

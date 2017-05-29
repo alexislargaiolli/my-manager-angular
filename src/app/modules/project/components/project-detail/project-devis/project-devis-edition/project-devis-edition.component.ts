@@ -11,7 +11,7 @@ import { ProjectDevisActions } from '../../../../../store/reducers/project-devis
 @Component({
   selector: 'app-project-devis-edition',
   templateUrl: './project-devis-edition.component.html',
-  styleUrls: ['./project-devis-edition.component.css']
+  styleUrls: ['./project-devis-edition.component.scss']
 })
 export class ProjectDevisEditionComponent implements OnInit {
   private devisState = DevisState;
@@ -51,8 +51,12 @@ export class ProjectDevisEditionComponent implements OnInit {
   }
 
   public submitForm(form: NgForm) {
+    // this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
+    // this.goBack();
+  }
+
+  public save() {
     this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
-    this.goBack();
   }
 
   public onStateChange() {

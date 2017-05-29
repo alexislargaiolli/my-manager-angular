@@ -10,6 +10,7 @@ import { ProjectActions } from '../../../store/reducers/project/project.actions'
 import { Observable } from 'rxjs/Rx';
 import { SelectedProjectActions } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'project-home',
@@ -32,8 +33,8 @@ export class ProjectHomeComponent implements OnInit {
 
   constructor(
     private _projectActions: ProjectActions,
-    private _selectedProjectAction: SelectedProjectActions,
-    private _noteActions: NoteActions
+    private _noteActions: NoteActions,
+    private _router: Router
   ) { }
 
   public ngOnInit() { }
@@ -47,7 +48,7 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   public onSelect(project) {
-    this._selectedProjectAction.dispatchSelectProject(project);
+    this._router.navigate(['./project', project.id]);
   }
 
   public createNote(note) {

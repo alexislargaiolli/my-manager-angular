@@ -10,7 +10,7 @@ import { ProjectHistoryEntryEpics } from './reducers/project-history/project-his
 import { NoteEpics } from './reducers/note/note.epics';
 import { ClientEpics } from './reducers/client/client.epics';
 import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
-import { ProfilEpics } from './reducers/profil/profil.epics';
+import { ProfileEpics } from './reducers/profile/profile.epics';
 
 @Injectable()
 export class RootEpics {
@@ -25,7 +25,7 @@ export class RootEpics {
         private _historyEpics: ProjectHistoryEntryEpics,
         private _clientEpics: ClientEpics,
         private _projectClientEpics: ProjectClientEpics,
-        private _profilEpics: ProfilEpics
+        private _profileEpics: ProfileEpics
     ) { }
 
     public createEpics() {
@@ -40,7 +40,7 @@ export class RootEpics {
             this._historyEpics,
             this._clientEpics,
             this._projectClientEpics,
-            this._profilEpics
+            this._profileEpics
         );
     }
 }

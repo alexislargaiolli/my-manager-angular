@@ -21,18 +21,6 @@ export function clientReducer(state: IClientState = INITIAL_STATE, action) {
         case ClientActions.UNSELECT_CLIENT:
             return Object.assign({}, state, { selectedId: null });
 
-        case ClientActions.CLIENT_ADD_ADDRESS_SUCCESS:
-            const i = state.items.findIndex(a => a.id === action.payload.clientId);
-            const client = Object.assign({}, state.items[i], { addresses: state.items[i].addresses.concat(action.payload.address) });
-            return Object.assign({}, state, { items: ModelUtils.immutableUpdate<Client>(state.items, client), loading: false, error: null });
-
-        case ClientActions.CLIENT_REMOVE_ADDRESS_SUCCESS:
-            const clientIndex = state.items.findIndex(a => a.id === action.payload.clientId);
-            const c = Object.assign({}, state.items[clientIndex], { addresses: ModelUtils.immutableRemove(state.items[clientIndex].addresses, action.payload.addressId) });
-            return Object.assign({}, state, {
-                items: ModelUtils.immutableUpdate<Client>(state.items, c), loading: false, error: null
-            });
-
     }
     return state;
 }

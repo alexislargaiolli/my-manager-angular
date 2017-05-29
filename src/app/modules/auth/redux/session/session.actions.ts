@@ -22,7 +22,6 @@ export class SessionActions {
 
     public static readonly LOGIN_SUCCESS = 'LOGIN_SUCCESS';
     loginSuccess(token: string, userId: number) {
-        this._router.navigate(['/project']);
         return {
             type: SessionActions.LOGIN_SUCCESS,
             payload: {

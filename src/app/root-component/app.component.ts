@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoriesService } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
-import { Project, Task, Devis, Note, HistoryEntry } from 'app/models';
+import { Project, Task, Devis, Note, HistoryEntry, Address, Profile } from 'app/models';
 import { Client } from 'app/models';
-import { Address } from 'app/models';
 import { SessionActions } from '../modules/auth/redux/session/session.actions';
 
 @Component({
@@ -24,6 +23,7 @@ export class AppComponent implements OnInit {
     this.repositoriesService.addManageClass(Note.name, 'notes');
     this.repositoriesService.addManageClass(HistoryEntry.name, 'historyentries');
     this.repositoriesService.addManageClass(Address.name, 'addresses');
+    this.repositoriesService.addManageClass(Profile.name, 'profile');
     this._sessionActions.dispatchReadFromLocalStorage();
     // this.currentSession.initialize();
   }

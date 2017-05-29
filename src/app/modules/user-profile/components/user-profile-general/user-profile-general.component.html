@@ -1,1 +1,1 @@
-<app-address-list [addresses]="addresses$ | async" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)"></app-address-list>
+<app-address-list [addresses]="(profile$ | async).addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)" *ngIf="!(loading$ | async)"></app-address-list>

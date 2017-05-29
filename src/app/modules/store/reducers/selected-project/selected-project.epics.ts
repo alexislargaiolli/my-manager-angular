@@ -17,11 +17,4 @@ export class SelectedProjectEpics {
         protected _selectedProjectActions: SelectedProjectActions,
     ) { }
 
-    /**
-     * Redirect to project dashboard after project selection
-     */
-    @Epic()
-    selectProject = action$ => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
-        .map(action => { return { type: UPDATE_LOCATION, payload: `project/${action.payload.id}/dashboard` } });
-
 }

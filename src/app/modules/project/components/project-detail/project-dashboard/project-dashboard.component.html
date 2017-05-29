@@ -1,4 +1,4 @@
-<div class="container p-2">
+<div class="container p-2" *ngIf="currentProject$|async">
     <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)"></app-project-state>
     <div class="d-flex mt-2">
         <div class="grow-1">
@@ -9,7 +9,7 @@
                 <app-one-value-card label="Progression" [value]="(currentProject$|async).progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
             </div>
             <div class="d-flex mt-2">
-                <app-devis-preview class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-preview>
+                <app-devis-dashboard class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-dashboard>
                 <app-project-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-project-note-list>
             </div>
         </div>

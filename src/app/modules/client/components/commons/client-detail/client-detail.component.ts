@@ -12,21 +12,13 @@ import { IAppState } from 'app/modules/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientDetailComponent implements OnInit {
-
-  @Input()
-  public client: Client;
+  private _client: Client;
 
   @Output()
   public delete: EventEmitter<Client> = new EventEmitter<Client>();
 
   @Output()
   public save: EventEmitter<Client> = new EventEmitter<Client>();
-
-  @Output()
-  public addAddress: EventEmitter<Address> = new EventEmitter<Address>();
-
-  @Output()
-  public removeAddress: EventEmitter<Address> = new EventEmitter<Address>();
 
   constructor(private _ngRedux: NgRedux<IAppState>) {
 
@@ -35,7 +27,28 @@ export class ClientDetailComponent implements OnInit {
   public ngOnInit() { }
 
   public saveClient() {
-    this.save.emit(this.client);
+    this.save.emit(this._client);
   }
 
+  public addAddress(address) {
+    this._client.addresses.push(address);
+    this.saveClient();
+  }
+
+  public removeAddress(address) {
+    ModelUtils.remove(this._client.addresses, address);
+    this.saveClient();
+  }
+
+  get client() {
+    return this._client;
+  }
+
+  @Input("client")
+  set client(client: Client) {
+    this._client = Object.assign({}, client);
+    if (this._client.addresses == null) {
+      this._client.addresses = [];
+    }
+  }
 }

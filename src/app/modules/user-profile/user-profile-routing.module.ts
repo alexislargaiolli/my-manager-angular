@@ -3,6 +3,7 @@ import { UserProfilePasswordComponent } from './components/user-profile-password
 import { UserProfileGeneralComponent } from './components/user-profile-general/user-profile-general.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AuthGuard } from 'app/modules/auth';
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
@@ -14,4 +15,8 @@ const routes: Routes = [
   },
 ];
 
-export const UserProfileRoutes = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class UserProfileRoutingModule { }

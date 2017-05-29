@@ -10,6 +10,7 @@ import { IAppState } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Epic } from 'redux-observable-decorator';
+import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
 
 @Injectable()
 export class SessionEpics {
@@ -36,6 +37,11 @@ export class SessionEpics {
         .ofType(SessionActions.LOGIN_SUCCESS)
         .map((action) => this._sessionAction.getUserInfo(action.payload.userId));
 
+    // @Epic()
+    // redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
+    //     .map((action) => { 
+    //         return { type: UPDATE_LOCATION, payload: `login` } });
+
     @Epic()
     storeAfterLogin = action$ => action$
         .ofType(SessionActions.LOGIN_SUCCESS)
@@ -53,6 +59,10 @@ export class SessionEpics {
     @Epic()
     logoutSuccess = action$ => action$.ofType(SessionActions.LOGOUT_SUCCESS)
         .map((action) => this._sessionAction.removeFromLocalStorage());
+
+    @Epic()
+    redirectAfterLogout = action$ => action$.ofType(SessionActions.LOGOUT_SUCCESS)
+        .map((action) => { return { type: UPDATE_LOCATION, payload: `login` } });
 
     @Epic()
     getUserInfo = action$ => action$

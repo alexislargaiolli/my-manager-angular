@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
 import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions } from 'app/modules/store';
 import { Subscription } from 'rxjs/Rx';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -43,7 +43,8 @@ export class ProjectDashboardComponent implements OnInit {
     private _projectAction: ProjectActions,
     private _projectNoteActions: ProjectNoteActions,
     private _projectHistoryActions: ProjectHistoryEntryActions,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute,
   ) { }
 
   public ngOnInit() { }
@@ -62,7 +63,7 @@ export class ProjectDashboardComponent implements OnInit {
   }
 
   public onDevisClicked(devis: Devis) {
-    this._router.navigate(['./devis', devis.id]);
+    this._router.navigate(['../devis', devis.id], { relativeTo: this._route });
   }
 
 }

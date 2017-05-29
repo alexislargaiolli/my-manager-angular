@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Address } from 'app/models';
+import { Address, Profile } from 'app/models';
 import { ModelUtils, RepositoriesService } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
 import { Observable } from 'rxjs/Observable';
-import { select } from '@angular-redux/store';
-import { ProfilActions } from "app/modules/store";
+import { select, NgRedux } from '@angular-redux/store';
+import { ProfileActions } from "app/modules/store";
+import { IAppState } from '../../../store/store.types';
 
 @Component({
   templateUrl: './user-profile-general.component.html',
@@ -13,23 +14,26 @@ import { ProfilActions } from "app/modules/store";
 })
 export class UserProfileGeneralComponent implements OnInit {
 
-  @select(['profil', 'addresses', 'items'])
-  public addresses$: Observable<Address[]>;
+  @select(['profile', 'profile'])
+  public profile$: Observable<Profile>;
 
-  @select(['profil', 'addresses', 'loading'])
+  @select(['profile', 'loading'])
   public loading$: Observable<boolean>;
 
-  constructor(private _profilActions: ProfilActions) { }
+  constructor(private _profileActions: ProfileActions, private _redux: NgRedux<IAppState>) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   public saveAddress(address: Address) {
-
+    let profile = Object.assign({}, this._redux.getState().profile.profile);
+    profile.addresses.push(address);
+    this._profileActions.dispatchUpdate(profile);
   }
 
   public deleteAddress(address: Address) {
-
+    let profile = Object.assign({}, this._redux.getState().profile.profile);
+    ModelUtils.remove(profile.addresses, address);
+    this._profileActions.dispatchUpdate(profile);
   }
 
 }

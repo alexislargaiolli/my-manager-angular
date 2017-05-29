@@ -22,7 +22,8 @@ const routes: Routes = [
       { path: 'devis', component: ProjectDevisComponent },
       { path: 'devis/:devisId', component: ProjectDevisEditionComponent },
       { path: 'invoices', component: ProjectInvoiceComponent },
-      { path: 'settings', component: ProjectSettingsComponent }
+      { path: 'settings', component: ProjectSettingsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   }
 ];

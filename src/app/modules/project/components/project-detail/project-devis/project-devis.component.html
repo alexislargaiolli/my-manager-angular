@@ -1,13 +1,1 @@
-<div class="container mt-2">
-    <md-toolbar color="primary">
-        <span>Gestion des devis</span>
-        <span class="toolbar-spacer"></span>
-        <button [routerLink]="['./', 'create']" md-button><md-icon>add</md-icon></button>
-    </md-toolbar>
-
-    <div class="mat-elevation-z2 p-3 d-flex justify-content-center" *ngIf="loading">
-        <md-progress-spinner mode="indeterminate" color="accent"></md-progress-spinner>
-    </div>
-
-    <app-project-devis-list [devis]="devis$" [loading]="devisLoading$" (click)="onDevisClick($event)"></app-project-devis-list>
-</div>
+<app-project-devis-list [devis]="devis$" [loading]="devisLoading$" (select)="onDevisClick($event)"></app-project-devis-list>

@@ -5,6 +5,7 @@ export class Devis implements IModel {
     public createdAt: Date;
     public updatedAt: Date;
     public createDate: Date;
+    public validityDate: Date;
     public devisId: string;
     public title: string;
     public project: number;
@@ -14,6 +15,13 @@ export class Devis implements IModel {
     public accepted: boolean;
     public acceptedDate: Date;
     public state: DevisState = DevisState.DRAFT;
+    public clientStreet: string;
+    public clientCity: string;
+    public clientZipcode: string;
+    public userStreet: string;
+    public userCity: string;
+    public userZipcode: string;
+    public lines: DevisLine[];
 }
 
 export enum DevisState {
@@ -22,4 +30,11 @@ export enum DevisState {
     ACCEPTED,
     REFUSED,
     PAID
+}
+
+export class DevisLine {
+    public content: string;
+    public quantity: string;
+    public unitPrice: number;
+    public totalPrice: number;
 }

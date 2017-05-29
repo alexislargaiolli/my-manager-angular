@@ -25,8 +25,8 @@ import { ClientEpics } from './reducers/client/client.epics';
 import { ClientActions } from './reducers/client/client.actions';
 import { ProjectClientActions } from './reducers/project-client/project-client.actions';
 import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
-import { ProfilActions } from './reducers/profil/profil.actions';
-import { ProfilEpics } from './reducers/profil/profil.epics';
+import { ProfileActions } from './reducers/profile/profile.actions';
+import { ProfileEpics } from './reducers/profile/profile.epics';
 
 @NgModule({
   imports: [
@@ -58,8 +58,8 @@ import { ProfilEpics } from './reducers/profil/profil.epics';
     ProjectClientEpics,
     ClientActions,
     ClientEpics,
-    ProfilActions,
-    ProfilEpics
+    ProfileActions,
+    ProfileEpics
   ]
 })
 export class StoreModule {

@@ -1,0 +1,13 @@
+@import 'components';
+:host {
+    @extend .panel;
+}
+
+.devis-icon {
+    color: #666;
+    margin-right: 15px;
+}
+
+.devis-state {
+    font-size: 11px;
+}

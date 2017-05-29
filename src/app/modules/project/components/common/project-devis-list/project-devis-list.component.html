@@ -1,12 +1,8 @@
-<md-card class="card-list-item devis-list-item" *ngFor="let devi of (devis$ | async)" (click)="click.emit(devi)">
-    <md-card-header>
-        <md-icon color="primary">insert_drive_file</md-icon>
-        <md-card-title>{{devi.title}}</md-card-title>
-        <md-card-subtitle>{{devi.createDate | date}}</md-card-subtitle>
-    </md-card-header>
-</md-card>
-<div class="mat-elevation-z2 p-3 d-flex justify-content-center" *ngIf="(devis$ | async).length == 0">
-    Aucun devis
+<div class="square-list">
+    <app-devis-list-item *ngFor="let devi of (devis$ | async)" [devis]="devi" class="square-list-item" (click)="selectDevis(devi)"></app-devis-list-item>
+    <div class="square-list-item create-devis-item">
+        <button [routerLink]="['./', 'create']" md-button><md-icon>add</md-icon>Créer un devis</button>
+    </div>
 </div>
 <div *ngIf="loading$ | async">
     Chargement
