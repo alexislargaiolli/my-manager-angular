@@ -5,6 +5,17 @@
     @include project-details-container;
 }
 
+.project-header {
+    padding: 50px;
+    h1 {
+        font-family: $title-font;
+        text-transform: uppercase;
+        color: #666;
+        font-size: 51px;
+        font-size: 50px;
+    }
+}
+
 .one-value-card-wrapper {
     display: flex;
     flex-wrap: wrap;
