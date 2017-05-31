@@ -11,6 +11,6 @@ const INITIAL_STATE = {
 };
 
 export function projectDevisReducer(state: IProjectDevisState = INITIAL_STATE, action) {
-    state = modelReducer<Devis>(Devis.name, Devis.name, state, action);
+    state = modelReducer<Devis>(Devis.REPO_KEY, Devis.REPO_KEY, state, action);
     return state;
 }

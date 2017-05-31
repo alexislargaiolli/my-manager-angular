@@ -15,7 +15,7 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
         private _taskActions: ProjectTaskActions,
         protected _repo: RepositoriesService
     ) {
-        super(Task.name, _repo, _taskActions);
+        super(Task.REPO_KEY, _repo, _taskActions);
     }
 
     @Epic()

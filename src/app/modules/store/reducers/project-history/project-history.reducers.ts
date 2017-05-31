@@ -11,6 +11,6 @@ const INITIAL_STATE = {
 };
 
 export function projectHistoryEntryReducer(state: IProjectHistoryState = INITIAL_STATE, action) {
-    state = modelReducer<HistoryEntry>(HistoryEntry.name, HistoryEntry.name, state, action);
+    state = modelReducer<HistoryEntry>(HistoryEntry.REPO_KEY, HistoryEntry.REPO_KEY, state, action);
     return state;
 }

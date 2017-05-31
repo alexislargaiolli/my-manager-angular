@@ -18,7 +18,7 @@ export class ProjectEpics extends ModelEpics<Project>{
         protected _repo: RepositoriesService,
         protected _projectActions: ProjectActions,
     ) {
-        super(Project.name, _repo, _projectActions);
+        super(Project.REPO_KEY, _repo, _projectActions);
     }
 
     @Epic()

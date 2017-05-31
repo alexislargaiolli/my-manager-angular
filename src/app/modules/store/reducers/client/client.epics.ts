@@ -19,7 +19,7 @@ export class ClientEpics extends ModelEpics<Client> {
         protected _clientActions: ClientActions,
         protected _repo: RepositoriesService
     ) {
-        super(Client.name, _repo, _clientActions);
+        super(Client.REPO_KEY, _repo, _clientActions);
     }
 
     @Epic()

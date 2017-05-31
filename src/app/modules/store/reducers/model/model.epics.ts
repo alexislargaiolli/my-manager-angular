@@ -30,7 +30,7 @@ export abstract class ModelEpics<T extends IModel> {
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD, ActionUtils.REQUEST))
         .switchMap((action) => {
             const request = this._repo.get(this._modelName, null);
-            action.payload == null ? request.byCurrentUser() : request.by(Project.name, action.payload);
+            action.payload == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload);
             return request.exec()
                 .map(models => this._modelAction.loadSuccess(models))
                 .catch(error => of(this._modelAction.loadError(error)));
@@ -40,7 +40,7 @@ export abstract class ModelEpics<T extends IModel> {
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.create(this._modelName, action.payload.model);
-            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
+            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.createSuccess(model))
                 .catch(error => of(this._modelAction.createError(error)));
@@ -50,7 +50,7 @@ export abstract class ModelEpics<T extends IModel> {
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.UPDATE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.update(this._modelName, action.payload.model);
-            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
+            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.updateSuccess(model))
                 .catch(error => of(this._modelAction.updateError(error)));
@@ -61,7 +61,7 @@ export abstract class ModelEpics<T extends IModel> {
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.REQUEST))
         .switchMap(action => {
             const request = this._repo.delete(this._modelName, action.payload.id);
-            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
+            action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
                 .map(() => this._modelAction.deleteSuccess(action.payload))
                 .catch(error => of(this._modelAction.deleteError(error)));

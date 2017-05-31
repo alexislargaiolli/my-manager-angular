@@ -16,7 +16,7 @@ export class ProjectDevisEpics extends ModelEpics<Devis> {
         protected _devisActions: ProjectDevisActions,
         protected _repo: RepositoriesService
     ) {
-        super(Devis.name, _repo, _devisActions);
+        super(Devis.REPO_KEY, _repo, _devisActions);
     }
 
     @Epic()

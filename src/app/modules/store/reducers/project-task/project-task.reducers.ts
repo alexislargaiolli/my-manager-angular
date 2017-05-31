@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 };
 
 export function projectTaskReducer(state: IProjectTaskState = INITIAL_STATE, action) {
-    state = modelReducer<Task>(Task.name, Task.name, state, action);
+    state = modelReducer<Task>(Task.REPO_KEY, Task.REPO_KEY, state, action);
 
     return state;
 }

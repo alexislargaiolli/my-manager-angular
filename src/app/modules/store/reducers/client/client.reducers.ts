@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 };
 
 export function clientReducer(state: IClientState = INITIAL_STATE, action) {
-    state = modelReducer<Client>(Client.name, Client.name, state, action);
+    state = modelReducer<Client>(Client.REPO_KEY, Client.REPO_KEY, state, action);
     switch (action.type) {
         case ClientActions.SELECT_CLIENT:
             return Object.assign({}, state, { selectedId: action.payload });

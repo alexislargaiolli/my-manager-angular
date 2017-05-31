@@ -1,6 +1,7 @@
 import { IModel } from 'app/modules/core';
 
 export class Note implements IModel {
+    public static readonly REPO_KEY = 'Note';
     public id: number;
     public createdAt: Date;
     public updatedAt: Date;

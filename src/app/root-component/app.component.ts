@@ -15,15 +15,15 @@ export class AppComponent implements OnInit {
   constructor(private repositoriesService: RepositoriesService, private _sessionActions: SessionActions) { }
 
   ngOnInit() {
-    this.repositoriesService.addManageClass(User.name, 'mmusers');
-    this.repositoriesService.addManageClass(Project.name, 'projects');
-    this.repositoriesService.addManageClass(Client.name, 'clients');
-    this.repositoriesService.addManageClass(Task.name, 'tasks');
-    this.repositoriesService.addManageClass(Devis.name, 'devis');
-    this.repositoriesService.addManageClass(Note.name, 'notes');
-    this.repositoriesService.addManageClass(HistoryEntry.name, 'historyentries');
-    this.repositoriesService.addManageClass(Address.name, 'addresses');
-    this.repositoriesService.addManageClass(Profile.name, 'profile');
+    this.repositoriesService.addManageClass(User.REPO_KEY, 'mmusers');
+    this.repositoriesService.addManageClass(Project.REPO_KEY, 'projects');
+    this.repositoriesService.addManageClass(Client.REPO_KEY, 'clients');
+    this.repositoriesService.addManageClass(Task.REPO_KEY, 'tasks');
+    this.repositoriesService.addManageClass(Devis.REPO_KEY, 'devis');
+    this.repositoriesService.addManageClass(Note.REPO_KEY, 'notes');
+    this.repositoriesService.addManageClass(HistoryEntry.REPO_KEY, 'historyentries');
+    this.repositoriesService.addManageClass(Address.REPO_KEY, 'addresses');
+    this.repositoriesService.addManageClass(Profile.REPO_KEY, 'profile');
     this._sessionActions.dispatchReadFromLocalStorage();
     // this.currentSession.initialize();
   }

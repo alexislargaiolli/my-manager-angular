@@ -16,7 +16,7 @@ export class NoteEpics extends ModelEpics<Note>{
         private _noteActions: NoteActions,
         protected _repo: RepositoriesService
     ) {
-        super(Note.name, _repo, _noteActions);
+        super(Note.REPO_KEY, _repo, _noteActions);
     }
 
     /**

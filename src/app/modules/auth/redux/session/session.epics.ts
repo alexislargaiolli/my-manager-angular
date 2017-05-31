@@ -39,7 +39,7 @@ export class SessionEpics {
 
     // @Epic()
     // redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
-    //     .map((action) => { 
+    //     .map((action) => {
     //         return { type: UPDATE_LOCATION, payload: `login` } });
 
     @Epic()
@@ -62,13 +62,13 @@ export class SessionEpics {
 
     @Epic()
     redirectAfterLogout = action$ => action$.ofType(SessionActions.LOGOUT_SUCCESS)
-        .map((action) => { return { type: UPDATE_LOCATION, payload: `login` } });
+        .map((action) => { return { type: UPDATE_LOCATION, payload: `login` }; });
 
     @Epic()
     getUserInfo = action$ => action$
         .ofType(SessionActions.USER_INFO_REQUEST)
         .switchMap((action) =>
-            this._repo.get<User>(User.name, action.payload).exec()
+            this._repo.get<User>(User.REPO_KEY, action.payload).exec()
                 .map(user => this._sessionAction.getUserInfoSuccess(user))
                 .catch(error => of(this._sessionAction.getUserInfoError(error)))
         );
@@ -80,7 +80,7 @@ export class SessionEpics {
             const session = this._ngRedux.getState().session;
             localStorage.setItem('currentSession', JSON.stringify({ userId: session.userId, token: session.token }));
             return of(this._sessionAction.storeInLocalStorageSuccess());
-        });
+        })
 
     @Epic()
     readFromLocalStorage = action$ => action$
@@ -94,13 +94,13 @@ export class SessionEpics {
                 }
             }
             return of(this._sessionAction.readFromLocalStorageError());
-        });
+        })
 
     @Epic()
     removeFromLocalStorage = action$ => action$.ofType(SessionActions.REMOVE_FROM_LOCAL_STORAGE)
         .switchMap(() => {
             localStorage.removeItem('currentSession');
-            return of(this._sessionAction.removeFromLocalStorageSucess())
+            return of(this._sessionAction.removeFromLocalStorageSucess());
         })
 
 }

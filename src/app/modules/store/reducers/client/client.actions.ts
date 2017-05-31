@@ -13,7 +13,7 @@ export class ClientActions extends ModelActions<Client> {
     }
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Client.name);
+        super(_ngRedux, _repo, Client.REPO_KEY);
     }
 
 

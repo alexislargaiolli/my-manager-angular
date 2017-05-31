@@ -35,7 +35,7 @@ export class ProjectTaskActions extends ModelActions<Task> {
     }
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Task.name);
+        super(_ngRedux, _repo, Task.REPO_KEY);
     }
 
 }

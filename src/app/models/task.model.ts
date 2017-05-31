@@ -1,6 +1,7 @@
 import { IModel } from 'app/modules/core';
 
 export class Task implements IModel {
+    public static readonly REPO_KEY = 'Task';
     public id: number;
     public createdAt: Date;
     public updatedAt: Date;

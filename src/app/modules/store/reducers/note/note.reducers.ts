@@ -11,6 +11,6 @@ const INITIAL_STATE = {
 
 export function noteReducer(state: INoteState = INITIAL_STATE, action) {
 
-    state = modelReducer<Note>(Note.name, NoteActions.NOTE_SOURCE, state, action);
+    state = modelReducer<Note>(Note.REPO_KEY, NoteActions.NOTE_SOURCE, state, action);
     return state;
 }

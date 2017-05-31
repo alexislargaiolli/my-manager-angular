@@ -26,7 +26,7 @@ export class RepositoryRequest<T> {
 
     public byCurrentUser(): RepositoryRequest<T> {
         if (this.repositoriesService.session) {
-            const prefix = this.repositoriesService.getApiUrl(User.name);
+            const prefix = this.repositoriesService.getApiUrl(User.REPO_KEY);
             this.url = `${prefix}/${this.repositoriesService.session.userId}/${this.url}`;
         }
         return this;
@@ -47,7 +47,7 @@ export class RepositoryRequest<T> {
 
     public overrideModelUrl(url, modelName): RepositoryRequest<T> {
         const modelUrl = this.repositoriesService.getApiUrl(modelName);
-        this.url = this.url.replace(modelUrl, url)
+        this.url = this.url.replace(modelUrl, url);
         return this;
     }
 

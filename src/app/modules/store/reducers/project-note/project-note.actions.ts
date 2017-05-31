@@ -9,6 +9,6 @@ import { ModelActions } from '../model/model.actions';
 export class ProjectNoteActions extends ModelActions<Note> {
 
     constructor(protected _repo: RepositoriesService, protected _ngRedux: NgRedux<IAppState>) {
-        super(_ngRedux, _repo, Note.name)
+        super(_ngRedux, _repo, Note.REPO_KEY)
     }
 }

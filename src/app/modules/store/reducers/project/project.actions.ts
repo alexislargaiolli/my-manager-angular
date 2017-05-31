@@ -10,7 +10,7 @@ import { ProjectState } from 'app/models';
 export class ProjectActions extends ModelActions<Project> {
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Project.name);
+        super(_ngRedux, _repo, Project.REPO_KEY);
     }
 
     public static findProject(state: IAppState, projectId) {
@@ -22,7 +22,7 @@ export class ProjectActions extends ModelActions<Project> {
         return {
             type: ProjectActions.UPDATE_STATE,
             payload: { state, project }
-        }
+        };
     }
 
     public dispatchUpdateState(project: Project, state: ProjectState) {

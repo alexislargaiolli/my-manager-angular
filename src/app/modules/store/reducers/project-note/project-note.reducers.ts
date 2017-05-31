@@ -10,6 +10,6 @@ const INITIAL_STATE = {
 };
 
 export function projectNoteReducer(state: IProjectNoteState = INITIAL_STATE, action) {
-    state = modelReducer<Note>(Note.name, Note.name, state, action);
+    state = modelReducer<Note>(Note.REPO_KEY, Note.REPO_KEY, state, action);
     return state;
 }

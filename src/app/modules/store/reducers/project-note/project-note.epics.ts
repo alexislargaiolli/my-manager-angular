@@ -15,7 +15,7 @@ export class ProjectNoteEpics extends ModelEpics<Note>{
         private _noteActions: ProjectNoteActions,
         protected _repo: RepositoriesService
     ) {
-        super(Note.name, _repo, _noteActions);
+        super(Note.REPO_KEY, _repo, _noteActions);
     }
 
     @Epic()

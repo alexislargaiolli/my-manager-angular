@@ -2,6 +2,7 @@ import { IModel } from './generic.model';
 import { Address } from 'app/models';
 
 export class User implements IModel {
+    public static readonly REPO_KEY = 'User';
     public id: number;
     public createdAt: Date;
     public updatedAt: Date;

@@ -11,6 +11,6 @@ const INITIAL_STATE = {
 };
 
 export function projectClientReducer(state: IProjectClientState = INITIAL_STATE, action) {
-    state = modelReducer<Client>(Client.name, ProjectClientActions.CLIENT_SOURCE, state, action);
+    state = modelReducer<Client>(Client.REPO_KEY, ProjectClientActions.CLIENT_SOURCE, state, action);
     return state;
 }

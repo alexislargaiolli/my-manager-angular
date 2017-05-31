@@ -9,6 +9,6 @@ import { ModelActions } from '../model/model.actions';
 export class ProjectHistoryEntryActions extends ModelActions<HistoryEntry> {
 
     constructor(protected _repo: RepositoriesService, protected _ngRedux: NgRedux<IAppState>) {
-        super(_ngRedux, _repo, HistoryEntry.name)
+        super(_ngRedux, _repo, HistoryEntry.REPO_KEY)
     }
 }

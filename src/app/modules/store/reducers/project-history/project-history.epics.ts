@@ -15,7 +15,7 @@ export class ProjectHistoryEntryEpics extends ModelEpics<HistoryEntry>{
         private _historyEntryActions: ProjectHistoryEntryActions,
         protected _repo: RepositoriesService
     ) {
-        super(HistoryEntry.name, _repo, _historyEntryActions);
+        super(HistoryEntry.REPO_KEY, _repo, _historyEntryActions);
     }
 
     @Epic()

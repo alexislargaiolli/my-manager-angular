@@ -18,7 +18,7 @@ export class ProjectClientEpics extends ModelEpics<Client> {
         protected _projectClientActions: ProjectClientActions,
         protected _repo: RepositoriesService
     ) {
-        super(Client.name, _repo, _projectClientActions);
+        super(Client.REPO_KEY, _repo, _projectClientActions);
     }
 
     /**
@@ -35,7 +35,7 @@ export class ProjectClientEpics extends ModelEpics<Client> {
     protected addToProject = action$ => action$
         .ofType(ProjectClientActions.ADD_TO_PROJECT)
         .switchMap(action => {
-            const request = this._repo.addRelation(this._modelName, action.payload.client).by(Project.name, action.payload.projectId);
+            const request = this._repo.addRelation(this._modelName, action.payload.client).by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.createSuccess(action.payload.client))
                 .catch(error => of(this._modelAction.createError(error)))
@@ -45,7 +45,7 @@ export class ProjectClientEpics extends ModelEpics<Client> {
     protected removeFromProject = action$ => action$
         .ofType(ProjectClientActions.REMOVE_FROM_PROJECT)
         .switchMap(action => {
-            const request = this._repo.removeRelation(this._modelName, action.payload.clientId).by(Project.name, action.payload.projectId);
+            const request = this._repo.removeRelation(this._modelName, action.payload.clientId).by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.deleteSuccess(action.payload.clientId))
                 .catch(error => of(this._modelAction.deleteError(error)))
