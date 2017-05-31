@@ -29,6 +29,7 @@ import { KabanColumnComponent } from './components/common/task-kaban/kaban-colum
 import { TaskKabanComponent } from './components/common/task-kaban/task-kaban.component';
 import { DevisListItemComponent } from './components/common/devis-list-item/devis-list-item.component';
 import { DevisPreviewComponent } from './components/common/devis-preview/devis-preview.component';
+import { DevisLinePipe } from './services/devis-line.pipe';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { DevisPreviewComponent } from './components/common/devis-preview/devis-p
     ProjectDevisEditionComponent,
     DevisDashboardComponent,
     DevisStatePipe,
+    DevisLinePipe,
     OneValueCardComponent,
     ProjectStateComponent,
     ProjectNoteListComponent,

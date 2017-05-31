@@ -6,5 +6,6 @@ export class Address implements IModel {
     public updatedAt: Date;
     public street: string;
     public city: string;
-    public zipcode: number;
+    public zipcode: string;
+    public complement: string;
 }

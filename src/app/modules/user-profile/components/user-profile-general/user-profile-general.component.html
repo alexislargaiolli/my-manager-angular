@@ -1,1 +1,13 @@
-<app-address-list [addresses]="(profile$ | async).addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)" *ngIf="!(loading$ | async)"></app-address-list>
+<form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" autocomplete="off" *ngIf="!(loading$ | async)">
+    <md-input-container>
+        <input mdInput name="lastname" placeholder="Nom" [(ngModel)]="profile.lastname" required>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput name="firstname" placeholder="Firsname" [(ngModel)]="profile.firstname" required>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput name="siret" placeholder="Numéro de siret" [(ngModel)]="profile.siret">
+    </md-input-container>
+    <button md-button type="submit"><md-icon>save</md-icon></button>
+</form>
+<app-address-list [addresses]="profile.addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)" *ngIf="!(loading$ | async)"></app-address-list>

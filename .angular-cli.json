@@ -29,7 +29,7 @@
                 "styles"
             ]
         },
-        "scripts": [],
+        "scripts": ["./libs/jspdf.min.js", "./libs/html2canvas.min.js", "./libs/html2pdf.js"],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",

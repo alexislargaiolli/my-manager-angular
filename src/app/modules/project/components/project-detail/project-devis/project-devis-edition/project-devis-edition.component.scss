@@ -13,9 +13,43 @@ app-address-input {
 }
 
 .title-wrapper {
-    background: #aaa;
-    padding: 10px;
     .mat-input-container {
         display: block;
+    }
+}
+
+.lines-wrapper {
+    min-height: 50px;
+    .devis-line {
+        .line-content {
+            width: 300px;
+        }
+        .line-quantity,
+        .line-unit,
+        .line-total {
+            width: 70px;
+            text-align: center;
+        }
+    }
+    .devis-line-header {
+        padding-right: 24px;
+        font-weight: bold;
+    }
+    .devis-line-drag-handle {
+        cursor: pointer;
+    }
+}
+
+.create-line-wrapper {
+    .line-content {
+        width: 300px;
+    }
+    .line-quantity,
+    .line-unit {
+        width: 100px;
+    }
+    button {
+        padding: 0;
+        min-width: 24px;
     }
 }

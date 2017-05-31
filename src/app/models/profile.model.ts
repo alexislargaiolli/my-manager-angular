@@ -7,5 +7,6 @@ export class Profile implements IModel {
     public updatedAt: Date;
     public firstname: string;
     public lastname: string;
+    public siret: string;
     public addresses: Address[];
 }

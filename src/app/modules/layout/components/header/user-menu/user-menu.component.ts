@@ -20,4 +20,8 @@ export class UserMenuComponent implements OnInit {
 
   ngOnInit() { }
 
+  public logout() {
+    this._sessionActions.dispatchLogout()
+  }
+
 }

@@ -4,6 +4,7 @@
     ],
     "autoFixOnSave": true,
     "rules": {
+        "no-input-rename": false,
         "callable-types": true,
         "class-name": true,
         "comment-format": [

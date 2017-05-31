@@ -3,14 +3,14 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-inplace',
   templateUrl: './inplace.component.html',
-  styleUrls: ['./inplace.component.css']
+  styleUrls: ['./inplace.component.scss']
 })
 export class InplaceComponent implements OnInit {
 
   @Output()
   onSave: EventEmitter<any> = new EventEmitter<any>();
 
-  display: boolean = false;
+  display = false;
 
   constructor() { }
 

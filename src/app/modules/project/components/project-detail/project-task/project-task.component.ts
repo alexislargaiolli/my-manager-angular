@@ -18,13 +18,13 @@ import { IKabanChangeStateEvent } from '../../common/task-kaban/task-kaban.compo
 export class ProjectTaskComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
 
-  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.TODO))
+  @select(ProjectTaskActions.findTodoTask)
   todoTasks$: Observable<Task[]>;
 
-  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.IN_PROGRESS))
+  @select(ProjectTaskActions.findInProgressTask)
   inProgressTasks$: Observable<Task[]>;
 
-  @select((state: IAppState) => state.projectTasks.items.filter(task => task.state == TaskState.FINISHED))
+  @select(ProjectTaskActions.findFinishedTask)
   finishedTasks$: Observable<Task[]>;
 
   constructor(private _taskAction: ProjectTaskActions, private _ngRedux: NgRedux<IAppState>) {

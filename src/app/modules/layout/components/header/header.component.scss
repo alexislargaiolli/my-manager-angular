@@ -1,4 +1,9 @@
 @import 'variables';
+:host {
+    position: relative;
+    z-index: 1000;
+}
+
 .header-nav {
     background: #fff;
     .header-left {

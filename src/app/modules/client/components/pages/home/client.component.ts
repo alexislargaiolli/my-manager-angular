@@ -19,7 +19,7 @@ export class ClientComponent implements OnInit {
   @select(['clients', 'boolean'])
   public loading$: Observable<boolean>;
 
-  @select((state: IAppState) => state.clients.items.find(c => c.id === state.clients.selectedId))
+  @select(ClientActions.findSelectedClient)
   public selectedClient$: Observable<Client>;
 
   constructor(private _clientActions: ClientActions, private _ngRedux: NgRedux<IAppState>) { }

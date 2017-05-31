@@ -31,12 +31,10 @@ export class ClientDetailComponent implements OnInit {
   }
 
   public addAddress(address) {
-    this._client.addresses.push(address);
     this.saveClient();
   }
 
   public removeAddress(address) {
-    ModelUtils.remove(this._client.addresses, address);
     this.saveClient();
   }
 
@@ -44,7 +42,7 @@ export class ClientDetailComponent implements OnInit {
     return this._client;
   }
 
-  @Input("client")
+  @Input('client')
   set client(client: Client) {
     this._client = Object.assign({}, client);
     if (this._client.addresses == null) {

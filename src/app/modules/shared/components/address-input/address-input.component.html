@@ -2,8 +2,11 @@
     <input mdInput [ngModel]="street" (ngModelChange)="streetChange.emit($event)" type="text" placeholder="Nom de rue">
 </md-input-container>
 <md-input-container>
-    <input mdInput [ngModel]="city" (ngModelChange)="cityChange.emit($event)" type="text" placeholder="Ville">
+    <input mdInput [ngModel]="complement" (ngModelChange)="complementChange.emit($event)" type="text" placeholder="Complément">
 </md-input-container>
 <md-input-container>
     <input mdInput [ngModel]="zipcode" (ngModelChange)="zipcodeChange.emit($event)" type="text" placeholder="Code postal">
+</md-input-container>
+<md-input-container>
+    <input mdInput [ngModel]="city" (ngModelChange)="cityChange.emit($event)" type="text" placeholder="Ville">
 </md-input-container>

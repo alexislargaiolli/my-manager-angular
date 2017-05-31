@@ -21,6 +21,10 @@ export class ProfileEpics {
     ) { }
 
     @Epic()
+    onLogin = (action$) => action$.ofType(SessionActions.LOGIN_SUCCESS)
+        .map(action => this._profileActions.load());
+
+    @Epic()
     load = action$ => action$
         .ofType(ProfileActions.LOAD_PROFILE_REQUEST)
         .switchMap((action) => {
@@ -28,7 +32,7 @@ export class ProfileEpics {
             return request.exec()
                 .map(models => this._profileActions.loadSuccess(models))
                 .catch(error => of(this._profileActions.loadError(error)))
-        });
+        })
 
     @Epic()
     update = action$ => action$
@@ -37,6 +41,6 @@ export class ProfileEpics {
             const request = this._repo.update<Profile>(Profile.name, action.payload, true).byCurrentUser();
             return request.exec()
                 .map(models => this._profileActions.updateSuccess(action.payload))
-        });
+        })
 
 }

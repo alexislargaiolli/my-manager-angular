@@ -1,6 +1,6 @@
 <md-card>
     <md-card-title>A faire</md-card-title>
-    <form #taskForm="ngForm" (ngSubmit)="create.emit(taskForm.values)" *ngIf="i == 0" class="create-task-form">
+    <form #taskForm="ngForm" (ngSubmit)="create.emit(taskForm.values)" class="create-task-form">
         <md-input-container>
             <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
         </md-input-container>

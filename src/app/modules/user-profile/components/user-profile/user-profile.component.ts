@@ -12,7 +12,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private _profileActions: ProfileActions, private _redux: NgRedux<IAppState>) { }
 
   ngOnInit() {
-    this._profileActions.dispatchLoad();
+
   }
 
 }

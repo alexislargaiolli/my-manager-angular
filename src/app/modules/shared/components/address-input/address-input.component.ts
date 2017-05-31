@@ -14,6 +14,12 @@ export class AddressInputComponent implements OnInit {
   streetChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
+  complement: string;
+
+  @Output()
+  complementChange: EventEmitter<string> = new EventEmitter<string>();
+
+  @Input()
   city: string;
 
   @Output()

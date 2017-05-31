@@ -1,1 +1,71 @@
-{{devis.title}}
+<div class="header d-flex flex-row align-items-center">
+    <div class="header-info d-flex flex-column justify-content-around">
+        <div class="devis-id">N° {{devis.devisId}}</div>
+        <div class="devis-date">{{devis.createDate | date:'mediumDate'}}</div>
+        <div class="devis-validity">Valide jusqu'au {{devis.validityDate | date}}</div>
+    </div>
+    <div class="header-spacer"></div>
+    <div class="header-type">
+        <span class="big-title">DEVIS</span>
+    </div>
+</div>
+<div class="content">
+    <div class="d-flex flex-row justify-content-between">
+        <div class="user-coord">
+            <div class="coord-name">{{devis.userName}}</div>
+            <div class="coord-siret">SIRET {{devis.siret}}</div>
+            <div class="coord-street">{{devis.userAddress?.street}}</div>
+            <div class="coord-complement">{{devis.userAddress?.complement}}</div>
+            <div class="coord-city">{{devis.userAddress?.zipcode}} {{devis.userAddress?.city}}</div>
+        </div>
+        <div class="client-coord">
+            <div class="coord-name">{{devis.clientName}}</div>
+            <div class="coord-street">{{devis.clientAddress?.street}}</div>
+            <div class="coord-complement">{{devis.clientAddress?.complement}}</div>
+            <div class="coord-city">{{devis.clientAddress?.zipcode}} {{devis.clientAddress?.city}}</div>
+        </div>
+    </div>
+    <div class="devis-title">
+        {{devis.title}}
+    </div>
+    <div class="line lines-header d-flex flex-row align-items-center">
+        <div>Libellé</div>
+        <div><span>Prix unitaire</span> TTC</div>
+        <div>Quantité</div>
+        <div>Unité</div>
+        <div>TOTAL TTC</div>
+    </div>
+    <div *ngFor="let line of devis.lines" class="line line-content d-flex flex-row">
+        <div class="content" [innerHtml]="line.content | devisLine"></div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.unitPrice}}€</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.quantity}}</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">jour</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.totalPrice}}€</div>
+    </div>
+
+    <div class="mt-5 d-flex flex-row justify-content-between">
+        <div class="signature">
+            <p>Signature précédée de "Bon pour accord" <br> avec le cachet de l'établissement valant acceptation du présent devis.</p>
+        </div>
+        <div class="total d-flex flex-column">
+            <div class="total-header">MONTANT DU DEVIS</div>
+            <div class="d-flex flex-row">
+                <div class="total-label">TOTAL</div>
+                <div class="total-price grow-1">{{devis.totalPrice}}€</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="devis-footer">
+    <div class="d-flex flex-row justify-content-around align-items-center">
+        <div *ngIf="devis.userPhone" class="d-flex align-items-center contact-info">
+            <md-icon>contact_phone</md-icon>
+            <div class="ml-2">{{devis.userPhone}}</div>
+        </div>
+        <div *ngIf="devis.userMail" class="d-flex align-items-center contact-info">
+            <md-icon>contact_mail</md-icon>
+            <div class="ml-2">{{devis.userMail}}</div>
+        </div>
+    </div>
+    <p>Dispensé d'immatriculation au registre du commerce et des sociétés et au répertoire des métiers</p>
+</div>

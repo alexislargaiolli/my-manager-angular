@@ -1,5 +1,5 @@
 {
     "vsicons.presets.angular": true,
-    "angulardoc.repoId": "8ba3da4f-c6a5-4bc7-b0f1-3cc2ff292cfd",
-    "angulardoc.lastSync": 0
+    "tslint.exclude": "./node_modules/**",
+    "css.validate": false
 }

@@ -16,6 +16,7 @@ import { AddressPipe } from './utils/address.pipe';
 import { AddressListComponent } from './components/address-list/address-list.component';
 import { AddressInputComponent } from './components/address-input/address-input.component';
 import { InplaceComponent } from './components/inplace/inplace.component';
+
 @NgModule({
   imports: [
     CommonModule,

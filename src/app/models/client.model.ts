@@ -11,4 +11,8 @@ export class Client implements IModel {
     public email: string;
     public tel: number;
     public addresses: Address[];
+
+    constructor() {
+        this.addresses = [];
+    }
 }

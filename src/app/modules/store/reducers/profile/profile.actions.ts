@@ -18,7 +18,7 @@ export class ProfileActions {
     load() {
         return {
             type: ProfileActions.LOAD_PROFILE_REQUEST,
-        }
+        };
     }
 
     public static readonly LOAD_PROFILE_SUCCESS = 'LOAD_PROFILE_SUCCESS';
@@ -26,7 +26,7 @@ export class ProfileActions {
         return {
             type: ProfileActions.LOAD_PROFILE_SUCCESS,
             payload: addresses
-        }
+        };
     }
 
     public static readonly LOAD_PROFILE_ERROR = 'LOAD_PROFILE_ERROR';
@@ -34,7 +34,7 @@ export class ProfileActions {
         return {
             type: ProfileActions.LOAD_PROFILE_ERROR,
             payload: error
-        }
+        };
     }
 
     public dispatchUpdate(profile: Profile) {
@@ -46,7 +46,7 @@ export class ProfileActions {
         return {
             type: ProfileActions.UPDATE_PROFILE_REQUEST,
             payload: profile
-        }
+        };
     }
 
     public static readonly UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
@@ -54,7 +54,7 @@ export class ProfileActions {
         return {
             type: ProfileActions.UPDATE_PROFILE_SUCCESS,
             payload: profile
-        }
+        };
     }
 
     public static readonly UPDATE_PROFILE_ERROR = 'UPDATE_PROFILE_ERROR';
@@ -62,7 +62,7 @@ export class ProfileActions {
         return {
             type: ProfileActions.UPDATE_PROFILE_ERROR,
             payload: error
-        }
+        };
     }
 
 }

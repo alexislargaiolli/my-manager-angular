@@ -1,6 +1,14 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Devis } from 'app/models';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  group
+} from '@angular/animations';
 
 @Component({
   selector: 'app-project-devis-list',
@@ -21,8 +29,7 @@ export class ProjectDevisListComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   selectDevis(devis) {
     this.select.emit(devis);

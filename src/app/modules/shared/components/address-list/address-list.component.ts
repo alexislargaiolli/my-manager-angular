@@ -35,18 +35,23 @@ export class AddressListComponent implements OnInit {
   }
 
   public save(ngForm: NgForm) {
-    this.selected.street = ngForm.value.street;
-    this.selected.zipcode = ngForm.value.zipcode;
-    this.selected.city = ngForm.value.city;
-    this.onSaved.emit(this.selected);
-    this.unselect();
+    if (ngForm.valid) {
+      this.selected.street = ngForm.value.street;
+      this.selected.city = ngForm.value.city;
+      this.selected.zipcode = ngForm.value.zipcode;
+      this.selected.complement = ngForm.value.complement;
+      this.onSaved.emit(this.selected);
+      this.unselect();
+    }
   }
 
   public select(address: Address) {
-    this.selected = Object.assign({}, address);
-    if (this.selected == null) {
-      this.selected = new Address();
-    }
+    this.selected = address;
+  }
+
+  public create() {
+    this.selected = new Address();
+    this.addresses.push(this.selected);
   }
 
   public unselect() {
@@ -54,6 +59,7 @@ export class AddressListComponent implements OnInit {
   }
 
   public delete(address: Address) {
+    ModelUtils.remove(this.addresses, address);
     this.onDelete.emit(address);
     this.unselect();
   }

@@ -8,16 +8,21 @@ import { NgRedux } from '@angular-redux/store';
 @Injectable()
 export class ClientActions extends ModelActions<Client> {
 
-    constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Client.name)
+    public static findSelectedClient(state: IAppState) {
+        return state.clients.items.find(c => c.id === state.clients.selectedId);
     }
+
+    constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
+        super(_ngRedux, _repo, Client.name);
+    }
+
 
     public static readonly SELECT_CLIENT = 'SELECT_CLIENT';
     selectClient(clientId: number) {
         return {
             type: ClientActions.SELECT_CLIENT,
             payload: clientId
-        }
+        };
     }
 
     public dispatchSelectClient(clientId: number) {
@@ -28,7 +33,7 @@ export class ClientActions extends ModelActions<Client> {
     unSelectClient() {
         return {
             type: ClientActions.UNSELECT_CLIENT
-        }
+        };
     }
 
     public dispatchUnSelectClient() {

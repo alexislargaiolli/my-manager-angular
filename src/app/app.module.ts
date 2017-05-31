@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppSettings } from './app-settings';
 import { AppComponent } from './root-component/app.component';
 import { StoreModule } from './modules/store/store.module';
+import { LOCALE_ID } from '@angular/core';
 
 
 @NgModule({
@@ -33,7 +34,9 @@ import { StoreModule } from './modules/store/store.module';
     ProjectModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

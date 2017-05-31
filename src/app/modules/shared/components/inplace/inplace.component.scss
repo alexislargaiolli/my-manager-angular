@@ -1,0 +1,7 @@
+.inplace-output {
+    transition: background 500ms;
+    cursor: pointer;
+    &:hover {
+        background: #eee;
+    }
+}

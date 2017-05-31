@@ -3,7 +3,7 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { ModelActions } from './model.actions';
 import { of } from 'rxjs/observable/of';
 import { ActionUtils } from './action.utils';
-import { Epic } from 'redux-observable-decorator'
+import { Epic } from 'redux-observable-decorator';
 import { RepositoryRequest } from '../../../core/services/repositories/repository-request';
 import { Project } from 'app/models';
 
@@ -33,8 +33,8 @@ export abstract class ModelEpics<T extends IModel> {
             action.payload == null ? request.byCurrentUser() : request.by(Project.name, action.payload);
             return request.exec()
                 .map(models => this._modelAction.loadSuccess(models))
-                .catch(error => of(this._modelAction.loadError(error)))
-        });
+                .catch(error => of(this._modelAction.loadError(error)));
+        })
 
     protected create = action$ => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.REQUEST))
@@ -43,8 +43,8 @@ export abstract class ModelEpics<T extends IModel> {
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.createSuccess(model))
-                .catch(error => of(this._modelAction.createError(error)))
-        });
+                .catch(error => of(this._modelAction.createError(error)));
+        })
 
     protected update = action$ => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.UPDATE, ActionUtils.REQUEST))
@@ -53,20 +53,20 @@ export abstract class ModelEpics<T extends IModel> {
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
             return request.exec()
                 .map(model => this._modelAction.updateSuccess(model))
-                .catch(error => of(this._modelAction.updateError(error)))
+                .catch(error => of(this._modelAction.updateError(error)));
         }
-        );
+        )
 
     protected delete = action$ => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.REQUEST))
         .switchMap(action => {
-            const request = this._repo.delete(this._modelName, action.payload.id).byCurrentUser();
+            const request = this._repo.delete(this._modelName, action.payload.id);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.name, action.payload.projectId);
             return request.exec()
                 .map(() => this._modelAction.deleteSuccess(action.payload))
-                .catch(error => of(this._modelAction.deleteError(error)))
+                .catch(error => of(this._modelAction.deleteError(error)));
         }
-        );
+        )
 
 
 }
