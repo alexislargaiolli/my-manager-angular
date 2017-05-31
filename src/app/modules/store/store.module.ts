@@ -73,7 +73,7 @@ export class StoreModule {
       reducers,
       {},
       [
-        // createLogger(),
+        createLogger(),
         this._rootEpics.createEpics()
       ],
       devTools.isEnabled() ? [devTools.enhancer()] : []
