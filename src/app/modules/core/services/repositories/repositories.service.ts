@@ -9,7 +9,7 @@ import { BaseHttpService } from './base-http.service';
 import { EventsService, AppEvent } from '../event.service';
 import { UserSession } from '../../models/user-session.model';
 import { NgRedux } from '@angular-redux/store';
-import { IAppState } from "app/modules/store";
+import { IAppState } from 'app/modules/store';
 
 @Injectable()
 export class RepositoriesService {
@@ -80,7 +80,7 @@ export class RepositoriesService {
     /**
      * Create a base request. id can be null
      */
-    private createBaseRequest<T extends IModel>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
+    private createBaseRequest<T>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
         if (this._ngRedux.getState().session.authenticated) {
@@ -91,6 +91,16 @@ export class RepositoriesService {
         }
         if (id) {
             request.url += `/${id}`;
+        }
+        request.method = method;
+        return request;
+    }
+
+    public createCustomRequest<T>(url, method: RequestMethod): RepositoryRequest<T> {
+        const request = new RepositoryRequest<T>(this);
+        request.url = url;
+        if (this._ngRedux.getState().session.authenticated) {
+            request.auth(this._ngRedux.getState().session.token);
         }
         request.method = method;
         return request;

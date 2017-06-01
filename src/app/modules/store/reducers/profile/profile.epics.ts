@@ -31,7 +31,7 @@ export class ProfileEpics {
             const request = this._repo.get<Profile>(Profile.REPO_KEY, null).byCurrentUser();
             return request.exec()
                 .map(models => this._profileActions.loadSuccess(models))
-                .catch(error => of(this._profileActions.loadError(error)))
+                .catch(error => of(this._profileActions.loadError(error)));
         })
 
     @Epic()
@@ -40,7 +40,7 @@ export class ProfileEpics {
         .switchMap((action, state: IAppState) => {
             const request = this._repo.update<Profile>(Profile.REPO_KEY, action.payload, true).byCurrentUser();
             return request.exec()
-                .map(models => this._profileActions.updateSuccess(action.payload))
+                .map(models => this._profileActions.updateSuccess(action.payload));
         })
 
 }

@@ -27,6 +27,8 @@ import { ProjectClientActions } from './reducers/project-client/project-client.a
 import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
 import { ProfileActions } from './reducers/profile/profile.actions';
 import { ProfileEpics } from './reducers/profile/profile.epics';
+import { DashboardActions } from './reducers/dashboard/dashboard.actions';
+import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
 
 @NgModule({
   imports: [
@@ -59,7 +61,9 @@ import { ProfileEpics } from './reducers/profile/profile.epics';
     ClientActions,
     ClientEpics,
     ProfileActions,
-    ProfileEpics
+    ProfileEpics,
+    DashboardActions,
+    DashboardEpics
   ]
 })
 export class StoreModule {
@@ -73,7 +77,7 @@ export class StoreModule {
       reducers,
       {},
       [
-        createLogger(),
+        // createLogger(),
         this._rootEpics.createEpics()
       ],
       devTools.isEnabled() ? [devTools.enhancer()] : []

@@ -1,6 +1,6 @@
 import { ProjectEpics } from './reducers/project/project.epics';
 import { Injectable } from '@angular/core';
-import { SessionEpics } from "app/modules/auth";
+import { SessionEpics } from 'app/modules/auth';
 import { createEpics } from 'redux-observable-decorator';
 import { ProjectTaskEpics } from './reducers/project-task/project-task.epics';
 import { SelectedProjectEpics } from './reducers/selected-project/selected-project.epics';
@@ -11,6 +11,7 @@ import { NoteEpics } from './reducers/note/note.epics';
 import { ClientEpics } from './reducers/client/client.epics';
 import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
 import { ProfileEpics } from './reducers/profile/profile.epics';
+import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
 
 @Injectable()
 export class RootEpics {
@@ -25,7 +26,8 @@ export class RootEpics {
         private _historyEpics: ProjectHistoryEntryEpics,
         private _clientEpics: ClientEpics,
         private _projectClientEpics: ProjectClientEpics,
-        private _profileEpics: ProfileEpics
+        private _profileEpics: ProfileEpics,
+        private _dashboardEpics: DashboardEpics
     ) { }
 
     public createEpics() {
@@ -40,7 +42,8 @@ export class RootEpics {
             this._historyEpics,
             this._clientEpics,
             this._projectClientEpics,
-            this._profileEpics
+            this._profileEpics,
+            this._dashboardEpics
         );
     }
 }

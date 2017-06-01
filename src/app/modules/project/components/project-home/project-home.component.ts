@@ -31,6 +31,15 @@ export class ProjectHomeComponent implements OnInit {
   @select(['notes', 'boolean'])
   notesLoading$: Observable<boolean>;
 
+  @select(['dashboard', 'paid'])
+  totalPaid$: Observable<number>;
+
+  @select(['dashboard', 'invoiced'])
+  totalInvoiced$: Observable<number>;
+
+  @select(['dashboard', 'potential'])
+  totalPotential$: Observable<number>;
+
   constructor(
     private _projectActions: ProjectActions,
     private _noteActions: NoteActions,
@@ -39,7 +48,9 @@ export class ProjectHomeComponent implements OnInit {
 
   public ngOnInit() { }
 
-  public createProject(project) {
+  public createProject() {
+    const project = new Project();
+    project.name = 'Nouveau projet';
     this._projectActions.dispatchCreate(project);
   }
 

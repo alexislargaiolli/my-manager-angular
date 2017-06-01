@@ -1,5 +1,7 @@
 <div>
     <h2 class="panel-header">Activités</h2>
+    <md-progress-bar color="primary" mode="indeterminate" *ngIf="loading$ | async">
+    </md-progress-bar>
     <form #historyForm="ngForm" (ngSubmit)="createEntry(historyForm.value)" class="list-create-form">
         <md-input-container>
             <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
@@ -37,5 +39,4 @@
             </div>
         </div>
     </div>
-    <div *ngIf="loading$ | async">Chargement...</div>
 </div>

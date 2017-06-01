@@ -1,3 +1,4 @@
+@import 'variables';
 md-card {
     padding: 0;
     margin-bottom: 10px;
@@ -8,11 +9,12 @@ md-card {
 }
 
 .title {
-    font-family: Oswald;
+    font-family: $title-font;
     padding: 10px;
 }
 
 .value {
     padding: 20px 10px;
     border-radius: 0;
+    font-size: 30px;
 }

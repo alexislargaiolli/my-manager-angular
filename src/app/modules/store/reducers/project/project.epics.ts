@@ -6,10 +6,12 @@ import { of } from 'rxjs/observable/of';
 import { createEpicMiddleware } from 'redux-observable';
 import { ModelEpics } from '../model/model.epics';
 import { Epic } from 'redux-observable-decorator';
-import { UPDATE_LOCATION } from "@angular-redux/router/lib/es5";
+import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
 import { Observable } from 'rxjs/Observable';
 import { SelectedProjectActions } from '../selected-project/selected-project.actions';
 import { SessionActions } from 'app/modules/auth';
+import { ModelActions } from '../model/model.actions';
+import { ActionUtils } from '../model/action.utils';
 
 @Injectable()
 export class ProjectEpics extends ModelEpics<Project>{
@@ -17,6 +19,7 @@ export class ProjectEpics extends ModelEpics<Project>{
     constructor(
         protected _repo: RepositoriesService,
         protected _projectActions: ProjectActions,
+        private _selectedProjectActions: SelectedProjectActions
     ) {
         super(Project.REPO_KEY, _repo, _projectActions);
     }
@@ -33,6 +36,10 @@ export class ProjectEpics extends ModelEpics<Project>{
     @Epic()
     deleteProject = this.delete;
 
+
+    @Epic()
+    onProjectCreated = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))
+        .map(action => { return { type: UPDATE_LOCATION, payload: `project/${action.payload.id}` }; });
 
     @Epic()
     onLogin = (action$) => action$.ofType(SessionActions.LOGIN_SUCCESS)

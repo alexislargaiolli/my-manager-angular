@@ -20,6 +20,9 @@ export class ProjectListComponent implements OnInit {
   @Output()
   public select: EventEmitter<Project> = new EventEmitter<Project>();
 
+  @Output()
+  public create: EventEmitter<Project> = new EventEmitter<Project>();
+
   public ProjectState = ProjectState;
   public today: Date = new Date();
 

@@ -1,3 +1,4 @@
+export { DashboardActions } from './reducers/dashboard/dashboard.actions';
 export { ProfileActions } from './reducers/profile/profile.actions';
 export { NoteActions } from './reducers/note/note.actions';
 export { ProjectClientActions } from './reducers/project-client/project-client.actions';

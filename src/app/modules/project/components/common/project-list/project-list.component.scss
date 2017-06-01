@@ -1,17 +1,14 @@
 .project-item {
-    margin: 0 10px 10px 10px;
     cursor: pointer;
-    md-card-content {
-        text-align: center;
-        .project-progress {
-            font-family: Oswald;
-            font-size: 40px;
-            color: #444;
-        }
+    h3 {
+        font-size: 30px;
+        text-transform: uppercase;
+        padding: 20px 10px;
     }
-    md-card-actions {}
 }
 
 .project-item:hover {
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
 }
+
+.create-project-wrapper {}

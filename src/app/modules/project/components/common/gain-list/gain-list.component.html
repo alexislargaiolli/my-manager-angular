@@ -2,15 +2,15 @@
     <div class="d-flex justify-content-around text-center">
         <div class="summary-column d-flex flex-column">
             <div class="title md-primary">Potentiel</div>
-            <span class="value badge badge-info">{{totalPotential}}€</span>
+            <span class="value badge badge-info">{{totalPotential | async}}€</span>
         </div>
         <div class="summary-column d-flex flex-column">
             <div class="title">Facturé</div>
-            <span class="value badge badge-warning">{{totalInvoiced}}€</span>
+            <span class="value badge badge-warning">{{totalInvoiced | async}}€</span>
         </div>
         <div class="summary-column d-flex flex-column">
             <div class="title">Payé</div>
-            <span class="value badge badge-success">{{totalPaid}}€</span>
+            <span class="value badge badge-success">{{totalPaid | async}}€</span>
         </div>
     </div>
 </md-card>

@@ -1,3 +1,5 @@
+@import '../../node_modules/bootstrap/scss/bootstrap';
+@import "../../node_modules/font-awesome/css/font-awesome.min.css";
 @import '~@angular/material/theming';
 @import 'variables';
 @include mat-core();
@@ -10,11 +12,9 @@ $bv-pp-accent: mat-palette($md-vermillon);
 $bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
 // include the custom theme object into the angular material theme
 @include angular-material-theme($bv-pp-theme);
-$mat-font-family: 'PT sans',
-sans-serif;
 // body or wrapper class
 .mat-button-toggle,
-%mat-button-base,
+.mat-button-base,
 .mat-button,
 .mat-raised-button,
 .mat-fab,
@@ -33,8 +33,7 @@ sans-serif;
 .mat-tab-label,
 .mat-slide-toggle-content,
 .mat-toolbar,
-.mat-tooltip,
-body {
-    font-family: $mat-font-family;
+.mat-tooltip {
+    font-family: $text-font;
     color: $text-color;
 }

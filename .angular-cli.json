@@ -18,10 +18,12 @@
         "testTsconfig": "tsconfig.spec.json",
         "prefix": "app",
         "styles": [
+            "styles/_fonts.scss",
             "styles/reset.css",
+            "styles/_theme.scss",
+            "../node_modules/dragula/dist/dragula.css",
             "styles/utils.scss",
             "styles/_components.scss",
-            "../node_modules/font-awesome/css/font-awesome.min.css",
             "styles.scss"
         ],
         "stylePreprocessorOptions": {

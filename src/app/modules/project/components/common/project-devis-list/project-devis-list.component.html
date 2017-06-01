@@ -1,7 +1,7 @@
 <div class="square-list">
     <app-devis-list-item *ngFor="let devi of (devis$ | async)" [devis]="devi" class="square-list-item rounded mat-elevation-z2" (click)="selectDevis(devi)">
     </app-devis-list-item>
-    <div class="square-list-item create-devis-item">
+    <div class="square-list-item create-item">
         <button [routerLink]="['./', 'create']" md-button><md-icon>add</md-icon>Créer un devis</button>
     </div>
 </div>

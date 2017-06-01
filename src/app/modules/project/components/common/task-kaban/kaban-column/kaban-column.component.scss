@@ -14,7 +14,6 @@
 .gu-mirror {
     margin: 10px 0;
     padding: 10px;
-    font-family: 'PT sans-serif';
     background-color: rgba(0, 0, 0, 0.1);
     transition: opacity 0.4s ease-in-out;
 }
@@ -30,14 +29,6 @@
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
-}
-
-.kaban-column .ex-moved {
-    background-color: #e74c3c;
-}
-
-.kaban-column.ex-over {
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .handle {

@@ -1,5 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-gain-list',
@@ -10,13 +12,13 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 export class GainListComponent implements OnInit {
 
   @Input()
-  public totalPotential = 0;
+  public totalPotential: Observable<number>;
 
   @Input()
-  public totalPaid = 0;
+  public totalPaid: Observable<number>;
 
   @Input()
-  public totalInvoiced = 0;
+  public totalInvoiced: Observable<number>;
 
   constructor() { }
 

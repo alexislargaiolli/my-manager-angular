@@ -1,9 +1,6 @@
-<div>
-    <app-project-create (create)="createProject($event)"></app-project-create>
-    <project-list [projects]="projects$" [loading]="loading$" (select)="onSelect($event)">
-    </project-list>
-</div>
+<project-list [projects]="projects$" [loading]="loading$" (select)="onSelect($event)" (create)="createProject($event)">
+</project-list>
 <div class="project-home-right">
-    <app-gain-list></app-gain-list>
+    <app-gain-list [totalPaid]="totalPaid$" [totalInvoiced]="totalInvoiced$" [totalPotential]="totalPotential$"></app-gain-list>
     <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-note-list>
 </div>

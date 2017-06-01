@@ -1,23 +1,21 @@
 <div class="d-flex justify-content-center" *ngIf="loading$ | async">
     <md-progress-spinner mode="indeterminate" color="primary"></md-progress-spinner>
 </div>
-<div class="d-flex align-content-start flex-wrap" *ngIf="!(loading$ | async)">
-    <md-card *ngFor="let p of (projects$ | async)" (click)="select.emit(p)" class="project-item d-flex flex-column justify-content-between">
-        <md-card-header>
-            <md-card-title>
-                <h3>{{p.name}}</h3>
-            </md-card-title>
-            <md-card-subtitle>{{p.description}}</md-card-subtitle>
-        </md-card-header>
-        <md-card-content class="d-flex flex-column">
-            <span class="project-progress">{{p.progress}}%</span>
-            <span class="badge badge-default">{{ProjectState[p.state]}}</span>
-        </md-card-content>
-        <md-card-actions>
-            <small class="text-muted" *ngIf="p.plannedEndDate">Prévu pour le {{p.plannedEndDate | date}}</small>
-            <small class="text-muted" *ngIf="!p.plannedEndDate">Aucune date d'échéance</small>
-            <small class="badge badge-danger" *ngIf="isLate(p)">En retard</small>
-            <md-progress-bar [value]="p.progress"></md-progress-bar>
-        </md-card-actions>
-    </md-card>
+
+<div class="square-list">
+    <div class="square-list-item create-item rounded mat-elevation-z2 create-project-wrapper">
+        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
+    </div>
+    <article *ngFor="let p of (projects$ | async)" (click)="select.emit(p)" class="project-item square-list-item rounded mat-elevation-z2 d-flex flex-column justify-content-between">
+        <header>
+            <h3 class="text-center">{{p.name}}</h3>
+        </header>
+        <p>{{p.description}}</p>
+        <span class="project-progress">{{p.progress}}%</span>
+        <span class="badge badge-default" *ngIf="p.state == 0">En cours de prospection</span>
+        <span class="badge badge-info" *ngIf="p.state == 1">En attente de validation du devis</span>
+        <span class="badge badge-primary" *ngIf="p.state == 2">En cours de réalisation</span>
+        <span class="badge badge-warning" *ngIf="p.state == 3">En attente de paiement</span>
+        <span class="badge badge-success" *ngIf="p.state == 4">Terminé</span>
+    </article>
 </div>

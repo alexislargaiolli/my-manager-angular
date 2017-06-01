@@ -5,3 +5,16 @@
 .bg-white {
     background: white;
 }
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.selectable {
+    transition: background 300ms;
+}
+
+.selectable:not(.selected-item):hover {
+    background: #eee;
+    cursor: pointer;
+}

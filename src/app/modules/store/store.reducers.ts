@@ -13,9 +13,11 @@ import { noteReducer } from './reducers/note/note.reducers';
 import { clientReducer } from './reducers/client/client.reducers';
 import { projectClientReducer } from './reducers/project-client/project-client.reducers';
 import { profileReducer } from './reducers/profile/profile.reducers';
+import { dashboardReducer } from './reducers/dashboard/dashboard.reducer';
 
 export const reducers = combineReducers<IAppState>({
     projects: projectReducer,
+    dashboard: dashboardReducer,
     profile: profileReducer,
     notes: noteReducer,
     clients: clientReducer,
