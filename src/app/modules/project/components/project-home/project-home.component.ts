@@ -48,7 +48,7 @@ export class ProjectHomeComponent implements OnInit {
 
   public ngOnInit() { }
 
-  public createProject() {
+  public createProject(event) {
     const project = new Project();
     project.name = 'Nouveau projet';
     this._projectActions.dispatchCreate(project);
