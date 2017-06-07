@@ -1,0 +1,69 @@
+<div class="header d-flex flex-row align-items-center">
+    <div class="header-info d-flex flex-column justify-content-around">
+        <div class="devis-id">N° {{invoice.invoiceId}}</div>
+        <div class="devis-date">{{invoice.createDate | date:'mediumDate'}}</div>
+        <div class="devis-validity">À payer avant le {{invoice.validityDate | date}}</div>
+    </div>
+    <div class="header-spacer"></div>
+    <div class="header-type">
+        <span class="big-title">FACTURE</span>
+    </div>
+</div>
+<div class="content">
+    <div class="d-flex flex-row justify-content-between">
+        <div class="user-coord">
+            <div class="coord-name">{{invoice.userName}}</div>
+            <div class="coord-siret">SIRET {{invoice.siret}}</div>
+            <div class="coord-street">{{invoice.userAddress?.street}}</div>
+            <div class="coord-complement">{{invoice.userAddress?.complement}}</div>
+            <div class="coord-city">{{invoice.userAddress?.zipcode}} {{invoice.userAddress?.city}}</div>
+        </div>
+        <div class="client-coord">
+            <div class="coord-name">{{invoice.clientName}}</div>
+            <div class="coord-street">{{invoice.clientAddress?.street}}</div>
+            <div class="coord-complement">{{invoice.clientAddress?.complement}}</div>
+            <div class="coord-city">{{invoice.clientAddress?.zipcode}} {{invoice.clientAddress?.city}}</div>
+        </div>
+    </div>
+    <div class="devis-title">
+        {{invoice.title}}
+    </div>
+    <div class="line lines-header d-flex flex-row align-items-center">
+        <div>Libellé</div>
+        <div><span>Prix unitaire</span> TTC</div>
+        <div>Quantité</div>
+        <div>Unité</div>
+        <div>TOTAL TTC</div>
+    </div>
+    <div *ngFor="let line of invoice.lines" class="line line-content d-flex flex-row">
+        <div class="content" [innerHtml]="line.content | devisLine"></div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.unitPrice}}€</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.quantity}}</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">jour</div>
+        <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.totalPrice}}€</div>
+    </div>
+
+    <div class="mt-5 d-flex flex-row justify-content-between">
+        <div></div>
+        <div class="total d-flex flex-column">
+            <div class="total-header">MONTANT À PAYER</div>
+            <div class="d-flex flex-row">
+                <div class="total-label">TOTAL</div>
+                <div class="total-price grow-1">{{invoice.totalPrice}}€</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="devis-footer">
+    <div class="d-flex flex-row justify-content-around align-items-center">
+        <div *ngIf="invoice.userPhone" class="d-flex align-items-center contact-info">
+            <md-icon>contact_phone</md-icon>
+            <div class="ml-2">{{invoice.userPhone}}</div>
+        </div>
+        <div *ngIf="invoice.userMail" class="d-flex align-items-center contact-info">
+            <md-icon>contact_mail</md-icon>
+            <div class="ml-2">{{invoice.userMail}}</div>
+        </div>
+    </div>
+    <p>Dispensé d'immatriculation au registre du commerce et des sociétés et au répertoire des métiers</p>
+</div>

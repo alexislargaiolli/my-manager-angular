@@ -1,23 +1,27 @@
-<div class="side-nav-bar">
-    <a [routerLink]="['./dashboard']" routerLinkActive="active" title="Dashboard">
-        <md-icon>dashboard</md-icon>
-        <span>Dashboard</span>
-    </a>
-    <a [routerLink]="['./tasks']" routerLinkActive="active" title="Gestion des tâches">
-        <md-icon>list</md-icon>
-        <span>Tâches</span>
-    </a>
-    <a [routerLink]="['./devis']" routerLinkActive="active" title="Devis">
-        <md-icon>assignment</md-icon>
-        <span>Devis</span>
-    </a>
-    <a [routerLink]="['./invoices']" routerLinkActive="active" title="Factures">
-        <md-icon>monetization_on</md-icon>
-        <span>Factures</span>
-    </a>
-    <a [routerLink]="['./settings']" routerLinkActive="active" title="Options">
-        <md-icon>settings</md-icon>
-        <span>Options</span>
-    </a>
+<nav>
+    <div [@apparitionAnimation]="'true'" class="d-flex justify-content-center">
+        <a [routerLink]="['./dashboard']" routerLinkActive="active" title="Dashboard">
+            <md-icon>dashboard</md-icon>
+            <span>Dashboard</span>
+        </a>
+        <a [routerLink]="['./tasks']" routerLinkActive="active" title="Gestion des tâches">
+            <md-icon>list</md-icon>
+            <span>Tâches</span>
+        </a>
+        <a [routerLink]="['./devis']" routerLinkActive="active" title="Devis">
+            <md-icon>assignment</md-icon>
+            <span>Devis</span>
+        </a>
+        <a [routerLink]="['./invoices']" routerLinkActive="active" title="Factures">
+            <md-icon>monetization_on</md-icon>
+            <span>Factures</span>
+        </a>
+        <a [routerLink]="['./settings']" routerLinkActive="active" title="Options">
+            <md-icon>settings</md-icon>
+            <span>Options</span>
+        </a>
+    </div>
+</nav>
+<div class="main-content">
+    <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

@@ -3,12 +3,13 @@ import { RepositoriesService } from './repositories.service';
 import { Observable } from 'rxjs/Observable';
 import { Injector } from '@angular/core';
 import { User } from '../../models/user.model';
+import { RequestFilter } from './filter.type';
 
 export class RepositoryRequest<T> {
     url: string;
     options: RequestOptions;
     method: RequestMethod;
-    private _includes: string[] = null;
+    private _filters: RequestFilter[] = [];
     body: any;
 
     constructor(private repositoriesService: RepositoriesService) {
@@ -33,10 +34,12 @@ export class RepositoryRequest<T> {
     }
 
     public include(field: string): RepositoryRequest<T> {
-        if (this._includes === null) {
-            this._includes = [];
-        }
-        this._includes.push(field);
+        this._filters.push({ type: 'include', value: field });
+        return this;
+    }
+
+    public orderBy(field: string, desc?: boolean): RepositoryRequest<T> {
+        this._filters.push({ type: 'order', value: `${field}${desc ? ' DESC' : ' ASC'}` });
         return this;
     }
 
@@ -57,9 +60,7 @@ export class RepositoryRequest<T> {
     }
 
     public exec(): Observable<any> {
-        if (this._includes !== null && this._includes.length > 0) {
-            this.url = this._includes.reduce((previousUrl: string, include, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[include][${include}]`, this.url);
-        }
+        this.url = this._filters.reduce((previousUrl: string, filter, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[${filter.type}]=${filter.value}`, this.url);
         return this.repositoriesService.execute(this);
     }
 }

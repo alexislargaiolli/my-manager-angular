@@ -12,6 +12,7 @@ import { ClientEpics } from './reducers/client/client.epics';
 import { ProjectClientEpics } from './reducers/project-client/project-client.epics';
 import { ProfileEpics } from './reducers/profile/profile.epics';
 import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
+import { ProjectInvoiceEpics } from './reducers/project-invoices/project-invoice.epics';
 
 @Injectable()
 export class RootEpics {
@@ -27,7 +28,8 @@ export class RootEpics {
         private _clientEpics: ClientEpics,
         private _projectClientEpics: ProjectClientEpics,
         private _profileEpics: ProfileEpics,
-        private _dashboardEpics: DashboardEpics
+        private _dashboardEpics: DashboardEpics,
+        private _projectInvoiceEpics: ProjectInvoiceEpics
     ) { }
 
     public createEpics() {
@@ -43,7 +45,8 @@ export class RootEpics {
             this._clientEpics,
             this._projectClientEpics,
             this._profileEpics,
-            this._dashboardEpics
+            this._dashboardEpics,
+            this._projectInvoiceEpics
         );
     }
 }

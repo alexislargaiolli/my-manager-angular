@@ -1,7 +1,8 @@
-<div [hidden]="display" (click)="toggle()" class="inplace-output p-2 rounded">
+<div *ngIf="!display" (click)="toggle()" class="inplace-output p-2 rounded d-inline-block">
+    <md-icon class="inplace-edit-icon">mode_edit</md-icon>
     <ng-content select=".inplace-output"></ng-content>
 </div>
-<div [hidden]="!display">
+<div *ngIf="display" class="d-inline-block">
     <ng-content select=".inplace-input"></ng-content>
-    <button md-raised-button (click)="toggle()"><md-icon>save</md-icon></button>
+    <button md-button (click)="toggle()" *ngIf="showSaveButton"><md-icon>save</md-icon></button>
 </div>

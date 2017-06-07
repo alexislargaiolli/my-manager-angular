@@ -1,24 +1,45 @@
-<div class="d-flex flex-row justify-content-between h-100">
-    <div class="p-2 grow-1" *ngIf="currentProject$|async">
-        <div class="project-header">
-            <h1>{{(currentProject$ | async).name}}</h1>
-        </div>
-        <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)"></app-project-state>
-        <div class="d-flex mt-2">
-            <div class="grow-1">
-                <div class="one-value-card-wrapper">
-                    <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
-                    <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
-                    <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
-                    <app-one-value-card label="Progression" [value]="(currentProject$|async).progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
-                </div>
-                <div class="d-flex mt-2">
-                    <app-devis-dashboard class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-dashboard>
-                    <app-project-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-project-note-list>
-                </div>
-            </div>
+<div class="grow-1" *ngIf="currentProject$|async" [@slideApparitionAnimation]="'true'">
+    <div class="project-header" *ngIf="project">
+        <app-inplace #projectNameInplace [showSaveButton]="false">
+            <span class="inplace-output">
+                <h1>{{project.name}}</h1>
+                <p class="ml-4">{{project.description}}</p>
+            </span>
+            <span class="inplace-input">
+                <form #projectNameForm="ngForm" (ngSubmit)="saveProjectName(projectNameForm)">
+                    <md-input-container>
+                        <input mdInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
+                    </md-input-container>
+                    <md-input-container>
+                        <textarea mdInput placeholder="Description du projet" [ngModel]="project.description" name="description"></textarea>
+                    </md-input-container>
+                    <button md-button type="submit"><md-icon>save</md-icon></button>
+                </form>
+            </span>
+        </app-inplace>
 
-        </div>
+        <p class="ml-4">
+            <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement" valueLabel="Commence le {{project.plannedStartDate | date}}"></app-inplace-date>
+        </p>
+        <p class="ml-4">
+            <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"></app-inplace-date>
+        </p>
     </div>
-    <project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" class="p-2 mat-elevation-z2 bg-white"></project-history>
+    <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)"></app-project-state>
+    <div class="d-flex mt-2">
+        <div class="grow-1">
+            <div class="one-value-card-wrapper">
+                <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
+                <app-one-value-card label="Progression" [value]="(currentProject$|async).progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
+            </div>
+            <div class="d-flex mt-2">
+                <app-devis-dashboard class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-dashboard>
+                <app-project-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-project-note-list>
+            </div>
+        </div>
+
+    </div>
 </div>
+<project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" [@rightSlideApparitionAnimation]="'true'" class="p-2 ml-2 bg-white"></project-history>

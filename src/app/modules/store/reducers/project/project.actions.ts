@@ -25,8 +25,20 @@ export class ProjectActions extends ModelActions<Project> {
         };
     }
 
+    public static readonly UPDATE_PROGRESS = 'UPDATE_PROGRESS';
+    updateProgress(projectId: number, progress: number) {
+        return {
+            type: ProjectActions.UPDATE_PROGRESS,
+            payload: { progress, projectId }
+        };
+    }
+
     public dispatchUpdateState(project: Project, state: ProjectState) {
         this._ngRedux.dispatch(this.updateState(project, state));
+    }
+
+    public dispatchUpdateProgress(projectId: number, progress: number) {
+        this._ngRedux.dispatch(this.updateProgress(projectId, progress));
     }
 
 }

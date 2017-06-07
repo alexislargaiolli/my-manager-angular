@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy
 import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-task-kaban',
@@ -35,6 +36,13 @@ export class TaskKabanComponent implements OnInit {
       const previousState: number = +value[3].getAttribute('column-id');
       this.stateChange.emit({ taskId, previousState, nextState });
     });
+  }
+
+  createTask(taskForm: NgForm) {
+    if (taskForm.valid) {
+      this.create.emit(taskForm.value)
+      taskForm.reset();
+    }
   }
 
 }

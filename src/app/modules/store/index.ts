@@ -4,6 +4,7 @@ export { NoteActions } from './reducers/note/note.actions';
 export { ProjectClientActions } from './reducers/project-client/project-client.actions';
 export { ProjectHistoryEntryActions } from './reducers/project-history/project-history.actions';
 export { ProjectDevisActions } from './reducers/project-devis/project-devis.actions';
+export { ProjectInvoiceActions } from './reducers/project-invoices/project-invoice.actions';
 export { ProjectNoteActions } from './reducers/project-note/project-note.actions';
 export { ProjectTaskActions } from './reducers/project-task/project-task.actions';
 export { SelectedProjectActions } from './reducers/selected-project/selected-project.actions';

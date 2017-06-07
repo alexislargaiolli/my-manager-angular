@@ -3,19 +3,24 @@
 </div>
 
 <div class="square-list">
-    <div class="square-list-item create-item rounded mat-elevation-z2 create-project-wrapper">
-        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
-    </div>
-    <article *ngFor="let p of (projects$ | async)" (click)="select.emit(p)" class="project-item square-list-item rounded mat-elevation-z2 d-flex flex-column justify-content-between">
-        <header>
-            <h3 class="text-center">{{p.name}}</h3>
-        </header>
-        <p>{{p.description}}</p>
-        <span class="project-progress">{{p.progress}}%</span>
-        <span class="badge badge-default" *ngIf="p.state == 0">En cours de prospection</span>
-        <span class="badge badge-info" *ngIf="p.state == 1">En attente de validation du devis</span>
-        <span class="badge badge-primary" *ngIf="p.state == 2">En cours de réalisation</span>
-        <span class="badge badge-warning" *ngIf="p.state == 3">En attente de paiement</span>
-        <span class="badge badge-success" *ngIf="p.state == 4">Terminé</span>
-    </article>
+    <app-project-list-item [selected]="hasSelected() ? false : null">
+        <div class="item-content project-item create-item rounded mat-elevation-z2">
+            <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
+        </div>
+    </app-project-list-item>
+    <app-project-list-item *ngFor="let project of (projects$ | async)" (click)="selectProject(project)" [selected]="isSelected(project)" (selectionEnds)="animationDone($event)">
+        <article class="item-content project-item rounded mat-elevation-z2 d-flex flex-column justify-content-between p-2 text-center">
+            <header>
+                <h3 class="text-center">{{project.name}}</h3>
+            </header>
+            <p>{{project.description}}</p>
+            <p class="badge badge-default" *ngIf="project.state == 0">En cours de prospection</p>
+            <p class="badge badge-info" *ngIf="project.state == 1">En attente de validation du devis</p>
+            <p class="badge badge-primary" *ngIf="project.state == 2">En cours de réalisation</p>
+            <p class="badge badge-warning" *ngIf="project.state == 3">En attente de paiement</p>
+            <p class="badge badge-success" *ngIf="project.state == 4">Terminé</p>
+            <md-progress-bar [value]="project.progress"></md-progress-bar>
+        </article>
+
+    </app-project-list-item>
 </div>

@@ -1,7 +1,6 @@
 @import '../project-details-variables';
 @import 'variables';
 :host {
-    flex: 1;
     @include project-details-container;
 }
 
@@ -10,10 +9,16 @@
     h1 {
         font-family: $title-font;
         text-transform: uppercase;
-        color: #666;
         font-size: 51px;
         font-size: 50px;
     }
+    p {
+        color: #777;
+    }
+}
+
+project-history {
+    max-width: 300px;
 }
 
 .one-value-card-wrapper {

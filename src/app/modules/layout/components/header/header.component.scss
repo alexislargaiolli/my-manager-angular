@@ -1,15 +1,26 @@
 @import 'variables';
 :host {
-    position: relative;
+    position: fixed;
+    width: 100%;
     z-index: 1000;
 }
 
 .header-nav {
     background: #fff;
+    height: calc($header-height - 1px);
     .header-left {
         padding-left: 20px;
     }
     button {
         color: $primary-color;
+        outline: 0;
+        border-radius: none;
     }
+    .logo {
+        line-height: 65px;
+    }
+}
+
+.header-nav /deep/ .mat-toolbar-row {
+    align-items: stretch;
 }

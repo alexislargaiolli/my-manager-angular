@@ -1,5 +1,7 @@
 @import '../project-details-variables';
 :host {
+    flex: 1;
+    display: flex;
     @include project-details-container;
 }
 

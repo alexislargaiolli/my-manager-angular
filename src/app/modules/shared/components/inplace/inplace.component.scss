@@ -1,7 +1,20 @@
+.inplace-edit-icon {
+    float: right;
+    margin-left: -24px;
+    opacity: 0;
+    color: #444;
+    transition: opacity 200ms;
+}
+
 .inplace-output {
-    transition: background 500ms;
+    transition: background 200ms;
+}
+
+.inplace-output:hover {
+    background: #eee;
+    color: #aaa;
     cursor: pointer;
-    &:hover {
-        background: #eee;
+    .inplace-edit-icon {
+        opacity: 1;
     }
 }

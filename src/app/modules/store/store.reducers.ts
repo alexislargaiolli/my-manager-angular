@@ -14,6 +14,7 @@ import { clientReducer } from './reducers/client/client.reducers';
 import { projectClientReducer } from './reducers/project-client/project-client.reducers';
 import { profileReducer } from './reducers/profile/profile.reducers';
 import { dashboardReducer } from './reducers/dashboard/dashboard.reducer';
+import { projectInvoiceReducer } from './reducers/project-invoices/project-invoice.reducers';
 
 export const reducers = combineReducers<IAppState>({
     projects: projectReducer,
@@ -28,5 +29,6 @@ export const reducers = combineReducers<IAppState>({
     projectNotes: projectNoteReducer,
     projectHistory: projectHistoryEntryReducer,
     projectClient: projectClientReducer,
+    projectInvoices: projectInvoiceReducer,
     router: routerReducer
 });

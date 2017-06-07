@@ -1,0 +1,37 @@
+@import 'variables';
+:host {
+    display: flex;
+    height: calc(100vh - #{$header-height});
+    overflow: hidden;
+    padding: 10px 20px;
+}
+
+project-list {
+    overflow-y: auto;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.project-home-right {
+    min-width: 40%;
+    padding: 10px 20px;
+    background: #fff;
+    h1 {
+        margin: 50px 0 30px 0;
+    }
+    .gain-summary,
+    app-note-list {
+        margin-left: 20px;
+        color: #777;
+    }
+    .gain-summary {
+        span {
+            color: #444;
+            font-weight: bold;
+        }
+        p+p {
+            padding-left: 20px;
+        }
+    }
+    app-note-list {}
+}

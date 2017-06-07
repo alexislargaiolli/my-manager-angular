@@ -1,13 +1,54 @@
 @import 'variables';
 :host {
     flex: 1;
-    display: flex;
-    flex-direction: row;
 }
 
 /deep/ .project-state-buttons {
     margin: 0 10px;
     background: #fff;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    a {
+        color: #666;
+        transition: background-size 250ms, color 250ms;
+        text-decoration: none;
+        background-image: linear-gradient(to right, lighten($primary-color, 50), $primary-color, lighten($primary-color, 50));
+        background-repeat: no-repeat;
+        background-size: 0% 2px;
+        background-position: center bottom;
+        &:hover,
+        &:focus,
+        &.active {
+            background-size: 100% 2px;
+            outline: 0;
+            color: $primary-color;
+        }
+        &.active {
+            background-image: linear-gradient(to right, $primary-color, $primary-color);
+        }
+    }
+    &>div {
+        height: $subheader-height;
+    }
+}
+
+nav a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 150px;
+    padding: 0 10px;
+    &>span {
+        margin-left: 10px;
+    }
+}
+
+.main-content {
+    margin-top: $subheader-height;
 }
 
 $nav-background:#282828;

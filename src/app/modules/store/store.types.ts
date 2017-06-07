@@ -1,4 +1,4 @@
-import { Project, Client, Note, Task, Devis, HistoryEntry, Address, Profile } from 'app/models';
+import { Project, Client, Note, Task, Devis, HistoryEntry, Address, Profile, Invoice } from 'app/models';
 import { User, IModelList, IModel, UserSession } from 'app/modules/core';
 
 export interface IAppState {
@@ -11,6 +11,7 @@ export interface IAppState {
     selectedProject?: ISelectedProjectState;
     projectTasks?: IProjectTaskState;
     projectDevis?: IProjectDevisState;
+    projectInvoices?: IProjectInvoiceState;
     projectNotes?: IProjectNoteState;
     projectHistory?: IProjectHistoryState;
     projectClient?: IProjectClientState;
@@ -42,6 +43,12 @@ export interface IProjectTaskState extends IModelList<Task> {
 
 export interface IProjectDevisState extends IModelList<Devis> {
     items: Devis[];
+    loading: boolean;
+    error: string;
+}
+
+export interface IProjectInvoiceState extends IModelList<Invoice> {
+    items: Invoice[];
     loading: boolean;
     error: string;
 }

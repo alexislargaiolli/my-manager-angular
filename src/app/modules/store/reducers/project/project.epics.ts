@@ -12,6 +12,8 @@ import { SelectedProjectActions } from '../selected-project/selected-project.act
 import { SessionActions } from 'app/modules/auth';
 import { ModelActions } from '../model/model.actions';
 import { ActionUtils } from '../model/action.utils';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from 'app/modules/store';
 
 @Injectable()
 export class ProjectEpics extends ModelEpics<Project>{
@@ -19,6 +21,7 @@ export class ProjectEpics extends ModelEpics<Project>{
     constructor(
         protected _repo: RepositoriesService,
         protected _projectActions: ProjectActions,
+        protected _redux: NgRedux<IAppState>,
         private _selectedProjectActions: SelectedProjectActions
     ) {
         super(Project.REPO_KEY, _repo, _projectActions);
@@ -48,4 +51,13 @@ export class ProjectEpics extends ModelEpics<Project>{
     @Epic()
     updateState = action$ => action$.ofType(ProjectActions.UPDATE_STATE)
         .map(action => this._projectActions.update(Object.assign({}, action.payload.project, { state: action.payload.state })));
+
+    @Epic()
+    updateProgress = action$ => action$.ofType(ProjectActions.UPDATE_PROGRESS)
+        .map(action => {
+            const index = this._redux.getState().projects.items.findIndex(p => p.id === action.payload.projectId);
+            const project = this._redux.getState().projects.items[index];
+            const updatedProject = Object.assign({}, project, { progress: action.payload.progress });
+            return this._projectActions.update(updatedProject);
+        })
 }

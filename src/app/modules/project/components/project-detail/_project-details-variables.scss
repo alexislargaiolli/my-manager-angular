@@ -1,5 +1,8 @@
+@import 'variables';
 @mixin project-details-container() {
     width: 100%;
-    flex: 1;
+    height: calc(100vh - #{$header-height} - #{$subheader-height});
     overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
 }

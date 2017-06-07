@@ -9,8 +9,9 @@
 
 .square-list {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    padding: 10px;
+    flex: 1;
     .square-list-item {
         background: #fff;
         width: 300px;
@@ -18,11 +19,11 @@
         margin: 10px;
         overflow: hidden;
         cursor: pointer;
-        transition: transform 100ms;
-        &:hover {
-            transform: scale(1.05);
-            transform-origin: center center;
-        }
+        // transition: transform 100ms;
+        // &:hover {
+        //     transform: scale(1.05);
+        //     transform-origin: center center;
+        // }
     }
     .create-item {
         display: flex;

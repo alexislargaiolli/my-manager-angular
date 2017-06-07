@@ -9,15 +9,17 @@ import { IAppState } from 'app/modules/store';
 import { ProjectDevisActions } from '../../../../../store/reducers/project-devis/project-devis.actions';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as moment from 'moment';
+import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-devis-edition',
   templateUrl: './project-devis-edition.component.html',
-  styleUrls: ['./project-devis-edition.component.scss']
+  styleUrls: ['./project-devis-edition.component.scss'],
+  animations: [rightSlideApparitionAnimation, slideApparitionAnimation]
 })
 export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
   @ViewChild('devisPreview') el: ElementRef;
-  private devisState = DevisState;
+  public devisState = DevisState;
   public devis: Devis;
 
 
@@ -70,6 +72,8 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
       }
       this.devis.userName = `${profile.firstname}  ${profile.lastname}`;
       this.devis.siret = profile.siret;
+      this.devis.userPhone = profile.phone;
+      this.devis.userMail = profile.email;
     }
     if (clients != null && clients.length > 0 && clients[0].addresses != null && clients[0].addresses.length > 0) {
       this.devis.clientAddress = clients[0].addresses[0];
@@ -116,11 +120,18 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
     const element = document.querySelector('app-devis-preview');
     html2pdf(element, {
       margin: 0,
-      filename: 'myfile.pdf',
+      filename: this.generateFileName(),
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { dpi: 192, letterRendering: true },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
     });
+  }
+
+  private generateFileName() {
+    const client = this.devis.clientName ? ' - ' + this.devis.clientName : '';
+    const username = this.devis.userName ? ' - ' + this.devis.userName : '';
+    const date = this.devis.createDate ? moment(this.devis.createDate).format(' - DD-MM-YY') : moment().format(' - DD-MM-YY');
+    return `Devis${username}${client}${date}.pdf`;
   }
 
   goBack(): void {

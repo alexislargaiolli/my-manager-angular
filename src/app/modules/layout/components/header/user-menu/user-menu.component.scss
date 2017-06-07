@@ -1,4 +1,9 @@
 @import 'variables';
+:host {
+    display: flex;
+}
+
 button.profile-btn {
+    outline: 0;
     color: $primary-color;
 }

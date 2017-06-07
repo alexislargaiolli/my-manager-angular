@@ -4,6 +4,14 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { LoginComponent } from './login.component';
+import { MaterialModule } from "@angular/material/material";
+import { SharedModule } from 'app/modules/shared/shared.module';
+import { StoreModule } from '../../../store/store.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CoreModule } from "app/modules/core/core.module";
+import { AuthModule } from '../../auth.module';
+import { SessionActions, SessionEpics, AuthenticationService } from 'app/modules/auth';
+import { sessionReducer } from '../../redux/session/session.reducer';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -11,9 +19,11 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [CoreModule, SharedModule, StoreModule, RouterTestingModule],
+      declarations: [LoginComponent],
+      providers: [SessionActions, SessionEpics, AuthenticationService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -3,6 +3,6 @@
         <md-icon [hidden]="task.state != state.TODO">check_box_outline_blank</md-icon>
         <md-icon [hidden]="task.state != state.IN_PROGRESS">update</md-icon>
         <md-icon class="state_finished" [hidden]="task.state != state.FINISHED">check_box</md-icon>
-        {{task.title}}
+        {{task.title}} {{task.state}}
     </div>
 </div>

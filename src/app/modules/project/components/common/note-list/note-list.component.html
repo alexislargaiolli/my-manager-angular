@@ -1,15 +1,35 @@
-<h2 class="panel-header">Post it</h2>
+<p>N'oubliez pas</p>
+<div class="create-wrapper">
+    <form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)" class="p-2 d-inline-flex flex-column" *ngIf="showForm" [@slideApparitionAnimation]="'true'">
+        <md-input-container>
+            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
+        </md-input-container>
+        <md-button-toggle-group ngModel value="0" name="priority">
+            <md-button-toggle value="0">
+                <md-icon>info_outline</md-icon>
+                Normal
+            </md-button-toggle>
+            <md-button-toggle value="1">
+                <md-icon>warning</md-icon>
+                Important
+            </md-button-toggle>
+            <md-button-toggle value="2">
+                <md-icon>priority_hight</md-icon>
+                Urgent
+            </md-button-toggle>
+        </md-button-toggle-group>
+        <div class="text-right mt-2">
+            <button md-button type="submit"><md-icon>add_circle</md-icon></button>
+        </div>
+    </form>
 
-<form #noteForm="ngForm" (ngSubmit)="create.emit(noteForm.value)" class="list-create-form rounded p-2">
-    <md-input-container>
-        <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
-    </md-input-container>
-    <button md-button type="submit"><md-icon>add</md-icon></button>
-</form>
-
+    <button (click)="showForm = true" md-button *ngIf="!showForm" [@slideApparitionAnimation]="'true'">Ajouter une note</button>
+</div>
 <div class="note-list">
     <div [dragula]='"notes"' class="note-list-wrapper">
-        <div *ngFor="let note of (notes$ | async)" (click)="toggle.emit(note)" class="post-it p-2 my-2 rounded" [attr.note-id]="note.id" [ngClass]="{'done' : note.done}">
+        <div *ngFor="let note of (notes$ | async)" (click)="toggle.emit(note)" class="post-it p-2 my-2 rounded" [attr.note-id]="note.id" [ngClass]="{'done' : note.done}" [@slideApparitionAnimation]="'true'">
+            <md-icon *ngIf="note.priority == 1" class="align-middle text-warning mx-2">warning</md-icon>
+            <md-icon *ngIf="note.priority == 2" class="align-middle text-danger mx-2">priority_hight</md-icon>
             {{note.title}}
         </div>
     </div>

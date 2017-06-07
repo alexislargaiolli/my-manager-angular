@@ -1,17 +1,22 @@
 :host {
-    width: 300px;
-}
-
-.post-it,
-.list-create-form {
-    background: #fff;
+    display: block;
 }
 
 .post-it {
+    background: #eee;
     cursor: move;
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
+}
+
+.create-wrapper {
+    text-align: center;
+    min-height: 36px;
+    transition: all 100ms;
+    &/deep/.mat-button-toggle-label-content {
+        font-size: 13px;
+    }
 }
 
 .note-list-wrapper {

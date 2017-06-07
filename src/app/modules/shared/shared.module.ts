@@ -16,6 +16,7 @@ import { AddressPipe } from './utils/address.pipe';
 import { AddressListComponent } from './components/address-list/address-list.component';
 import { AddressInputComponent } from './components/address-input/address-input.component';
 import { InplaceComponent } from './components/inplace/inplace.component';
+import { InplaceDateComponent } from './components/inplace-date/inplace-date.component';
 
 @NgModule({
   imports: [
@@ -23,14 +24,17 @@ import { InplaceComponent } from './components/inplace/inplace.component';
     FormsModule,
     MdInputModule,
     MdIconModule,
-    MdButtonModule
+    MdButtonModule,
+    MdNativeDateModule,
+    MdDatepickerModule
   ],
   declarations: [
     KeysPipe,
     AddressListComponent,
     AddressInputComponent,
     InplaceComponent,
-    AddressPipe
+    AddressPipe,
+    InplaceDateComponent
   ],
   exports: [
     CommonModule,
@@ -59,7 +63,8 @@ import { InplaceComponent } from './components/inplace/inplace.component';
     AddressListComponent,
     AddressPipe,
     AddressInputComponent,
-    InplaceComponent
+    InplaceComponent,
+    InplaceDateComponent
   ]
 })
 export class SharedModule { }

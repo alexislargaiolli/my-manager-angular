@@ -1,10 +1,24 @@
+@import 'utils';
+@import 'variables';
 :host {
     flex: 1;
     display: flex;
 }
 
-md-card {
+h2 {
+    font-size: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+    @include border-gradient($primary-color, 100%, 2px);
+}
+
+.column {
     flex-grow: 1;
+    width: 33%;
+}
+
+.column+.column {
+    margin-left: 20px;
 }
 
 .gh-fork {

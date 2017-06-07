@@ -1,3 +1,19 @@
-<p>
-  project-invoice works!
-</p>
+<div class="square-list">
+
+    <div *ngFor="let invoice of (invoices$ | async)" (click)="select(invoice)" class="square-list-item rounded mat-elevation-z2">
+        <div class="devis-state rounded-top" [ngClass]="{'draft': invoice.state===0, 'bg-info': invoice.state===1, 'bg-success': invoice.state===2,'bg-danger': invoice.state === 3}">
+            <span *ngIf="invoice.state === 0">Brouillon</span>
+            <span *ngIf="invoice.state === 1">En attente</span>
+            <span *ngIf="invoice.state === 2">Payée</span>
+            <span *ngIf="invoice.state === 3">Abandonnée</span>
+        </div>
+        <app-invoice-preview [invoice]="invoice"></app-invoice-preview>
+    </div>
+
+    <div class="square-list-item create-item">
+        <button [routerLink]="['./', 'create']" md-button><md-icon>add</md-icon>Créer une facture</button>
+    </div>
+</div>
+<div *ngIf="loading$ | async">
+    Chargement
+</div>

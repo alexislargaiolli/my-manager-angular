@@ -29,6 +29,8 @@ import { ProfileActions } from './reducers/profile/profile.actions';
 import { ProfileEpics } from './reducers/profile/profile.epics';
 import { DashboardActions } from './reducers/dashboard/dashboard.actions';
 import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
+import { ProjectInvoiceActions } from './reducers/project-invoices/project-invoice.actions';
+import { ProjectInvoiceEpics } from './reducers/project-invoices/project-invoice.epics';
 
 @NgModule({
   imports: [
@@ -63,7 +65,9 @@ import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
     ProfileActions,
     ProfileEpics,
     DashboardActions,
-    DashboardEpics
+    DashboardEpics,
+    ProjectInvoiceActions,
+    ProjectInvoiceEpics
   ]
 })
 export class StoreModule {

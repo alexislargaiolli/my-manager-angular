@@ -8,6 +8,8 @@ import { of } from 'rxjs/observable/of';
 import { SelectedProjectActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { SessionActions } from 'app/modules/auth';
+import { ActionUtils } from '../model/action.utils';
+import { ModelActions } from '../model/model.actions';
 
 @Injectable()
 export class NoteEpics extends ModelEpics<Note>{
@@ -27,7 +29,14 @@ export class NoteEpics extends ModelEpics<Note>{
     }
 
     @Epic()
-    load = this.load;
+    load = action$ => action$
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD, ActionUtils.REQUEST))
+        .switchMap((action) => {
+            const request = this._repo.get(this._modelName, null).byCurrentUser().orderBy('priority', true);
+            return request.exec()
+                .map(models => this._modelAction.loadSuccess(models))
+                .catch(error => of(this._modelAction.loadError(error)));
+        });
 
     @Epic()
     create = this.create;

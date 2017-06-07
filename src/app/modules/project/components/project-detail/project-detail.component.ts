@@ -4,11 +4,13 @@ import { Project, ProjectState } from 'app/models';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { SelectedProjectActions } from 'app/modules/store';
+import { slideInDownAnimation, apparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
-  styleUrls: ['./project-detail.component.scss']
+  styleUrls: ['./project-detail.component.scss'],
+  animations: [slideInDownAnimation, apparitionAnimation]
 })
 export class ProjectDetailComponent implements OnInit {
 

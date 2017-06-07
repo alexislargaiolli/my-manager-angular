@@ -22,8 +22,9 @@
             "styles/reset.css",
             "styles/_theme.scss",
             "../node_modules/dragula/dist/dragula.css",
-            "styles/utils.scss",
+            "styles/_utils.scss",
             "styles/_components.scss",
+            "styles/_fixes.scss",
             "styles.scss"
         ],
         "stylePreprocessorOptions": {
