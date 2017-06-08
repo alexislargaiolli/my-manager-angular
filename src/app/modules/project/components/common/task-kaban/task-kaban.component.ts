@@ -3,11 +3,13 @@ import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgForm } from '@angular/forms';
+import { centerApparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-task-kaban',
   templateUrl: './task-kaban.component.html',
   styleUrls: ['./task-kaban.component.scss'],
+  animations: [centerApparitionAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskKabanComponent implements OnInit {

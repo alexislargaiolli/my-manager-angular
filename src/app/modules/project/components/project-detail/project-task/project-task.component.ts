@@ -4,7 +4,6 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Task, TaskState, TaskKaban } from 'app/models';
-import { slideInDownAnimation } from 'app/animations';
 import { IAppState, ProjectTaskActions } from 'app/modules/store';
 import { select, NgRedux } from '@angular-redux/store';
 import { IKabanChangeStateEvent } from '../../common/task-kaban/task-kaban.component';
@@ -12,11 +11,9 @@ import { IKabanChangeStateEvent } from '../../common/task-kaban/task-kaban.compo
 @Component({
   selector: 'app-project-task',
   templateUrl: './project-task.component.html',
-  styleUrls: ['./project-task.component.scss'],
-  animations: [slideInDownAnimation]
+  styleUrls: ['./project-task.component.scss']
 })
 export class ProjectTaskComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
 
   @select(ProjectTaskActions.findTodoTask)
   todoTasks$: Observable<Task[]>;

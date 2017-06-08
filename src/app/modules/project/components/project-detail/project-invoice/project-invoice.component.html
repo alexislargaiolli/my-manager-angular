@@ -1,4 +1,4 @@
-<div class="square-list">
+<div class="square-list" [@centerApparitionAnimation]="'true'">
 
     <div *ngFor="let invoice of (invoices$ | async)" (click)="select(invoice)" class="square-list-item rounded mat-elevation-z2">
         <div class="devis-state rounded-top" [ngClass]="{'draft': invoice.state===0, 'bg-info': invoice.state===1, 'bg-success': invoice.state===2,'bg-danger': invoice.state === 3}">

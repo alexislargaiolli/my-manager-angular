@@ -1,11 +1,12 @@
-<div class="grow-1" *ngIf="currentProject$|async" [@slideApparitionAnimation]="'true'">
-    <div class="project-header" *ngIf="project">
-        <app-inplace #projectNameInplace [showSaveButton]="false">
-            <span class="inplace-output">
+<div class="grow-1" *ngIf="currentProject$|async">
+    <div class="d-flex justify-content-around" *ngIf="project" [@centerApparitionAnimation]="'true'">
+        <div class="project-header">
+            <app-inplace #projectNameInplace [showSaveButton]="false">
+                <span class="inplace-output">
                 <h1>{{project.name}}</h1>
-                <p class="ml-4">{{project.description}}</p>
+                <p class="ml-4 mb-0 py-4">{{project.description}}</p>
             </span>
-            <span class="inplace-input">
+                <span class="inplace-input">
                 <form #projectNameForm="ngForm" (ngSubmit)="saveProjectName(projectNameForm)">
                     <md-input-container>
                         <input mdInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
@@ -16,30 +17,34 @@
                     <button md-button type="submit"><md-icon>save</md-icon></button>
                 </form>
             </span>
-        </app-inplace>
+            </app-inplace>
 
-        <p class="ml-4">
-            <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement" valueLabel="Commence le {{project.plannedStartDate | date}}"></app-inplace-date>
-        </p>
-        <p class="ml-4">
-            <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"></app-inplace-date>
-        </p>
-    </div>
-    <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)"></app-project-state>
-    <div class="d-flex mt-2">
-        <div class="grow-1">
-            <div class="one-value-card-wrapper">
-                <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mx-2"></app-one-value-card>
-                <app-one-value-card label="Progression" [value]="(currentProject$|async).progress" unit="%" icon="fa fa-line-chart" class="mx-2"></app-one-value-card>
-            </div>
-            <div class="d-flex mt-2">
-                <app-devis-dashboard class="grow-1 mr-2" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)"></app-devis-dashboard>
-                <app-project-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-project-note-list>
-            </div>
+            <p class="ml-4">
+                <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement" valueLabel="Commence le {{project.plannedStartDate | date}}"></app-inplace-date>
+            </p>
+            <p class="ml-4">
+                <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"></app-inplace-date>
+            </p>
+            <project-client [clients]="clients" [allClients]="allClients" [loading]="loadingClient$" (add)="addClient($event)" (create)="createClient($event)" (remove)="removeClient($event)" class="ml-4"></project-client>
+            <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)" class="p-3"></app-project-state>
         </div>
-
+        <div class="progress-wrapper" [@centerApparitionAnimation]="'true'">
+            <div class="progress-wrapper-value">
+                <span>{{project.progress}}%</span>
+            </div>
+            <md-progress-spinner [value]="project.progress">
+            </md-progress-spinner>
+        </div>
+        <div class="d-flex flex-column" [@centerApparitionAnimation]="'true'">
+            <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mat-elevation-z4"></app-one-value-card>
+            <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mt-2 mat-elevation-z4"></app-one-value-card>
+            <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mt-2 mat-elevation-z4"></app-one-value-card>
+        </div>
+        <div class="d-flex flex-column">
+            <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)" class="p-2 mat-elevation-z4" [@centerApparitionAnimation]="'true'"></app-note-list>
+            <app-devis-dashboard class="mt-4 mat-elevation-z4" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)" [@centerApparitionAnimation]="'true'"></app-devis-dashboard>
+        </div>
     </div>
+
 </div>
-<project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" [@rightSlideApparitionAnimation]="'true'" class="p-2 ml-2 bg-white"></project-history>
+<project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" [@rightSlideApparitionAnimation]="'true'" class="p-2 ml-2 mat-elevation-z4"></project-history>

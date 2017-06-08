@@ -4,15 +4,17 @@ import { Address } from 'app/models';
 import { ModelUtils } from 'app/modules/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { IAppState } from 'app/modules/store';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'client-detail',
   templateUrl: './client-detail.component.html',
-  styleUrls: ['./client-detail.component.css'],
+  styleUrls: ['./client-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientDetailComponent implements OnInit {
-  private _client: Client;
+  @Input()
+  public client: Client;
 
   @Output()
   public delete: EventEmitter<Client> = new EventEmitter<Client>();
@@ -20,14 +22,23 @@ export class ClientDetailComponent implements OnInit {
   @Output()
   public save: EventEmitter<Client> = new EventEmitter<Client>();
 
+  @Output()
+  public unselect = new EventEmitter();
+
   constructor(private _ngRedux: NgRedux<IAppState>) {
 
   }
 
   public ngOnInit() { }
 
+  public submitForm(form: NgForm) {
+    if (form.valid) {
+      this.saveClient();
+    }
+  }
+
   public saveClient() {
-    this.save.emit(this._client);
+    this.save.emit(this.client);
   }
 
   public addAddress(address) {
@@ -36,17 +47,5 @@ export class ClientDetailComponent implements OnInit {
 
   public removeAddress(address) {
     this.saveClient();
-  }
-
-  get client() {
-    return this._client;
-  }
-
-  @Input('client')
-  set client(client: Client) {
-    this._client = Object.assign({}, client);
-    if (this._client.addresses == null) {
-      this._client.addresses = [];
-    }
   }
 }

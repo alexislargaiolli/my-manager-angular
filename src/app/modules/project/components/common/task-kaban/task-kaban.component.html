@@ -1,17 +1,17 @@
-<div class="column bg-white p-2">
+<div class="column default-panel p-2 mat-elevation-z4 rounded" [@centerApparitionAnimation]="'true'">
     <h2>A faire</h2>
     <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)" class="mx-5 my-4">
-        <md-input-container class="d-block">
+        <md-input-container class="d-block translucide-input">
             <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
         </md-input-container>
     </form>
     <app-kaban-column [tasks]="todoTasks$" [name]="'KABAN'" [columnId]="0"></app-kaban-column>
 </div>
-<div class="column bg-white p-2">
+<div class="column default-panel p-2 mat-elevation-z4 rounded" [@centerApparitionAnimation]="'true'">
     <h2>En cours</h2>
     <app-kaban-column [tasks]="inProgressTasks$" [name]="'KABAN'" [columnId]="1"></app-kaban-column>
 </div>
-<div class="column bg-white p-2">
+<div class="column default-panel p-2 mat-elevation-z4 rounded" [@centerApparitionAnimation]="'true'">
     <h2>Fait</h2>
     <app-kaban-column [tasks]="finishedTasks$" [name]="'KABAN'" [columnId]="2"></app-kaban-column>
 </div>

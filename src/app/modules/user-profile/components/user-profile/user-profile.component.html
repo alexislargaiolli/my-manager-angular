@@ -1,5 +1,5 @@
-<div class="container mt-2">
-    <div class="mat-elevation-z2" fxLayout="row">
+<div class="container mt-2 default-panel rounded mat-elevation-z2">
+    <div fxLayout="row" [@centerApparitionAnimation]="'true'">
         <ul class="side-menu" fxFlex="30">
             <li [routerLink]="['./general']">
                 <md-icon>info</md-icon>Général
@@ -8,7 +8,7 @@
                 <md-icon>lock</md-icon>Mot de passe
             </li>
         </ul>
-        <div fxFlex="70">
+        <div fxFlex="70" class="p-4">
             <router-outlet></router-outlet>
         </div>
     </div>

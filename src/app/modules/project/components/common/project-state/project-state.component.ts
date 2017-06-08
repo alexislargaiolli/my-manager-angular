@@ -16,6 +16,8 @@ export class ProjectStateComponent implements OnInit {
   @Output()
   change: EventEmitter<ProjectState> = new EventEmitter<ProjectState>();
 
+  allState = ProjectState;
+
   constructor() { }
 
   ngOnInit() { }
@@ -23,6 +25,10 @@ export class ProjectStateComponent implements OnInit {
   onChange(event) {
     console.log(+event.value);
     this.change.emit(+event.value);
+  }
+
+  changeState(state: ProjectState) {
+    this.change.emit(state);
   }
 
 }

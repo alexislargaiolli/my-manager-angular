@@ -1,14 +1,23 @@
-<md-toolbar>
-    <span>Client</span>
-    <span class="toolbar-spacer"></span>
+<div class="p-4">
+    <button md-button (click)="unselect.emit()"><md-icon>arrow_back</md-icon></button>
     <button md-button (click)="delete.emit(client)"><md-icon>delete</md-icon></button>
-</md-toolbar>
-<md-card>
-    <p>Nom:{{client.name}}</p>
-    <p>Prénom: {{client.firstname}}</p>
-    <p>Nom de famille{{client.lastname}}</p>
-    <p>Email: {{client.email}}</p>
-    <p>Téléphone: {{client.tel}}</p>
+    <button md-button form="clientForm"><md-icon>save</md-icon></button>
+    <form id="clientForm" #clientForm="ngForm" (ngSubmit)="submitForm(clientForm)" autocomplete="off" class="d-flex flex-column">
+        <md-input-container class="translucide-input">
+            <input mdInput placeholder="Nom du client" type="text" [(ngModel)]="client.name" name="name">
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput placeholder="Prénom" type="text" [(ngModel)]="client.firstname" name="firstname">
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput placeholder="Nom de famille" type="text" [(ngModel)]="client.lastname" name="lastname">
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput placeholder="Email" type="email" [(ngModel)]="client.email" name="email">
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput placeholder="Téléphone" type="tel" [(ngModel)]="client.tel" name="tel">
+        </md-input-container>
+    </form>
     <app-address-list [(addresses)]="client.addresses" (onSaved)="addAddress($event)" (onDelete)="removeAddress($event)"></app-address-list>
-
-</md-card>
+</div>

@@ -1,9 +1,10 @@
+@import 'components';
 :host {
     display: block;
 }
 
 .post-it {
-    background: #eee;
+    @extend .default-panel-item;
     cursor: move;
     cursor: grab;
     cursor: -moz-grab;
@@ -13,9 +14,17 @@
 .create-wrapper {
     text-align: center;
     min-height: 36px;
-    transition: all 100ms;
+    color: #fff;
+    md-button-toggle {
+        transition: background 200ms;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    /deep/.mat-button-toggle-checked {
+        background: rgba(255, 255, 255, 0.5)!important;
+    }
     &/deep/.mat-button-toggle-label-content {
         font-size: 13px;
+        color: #fff;
     }
 }
 

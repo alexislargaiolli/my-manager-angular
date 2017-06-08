@@ -1,4 +1,41 @@
 @import 'variables';
+@import 'utils';
+.default-panel {
+    background: rgba(0, 0, 0, 0.4);
+    // background: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 1%, rgba(0, 0, 0, 0.41) 13%, rgba(0, 0, 0, 0.41) 14%, rgba(0, 0, 0, 0.34) 43%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.3) 74%, rgba(0, 0, 0, 0.3) 100%);
+    color: #fff;
+}
+
+.default-panel-item {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.default-input {
+    background: rgba(255, 255, 255, 0.2);
+    .mat-input-placeholder {
+        color: #aaa;
+    }
+}
+
+.translucide-input {
+    .mat-input-placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .mat-input-underline {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    .mat-input-element {
+        color: #fff;
+    }
+}
+
+.panel-title {
+    @include border-gradient($primary-color, 100%, 2px);
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+}
+
 .panel {
     background: #fff;
     border: 1px solid $border-color;
@@ -10,12 +47,11 @@
 .square-list {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     flex: 1;
     .square-list-item {
-        background: #fff;
-        width: 300px;
-        height: 430px;
+        @extend .default-panel;
         margin: 10px;
         overflow: hidden;
         cursor: pointer;
@@ -47,9 +83,9 @@
     cursor: pointer;
     border-right: 1px solid #ddd;
     li {
+        outline: 0;
         display: flex;
         font-family: roboto;
-        color: #555;
         transition: 500ms background;
         padding: 10px;
         border-bottom: 1px solid #ddd;
@@ -90,7 +126,8 @@
     justify-content: space-between;
     button {
         padding: 0;
-        background: #eee;
+        background: rgba(238, 238, 238, 0.5);
+        border-radius: 0;
         min-width: 35px;
         height: 35px;
         margin-left: -35px;

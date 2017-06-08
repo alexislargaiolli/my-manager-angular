@@ -1,16 +1,16 @@
 <div>
-    <h2 class="panel-header">Activités</h2>
+    <h2 class="panel-title">Activités</h2>
     <md-progress-bar color="primary" mode="indeterminate" *ngIf="loading$ | async">
     </md-progress-bar>
-    <form #historyForm="ngForm" (ngSubmit)="createEntry(historyForm.value)" class="list-create-form">
-        <md-input-container>
-            <input name="title" type="text" mdInput ngModel placeholder="Nouveau entré..." required>
+    <form #historyForm="ngForm" autocomplete="false" (ngSubmit)="createEntry(historyForm.value)" class="list-create-form my-2">
+        <md-input-container class="translucide-input">
+            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle activité..." required>
         </md-input-container>
         <button md-button type="submit"><md-icon>add</md-icon></button>
     </form>
     <p *ngIf="(historyEntries$ | async)?.length == 0">Aucun historique...</p>
 </div>
-<div>
+<div class="mt-2">
     <div *ngFor="let entry of (historyEntries$ | async)" class="history-item selectable">
 
         <!--<div *ngIf="selected?.id == entry.id" class="update-form-wrapper" [@itemState]="true">

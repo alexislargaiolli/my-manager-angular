@@ -15,12 +15,12 @@
 }
 
 .selectable:not(.selected-item):hover {
-    background: #eee;
+    background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
 }
 
 @mixin border-gradient($color, $width, $height) {
-    background-image: linear-gradient(to right, lighten($color, 50), $color, lighten($color, 50));
+    background-image: linear-gradient(to right, transparentize($color, 0.8), $color, transparentize($color, 0.8));
     background-repeat: no-repeat;
     background-size: $width $height;
     background-position: center bottom;

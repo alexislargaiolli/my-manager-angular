@@ -1,23 +1,23 @@
 import { Component, OnInit, HostBinding, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
-import { Project, Note, HistoryEntry, ProjectState, Devis } from 'app/models';
-import { slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
+import { Project, Note, HistoryEntry, ProjectState, Devis, Client } from 'app/models';
+import { slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
-import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions } from 'app/modules/store';
+import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions } from 'app/modules/store';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InplaceComponent } from "app/modules/shared/components/inplace/inplace.component";
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'app/modules/core';
+import { ClientActions } from "app/modules/store/reducers/client/client.actions";
 
 @Component({
   selector: 'app-project-dashboard',
   templateUrl: './project-dashboard.component.html',
   styleUrls: ['./project-dashboard.component.scss'],
-  animations: [slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation]
+  animations: [slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation]
 })
-export class ProjectDashboardComponent implements OnInit {
-
+export class ProjectDashboardComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClasses = 'd-flex flex-row justify-content-between';
 
   @select(SelectedProjectActions.currentProject)
@@ -47,19 +47,38 @@ export class ProjectDashboardComponent implements OnInit {
   @ViewChild('projectNameInplace')
   projectNameInplace: InplaceComponent;
 
+  @select(['projectClient', 'loading'])
+  loadingClient$: Observable<boolean>;
+
+  clients: Client[] = [];
+
+  allClients: Client[] = [];
+
   project: Project;
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private _ngRedux: NgRedux<IAppState>,
     private _projectAction: ProjectActions,
+    private _clientAction: ClientActions,
     private _projectNoteActions: ProjectNoteActions,
     private _projectHistoryActions: ProjectHistoryEntryActions,
+    private _projectClientActions: ProjectClientActions,
     private _router: Router,
     private _route: ActivatedRoute
   ) { }
 
   public ngOnInit() {
-    this._ngRedux.select(SelectedProjectActions.currentProject).subscribe(p => this.project = Object.assign({}, p));
+    this.subscriptions.push(this._ngRedux.select(SelectedProjectActions.currentProject).subscribe(p => this.project = Object.assign({}, p)));
+    this.subscriptions.push(this._ngRedux.select(['projectClient', 'items']).subscribe(clients => this.clients = Object.assign([], clients)));
+    this.subscriptions.push(this._ngRedux.select(['clients', 'items']).subscribe(clients => this.allClients = Object.assign([], clients)));
+  }
+
+  ngOnDestroy(): void {
+    for (let sub of this.subscriptions) {
+      sub.unsubscribe();
+    }
   }
 
   public saveProject() {
@@ -90,6 +109,18 @@ export class ProjectDashboardComponent implements OnInit {
 
   public onDevisClicked(devis: Devis) {
     this._router.navigate(['../devis', devis.id], { relativeTo: this._route });
+  }
+
+  public addClient(client: Client) {
+    this._projectClientActions.dispatchAddToProject(client, this._ngRedux.getState().selectedProject.id);
+  }
+
+  public createClient(client: Client) {
+    this._clientAction.dispatchCreate(client);
+  }
+
+  public removeClient(client: Client) {
+    this._projectClientActions.dispatchRemoveFromProject(client.id, this._ngRedux.getState().selectedProject.id);
   }
 
 }

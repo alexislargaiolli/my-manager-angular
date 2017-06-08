@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { slideInDownAnimation } from 'app/animations';
+import { centerApparitionAnimation } from 'app/animations';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { Invoice } from 'app/models';
@@ -9,11 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   selector: 'app-project-invoice',
   templateUrl: './project-invoice.component.html',
   styleUrls: ['./project-invoice.component.scss'],
-  animations: [slideInDownAnimation]
+  animations: [centerApparitionAnimation]
 })
 export class ProjectInvoiceComponent implements OnInit {
-
-  @HostBinding('@routeAnimation') routeAnimation = true;
 
   @select(['projectInvoices', 'items'])
   invoices$: Observable<Invoice[]>;

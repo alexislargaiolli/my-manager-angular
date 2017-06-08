@@ -12,13 +12,13 @@ import { SelectedProjectActions } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
 import { Router } from '@angular/router';
 import { projectHomeAnimation } from './project-home.animation';
-import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
+import { rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'project-home',
   templateUrl: './project-home.component.html',
   styleUrls: ['./project-home.component.scss'],
-  animations: [projectHomeAnimation, rightSlideApparitionAnimation, slideApparitionAnimation]
+  animations: [projectHomeAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation]
 })
 export class ProjectHomeComponent implements OnInit {
 

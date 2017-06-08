@@ -1,4 +1,10 @@
 @import 'variables';
+@import 'components';
+@import 'utils';
+/deep/ .header-nav {
+    box-shadow: none;
+}
+
 :host {
     flex: 1;
 }
@@ -9,17 +15,16 @@
 }
 
 nav {
+    @extend .default-panel;
+    z-index: 1000;
     position: fixed;
     width: 100%;
-    background: #fff;
     a {
-        color: #666;
+        color: #fff;
         transition: background-size 250ms, color 250ms;
         text-decoration: none;
-        background-image: linear-gradient(to right, lighten($primary-color, 50), $primary-color, lighten($primary-color, 50));
-        background-repeat: no-repeat;
+        @include border-gradient($primary-color, 100%, 2px);
         background-size: 0% 2px;
-        background-position: center bottom;
         &:hover,
         &:focus,
         &.active {

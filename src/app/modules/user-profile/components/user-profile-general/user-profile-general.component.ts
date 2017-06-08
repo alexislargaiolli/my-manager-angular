@@ -8,10 +8,12 @@ import { select, NgRedux } from '@angular-redux/store';
 import { ProfileActions } from 'app/modules/store';
 import { IAppState } from '../../../store/store.types';
 import { Subscription } from 'rxjs/Rx';
+import { slideApparitionAnimation } from 'app/animations';
 
 @Component({
   templateUrl: './user-profile-general.component.html',
-  styleUrls: ['./user-profile-general.component.css']
+  styleUrls: ['./user-profile-general.component.css'],
+  animations: [slideApparitionAnimation]
 })
 export class UserProfileGeneralComponent implements OnInit, OnDestroy {
 

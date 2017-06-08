@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'components';
 :host {
     position: fixed;
     width: 100%;
@@ -6,7 +7,7 @@
 }
 
 .header-nav {
-    background: #fff;
+    @extend .default-panel;
     height: calc($header-height - 1px);
     .header-left {
         padding-left: 20px;

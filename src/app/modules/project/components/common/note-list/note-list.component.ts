@@ -47,6 +47,11 @@ export class NoteListComponent implements OnInit {
     }
   }
 
+  cancel(noteForm: NgForm) {
+    noteForm.reset();
+    this.showForm = false;
+  }
+
   ngOnInit(): void {
   }
 

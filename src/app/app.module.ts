@@ -12,11 +12,13 @@ import { AppSettings } from './app-settings';
 import { AppComponent } from './root-component/app.component';
 import { StoreModule } from './modules/store/store.module';
 import { LOCALE_ID } from '@angular/core';
+import { BackgroundComponent } from './root-component/background/background.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BackgroundComponent
   ],
   imports: [
     BrowserModule,

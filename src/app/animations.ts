@@ -79,3 +79,23 @@ export const rightSlideApparitionAnimation: AnimationMetadata =
             ])
         ])
     ]);
+
+export const centerApparitionAnimation: AnimationMetadata =
+    trigger('centerApparitionAnimation', [
+        state('*',
+            style({
+                opacity: 1,
+                'transform-origin': 'center center',
+                transform: 'scale(1)'
+            })
+        ),
+        transition(':enter', [
+            group([
+                style({
+                    opacity: 0,
+                    transform: 'scale(0.95)'
+                }),
+                animate('.3s cubic-bezier(.06,.59,.27,1.67)'),
+            ])
+        ])
+    ]);

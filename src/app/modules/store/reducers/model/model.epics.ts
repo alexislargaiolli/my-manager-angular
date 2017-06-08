@@ -63,7 +63,7 @@ export abstract class ModelEpics<T extends IModel> {
             const request = this._repo.delete(this._modelName, action.payload.id);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
-                .map(() => this._modelAction.deleteSuccess(action.payload))
+                .map(() => this._modelAction.deleteSuccess(action.payload.id))
                 .catch(error => of(this._modelAction.deleteError(error)));
         }
         )

@@ -1,10 +1,19 @@
+@import 'components';
+@import 'utils';
+@import 'variables';
 :host {
     display: flex;
     flex-direction: column;
     flex: 1;
+    @extend .default-panel;
+}
+
+.history-item {
+    margin-top: 2px;
 }
 
 .history-item-content {
+    background: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     padding: 5px 0;
@@ -12,13 +21,13 @@
 
 .history-date {
     font-size: 10px;
-    color: #888;
+    color: #aaa;
 }
 
 .history-content-wrapper {
     flex: 1;
     .history-title {
-        color: #444;
+        color: #eee;
         font-size: 12px;
     }
     .history-content {

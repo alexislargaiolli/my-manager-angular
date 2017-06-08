@@ -1,28 +1,36 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Client } from 'app/models';
 import { Observable } from 'rxjs/Observable';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'project-client',
   templateUrl: './project-client.component.html',
-  styleUrls: ['./project-client.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./project-client.component.scss'],
 })
 export class ProjectClientComponent implements OnInit {
 
-  @Input('clients')
-  public clients$: Observable<Client[]>;
+  @Input('loading')
+  public loading$: Observable<boolean>;
 
-  @Input('allClient')
-  public allClients$: Observable<Client[]>;
+  @Input()
+  public clients: Client[];
+
+  @Input()
+  public allClients: Client[];
 
   @Output()
   add: EventEmitter<Client> = new EventEmitter<Client>();
 
   @Output()
+  create: EventEmitter<Client> = new EventEmitter<Client>();
+
+  @Output()
   remove: EventEmitter<Client> = new EventEmitter<Client>();
 
   public selected: Client;
+
+  public state: string = 'default';
   public addMenuDisplayed = false;
   public createFormDisplayed = false;
   public addListDisplayed = false;
@@ -40,6 +48,22 @@ export class ProjectClientComponent implements OnInit {
 
   public unselect() {
     this.selected = null;
+  }
+
+  public showMenu() {
+    this.state = 'menu';
+  }
+
+  public cancel() {
+    this.state = 'default';
+  }
+
+  public showImport() {
+    this.state = 'import';
+  }
+
+  public showCreate() {
+    this.state = 'create';
   }
 
   public showCreateForm() {
@@ -68,12 +92,33 @@ export class ProjectClientComponent implements OnInit {
     this.addClient(client);
   }
 
-  public removeSelected() {
-    this.remove.emit(this.selected);
+  public removeClient(client) {
+    this.remove.emit(client);
   }
 
   private addClient(client) {
     this.add.emit(client);
+  }
+
+  private toggleClient(event, client) {
+    if (event.checked) {
+      this.addClient(client);
+    }
+    else {
+      this.removeClient(client);
+    }
+  }
+
+  public createClient(form: NgForm) {
+    if (form.valid) {
+      this.create.emit(form.value);
+      form.reset();
+      this.showMenu();
+    }
+  }
+
+  public isSelected(client: Client) {
+    return this.clients.findIndex(c => c.id === client.id) != -1;
   }
 
 }

@@ -1,17 +1,15 @@
-<md-button-toggle-group name="state" (change)="onChange($event)" [value]="state" class="project-state-buttons">
-    <md-button-toggle value="0">
-        Prospection
-    </md-button-toggle>
-    <md-button-toggle value="1">
-        Devis
-    </md-button-toggle>
-    <md-button-toggle value="2">
-        Production
-    </md-button-toggle>
-    <md-button-toggle value="3">
-        Facturé
-    </md-button-toggle>
-    <md-button-toggle value="4">
-        Payé
-    </md-button-toggle>
-</md-button-toggle-group>
+<div class="d-flex align-items-center">
+    <button md-button (click)="changeState(allState.PROSPECTION)" [ngClass]="{'active' : state === allState.PROSPECTION}">Prospection</button>
+    <md-icon>keyboard_arrow_right</md-icon>
+
+    <button md-button (click)="changeState(allState.DEVIS)" [ngClass]="{'active' : state === allState.DEVIS}">Devis</button>
+    <md-icon>keyboard_arrow_right</md-icon>
+
+    <button md-button (click)="changeState(allState.PRODUCTION)" [ngClass]="{'active' : state === allState.PRODUCTION}">Production</button>
+    <md-icon>keyboard_arrow_right</md-icon>
+
+    <button md-button (click)="changeState(allState.FACTURATION)" [ngClass]="{'active' : state === allState.FACTURATION}">Facturé</button>
+    <md-icon>keyboard_arrow_right</md-icon>
+
+    <button md-button (click)="changeState(allState.FINISHED)" [ngClass]="{'active' : state === allState.FINISHED}">Payé</button>
+</div>

@@ -1,6 +1,7 @@
 .inplace-edit-icon {
     float: right;
-    margin-left: -24px;
+    margin-right: -24px;
+    margin-top: -24px;
     opacity: 0;
     color: #444;
     transition: opacity 200ms;
@@ -11,7 +12,7 @@
 }
 
 .inplace-output:hover {
-    background: #eee;
+    background-color: rgba(0, 0, 0, .12);
     color: #aaa;
     cursor: pointer;
     .inplace-edit-icon {

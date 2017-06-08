@@ -1,46 +1,60 @@
-<md-card>
-    <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)" class="container">
-        <div class="row justify-content-md-center">
-            <div class="col d-flex flex-column justify-content-between">
-                <div class="col d-flex flex-column">
-                    <md-input-container>
-                        <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
-                    </md-input-container>
-                    <md-input-container>
-                        <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
-                    </md-input-container>
-                </div>
-                <div class="col d-flex flex-column">
-                    <button md-button type="submit" [disabled]="!settingsForm.valid">
+<div class="container">
+    <div class="default-panel p-2 rounded mat-elevation-z4" [@centerApparitionAnimation]="'true'">
+        <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)" class="container">
+            <div class="row justify-content-md-center">
+                <div class="col d-flex flex-column justify-content-between">
+                    <div class="col d-flex flex-column">
+                        <md-input-container class="translucide-input">
+                            <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
+                        </md-input-container>
+                        <md-input-container class="translucide-input">
+                            <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
+                        </md-input-container>
+                    </div>
+                    <div class="col d-flex flex-column grow-1">
+                        <button md-button type="submit">
                         <md-icon>save</md-icon>
                         Valider
                     </button>
-                    <button md-button (click)="deleteProject()">
+                        <button md-button (click)="deleteProject()">
                         <md-icon>delete</md-icon>
                         Supprimer
                     </button>
-                </div>
+                    </div>
 
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <md-input-container class="translucide-input">
+                            <input mdInput [mdDatepicker]="plannedStartDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedStartDate" name="plannedStartDate">
+                            <button mdSuffix [mdDatepickerToggle]="plannedStartDate"></button>
+                        </md-input-container>
+                        <md-datepicker #plannedStartDate></md-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <md-input-container class="translucide-input">
+                            <input mdInput [mdDatepicker]="startDate" placeholder="Date de départ effectif" [(ngModel)]="project.startDate" name="startDate">
+                            <button mdSuffix [mdDatepickerToggle]="startDate"></button>
+                        </md-input-container>
+                        <md-datepicker #startDate></md-datepicker>
+                    </div>
+                    <div class="form-group" class="translucide-input">
+                        <md-input-container>
+                            <input mdInput [mdDatepicker]="plannedEndDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedEndDate" name="plannedEndDate">
+                            <button mdSuffix [mdDatepickerToggle]="plannedEndDate"></button>
+                        </md-input-container>
+                        <md-datepicker #plannedEndDate></md-datepicker>
+                    </div>
+                    <div class="form-group" class="translucide-input">
+                        <md-input-container>
+                            <input mdInput [mdDatepicker]="endDate" placeholder="Date de départ effective" [(ngModel)]="project.endDate" name="endDate">
+                            <button mdSuffix [mdDatepickerToggle]="endDate"></button>
+                        </md-input-container>
+                        <md-datepicker #endDate></md-datepicker>
+                    </div>
+                    <!--<project-client [clients]="clients$" [allClient]="allClient$" (add)="addClient($event)" (remove)="removeClient($event)"></project-client>-->
+                </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="plannedStartDate">Date de départ prévu</label>
-                    <material-datepicker placeholder="Date de départ prévu" name="plannedStartDate" [(date)]="project.plannedStartDate"></material-datepicker>
-                </div>
-                <div class="form-group">
-                    <label for="startDate">Date de départ effectif</label>
-                    <material-datepicker placeholder="Date de départ effectif" name="startDate" [(date)]="project.startDate"></material-datepicker>
-                </div>
-                <div class="form-group">
-                    <label for="plannedEndDate">Date de fin prévu</label>
-                    <material-datepicker placeholder="Date de fin prévu" name="plannedEndDate" [(date)]="project.plannedEndDate"></material-datepicker>
-                </div>
-                <div class="form-group">
-                    <label for="endDate">Date de fin effective</label>
-                    <material-datepicker placeholder="Date de fin effective" name="endDate" [(date)]="project.endDate"></material-datepicker>
-                </div>
-                <project-client [clients]="clients$" [allClient]="allClient$" (add)="addClient($event)" (remove)="removeClient($event)"></project-client>
-            </div>
-        </div>
-    </form>
-</md-card>
+        </form>
+    </div>
+</div>

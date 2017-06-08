@@ -110,7 +110,7 @@ export abstract class ModelActions<T extends IModel> {
     }
 
     deleteSuccess(id) {
-        return this.createAction(ModelActions.DELETE, ActionUtils.SUCCESS, id);
+        return this.createAction(ModelActions.DELETE, ActionUtils.SUCCESS, { id });
     }
 
     deleteError(error) {

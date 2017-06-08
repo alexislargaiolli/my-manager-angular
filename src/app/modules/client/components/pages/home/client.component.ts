@@ -5,11 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
 import { ClientActions } from '../../../../store/reducers/client/client.actions';
 import { IAppState } from 'app/modules/store';
+import { slideApparitionAnimation, rightSlideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  styleUrls: ['./client.component.scss'],
+  animations: [slideApparitionAnimation, rightSlideApparitionAnimation, centerApparitionAnimation]
 })
 export class ClientComponent implements OnInit {
 
@@ -22,16 +24,18 @@ export class ClientComponent implements OnInit {
   @select(ClientActions.findSelectedClient)
   public selectedClient$: Observable<Client>;
 
+  public selected: Client;
+
   constructor(private _clientActions: ClientActions, private _ngRedux: NgRedux<IAppState>) { }
 
   public ngOnInit() { }
 
   public onSelectClient(client: Client) {
-    this._clientActions.dispatchSelectClient(client.id);
+    this.selected = Object.assign({}, client);
   }
 
   public unselect() {
-    this._clientActions.dispatchUnSelectClient();
+    this.selected = null;
   }
 
   public deleteClient(client: Client) {
@@ -39,8 +43,8 @@ export class ClientComponent implements OnInit {
     this.unselect();
   }
 
-  public createClient(client: Client) {
-    this._clientActions.dispatchCreate(client);
+  public createClient() {
+    this._clientActions.dispatchCreate({ name: 'Nouveau client' });
   }
 
   public onUpdate(client: Client) {

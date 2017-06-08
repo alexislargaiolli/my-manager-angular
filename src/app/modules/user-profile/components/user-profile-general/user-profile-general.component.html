@@ -1,19 +1,23 @@
-<form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" autocomplete="off" *ngIf="!(loading$ | async)">
-    <md-input-container>
-        <input mdInput name="lastname" type="text" placeholder="Nom" [(ngModel)]="profile.lastname" required>
-    </md-input-container>
-    <md-input-container>
-        <input mdInput name="firstname" type="text" placeholder="Prénom" [(ngModel)]="profile.firstname" required>
-    </md-input-container>
-    <md-input-container>
-        <input mdInput name="email" type="email" placeholder="Email" [(ngModel)]="profile.email" required>
-    </md-input-container>
-    <md-input-container>
-        <input mdInput name="firstname" type="tel" placeholder="Téléphone" [(ngModel)]="profile.phone">
-    </md-input-container>
-    <md-input-container>
-        <input mdInput name="siret" placeholder="Numéro de siret" [(ngModel)]="profile.siret">
-    </md-input-container>
-    <button md-button type="submit"><md-icon>save</md-icon></button>
-</form>
-<app-address-list [addresses]="profile.addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)" *ngIf="!(loading$ | async)"></app-address-list>
+<div [@slideApparitionAnimation]="'true'">
+    <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" autocomplete="off" *ngIf="!(loading$ | async)" class="d-flex flex-column">
+        <md-input-container class="translucide-input">
+            <input mdInput name="lastname" type="text" placeholder="Nom" [(ngModel)]="profile.lastname" required>
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput name="firstname" type="text" placeholder="Prénom" [(ngModel)]="profile.firstname" required>
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput name="email" type="email" placeholder="Email" [(ngModel)]="profile.email" required>
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput name="firstname" type="tel" placeholder="Téléphone" [(ngModel)]="profile.phone">
+        </md-input-container>
+        <md-input-container class="translucide-input">
+            <input mdInput name="siret" placeholder="Numéro de siret" [(ngModel)]="profile.siret">
+        </md-input-container>
+        <div class="text-right">
+            <button md-button type="submit"><md-icon>save</md-icon></button>
+        </div>
+    </form>
+    <app-address-list [addresses]="profile.addresses" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)" *ngIf="!(loading$ | async)"></app-address-list>
+</div>

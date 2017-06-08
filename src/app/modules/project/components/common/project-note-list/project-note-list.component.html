@@ -1,7 +1,7 @@
-<h2 class="panel-header">Post it</h2>
+<h2>Post it</h2>
 <md-progress-bar color="primary" mode="indeterminate" *ngIf="loading$ | async">
 </md-progress-bar>
-<form #noteForm="ngForm" (ngSubmit)="submitCreate(noteForm)" class="list-create-form rounded p-2">
+<form #noteForm="ngForm" (ngSubmit)="submitCreate(noteForm)" class="p-2">
     <md-input-container>
         <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." minlength="4" required>
     </md-input-container>

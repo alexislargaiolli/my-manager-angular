@@ -1,19 +1,40 @@
 @import '../project-details-variables';
 @import 'variables';
+@import 'components';
 :host {
     @include project-details-container;
 }
 
 .project-header {
-    padding: 50px;
     h1 {
+        color: #333;
         font-family: $title-font;
         text-transform: uppercase;
-        font-size: 51px;
         font-size: 50px;
+        line-height: 50px;
+        margin: 0;
     }
     p {
-        color: #777;
+        color: #333;
+    }
+}
+
+.progress-wrapper {
+    md-progress-spinner {
+        width: 200px;
+        height: 200px;
+    }
+    .progress-wrapper-value {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span {
+            font-family: $title-font;
+            font-size: 40px;
+        }
     }
 }
 
@@ -21,29 +42,7 @@ project-history {
     max-width: 300px;
 }
 
-.one-value-card-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -10px;
-    margin-right: -10px;
-    app-one-value-card {
-        flex: 1;
-    }
-}
-
-.tasksCount {
-    display: flex;
-    justify-content: space-around;
-    span {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        background: #aaa;
-        border-radius: 50%;
-        text-align: center;
-        margin-right: 20px;
-        color: #fff;
-        font-size: 18px;
-    }
+app-note-list {
+    @extend .default-panel;
+    min-width: 300px;
 }

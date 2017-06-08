@@ -1,7 +1,6 @@
-<p>N'oubliez pas</p>
 <div class="create-wrapper">
     <form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)" class="p-2 d-inline-flex flex-column" *ngIf="showForm" [@slideApparitionAnimation]="'true'">
-        <md-input-container>
+        <md-input-container class="translucide-input">
             <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
         </md-input-container>
         <md-button-toggle-group ngModel value="0" name="priority">
@@ -19,10 +18,10 @@
             </md-button-toggle>
         </md-button-toggle-group>
         <div class="text-right mt-2">
+            <button md-button (click)="cancel(noteForm)"><md-icon>cancel</md-icon></button>
             <button md-button type="submit"><md-icon>add_circle</md-icon></button>
         </div>
     </form>
-
     <button (click)="showForm = true" md-button *ngIf="!showForm" [@slideApparitionAnimation]="'true'">Ajouter une note</button>
 </div>
 <div class="note-list">

@@ -1,14 +1,15 @@
-<aside class="project-home-right" [@selectionState]="state" [@slideApparitionAnimation]="'true'">
+<aside class="project-home-right mat-elevation-z4 rounded" [@slideApparitionAnimation]="'true'">
     <h1>
         Bonjour {{(profile$ | async)?.firstname}},
     </h1>
-    <div class="gain-summary">
-        <p>Vous avez</p>
+    <p>Vous avez</p>
+    <div class="gain-summary ml-4">
         <p><span>{{totalPotential$ | async}}€</span> de devis en attente</p>
         <p><span>{{totalInvoiced$ | async}}€</span> facturé en attente de paiement</p>
         <p><span>{{totalPaid$ | async}}€</span> de facure payées</p>
     </div>
+    <p>N'oubliez pas</p>
     <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-note-list>
 </aside>
-<project-list [projects]="projects$" [loading]="loading$" (selectionStarts)="onSelectionStarts($event)" (selectionEnds)="onSelectionEnds($event)" (create)="createProject($event)" [@rightSlideApparitionAnimation]="'true'">
+<project-list [projects]="projects$" [loading]="loading$" (select)="onSelectionEnds($event)" (create)="createProject($event)" [@centerApparitionAnimation]="'true'">
 </project-list>

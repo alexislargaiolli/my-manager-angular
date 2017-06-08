@@ -1,16 +1,21 @@
-<div class="square-list">
-    <article *ngFor="let client of (clients$ | async)" (click)="selectClient(client)" class="square-list-item rounded mat-elevation-z2 d-flex flex-column justify-content-around p-4">
-        <header>
-            <h3>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></h3>
-        </header>
-        <div>
-            <md-icon class="align-middle">contact_mail</md-icon><span class="align-middle ml-2">{{client.email}}</span>
-        </div>
-        <div>
-            <md-icon class="align-middle">contact_phone</md-icon><span class="align-middle ml-2">{{client.tel}}</span>
-        </div>
-    </article>
+<div class="p-2" *ngIf="loading$ | async">
+    <md-progress-bar mode="indeterminate"></md-progress-bar>
 </div>
-<div class="d-flex justify-content-center" *ngIf="loading$ | async">
-    <md-progress-spinner mode="indeterminate" color="primary"></md-progress-spinner>
+<div class="square-list">
+    <div class="square-list-item rounded mat-elevation-z2 m-2">
+        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau client</button>
+    </div>
+    <article *ngFor="let client of (clients$ | async)" class="square-list-item rounded mat-elevation-z2 m-2">
+        <button md-button (click)="selectClient(client)">
+            <header>
+                <h2>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></h2>
+            </header>
+            <div *ngIf="client.email">
+                <md-icon class="align-middle">contact_mail</md-icon><span class="align-middle ml-2">{{client.email}}</span>
+            </div>
+            <div *ngIf="client.tel">
+                <md-icon class="align-middle">contact_phone</md-icon><span class="align-middle ml-2">{{client.tel}}</span>
+            </div>
+        </button>
+    </article>
 </div>

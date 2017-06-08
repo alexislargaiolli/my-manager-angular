@@ -1,13 +1,6 @@
-:host {
-    width: 300px;
-}
-
-.post-it,
-.list-create-form {
-    background: #fff;
-}
-
+@import 'components';
 .post-it {
+    @extend .default-panel-item;
     cursor: move;
     cursor: grab;
     cursor: -moz-grab;

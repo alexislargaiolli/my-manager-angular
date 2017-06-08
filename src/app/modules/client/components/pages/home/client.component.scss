@@ -1,0 +1,14 @@
+@import 'variables';
+@import 'components';
+:host {
+    display: flex;
+    height: calc(100vh - #{$header-height});
+    overflow: hidden;
+    padding: 10px 20px;
+}
+
+.home-right {
+    @extend .default-panel;
+    min-width: 40%;
+    padding: 10px 20px;
+}

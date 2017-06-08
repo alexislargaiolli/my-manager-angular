@@ -18,15 +18,11 @@ export class ProjectListComponent implements OnInit {
   loading$: Observable<boolean>;
 
   @Output()
-  public selectionStarts: EventEmitter<Project> = new EventEmitter<Project>();
-
-  @Output()
-  public selectionEnds: EventEmitter<Project> = new EventEmitter<Project>();
+  public select: EventEmitter<Project> = new EventEmitter<Project>();
 
   @Output()
   public create: EventEmitter<Project> = new EventEmitter<Project>();
 
-  private _selectedProject: Project = null;
   public ProjectState = ProjectState;
   public today: Date = new Date();
 
@@ -35,12 +31,7 @@ export class ProjectListComponent implements OnInit {
   public ngOnInit() { }
 
   public selectProject(p: Project) {
-    this._selectedProject = p;
-    this.selectionStarts.emit(this._selectedProject);
-  }
-
-  public animationDone() {
-    this.selectionEnds.emit(this._selectedProject);
+    this.select.emit(p);
   }
 
   public isLate(p: Project): boolean {
@@ -48,16 +39,5 @@ export class ProjectListComponent implements OnInit {
       return new Date(p.plannedEndDate) < this.today;
     }
     return false;
-  }
-
-  public isSelected(p: Project): boolean {
-    if (this._selectedProject === null) {
-      return null;
-    }
-    return p.id === this._selectedProject.id;
-  }
-
-  public hasSelected() {
-    return this._selectedProject != null;
   }
 }

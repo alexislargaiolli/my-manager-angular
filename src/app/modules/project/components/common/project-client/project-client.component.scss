@@ -1,0 +1,12 @@
+:host {
+    display: inline-block;
+    color: #333;
+}
+
+.selected-client {
+    background: #ddd;
+}
+
+/deep/ label.mat-checkbox-layout {
+    margin: 0;
+}

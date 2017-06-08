@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Client } from 'app/models';
 import { Observable } from 'rxjs/Observable';
+import { createEpicMiddleware } from 'redux-observable';
 
 @Component({
   selector: 'client-list',
   templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.css'],
+  styleUrls: ['./client-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientListComponent implements OnInit {
@@ -18,6 +19,9 @@ export class ClientListComponent implements OnInit {
 
   @Output()
   public clientSelect = new EventEmitter();
+
+  @Output()
+  public create = new EventEmitter();
 
   constructor() { }
 

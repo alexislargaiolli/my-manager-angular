@@ -3,13 +3,11 @@
 </div>
 
 <div class="square-list">
-    <app-project-list-item [selected]="hasSelected() ? false : null">
-        <div class="item-content project-item create-item rounded mat-elevation-z2">
-            <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
-        </div>
-    </app-project-list-item>
-    <app-project-list-item *ngFor="let project of (projects$ | async)" (click)="selectProject(project)" [selected]="isSelected(project)" (selectionEnds)="animationDone($event)">
-        <article class="item-content project-item rounded mat-elevation-z2 d-flex flex-column justify-content-between p-2 text-center">
+    <div class="project-item rounded mat-elevation-z2 m-2">
+        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
+    </div>
+    <article *ngFor="let project of (projects$ | async)" class="project-item rounded mat-elevation-z2 text-center m-2">
+        <button md-button (click)="selectProject(project)">
             <header>
                 <h3 class="text-center">{{project.name}}</h3>
             </header>
@@ -20,7 +18,6 @@
             <p class="badge badge-warning" *ngIf="project.state == 3">En attente de paiement</p>
             <p class="badge badge-success" *ngIf="project.state == 4">Terminé</p>
             <md-progress-bar [value]="project.progress"></md-progress-bar>
-        </article>
-
-    </app-project-list-item>
+        </button>
+    </article>
 </div>

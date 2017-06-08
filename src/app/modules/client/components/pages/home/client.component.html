@@ -1,5 +1,8 @@
-<client-list [clients]="clients$" (clientSelect)="onSelectClient($event)" [loading]="loading$"></client-list>
-<client-detail [client]="selectedClient$ | async" (save)="onUpdate($event)" (delete)="deleteClient($event)" (addAddress)="addAddress($event)" (removeAddress)="removeAddress($event)" *ngIf="selectedClient$ | async"></client-detail>
-<md-card>
-    <client-create (create)="createClient($event)"></client-create>
-</md-card>
+<aside class="home-right mat-elevation-z4 rounded" [@slideApparitionAnimation]="'true'">
+</aside>
+<client-list [clients]="clients$" (create)="createClient()" (clientSelect)="onSelectClient($event)" [loading]="loading$" *ngIf="!selected" class="grow-1" [@centerApparitionAnimation]="'true'"></client-list>
+
+<div class="d-flex align-items-center justify-content-center grow-1" *ngIf="selected" [@centerApparitionAnimation]="'true'">
+    <client-detail [client]="selected" (save)="onUpdate($event)" (delete)="deleteClient($event)" (unselect)="unselect()" (addAddress)="addAddress($event)" (removeAddress)="removeAddress($event)" class="rounded"></client-detail>
+</div>
+<!--<client-create (create)="createClient($event)"></client-create>-->

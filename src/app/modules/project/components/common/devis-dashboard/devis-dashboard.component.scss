@@ -1,13 +1,23 @@
 @import 'components';
 :host {
-    @extend .panel;
+    @extend .default-panel;
+    display: inline-block;
+    padding: 10px;
+}
+
+.devis-item {
+    @extend .default-panel-item;
+}
+
+.devis-item+.devis-item {
+    margin-top: 2px;
 }
 
 .devis-icon {
-    color: #666;
     margin-right: 15px;
 }
 
 .devis-state {
     font-size: 11px;
+    color: #aaa;
 }

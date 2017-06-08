@@ -11,6 +11,12 @@ const INITIAL_STATE = {
 };
 
 export function projectClientReducer(state: IProjectClientState = INITIAL_STATE, action) {
+    switch (action.type) {
+        case ProjectClientActions.ADD_TO_PROJECT:
+            return Object.assign({}, state, { loading: true, error: null });
+        case ProjectClientActions.REMOVE_FROM_PROJECT:
+            return Object.assign({}, state, { loading: true, error: null });
+    }
     state = modelReducer<Client>(Client.REPO_KEY, ProjectClientActions.CLIENT_SOURCE, state, action);
     return state;
 }
