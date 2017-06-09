@@ -20,14 +20,13 @@
 }
 
 .progress-wrapper {
-    md-progress-spinner {
+    md-progress-spinner,
+    .progress-wrapper-value {
         width: 200px;
         height: 200px;
     }
     .progress-wrapper-value {
         position: absolute;
-        width: 200px;
-        height: 200px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -36,10 +35,20 @@
             font-size: 40px;
         }
     }
+    @media (max-width: 575px) {
+        md-progress-spinner,
+        .progress-wrapper-value {
+            width: 100px;
+            height: 100px;
+        }
+        .progress-wrapper-value span {
+            font-size: 30px;
+        }
+    }
 }
 
 project-history {
-    max-width: 300px;
+    max-width: 275px;
 }
 
 app-note-list {

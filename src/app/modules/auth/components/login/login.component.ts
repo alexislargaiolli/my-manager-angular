@@ -8,12 +8,14 @@ import { select, NgRedux } from '@angular-redux/store';
 import { NgForm } from '@angular/forms';
 import { IAppState } from '../../../store/store.types';
 import { Subscription } from 'rxjs/Rx';
+import { slideApparitionAnimation } from 'app/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [slideApparitionAnimation]
 })
 export class LoginComponent implements OnInit, OnDestroy {
 

@@ -18,7 +18,7 @@ import { ClientActions } from "app/modules/store/reducers/client/client.actions"
   animations: [slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation]
 })
 export class ProjectDashboardComponent implements OnInit, OnDestroy {
-  @HostBinding('class') hostClasses = 'd-flex flex-row justify-content-between';
+  @HostBinding('class') hostClasses = 'd-flex flex-row justify-content-between flex-column flex-lg-row flex-xl-row';
 
   @select(SelectedProjectActions.currentProject)
   currentProject$: Observable<Project>;

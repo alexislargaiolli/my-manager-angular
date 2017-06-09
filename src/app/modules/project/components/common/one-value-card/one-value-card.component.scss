@@ -2,37 +2,32 @@
 @import 'components';
 :host {
     @extend .default-panel;
-    min-width: 200px;
-    padding: 20px;
-    &>div {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        .icon {
-            width: 50px;
-            height: 43px;
-            font-size: 50px;
-            text-align: center;
-        }
-        .right {
-            display: flex;
-            flex-direction: column;
-            text-align: right;
-            margin-left: 10px;
-            .value {
-                font-size: 25px;
-                line-height: 25px;
-                height: 30px;
-            }
-            .label {
-                font-size: 13px;
-                height: 13px;
-                line-height: 13px;
-            }
-        }
-        .icon,
-        .right .label {
-            color: rgba(255, 255, 255, 0.5);
-        }
+    padding: 15px 20px;
+}
+
+.icon-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icon {
+        font-size: 40px;
+        text-align: center;
     }
+    .value {
+        font-size: 25px;
+        line-height: 25px;
+        height: 30px;
+    }
+}
+
+.label {
+    margin-top: 15px;
+    font-size: 13px;
+    height: 13px;
+    line-height: 13px;
+}
+
+.icon,
+.label {
+    color: rgba(255, 255, 255, 0.5);
 }

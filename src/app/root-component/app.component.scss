@@ -8,3 +8,9 @@
 main {
     margin-top: $header-height;
 }
+
+@media (max-width: 600px) {
+    main {
+        margin-top: $header-sm-height;
+    }
+}

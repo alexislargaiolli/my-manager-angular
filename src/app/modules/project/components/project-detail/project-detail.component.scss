@@ -50,6 +50,9 @@ nav a {
     &>span {
         margin-left: 10px;
     }
+    @media (max-width: 767px) {
+        min-width: 50px;
+    }
 }
 
 .main-content {

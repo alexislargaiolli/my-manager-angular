@@ -1,9 +1,15 @@
+@import 'variables';
+@import 'components';
 :host {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: calc(100vh - #{$header-height} - #{$subheader-height});
+}
+
+:host>div {
+    @extend .default-panel;
 }
 
 form {
