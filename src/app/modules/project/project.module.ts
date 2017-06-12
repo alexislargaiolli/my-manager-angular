@@ -33,6 +33,7 @@ import { DevisLinePipe } from './services/devis-line.pipe';
 import { SquareListItemComponent } from './components/common/project-list/square-list-item/square-list-item.component';
 import { InvoicePreviewComponent } from "./components/common/project/invoice/invoice-preview/invoice-preview.component";
 import { ProjectInvoiceEditionComponent } from './components/project-detail/project-invoice/project-invoice-edition/project-invoice-edition.component';
+import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
 
 @NgModule({
   imports: [
@@ -70,10 +71,14 @@ import { ProjectInvoiceEditionComponent } from './components/project-detail/proj
     DevisPreviewComponent,
     SquareListItemComponent,
     InvoicePreviewComponent,
-    ProjectInvoiceEditionComponent
+    ProjectInvoiceEditionComponent,
+    SelectDevisComponent
   ],
   providers: [
     NavigationService
+  ],
+  entryComponents: [
+    SelectDevisComponent
   ],
   exports: []
 })

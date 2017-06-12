@@ -40,8 +40,8 @@ export class ProjectTaskComponent implements OnInit {
     this._taskAction.dispatchCreate(task, this._ngRedux.getState().selectedProject.id);
   }
 
-  public deleteTask(taskToDelete: Task) {
-    this._taskAction.dispatchDelete(taskToDelete.id, this._ngRedux.getState().selectedProject.id);
+  public deleteTask(taskId: number) {
+    this._taskAction.dispatchDelete(taskId, this._ngRedux.getState().selectedProject.id);
   }
 
 }

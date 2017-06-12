@@ -11,4 +11,16 @@ export class ProjectDevisActions extends ModelActions<Devis> {
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
         super(_ngRedux, _repo, Devis.REPO_KEY)
     }
+
+    public static totalWaiting(state: IAppState) {
+        return state.projectDevis.items.reduce((prevVal, current) => {
+            return prevVal + (current.state === 1 ? current.totalPrice : 0);
+        }, 0);
+    }
+
+    public static totalAccepted(state: IAppState) {
+        return state.projectDevis.items.reduce((prevVal, current) => {
+            return prevVal + (current.state === 2 ? current.totalPrice : 0);
+        }, 0);
+    }
 }

@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy, Inject, ElementRef, ViewChild, Renderer2 
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { InvoiceState, DevisLine, Address, Invoice } from 'app/models';
+import { InvoiceState, DevisLine, Address, Invoice, Devis } from 'app/models';
 import { NotificationService, DialogsService } from 'app/modules/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState, ProjectInvoiceActions } from 'app/modules/store';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as moment from 'moment';
 import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
+import { MdDialog } from '@angular/material';
+import { SelectDevisComponent } from './select-devis/select-devis.component';
 
 @Component({
   selector: 'app-project-invoice-edition',
@@ -32,7 +34,8 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
     private _ngRedux: NgRedux<IAppState>,
     private _invoiceActions: ProjectInvoiceActions,
     private _dragulaService: DragulaService,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
+    public _mdDialog: MdDialog
   ) {
     _dragulaService.setOptions('lines', {
       removeOnSpill: true,
@@ -64,21 +67,13 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
 
   public createInvoice() {
     this.invoice = new Invoice();
-    this.invoice.createDate = new Date();
-    this.invoice.validityDate = moment().add(1, 'month').toDate();
     const profile = this._ngRedux.getState().profile.profile;
     const clients = this._ngRedux.getState().projectClient.items;
     if (profile) {
-      if (profile.addresses != null && profile.addresses.length > 0) {
-        this.invoice.userAddress = profile.addresses[0];
-      }
-      this.invoice.userName = `${profile.firstname}  ${profile.lastname}`;
-      this.invoice.siret = profile.siret;
-      this.invoice.userPhone = profile.phone;
-      this.invoice.userMail = profile.email;
+      this.invoice.importProfile(profile);
     }
-    if (clients != null && clients.length > 0 && clients[0].addresses != null && clients[0].addresses.length > 0) {
-      this.invoice.clientAddress = clients[0].addresses[0];
+    if (clients != null && clients.length > 0) {
+      this.invoice.importClient(clients[0]);
     }
     this.invoice.invoiceId = `${moment().format('YY-MM-DD')}-${this._ngRedux.getState().projectInvoices.items.length}`;
   }
@@ -105,13 +100,21 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
     this._invoiceActions.dispatchSave(this.invoice, this._ngRedux.getState().selectedProject.id);
   }
 
-  public onStateChange() {
+  public importDevis() {
+    let dialogRef = this._mdDialog.open(SelectDevisComponent);
+    dialogRef.afterClosed().subscribe((devis: Devis) => {
+      if (devis) {
+        this.invoice.importDevis(devis);
+      }
+    });
   }
 
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
-      this._invoiceActions.dispatchDelete(this.invoice.id, this._ngRedux.getState().selectedProject.id);
-      this.goBack();
+      if (confirmed) {
+        this._invoiceActions.dispatchDelete(this.invoice.id, this._ngRedux.getState().selectedProject.id);
+        this.goBack();
+      }
     });
   }
 
@@ -127,10 +130,7 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
   }
 
   private generateFileName() {
-    const client = this.invoice.clientName ? ' - ' + this.invoice.clientName : '';
-    const username = this.invoice.userName ? ' - ' + this.invoice.userName : '';
-    const date = this.invoice.createDate ? moment(this.invoice.createDate).format(' - DD-MM-YY') : moment().format(' - DD-MM-YY');
-    return `Facture${username}${client}${date}.pdf`;
+    return this.invoice.generateFileName();
   }
 
   goBack(): void {

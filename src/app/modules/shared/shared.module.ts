@@ -8,7 +8,8 @@ import {
   MdInputModule, MdCheckboxModule, MdSelectModule, MdDialogModule,
   MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule,
   MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule, MdNativeDateModule,
-  MdDatepickerModule
+  MdDatepickerModule,
+  MdTooltipModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeysPipe } from './utils/keys.pipe';
@@ -64,7 +65,8 @@ import { InplaceDateComponent } from './components/inplace-date/inplace-date.com
     AddressPipe,
     AddressInputComponent,
     InplaceComponent,
-    InplaceDateComponent
+    InplaceDateComponent,
+    MdTooltipModule
   ]
 })
 export class SharedModule { }

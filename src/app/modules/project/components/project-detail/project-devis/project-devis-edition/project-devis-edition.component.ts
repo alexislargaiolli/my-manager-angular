@@ -62,21 +62,13 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
 
   public createDevis() {
     this.devis = new Devis();
-    this.devis.createDate = new Date();
-    this.devis.validityDate = moment().add(1, 'month').toDate();
     const profile = this._ngRedux.getState().profile.profile;
     const clients = this._ngRedux.getState().projectClient.items;
     if (profile) {
-      if (profile.addresses != null && profile.addresses.length > 0) {
-        this.devis.userAddress = profile.addresses[0];
-      }
-      this.devis.userName = `${profile.firstname}  ${profile.lastname}`;
-      this.devis.siret = profile.siret;
-      this.devis.userPhone = profile.phone;
-      this.devis.userMail = profile.email;
+      this.devis.importProfile(profile);
     }
-    if (clients != null && clients.length > 0 && clients[0].addresses != null && clients[0].addresses.length > 0) {
-      this.devis.clientAddress = clients[0].addresses[0];
+    if (clients != null && clients.length > 0) {
+      this.devis.importClient(clients[0]);
     }
     this.devis.devisId = `${moment().format('YY-MM-DD')}-${this._ngRedux.getState().projectDevis.items.length}`;
   }
@@ -90,7 +82,6 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
     }
-    // this.goBack();
   }
 
   public submitLine(form: NgForm) {
@@ -111,8 +102,10 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
 
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
-      this._devisActions.dispatchDelete(this.devis.id, this._ngRedux.getState().selectedProject.id);
-      this.goBack();
+      if (confirmed) {
+        this._devisActions.dispatchDelete(this.devis.id, this._ngRedux.getState().selectedProject.id);
+        this.goBack();
+      }
     });
   }
 
@@ -128,10 +121,7 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
   }
 
   private generateFileName() {
-    const client = this.devis.clientName ? ' - ' + this.devis.clientName : '';
-    const username = this.devis.userName ? ' - ' + this.devis.userName : '';
-    const date = this.devis.createDate ? moment(this.devis.createDate).format(' - DD-MM-YY') : moment().format(' - DD-MM-YY');
-    return `Devis${username}${client}${date}.pdf`;
+    return this.devis.generateFileName();
   }
 
   goBack(): void {

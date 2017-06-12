@@ -23,7 +23,6 @@ export class ProjectStateComponent implements OnInit {
   ngOnInit() { }
 
   onChange(event) {
-    console.log(+event.value);
     this.change.emit(+event.value);
   }
 

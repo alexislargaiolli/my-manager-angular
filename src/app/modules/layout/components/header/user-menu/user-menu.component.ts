@@ -5,6 +5,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { User } from 'app/modules/core';
+import { Profile } from 'app/models';
 
 @Component({
   selector: 'app-user-menu',
@@ -13,8 +14,8 @@ import { User } from 'app/modules/core';
 })
 export class UserMenuComponent implements OnInit {
 
-  @Input('user')
-  user$: Observable<User>;
+  @Input()
+  profile: Profile;
 
   constructor(private _ngRedux: NgRedux<IAppState>, private _sessionActions: SessionActions) { }
 

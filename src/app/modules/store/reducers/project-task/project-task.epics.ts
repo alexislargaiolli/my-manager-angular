@@ -45,7 +45,7 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
         .map(action => {
             const nbFinishedTasks = this._ngRedux.getState().projectTasks.items.reduce((previousValue, currentTask) => previousValue + (currentTask.state === 2 ? 1 : 0), 0);
             const totalTask = this._ngRedux.getState().projectTasks.items.length;
-            const progress = (nbFinishedTasks * 100) / totalTask;
+            const progress = Math.floor((nbFinishedTasks * 100) / totalTask);
             return this._projectActions.updateProgress(action.payload.projectId, progress);
         });
 

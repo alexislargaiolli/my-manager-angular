@@ -1,6 +1,6 @@
 <button class="profile-btn" md-button [mdMenuTriggerFor]="menu">
   <md-icon>person</md-icon>  
-  <span class="username">{{(user$ | async)?.username}}</span>
+  <span class="username">{{profile?.firstname}} {{profile?.lastname}}</span>
   <md-icon>more_vert</md-icon>  
 </button>
 <md-menu #menu="mdMenu">

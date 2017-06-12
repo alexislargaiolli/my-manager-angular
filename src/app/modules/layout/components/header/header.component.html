@@ -6,7 +6,7 @@
     </div>
     <span class="toolbar-spacer"></span>
     <div class="header-right d-flex">
-        <app-user-menu [user]="user$" *ngIf="(authenticated$ | async)"></app-user-menu>
+        <app-user-menu [profile]="profile$ | async" *ngIf="(authenticated$ | async)"></app-user-menu>
         <button md-button *ngIf="!(authenticated$ | async)" [routerLink]=" ['/login'] ">Se connecter</button>
     </div>
 </md-toolbar>

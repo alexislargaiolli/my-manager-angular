@@ -24,9 +24,10 @@ export interface IProfileState {
 }
 
 export interface IDashboardState {
-    paid: number;
-    invoiced: number;
-    potential: number;
+    waitingDevis: number;
+    acceptedDevis: number;
+    waitingInvoices: number;
+    paidInvoices: number;
     loading: boolean;
     error: string;
 }

@@ -18,13 +18,43 @@ project-list {
     min-width: 40%;
     padding: 10px 20px;
     h1 {
-        margin: 50px 0 30px 0;
+        margin: 40px 0 30px 0;
     }
     .gain-summary {
         color: #eee;
-        span {
-            font-weight: bold;
+        .summary-title {
+            width: 80px;
+            text-align: center;
+            md-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 50px;
+            }
+            h3 {
+                text-transform: uppercase;
+            }
         }
+        .summary-content {
+            md-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 30px;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+            span {
+                font-family: $title-font;
+                font-size: 40px;
+                vertical-align: middle;
+                &.small {
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+    hr {
+        margin: 50px 20px;
+        border-color: rgba(255, 255, 255, 0.4);
     }
     app-note-list {}
 }

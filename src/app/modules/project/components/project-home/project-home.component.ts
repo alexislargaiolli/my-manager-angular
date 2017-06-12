@@ -39,14 +39,17 @@ export class ProjectHomeComponent implements OnInit {
   @select(['notes', 'boolean'])
   notesLoading$: Observable<boolean>;
 
-  @select(['dashboard', 'paid'])
-  totalPaid$: Observable<number>;
+  @select(['dashboard', 'waitingDevis'])
+  waitingDevis$: Observable<number>;
 
-  @select(['dashboard', 'invoiced'])
-  totalInvoiced$: Observable<number>;
+  @select(['dashboard', 'acceptedDevis'])
+  acceptedDevis$: Observable<number>;
 
-  @select(['dashboard', 'potential'])
-  totalPotential$: Observable<number>;
+  @select(['dashboard', 'waitingInvoices'])
+  waitingInvoices$: Observable<number>;
+
+  @select(['dashboard', 'paidInvoices'])
+  paidInvoices$: Observable<number>;
 
   state: string = null;
 

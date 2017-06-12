@@ -3,13 +3,14 @@ import { Project, Note, HistoryEntry, ProjectState, Devis, Client } from 'app/mo
 import { slideInDownAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
-import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions } from 'app/modules/store';
+import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions, ProjectInvoiceActions } from 'app/modules/store';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InplaceComponent } from "app/modules/shared/components/inplace/inplace.component";
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'app/modules/core';
 import { ClientActions } from "app/modules/store/reducers/client/client.actions";
+import { ProjectDevisActions } from '../../../../store/reducers/project-devis/project-devis.actions';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -57,6 +58,18 @@ export class ProjectDashboardComponent implements OnInit, OnDestroy {
   project: Project;
 
   subscriptions: Subscription[] = [];
+
+  @select(ProjectDevisActions.totalWaiting)
+  totalWaitingDevis$: Observable<number>;
+
+  @select(ProjectDevisActions.totalAccepted)
+  totalAcceptedDevis$: Observable<number>;
+
+  @select(ProjectInvoiceActions.totalWaiting)
+  totalWaitingInvoices$: Observable<number>;
+
+  @select(ProjectInvoiceActions.totalAccepted)
+  totalAcceptedInvoices$: Observable<number>;
 
   constructor(
     private _ngRedux: NgRedux<IAppState>,

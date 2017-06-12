@@ -2,14 +2,38 @@
     <h1>
         Bonjour {{(profile$ | async)?.firstname}},
     </h1>
-    <p>Vous avez</p>
     <div class="gain-summary ml-4">
-        <p><span>{{totalPotential$ | async}}€</span> de devis en attente</p>
-        <p><span>{{totalInvoiced$ | async}}€</span> facturé en attente de paiement</p>
-        <p><span>{{totalPaid$ | async}}€</span> de facure payées</p>
+        <div class="d-flex align-items-center">
+            <div class="summary-title">
+                <md-icon>assignment</md-icon>
+                <h3>Devis</h3>
+            </div>
+            <div class="summary-content d-flex flex-column justify-content-around ml-4">
+                <div>
+                    <md-icon class="text-info">hourglass_empty</md-icon><span class="small">{{waitingDevis$ | async}}€</span>
+                </div>
+                <div>
+                    <md-icon class="text-success">check_circle</md-icon><span>{{acceptedDevis$ | async}}€</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center mt-4">
+            <div class="summary-title">
+                <md-icon>euro_symbol</md-icon>
+                <h3>Factures</h3>
+            </div>
+            <div class="summary-content d-flex flex-column justify-content-around ml-4">
+                <div>
+                    <md-icon class="text-info">hourglass_empty</md-icon><span class="small">{{waitingInvoices$ | async}}€</span>
+                </div>
+                <div>
+                    <md-icon class="text-success">check_circle</md-icon><span>{{paidInvoices$ | async}}€</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <p>N'oubliez pas</p>
+    <hr />
     <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-note-list>
 </aside>
-<project-list [projects]="projects$" [loading]="loading$" (select)="onSelectionEnds($event)" (create)="createProject($event)" [@centerApparitionAnimation]="'true'">
+<project-list [projects]="projects$" [loading]="loading$" (select)="onSelectionEnds($event)" (create)="createProject($event)" [@centerApparitionAnimation]="'true'" class="light-scrollbar">
 </project-list>

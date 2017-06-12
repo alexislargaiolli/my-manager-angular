@@ -1,11 +1,12 @@
 <div class="d-flex justify-content-around p-2 align-items-start">
     <div class="devis-form rounded mat-elevation-z2" [@slideApparitionAnimation]="'true'">
         <div class="d-flex p-2">
-            <button md-button (click)="goBack()"><md-icon>backspace</md-icon></button>
+            <button md-button (click)="goBack()" mdTooltip="Revenir aux factures"><md-icon>backspace</md-icon></button>
             <span class="toolbar-spacer"></span>
-            <button form="invoiceForm" md-button><md-icon>save</md-icon></button>
-            <button (click)="download()" md-button><md-icon>file_download</md-icon></button>
-            <button (click)="remove()" md-button><md-icon>delete</md-icon></button>
+            <button form="invoiceForm" class="text-success" md-button mdTooltip="Sauvegarder les modifications"><md-icon>save</md-icon></button>
+            <button md-button (click)="importDevis()" mdTooltip="Importer depuis un devis"><md-icon class="mr-2">library_add</md-icon></button>
+            <button (click)="download()" md-button mdTooltip="Télécharger en PDF"><md-icon>file_download</md-icon></button>
+            <button (click)="remove()" class="text-danger" md-button mdTooltip="Supprimer cette facture"><md-icon>delete</md-icon></button>
         </div>
         <form id="invoiceForm" #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)" autocomplete="off">
             <div class="p-5 d-flex flex-column">

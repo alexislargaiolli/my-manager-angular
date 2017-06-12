@@ -28,7 +28,6 @@ export class ModelUtils {
 
     public static immutableRemove<T extends IModel>(items: T[], eltToRemoveId: number): T[] {
         const i = items.findIndex(a => {
-            console.log(a.id);
             return a.id == eltToRemoveId;
         });
         return [...items.slice(0, i), ...items.slice(i + 1)];

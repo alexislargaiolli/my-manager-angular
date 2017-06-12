@@ -1,14 +1,12 @@
 <div class="d-flex flex-1 flex-column flex-xl-row" *ngIf="project" [@centerApparitionAnimation]="'true'">
-    <div class="d-flex flex-column flex-1">
-        <div class="d-flex flex-column flex-md-row flex-lg-row flex-xl-row justify-content-between align-items-center align-items-md-stretch">
-            <div class="d-flex justify-content-around align-items-center flex-1">
-                <div class="project-header">
-                    <app-inplace #projectNameInplace [showSaveButton]="false">
-                        <span class="inplace-output">
+    <div class="d-flex justify-content-around flex-1">
+        <div class="project-header">
+            <app-inplace #projectNameInplace [showSaveButton]="false">
+                <span class="inplace-output">
                             <h1>{{project.name}}</h1>
                             <p class="ml-4 mb-0 py-4">{{project.description}}</p>
                         </span>
-                        <span class="inplace-input">
+                <span class="inplace-input">
                             <form #projectNameForm="ngForm" (ngSubmit)="saveProjectName(projectNameForm)">
                                 <md-input-container>
                                     <input mdInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
@@ -19,35 +17,42 @@
                                 <button md-button type="submit"><md-icon>save</md-icon></button>
                             </form>
                         </span>
-                    </app-inplace>
+            </app-inplace>
 
-                    <p class="ml-4">
-                        <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement" valueLabel="Commence le {{project.plannedStartDate | date}}"></app-inplace-date>
-                    </p>
-                    <p class="ml-4">
-                        <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"></app-inplace-date>
-                    </p>
-                    <project-client [clients]="clients" [allClients]="allClients" [loading]="loadingClient$" (add)="addClient($event)" (create)="createClient($event)" (remove)="removeClient($event)" class="ml-4"></project-client>
-                </div>
-                <div class="progress-wrapper" [@centerApparitionAnimation]="'true'">
-                    <div class="progress-wrapper-value">
-                        <span>{{project.progress}}%</span>
-                    </div>
-                    <md-progress-spinner [value]="project.progress">
-                    </md-progress-spinner>
-                </div>
+            <p class="ml-4">
+                <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement" valueLabel="Commence le {{project.plannedStartDate | date}}"></app-inplace-date>
+            </p>
+            <p class="ml-4">
+                <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"></app-inplace-date>
+            </p>
+            <project-client [clients]="clients" [allClients]="allClients" [loading]="loadingClient$" (add)="addClient($event)" (create)="createClient($event)" (remove)="removeClient($event)" class="ml-4"></project-client>
+            <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)" class="p-3"></app-project-state>
+        </div>
+        <div class="progress-wrapper" [@centerApparitionAnimation]="'true'">
+            <div class="progress-wrapper-value">
+                <span>{{project.progress}}%</span>
             </div>
-            <div class="d-flex flex-md-column flex-lg-column flex-xl-column" [@centerApparitionAnimation]="'true'">
+            <md-progress-spinner [value]="project.progress">
+            </md-progress-spinner>
+        </div>
+    </div>
+    <div class="d-flex flex-column">
+        <div class="d-flex justify-content-around">
+            <div class="d-flex flex-column" [@centerApparitionAnimation]="'true'">
+                <app-one-value-card label="Devis en attente" [value]="totalWaitingDevis$ | async" unit="€" icon="fa fa-file-text-o text-info" class="mat-elevation-z4"></app-one-value-card>
+                <app-one-value-card label="Devis acceptés" [value]="totalAcceptedDevis$ | async" unit="€" icon="fa fa-check-circle-o text-success" class="mt-2 mat-elevation-z4"></app-one-value-card>
+            </div>
+            <div class="d-flex flex-column ml-2" [@centerApparitionAnimation]="'true'">
+                <app-one-value-card label="Factures en attente" [value]="totalWaitingInvoices$ | async" unit="€" icon="fa fa-heartbeat text-danger" class="mat-elevation-z4"></app-one-value-card>
+                <app-one-value-card label="Factures payées" [value]="totalAcceptedInvoices$ | async" unit="€" icon="fa fa-euro text-success" class="mt-2 mat-elevation-z4"></app-one-value-card>
+            </div>
+            <div class="d-flex flex-column ml-2" [@centerApparitionAnimation]="'true'">
                 <app-one-value-card label="Tâches restantes" [value]="(totalTodo$|async)[0]" icon="fa fa-th-list" class="mat-elevation-z4"></app-one-value-card>
-                <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mt-md-2 ml-sm-2 ml-md-0 mat-elevation-z4"></app-one-value-card>
-                <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mt-md-2 ml-sm-2 ml-md-0 mat-elevation-z4"></app-one-value-card>
+                <app-one-value-card label="Tâche en cours" [value]="(totalTodo$|async)[1]" icon="fa fa-spinner" class="mt-2 mat-elevation-z4"></app-one-value-card>
+                <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mt-2 mat-elevation-z4"></app-one-value-card>
             </div>
         </div>
-        <app-project-state [state]="(currentProject$|async).state" (change)="changeState($event)" class="p-3"></app-project-state>
-    </div>
-    <div class="d-flex flex-md-row flex-column flex-xl-column ml-xl-2 justify-content-around justify-content-lg-between">
-        <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)" class="p-2 mat-elevation-z4" [@centerApparitionAnimation]="'true'"></app-note-list>
-        <app-devis-dashboard class="mt-4 mt-md-0 mat-elevation-z4" [devis]="devis$" [loading]="devisLoading$" (selectDevis)="onDevisClicked($event)" [@centerApparitionAnimation]="'true'"></app-devis-dashboard>
+        <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)" class="p-2 mt-2 flex-1 mat-elevation-z4" [@centerApparitionAnimation]="'true'"></app-note-list>
     </div>
 </div>
 <project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" [@rightSlideApparitionAnimation]="'true'" class="p-2 mt-4 mt-lg-0 ml-lg-2 mat-elevation-z4"></project-history>

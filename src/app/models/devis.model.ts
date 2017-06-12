@@ -1,5 +1,7 @@
 import { IModel } from 'app/modules/core';
 import { Address } from './address.model';
+import * as moment from 'moment';
+import { Profile, Client } from 'app/models';
 
 export class Devis implements IModel {
     public static readonly REPO_KEY = 'Devis';
@@ -32,6 +34,8 @@ export class Devis implements IModel {
         this.clientAddress = new Address();
         this.lines = [];
         this.state = DevisState.DRAFT;
+        this.createDate = new Date();
+        this.validityDate = moment().add(1, 'month').toDate();
     }
 
     public addLine(line: DevisLine) {
@@ -51,6 +55,30 @@ export class Devis implements IModel {
                 this.totalPrice += line.totalPrice;
             }
         }
+    }
+
+    public importProfile(profile: Profile) {
+        if (profile.addresses != null && profile.addresses.length > 0) {
+            this.userAddress = profile.addresses[0];
+        }
+        this.userName = `${profile.firstname}  ${profile.lastname}`;
+        this.siret = profile.siret;
+        this.userPhone = profile.phone;
+        this.userMail = profile.email;
+    }
+
+    public importClient(client: Client) {
+        if (client.addresses != null && client.addresses.length > 0) {
+            this.clientAddress = client.addresses[0];
+        }
+        this.clientName = client.name;
+    }
+
+    public generateFileName() {
+        const client = this.clientName ? ' - ' + this.clientName : '';
+        const username = this.userName ? ' - ' + this.userName : '';
+        const date = this.createDate ? moment(this.createDate).format(' - DD-MM-YY') : moment().format(' - DD-MM-YY');
+        return `Devis${username}${client}${date}.pdf`;
     }
 }
 

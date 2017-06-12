@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -12,7 +12,7 @@ import { centerApparitionAnimation } from 'app/animations';
   animations: [centerApparitionAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskKabanComponent implements OnInit {
+export class TaskKabanComponent implements OnInit, OnDestroy {
 
   @Input('todoTasks')
   todoTasks$: Observable<Task[]>;
@@ -29,6 +29,11 @@ export class TaskKabanComponent implements OnInit {
   @Output()
   create: EventEmitter<Task> = new EventEmitter<Task>();
 
+  @Output()
+  remove: EventEmitter<number> = new EventEmitter<number>();
+
+  public dragulaName = 'KABAN';
+
   constructor(private _dragulaService: DragulaService) { }
 
   ngOnInit() {
@@ -38,6 +43,19 @@ export class TaskKabanComponent implements OnInit {
       const previousState: number = +value[3].getAttribute('column-id');
       this.stateChange.emit({ taskId, previousState, nextState });
     });
+
+    this._dragulaService.setOptions(this.dragulaName, {
+      removeOnSpill: true
+    });
+    this._dragulaService.remove.subscribe((value) => {
+      const taskId = +value[1].getAttribute('task-id');
+      this.remove.emit(taskId);
+      // this._noteActions.dispatchDelete(noteId);
+    });
+  }
+
+  ngOnDestroy() {
+    this._dragulaService.destroy(this.dragulaName);
   }
 
   createTask(taskForm: NgForm) {
