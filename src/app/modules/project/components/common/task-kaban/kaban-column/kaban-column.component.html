@@ -1,5 +1,5 @@
-<div class="kaban-column" [dragula]="name" [dragulaModel]='tasks$ | async' [attr.column-id]="columnId">
-    <div class="kaban-column-list-item" *ngFor='let task of (tasks$ | async)' [attr.task-id]="task.id" [@centerApparitionAnimation]="'true'">
+<div class="kaban-column" [dragula]="name" [dragulaModel]='tasks' [attr.column-id]="columnId" [@listSlideAnim]="tasks">
+    <div class="kaban-column-list-item anim-item" *ngFor='let task of tasks' [attr.task-id]="task.id">
         <md-icon [hidden]="task.state != state.TODO">check_box_outline_blank</md-icon>
         <md-icon [hidden]="task.state != state.IN_PROGRESS">update</md-icon>
         <md-icon class="state_finished" [hidden]="task.state != state.FINISHED">check_box</md-icon>

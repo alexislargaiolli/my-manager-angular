@@ -5,22 +5,22 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Note, NotePriority } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NoteActions } from '../../../../store/reducers/note/note.actions';
-import { slideApparitionAnimation } from "app/animations";
+import { slideApparitionAnimation, fadeAnim, listSlideAnim } from 'app/animations';
 
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss'],
-  animations: [slideApparitionAnimation],
+  animations: [slideApparitionAnimation, fadeAnim, listSlideAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NoteListComponent implements OnInit {
 
-  @Input('notes')
-  notes$: Observable<Note[]>;
+  @Input()
+  notes: Note[];
 
-  @Input('loading')
-  loading$: Observable<boolean>;
+  @Input()
+  loading: boolean;
 
   @Output()
   create: EventEmitter<Note> = new EventEmitter<Note>();

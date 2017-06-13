@@ -24,6 +24,9 @@ export class ProjectTaskComponent implements OnInit {
   @select(ProjectTaskActions.findFinishedTask)
   finishedTasks$: Observable<Task[]>;
 
+  @select(['projectTasks', 'loading'])
+  loading: Observable<boolean>;
+
   constructor(private _taskAction: ProjectTaskActions, private _ngRedux: NgRedux<IAppState>) {
   }
 

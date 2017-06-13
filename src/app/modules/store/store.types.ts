@@ -1,11 +1,11 @@
 import { Project, Client, Note, Task, Devis, HistoryEntry, Address, Profile, Invoice } from 'app/models';
-import { User, IModelList, IModel, UserSession } from 'app/modules/core';
+import { User, IModelList, IModel, ISessionState } from 'app/modules/core';
 
 export interface IAppState {
     profile?: IProfileState;
     dashboard?: IDashboardState;
     projects?: IModelList<Project>;
-    session?: UserSession;
+    session?: ISessionState;
     clients?: IClientState;
     notes?: INoteState;
     selectedProject?: ISelectedProjectState;

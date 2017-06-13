@@ -5,14 +5,20 @@ import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from 'app/modules/shared/shared.module';
 import { SessionActions } from './redux/session/session.actions';
 import { SessionEpics } from './redux/session/session.epics';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 
 @NgModule({
   imports: [SharedModule],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    LoginRegisterComponent
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    LoginRegisterComponent
   ],
   providers: [
     AuthenticationService,

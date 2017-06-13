@@ -52,7 +52,7 @@
                 <app-one-value-card label="Tâches faites" [value]="(totalTodo$|async)[2]" icon="fa fa-check-square-o" class="mt-2 mat-elevation-z4"></app-one-value-card>
             </div>
         </div>
-        <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)" class="p-2 mt-2 flex-1 mat-elevation-z4" [@centerApparitionAnimation]="'true'"></app-note-list>
+        <app-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (create)="createNote($event)" class="p-2 mt-2 flex-1 mat-elevation-z4" [@centerApparitionAnimation]="'true'"></app-note-list>
     </div>
 </div>
 <project-history [historyEntries]="historyEntries$" [loading]="historyLoading$" (create)="createHistoryEntry($event)" [@rightSlideApparitionAnimation]="'true'" class="p-2 mt-4 mt-lg-0 ml-lg-2 mat-elevation-z4"></project-history>

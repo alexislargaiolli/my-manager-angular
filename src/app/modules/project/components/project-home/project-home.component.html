@@ -33,7 +33,7 @@
         </div>
     </div>
     <hr />
-    <app-note-list [notes]="notes$" [loading]="notesLoading$" (create)="createNote($event)"></app-note-list>
+    <app-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (create)="createNote($event)"></app-note-list>
 </aside>
-<project-list [projects]="projects$" [loading]="loading$" (select)="onSelectionEnds($event)" (create)="createProject($event)" [@centerApparitionAnimation]="'true'" class="light-scrollbar">
+<project-list [projects]="projects$ | async" [loading]="loading$ | async" (select)="onSelectionEnds($event)" (create)="createProject($event)" class="light-scrollbar">
 </project-list>

@@ -8,41 +8,51 @@ import { select, NgRedux } from '@angular-redux/store';
 import { NgForm } from '@angular/forms';
 import { IAppState } from '../../../store/store.types';
 import { Subscription } from 'rxjs/Rx';
-import { slideApparitionAnimation } from 'app/animations';
+import { trigger, transition, animate, style } from '@angular/animations';
+import { ReduxSubscriptionComponent } from '../../../core/components/redux-subscription-component/redux-subscription-component';
+import { Profile } from 'app/models';
+import { fadeAnim } from "app/animations";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./login.component.scss'],
-  animations: [slideApparitionAnimation]
+  animations: [fadeAnim]
 })
-export class LoginComponent implements OnInit, OnDestroy {
-
-  @select(['session', 'logging_in'])
-  loading$;
+export class LoginComponent extends ReduxSubscriptionComponent implements OnInit, OnDestroy {
 
   @select(['session', 'error'])
   error$;
 
+  loading = false;
+  authenticated = false;
+
   onUserLogin: Subscription;
 
   constructor(private _sessionAction: SessionActions, private _ngRedux: NgRedux<IAppState>, private _router: Router) {
+    super();
   }
 
   ngOnInit() {
-    this.onUserLogin = this._ngRedux.select(['session', 'user']).subscribe(user => {
-      if (user != null) {
+    this.addSub(this._ngRedux.select(['session', 'logging_in']).subscribe((loading: boolean) => {
+      this.loading = loading;
+    }));
+
+    this.addSub(this._ngRedux.select(['session', 'authenticated']).subscribe((authenticated: boolean) => {
+      this.authenticated = authenticated;
+    }));
+
+    this.addSub(this._ngRedux.select(['profile', 'profile']).subscribe((profile: Profile) => {
+      if (profile) {
         this._router.navigate(['project']);
       }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.onUserLogin.unsubscribe();
+    }));
   }
 
   login(form: NgForm) {
-    this._sessionAction.dispatchLogin(form.value);
+    if (form.valid) {
+      this._sessionAction.dispatchLogin(form.value);
+    }
   }
 }

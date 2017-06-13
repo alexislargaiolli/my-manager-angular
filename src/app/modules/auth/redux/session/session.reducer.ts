@@ -1,47 +1,50 @@
-import { UserSession } from 'app/modules/core';
+import { ISessionState } from 'app/modules/core';
 import { SessionActions } from './session.actions';
 
-const INITIAL_STATE: UserSession = {
-    user: null,
+const INITIAL_STATE: ISessionState = {
     userId: null,
     token: null,
     logging_in: false,
     logging_out: false,
     authenticated: false,
     gettingUserInfo: false,
-    error: null
+    error: null,
+    register: {
+        registering: false,
+        registered: false,
+        error: null
+    }
 }
 
-export function sessionReducer(state: UserSession = Object.assign({}, INITIAL_STATE), action) {
+export function sessionReducer(state: ISessionState = Object.assign({}, INITIAL_STATE), action) {
 
     switch (action.type) {
-        case SessionActions.LOGIN_REQUEST: {
+        case SessionActions.LOGIN_REQUEST:
             return Object.assign({}, state, { logging_in: true, error: null });
-        }
-        case SessionActions.LOGIN_SUCCESS: {
+
+        case SessionActions.LOGIN_SUCCESS:
             return Object.assign({}, state, { authenticated: true, logging_in: false, userId: action.payload.userId, token: action.payload.token, error: null });
-        }
-        case SessionActions.LOGIN_ERROR: {
+
+        case SessionActions.LOGIN_ERROR:
             return Object.assign({}, state, { authenticated: false, logging_in: false, error: action.payload });
-        }
-        case SessionActions.LOGOUT_REQUEST: {
+
+        case SessionActions.LOGOUT_REQUEST:
             return Object.assign({}, state, { logging_out: true, error: null });
-        }
-        case SessionActions.LOGOUT_SUCCESS: {
+
+        case SessionActions.LOGOUT_SUCCESS:
             return Object.assign({}, INITIAL_STATE);
-        }
-        case SessionActions.LOGOUT_ERROR: {
+
+        case SessionActions.LOGOUT_ERROR:
             return Object.assign({}, state, { logging_out: false, error: action.payload });
-        }
-        case SessionActions.USER_INFO_REQUEST: {
-            return Object.assign({}, state, { gettingUserInfo: true, error: null });
-        }
-        case SessionActions.USER_INFO_SUCCESS: {
-            return Object.assign({}, state, { user: action.payload, gettingUserInfo: false, error: null });
-        }
-        case SessionActions.USER_INFO_ERROR: {
-            return Object.assign({}, state, { error: action.payload, gettingUserInfo: false });
-        }
+
+        case SessionActions.REGISTER_REQUEST:
+            return Object.assign({}, state, { register: { registering: true, registered: false, error: null } });
+
+        case SessionActions.REGISTER_SUCCESS:
+            return Object.assign({}, state, { register: { registering: false, registered: true, error: null } });
+
+        case SessionActions.REGISTER_ERROR:
+            return Object.assign({}, state, { register: { registering: false, registered: false, error: action.payload } });
     }
 
     return state;

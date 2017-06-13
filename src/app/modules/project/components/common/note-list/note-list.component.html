@@ -25,12 +25,14 @@
     <button (click)="showForm = true" md-button *ngIf="!showForm" [@slideApparitionAnimation]="'true'">Ajouter une note</button>
 </div>
 <div class="note-list">
-    <div [dragula]='"notes"' class="note-list-wrapper">
-        <div *ngFor="let note of (notes$ | async)" (click)="toggle.emit(note)" class="post-it p-2 my-2 rounded" [attr.note-id]="note.id" [ngClass]="{'done' : note.done}" [@slideApparitionAnimation]="'true'">
+    <div class="loading-bar-wrapper">
+        <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
+    </div>
+    <div [dragula]='"notes"' class="note-list-wrapper" [@listSlideAnim]="notes">
+        <div *ngFor="let note of notes" (click)="toggle.emit(note)" class="post-it p-2 my-2 rounded anim-item" [attr.note-id]="note.id" [ngClass]="{'done' : note.done}">
             <md-icon *ngIf="note.priority == 1" class="align-middle text-warning mx-2">warning</md-icon>
             <md-icon *ngIf="note.priority == 2" class="align-middle text-danger mx-2">priority_hight</md-icon>
             {{note.title}}
         </div>
     </div>
-    <div *ngIf="loading$ | async">Chargement...</div>
 </div>

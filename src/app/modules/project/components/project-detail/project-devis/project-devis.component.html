@@ -1,1 +1,1 @@
-<app-project-devis-list [devis]="devis$" [loading]="loading$" (select)="onDevisClick($event)" [@centerApparitionAnimation]="'true'"></app-project-devis-list>
+<app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (select)="onDevisClick($event)"></app-project-devis-list>

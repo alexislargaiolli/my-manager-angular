@@ -1,21 +1,25 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Project, ProjectState } from 'app/models';
-import { select } from '@angular-redux/store';
+import { select, NgRedux } from '@angular-redux/store';
+import { listFadeAnim, fadeAnim } from 'app/animations';
+import { ReduxSubscriptionComponent } from '../../../../core/components/redux-subscription-component/redux-subscription-component';
+import { IAppState } from 'app/modules/store';
 
 @Component({
   selector: 'project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
+  animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListComponent implements OnInit {
 
-  @Input('projects')
-  projects$: Observable<Project>;
+  @Input()
+  projects: Project[];
 
-  @Input('loading')
-  loading$: Observable<boolean>;
+  @Input()
+  loading: boolean;
 
   @Output()
   public select: EventEmitter<Project> = new EventEmitter<Project>();
@@ -28,7 +32,8 @@ export class ProjectListComponent implements OnInit {
 
   constructor() { }
 
-  public ngOnInit() { }
+  public ngOnInit() {
+  }
 
   public selectProject(p: Project) {
     this.select.emit(p);

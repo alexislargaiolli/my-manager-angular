@@ -2,20 +2,22 @@ import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy
 import { Client } from 'app/models';
 import { Observable } from 'rxjs/Observable';
 import { createEpicMiddleware } from 'redux-observable';
+import { listFadeAnim, fadeAnim } from 'app/animations';
 
 @Component({
   selector: 'client-list',
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.scss'],
+  animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientListComponent implements OnInit {
 
-  @Input('clients')
-  public clients$: Observable<Client[]>;
+  @Input()
+  public clients: Client[];
 
-  @Input('loading')
-  public loading$: Observable<boolean>;
+  @Input()
+  public loading: boolean;
 
   @Output()
   public clientSelect = new EventEmitter();

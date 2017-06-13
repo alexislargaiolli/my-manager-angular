@@ -1,12 +1,16 @@
 import { User } from './user.model';
 
-export class UserSession {
-    user: User;
+export interface ISessionState {
+    userId: number;
+    token: string;
     authenticated: boolean;
     logging_in: boolean;
     logging_out: boolean;
     gettingUserInfo: boolean;
     error: string;
-
-    constructor(public userId: number, public token: string) { }
+    register: {
+        registering: boolean;
+        registered: boolean;
+        error: string;
+    }
 }

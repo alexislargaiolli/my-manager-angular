@@ -1,27 +1,26 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgForm } from '@angular/forms';
-import { centerApparitionAnimation } from 'app/animations';
+import { centerApparitionAnimation, listSlideAnim } from 'app/animations';
 
 @Component({
   selector: 'app-task-kaban',
   templateUrl: './task-kaban.component.html',
   styleUrls: ['./task-kaban.component.scss'],
-  animations: [centerApparitionAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskKabanComponent implements OnInit, OnDestroy {
 
-  @Input('todoTasks')
-  todoTasks$: Observable<Task[]>;
+  @Input()
+  todoTasks: Task[];
 
-  @Input('inProgressTasks')
-  inProgressTasks$: Observable<Task[]>;
+  @Input()
+  inProgressTasks: Task[];
 
-  @Input('finishedTasks')
-  finishedTasks$: Observable<Task[]>;
+  @Input()
+  finishedTasks: Task[];
 
   @Output()
   stateChange: EventEmitter<IKabanChangeStateEvent> = new EventEmitter<IKabanChangeStateEvent>();

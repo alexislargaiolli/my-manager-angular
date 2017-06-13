@@ -1,0 +1,36 @@
+<h1>Inscription<small class="text-info" *ngIf="loading" [@fadeAnim]="'true'"> en cours...</small></h1>
+<div class="progress-bar-wrapper">
+    <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
+</div>
+<form #registerForm="ngForm" name="registerForm" (ngSubmit)="register(registerForm)" class="d-flex flex-column" *ngIf="!registered">
+    <md-input-container>
+        <input mdInput ngModel name="lastname" placeholder="Nom" required [disabled]="loading">
+        <md-icon mdSuffix>person_outline</md-icon>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput ngModel name="firstname" placeholder="Prénom" required [disabled]="loading">
+        <md-icon mdSuffix>person_outline</md-icon>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput ngModel name="username" placeholder="Nom d'utilisateur" required [disabled]="loading">
+        <md-icon mdSuffix>person_outline</md-icon>
+    </md-input-container>
+    <md-input-container>
+        <input #email="ngModel" mdInput ngModel name="email" placeholder="Email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [disabled]="loading">
+        <md-icon mdSuffix>mail_outline</md-icon>
+        <md-error *ngIf="email.errors?.pattern">Adresse email invalide</md-error>
+    </md-input-container>
+    <md-input-container>
+        <input #password="ngModel" mdInput ngModel name="password" placeholder="Mot de passe" type="password" minlength="6" required [disabled]="loading">
+        <md-icon mdSuffix>lock_outline</md-icon>
+        <md-error *ngIf="password.errors?.minlength">6 caractères minimum</md-error>
+    </md-input-container>
+
+    <button md-button color="primary" [disabled]="loading">Inscription</button>
+</form>
+<div [@listFadeAnim]="'true'" *ngIf="registered">
+    <p class="text-success">
+        <md-icon class="align-middle mr-2">check_circle</md-icon>Inscription réussie</p>
+    <p class="text-muted">
+        <md-icon class="align-middle mr-2">mail</md-icon>Un email vous a été envoyé contenant un lien d'activation.</p>
+</div>

@@ -32,11 +32,6 @@ export class SessionEpics {
                 .catch(error => of(this._sessionAction.loginError(error)))
         );
 
-    @Epic()
-    loginSuccess = action$ => action$
-        .ofType(SessionActions.LOGIN_SUCCESS)
-        .map((action) => this._sessionAction.getUserInfo(action.payload.userId));
-
     // @Epic()
     // redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
     //     .map((action) => {
@@ -63,15 +58,6 @@ export class SessionEpics {
     @Epic()
     redirectAfterLogout = action$ => action$.ofType(SessionActions.LOGOUT_SUCCESS)
         .map((action) => { return { type: UPDATE_LOCATION, payload: `login` }; });
-
-    @Epic()
-    getUserInfo = action$ => action$
-        .ofType(SessionActions.USER_INFO_REQUEST)
-        .switchMap((action) =>
-            this._repo.get<User>(User.REPO_KEY, action.payload).exec()
-                .map(user => this._sessionAction.getUserInfoSuccess(user))
-                .catch(error => of(this._sessionAction.getUserInfoError(error)))
-        );
 
     @Epic()
     storeInLocalStorage = action$ => action$
@@ -103,4 +89,16 @@ export class SessionEpics {
             return of(this._sessionAction.removeFromLocalStorageSucess());
         })
 
+
+    @Epic()
+    register = action$ => action$
+        .ofType(SessionActions.REGISTER_REQUEST)
+        .switchMap((action) =>
+            this._auth.register(action.payload)
+                .map(data => this._sessionAction.registerSuccess())
+                .catch(error => {
+                    console.log(error);
+                    return of(this._sessionAction.registerError(error))
+                })
+        );
 }

@@ -39,4 +39,15 @@ export class AuthenticationService {
         });
         return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {}, options);
     }
+
+    register(data) {
+        const options = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        const url = `${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.registerEndpoint}`;
+        const body = JSON.stringify(data);
+        return this.baseHttpService.handleResponse(this.http.post(url, body, options));
+    }
 }

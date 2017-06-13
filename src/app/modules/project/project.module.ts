@@ -30,7 +30,6 @@ import { TaskKabanComponent } from './components/common/task-kaban/task-kaban.co
 import { DevisListItemComponent } from './components/common/devis-list-item/devis-list-item.component';
 import { DevisPreviewComponent } from './components/common/devis-preview/devis-preview.component';
 import { DevisLinePipe } from './services/devis-line.pipe';
-import { SquareListItemComponent } from './components/common/project-list/square-list-item/square-list-item.component';
 import { InvoicePreviewComponent } from "./components/common/project/invoice/invoice-preview/invoice-preview.component";
 import { ProjectInvoiceEditionComponent } from './components/project-detail/project-invoice/project-invoice-edition/project-invoice-edition.component';
 import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
@@ -69,7 +68,6 @@ import { SelectDevisComponent } from './components/project-detail/project-invoic
     KabanColumnComponent,
     DevisListItemComponent,
     DevisPreviewComponent,
-    SquareListItemComponent,
     InvoicePreviewComponent,
     ProjectInvoiceEditionComponent,
     SelectDevisComponent

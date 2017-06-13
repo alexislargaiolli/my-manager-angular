@@ -1,11 +1,11 @@
-<div class="p-2" *ngIf="loading$ | async">
-    <md-progress-bar mode="indeterminate"></md-progress-bar>
+<div class="loading-bar-wrapper">
+    <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
 </div>
-<div class="square-list">
+<div class="square-list" [@listFadeAnim]="clients">
     <div class="square-list-item rounded mat-elevation-z2 m-2">
         <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau client</button>
     </div>
-    <article *ngFor="let client of (clients$ | async)" class="square-list-item rounded mat-elevation-z2 m-2">
+    <article *ngFor="let client of clients" class="square-list-item anim-item rounded mat-elevation-z2 m-2">
         <button md-button (click)="selectClient(client)">
             <header>
                 <h2>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></h2>

@@ -26,7 +26,8 @@ import { BackgroundComponent } from './root-component/background/background.comp
     CoreModule.forRoot({
       baseUrl: AppSettings.API_ENDPOINT,
       loginEndpoint: AppSettings.LOGIN_ENDPOINT,
-      logoutEndpoint: AppSettings.LOGOUT_ENDPOINT
+      logoutEndpoint: AppSettings.LOGOUT_ENDPOINT,
+      registerEndpoint: AppSettings.REGISTER_ENDPOINT
     }),
     StoreModule,
     LayoutModule,

@@ -1,1 +1,1 @@
-<app-task-kaban [todoTasks]="todoTasks$" [inProgressTasks]="inProgressTasks$" [finishedTasks]="finishedTasks$" (stateChange)="onStateChanged($event)" (create)="createTask($event)" (remove)="deleteTask($event)"></app-task-kaban>
+<app-task-kaban [todoTasks]="todoTasks$ | async" [inProgressTasks]="inProgressTasks$ | async" [finishedTasks]="finishedTasks$ | async" (stateChange)="onStateChanged($event)" (create)="createTask($event)" (remove)="deleteTask($event)"></app-task-kaban>

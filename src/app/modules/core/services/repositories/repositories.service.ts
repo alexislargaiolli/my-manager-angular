@@ -7,7 +7,7 @@ import { RepositoryRequest } from './repository-request';
 import { ErrorService } from '../error.service';
 import { BaseHttpService } from './base-http.service';
 import { EventsService, AppEvent } from '../event.service';
-import { UserSession } from '../../models/user-session.model';
+import { ISessionState } from '../../models/user-session.model';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from 'app/modules/store';
 
@@ -127,7 +127,7 @@ export class RepositoriesService {
         return this.baseHttpService.handleResponse(res);
     }
 
-    public get session(): UserSession {
+    public get session(): ISessionState {
         return this._ngRedux.getState().session;
     }
 }
