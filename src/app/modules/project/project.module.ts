@@ -33,6 +33,8 @@ import { DevisLinePipe } from './services/devis-line.pipe';
 import { InvoicePreviewComponent } from "./components/common/project/invoice/invoice-preview/invoice-preview.component";
 import { ProjectInvoiceEditionComponent } from './components/project-detail/project-invoice/project-invoice-edition/project-invoice-edition.component';
 import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
+import { CreateNoteComponent } from './components/common/create-note/create-note.component';
+import { ButtonInplaceComponent } from './components/common/button-inplace/button-inplace.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,7 @@ import { SelectDevisComponent } from './components/project-detail/project-invoic
     DragulaModule,
     MyDatePickerModule,
     DatepickerModule,
-    MyManagerRoutingModule
+    MyManagerRoutingModule,
   ],
   declarations: [
     ProjectHomeComponent,
@@ -70,7 +72,9 @@ import { SelectDevisComponent } from './components/project-detail/project-invoic
     DevisPreviewComponent,
     InvoicePreviewComponent,
     ProjectInvoiceEditionComponent,
-    SelectDevisComponent
+    SelectDevisComponent,
+    CreateNoteComponent,
+    ButtonInplaceComponent
   ],
   providers: [
     NavigationService

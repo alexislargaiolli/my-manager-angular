@@ -1,0 +1,11 @@
+<ng-content></ng-content>
+
+<div [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'ACTIVE'">
+        <ng-content select="app-list-item-actions"></ng-content>
+    </ng-container>
+    <div *ngSwitchCase="'REMOVING'" [@itemStateAnim]="'true'" class="item-status text-info">
+        <span>Suppression</span>
+        <app-spinner></app-spinner>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { Project, Client, Note, Task, Devis, HistoryEntry, Address, Profile, Invoice } from 'app/models';
 import { User, IModelList, IModel, ISessionState } from 'app/modules/core';
+import { MyNotification } from '../core/models/my-notification.model';
 
 export interface IAppState {
     profile?: IProfileState;
@@ -15,6 +16,11 @@ export interface IAppState {
     projectNotes?: IProjectNoteState;
     projectHistory?: IProjectHistoryState;
     projectClient?: IProjectClientState;
+    notifications?: INotificationState;
+}
+
+export interface INotificationState {
+    items: MyNotification[]
 }
 
 export interface IProfileState {

@@ -29,5 +29,4 @@ export class AppComponent implements OnInit {
     // this.currentSession.initialize();
   }
 
-
 }

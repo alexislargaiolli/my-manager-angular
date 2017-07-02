@@ -13,18 +13,17 @@ import { ProjectDevisEditionComponent } from './components/project-detail/projec
 import { ProjectInvoiceEditionComponent } from './components/project-detail/project-invoice/project-invoice-edition/project-invoice-edition.component';
 
 const routes: Routes = [
-  { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard] },
+  { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard], data: { animation: 'projectHome' } },
   {
-    path: 'project/:projectId', component: ProjectDetailComponent,
+    path: 'project/:projectId', component: ProjectDetailComponent, data: { animation: 'project' },
     children: [
-      { path: 'dashboard', component: ProjectDashboardComponent },
-      { path: 'tasks', component: ProjectTaskComponent },
-      { path: 'devis', component: ProjectDevisComponent },
-      { path: 'devis', component: ProjectDevisComponent },
+      { path: 'dashboard', component: ProjectDashboardComponent, data: { animation: 'projectDashboard' } },
+      { path: 'tasks', component: ProjectTaskComponent, data: { animation: 'projectTasks' } },
+      { path: 'devis', component: ProjectDevisComponent, data: { animation: 'projectDevis' } },
       { path: 'devis/:devisId', component: ProjectDevisEditionComponent },
-      { path: 'invoices', component: ProjectInvoiceComponent },
+      { path: 'invoices', component: ProjectInvoiceComponent, data: { animation: 'projectInvoices' } },
       { path: 'invoices/:invoiceId', component: ProjectInvoiceEditionComponent },
-      { path: 'settings', component: ProjectSettingsComponent },
+      { path: 'settings', component: ProjectSettingsComponent, data: { animation: 'projectSettings' } },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   }

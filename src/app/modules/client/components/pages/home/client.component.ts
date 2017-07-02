@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostBinding } from '@angular/core';
 import { Client, Address } from 'app/models';
 import { NotificationService } from 'app/modules/core';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,8 @@ import { slideApparitionAnimation, rightSlideApparitionAnimation, centerAppariti
   animations: [slideApparitionAnimation, rightSlideApparitionAnimation, centerApparitionAnimation]
 })
 export class ClientComponent implements OnInit {
+
+  @HostBinding('class') containerClasses = 'd-flex flex-column flex-sm-row';
 
   @select(['clients', 'items'])
   public clients$: Observable<Client[]>;

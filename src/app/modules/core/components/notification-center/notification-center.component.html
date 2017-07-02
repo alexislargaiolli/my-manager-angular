@@ -1,2 +1,2 @@
-<my-notification *ngFor="let notif of notifications" [notification]="notif" (onLifetimeOver)="removeNotification(notif)">
+<my-notification *ngFor="let notif of notifications" [notification]="notif" (onLifetimeOver)="removeNotification(notif)" [@notifAnim]="notifications.length">
 </my-notification>

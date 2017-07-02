@@ -18,6 +18,11 @@ import { AddressListComponent } from './components/address-list/address-list.com
 import { AddressInputComponent } from './components/address-input/address-input.component';
 import { InplaceComponent } from './components/inplace/inplace.component';
 import { InplaceDateComponent } from './components/inplace-date/inplace-date.component';
+import { ListComponent } from './components/list/list.component';
+import { ListItemComponent } from './components/list/list-item/list-item.component';
+import { ListItemActionsComponent } from './components/list/list-item-actions/list-item-actions.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ListItemDirective } from './components/list/list-item-directive/list-item.directive';
 
 @NgModule({
   imports: [
@@ -27,7 +32,8 @@ import { InplaceDateComponent } from './components/inplace-date/inplace-date.com
     MdIconModule,
     MdButtonModule,
     MdNativeDateModule,
-    MdDatepickerModule
+    MdDatepickerModule,
+    MdProgressBarModule,
   ],
   declarations: [
     KeysPipe,
@@ -35,7 +41,12 @@ import { InplaceDateComponent } from './components/inplace-date/inplace-date.com
     AddressInputComponent,
     InplaceComponent,
     AddressPipe,
-    InplaceDateComponent
+    InplaceDateComponent,
+    ListComponent,
+    ListItemComponent,
+    ListItemDirective,
+    ListItemActionsComponent,
+    SpinnerComponent
   ],
   exports: [
     CommonModule,
@@ -66,7 +77,12 @@ import { InplaceDateComponent } from './components/inplace-date/inplace-date.com
     AddressInputComponent,
     InplaceComponent,
     InplaceDateComponent,
-    MdTooltipModule
+    MdTooltipModule,
+    ListComponent,
+    ListItemComponent,
+    ListItemDirective,
+    ListItemActionsComponent,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }

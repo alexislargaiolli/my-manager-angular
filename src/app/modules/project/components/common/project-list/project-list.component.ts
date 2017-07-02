@@ -15,8 +15,7 @@ import { IAppState } from 'app/modules/store';
 })
 export class ProjectListComponent implements OnInit {
 
-  @Input()
-  projects: Project[];
+  _projects: Project[] = [];
 
   @Input()
   loading: boolean;
@@ -30,7 +29,10 @@ export class ProjectListComponent implements OnInit {
   public ProjectState = ProjectState;
   public today: Date = new Date();
 
-  constructor() { }
+  public _animationState = -1;
+
+  constructor() {
+  }
 
   public ngOnInit() {
   }
@@ -45,4 +47,20 @@ export class ProjectListComponent implements OnInit {
     }
     return false;
   }
+
+  public animationState() {
+    const state = this.projects.length;
+    return this._animationState;
+  }
+
+  get projects(): Project[] {
+    return this._projects;
+  }
+
+  @Input()
+  set projects(projects: Project[]) {
+    this._projects = projects;
+    this._animationState = this.projects.length;
+  }
+
 }

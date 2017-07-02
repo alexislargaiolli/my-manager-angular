@@ -2,15 +2,13 @@
 @import 'components';
 :host {
     display: flex;
-    height: calc(100vh - #{$header-height});
+    min-height: calc(100vh - #{$header-height});
     overflow: hidden;
-    padding: 10px 20px;
 }
 
 project-list {
     overflow-y: auto;
     flex: 1;
-    margin-left: 20px;
 }
 
 .project-home-right {

@@ -26,14 +26,17 @@ export class ModelUtils {
         return map;
     }
 
-    public static immutableRemove<T extends IModel>(items: T[], eltToRemoveId: number): T[] {
+    public static immutableRemove<T extends { id: number }>(items: T[], eltToRemoveId: number): T[] {
         const i = items.findIndex(a => {
             return a.id == eltToRemoveId;
         });
+        if (i === -1) {
+            return items;
+        }
         return [...items.slice(0, i), ...items.slice(i + 1)];
     }
 
-    public static immutableUpdate<T extends IModel>(items: T[], elt: T): T[] {
+    public static immutableUpdate<T extends { id: number }>(items: T[], elt: T): T[] {
         const i = items.findIndex(a => a.id === elt.id);
         return [
             ...items.slice(0, i),

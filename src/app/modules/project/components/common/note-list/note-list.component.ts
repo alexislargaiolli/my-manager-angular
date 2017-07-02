@@ -6,6 +6,8 @@ import { Note, NotePriority } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NoteActions } from '../../../../store/reducers/note/note.actions';
 import { slideApparitionAnimation, fadeAnim, listSlideAnim } from 'app/animations';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from 'app/modules/store';
 
 @Component({
   selector: 'app-note-list',
@@ -26,17 +28,20 @@ export class NoteListComponent implements OnInit {
   create: EventEmitter<Note> = new EventEmitter<Note>();
 
   @Output()
+  delete: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output()
   toggle: EventEmitter<Note> = new EventEmitter<Note>();
 
   _showForm: boolean = false;
 
-  constructor(private _dragulaService: DragulaService, private _noteActions: NoteActions) {
+  constructor(private _dragulaService: DragulaService) {
     _dragulaService.setOptions('notes', {
       removeOnSpill: true
     });
     _dragulaService.remove.subscribe((value) => {
       const noteId = +value[1].getAttribute('note-id');
-      this._noteActions.dispatchDelete(noteId);
+      this.delete.emit(noteId);
     });
   }
 

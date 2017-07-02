@@ -25,6 +25,10 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
         case ActionUtils.asyncActionType(actionSource, ModelActions.PATCH, ActionUtils.SUCCESS):
             return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), loading: false, error: null });
 
+        case ActionUtils.asyncActionType(actionSource, ModelActions.DELETE, ActionUtils.REQUEST):
+            const elt = Object.assign({}, action.payload, { removing: true });
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, elt), loading: false, error: null });
+
         case ActionUtils.asyncActionType(actionSource, ModelActions.DELETE, ActionUtils.SUCCESS):
             return Object.assign({}, state, { items: ModelUtils.immutableRemove(state.items, action.payload.id), loading: false, error: null });
     }

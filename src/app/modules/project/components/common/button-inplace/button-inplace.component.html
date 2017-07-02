@@ -1,0 +1,4 @@
+<button class="inplace-button" md-button (click)="toggle()" *ngIf="!display">{{label}}</button>
+<div class="inplace-content" *ngIf="display">
+    <ng-content></ng-content>
+</div>

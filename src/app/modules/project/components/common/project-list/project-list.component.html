@@ -2,11 +2,11 @@
     <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
 </div>
 
-<div class="square-list" [@listFadeAnim]="projects">
-    <div class="project-item rounded mat-elevation-z2 m-2">
+<div class="square-list" [@listFadeAnim]="animationState()">
+    <article>
         <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
-    </div>
-    <article *ngFor="let project of projects" class="project-item anim-item rounded mat-elevation-z2 text-center m-2">
+    </article>
+    <article *ngFor="let project of projects" class="anim-item">
         <button md-button (click)="selectProject(project)">
             <header>
                 <h3 class="text-center">{{project.name}}</h3>

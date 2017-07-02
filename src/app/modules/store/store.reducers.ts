@@ -15,6 +15,7 @@ import { projectClientReducer } from './reducers/project-client/project-client.r
 import { profileReducer } from './reducers/profile/profile.reducers';
 import { dashboardReducer } from './reducers/dashboard/dashboard.reducer';
 import { projectInvoiceReducer } from './reducers/project-invoices/project-invoice.reducers';
+import { notificationReducer } from './reducers/notification/notification.reducer';
 
 export const reducers = combineReducers<IAppState>({
     projects: projectReducer,
@@ -30,5 +31,6 @@ export const reducers = combineReducers<IAppState>({
     projectHistory: projectHistoryEntryReducer,
     projectClient: projectClientReducer,
     projectInvoices: projectInvoiceReducer,
+    notifications: notificationReducer,
     router: routerReducer
 });

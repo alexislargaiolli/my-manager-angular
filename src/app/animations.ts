@@ -1,4 +1,4 @@
-import { animate, AnimationMetadata, state, style, transition, trigger, group, animation, query, stagger } from '@angular/animations';
+import { animate, AnimationMetadata, state, style, transition, trigger, group, animation, query, stagger, animateChild } from '@angular/animations';
 
 // Component transition animations
 export const slideInDownAnimation: AnimationMetadata =
@@ -102,7 +102,7 @@ export const centerApparitionAnimation: AnimationMetadata =
 
 export const listFadeAnim: AnimationMetadata =
     trigger('listFadeAnim', [
-        transition('* => *', [
+        transition(':enter', [
             // this hides everything right away
             query('.anim-item', style({ opacity: 0 }), { optional: true }),
 
@@ -110,22 +110,56 @@ export const listFadeAnim: AnimationMetadata =
             query('.anim-item', stagger('60ms', [
                 animate('600ms ease-in', style({ opacity: 1 }))
             ]), { optional: true })
+        ]),
+        transition('* => *', [
+            // this hides everything right away
+            query(':enter', style({ opacity: 0 }), { optional: true }),
+
+            // starts to animate things with a stagger in between
+            query(':enter', stagger('60ms', [
+                animate('600ms ease-in', style({ opacity: 1 }))
+            ]), { optional: true })
         ])
     ]);
 
 export const listSlideAnim: AnimationMetadata =
     trigger('listSlideAnim', [
-        transition('* => *', [
+        // Animation on list enter
+        transition(':enter', [
             // this hides everything right away
-            query('.anim-item', style({ opacity: 0, transform: 'translateX(-20%)' }), { optional: true }),
+            query('*', style({ opacity: 0, transform: 'translateX(-20%)' }), { optional: true }),
 
             // starts to animate things with a stagger in between
-            query('.anim-item', stagger('60ms', [
+            query('*', stagger('60ms', [
                 group([
                     animate('300ms ease-in', style({ opacity: 1 })),
                     animate('200ms ease-out', style({ transform: 'translateX(0%)' }))
                 ])
             ]), { optional: true })
+        ]),
+
+        // Animation on each list child
+        transition('* => *', [
+            // this hides everything right away
+            query(':enter', style({ opacity: 0, transform: 'translateX(-20%)', height: 0 }), { optional: true }),
+
+            // starts to animate things with a stagger in between
+            query(':enter', stagger('60ms', [
+                group([
+                    animate('200ms ease-in', style({ height: '*' })),
+                    animate('300ms ease-in', style({ opacity: 1 })),
+                    animate('200ms ease-out', style({ transform: 'translateX(0%)' }))
+                ])
+            ]), { optional: true }),
+
+            query(':leave', style({ opacity: 1 }), { optional: true }),
+            query(':leave', [
+                animate('200ms ease-out', style({ opacity: 0 }))
+            ], { optional: true }),
+
+            query('.removing ~ *', [
+                animate('200ms ease-out', style({ transform: 'translateY(-100%)' }))
+            ], { optional: true })
         ])
     ]);
 

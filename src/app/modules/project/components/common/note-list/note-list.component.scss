@@ -5,6 +5,7 @@
 
 .post-it {
     @extend .default-panel-item;
+    margin-bottom: 5px;
     cursor: move;
     cursor: grab;
     cursor: -moz-grab;

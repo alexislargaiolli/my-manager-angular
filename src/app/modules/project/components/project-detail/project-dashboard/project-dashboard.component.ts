@@ -21,9 +21,6 @@ import { ProjectDevisActions } from '../../../../store/reducers/project-devis/pr
 export class ProjectDashboardComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClasses = 'd-flex flex-row justify-content-between flex-column flex-lg-row flex-xl-row';
 
-  @select(SelectedProjectActions.currentProject)
-  currentProject$: Observable<Project>;
-
   @select(ProjectTaskActions.todoTaskCount)
   totalTodo$: Observable<number[]>;
 
@@ -108,16 +105,20 @@ export class ProjectDashboardComponent implements OnInit, OnDestroy {
   }
 
   public changeState(state: ProjectState) {
-    const project = ProjectActions.findProject(this._ngRedux.getState(), this._ngRedux.getState().selectedProject.id);
+    const project = ProjectActions.findProject(this._ngRedux.getState(), this.project.id);
     this._projectAction.dispatchUpdateState(project, state);
   }
 
   public createNote(note: Note) {
-    this._projectNoteActions.dispatchCreate(note, this._ngRedux.getState().selectedProject.id);
+    this._projectNoteActions.dispatchCreate(note, this.project.id);
+  }
+
+  public deleteNote(noteId: number) {
+    this._projectNoteActions.dispatchDelete(noteId, this.project.id)
   }
 
   public createHistoryEntry(entry: HistoryEntry) {
-    this._projectHistoryActions.dispatchCreate(entry, this._ngRedux.getState().selectedProject.id);
+    this._projectHistoryActions.dispatchCreate(entry, this.project.id);
   }
 
   public onDevisClicked(devis: Devis) {
@@ -125,7 +126,7 @@ export class ProjectDashboardComponent implements OnInit, OnDestroy {
   }
 
   public addClient(client: Client) {
-    this._projectClientActions.dispatchAddToProject(client, this._ngRedux.getState().selectedProject.id);
+    this._projectClientActions.dispatchAddToProject(client, this.project.id);
   }
 
   public createClient(client: Client) {
@@ -133,7 +134,7 @@ export class ProjectDashboardComponent implements OnInit, OnDestroy {
   }
 
   public removeClient(client: Client) {
-    this._projectClientActions.dispatchRemoveFromProject(client.id, this._ngRedux.getState().selectedProject.id);
+    this._projectClientActions.dispatchRemoveFromProject(client.id, this.project.id);
   }
 
 }

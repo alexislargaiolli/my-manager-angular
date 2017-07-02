@@ -1,0 +1,8 @@
+md-button-toggle-group {
+    box-shadow: none;
+}
+
+.mat-button-toggle-checked {
+    background: none;
+    border: 1px solid;
+}

@@ -5,14 +5,14 @@ import { Project, ProjectState, Note, Profile } from 'app/models';
 import { User } from 'app/modules/core/models/user.model';
 import { Client } from 'app/models';
 import { Address } from 'app/models';
-import { IAppState } from '../../../store/store.types';
 import { ProjectActions } from '../../../store/reducers/project/project.actions';
 import { Observable } from 'rxjs/Rx';
-import { SelectedProjectActions } from 'app/modules/store';
+import { SelectedProjectActions, IAppState } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
 import { Router } from '@angular/router';
 import { projectHomeAnimation } from './project-home.animation';
 import { rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
+import { ModelUtils } from '../../../core/models/model.utils';
 
 @Component({
   selector: 'project-home',
@@ -22,7 +22,7 @@ import { rightSlideApparitionAnimation, slideApparitionAnimation, centerAppariti
 })
 export class ProjectHomeComponent implements OnInit {
 
-  @HostBinding('class') containerClasses = 'd-flex ';
+  @HostBinding('class') containerClasses = 'd-flex flex-column flex-sm-row';
 
   @select(['profile', 'profile'])
   profile$: Observable<Profile>;
@@ -54,12 +54,14 @@ export class ProjectHomeComponent implements OnInit {
   state: string = null;
 
   constructor(
+    private _ngRedux: NgRedux<IAppState>,
     private _projectActions: ProjectActions,
     private _noteActions: NoteActions,
     private _router: Router
   ) { }
 
-  public ngOnInit() { }
+  public ngOnInit() {
+  }
 
   public createProject(event) {
     const project = new Project();
@@ -79,8 +81,63 @@ export class ProjectHomeComponent implements OnInit {
     this._router.navigate(['./project', project.id]);
   }
 
-  public createNote(note) {
+  public createNote(note: Note) {
     this._noteActions.dispatchCreate(note);
   }
 
+  public deleteNote(noteId: number) {
+    this._noteActions.dispatchDelete(noteId);
+  }
+
+
+
+
+
+
+
+
+  listLoading = false;
+  seq = 2;
+  // items = [{ id: 1, title: 'item 1' }, { id: 2, title: 'item 2' }, { id: 3, title: 'item 3' }, { id: 4, title: 'item 4' }, { id: 5, title: 'item 5' }, { id: 6, title: 'item 6' }];
+  // items = [{ id: 1, title: 'item 1' }, { id: 2, title: 'item 2' }, { id: 3, title: 'item 3' }];
+  items = [{ id: 1, title: 'item 1' }, { id: 2, title: 'item 2' }];
+  toggleLoading() {
+    if (this.listLoading) {
+      this.listLoading = false;
+      this.items = [{ id: 1, title: 'item 1' }, { id: 2, title: 'item 2' }];
+    }
+    else {
+      this.listLoading = true;
+      this.items = [];
+    }
+  }
+
+  itemRemove(itemToRemove) {
+    const i = this.items.findIndex(item => item.title === itemToRemove.title);
+    if (i != -1) {
+      this.items = ModelUtils.immutableRemove(this.items, this.items[i].id);
+    }
+  }
+
+  itemRemoveDouble(itemToRemove) {
+    const i = this.items.findIndex(item => item.title === itemToRemove.title);
+    this.items = ModelUtils.immutableRemove(this.items, this.items[i].id);
+    this.items = ModelUtils.immutableRemove(this.items, this.items[i + 1].id);
+  }
+
+  addItem() {
+    this.seq++;
+    const elt = { id: this.seq, title: `item ${this.seq}` };
+    const position = 1;
+    this.items = [...this.items.slice(0, position), elt, ...this.items.slice(position)]
+  }
+
+  addTwoItem() {
+    this.seq++;
+    const elt = { id: this.seq, title: `item ${this.seq}` };
+    this.seq++;
+    const elt2 = { id: this.seq, title: `item ${this.seq}` };
+    const position = 2;
+    this.items = [...this.items.slice(0, position), elt, elt2, ...this.items.slice(position)]
+  }
 }
