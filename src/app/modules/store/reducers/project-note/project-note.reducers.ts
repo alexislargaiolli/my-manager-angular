@@ -6,7 +6,9 @@ import { modelReducer } from '../model/model.reducer';
 const INITIAL_STATE = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    skip: 0,
+    limit: 10
 };
 
 export function projectNoteReducer(state: IProjectNoteState = INITIAL_STATE, action) {

@@ -43,6 +43,14 @@ export class RepositoryRequest<T> {
         return this;
     }
 
+    public limit(limit: number) {
+        this._filters.push({ type: 'limit', value: limit });
+    }
+
+    public skip(skip: number) {
+        this._filters.push({ type: 'skip', value: skip });
+    }
+
     public auth(token: string): RepositoryRequest<T> {
         this.options.headers.append('Authorization', token);
         return this;
@@ -60,7 +68,7 @@ export class RepositoryRequest<T> {
     }
 
     public exec(): Observable<any> {
-        this.url = this._filters.reduce((previousUrl: string, filter, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[${filter.type}]=${filter.value}`, this.url);
+        this.url = this._filters.reduce((previousUrl: string, filter: RequestFilter, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[${filter.type}]${filter.property ? '[' + filter.property + ']' : ''}=${filter.value}`, this.url);
         return this.repositoriesService.execute(this);
     }
 }

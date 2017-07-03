@@ -22,7 +22,7 @@
                             <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
                         </md-input-container>
                         <md-datepicker #validityDatePicker></md-datepicker>
-                        <md-select [(ngModel)]="devis.state" placeholder="Etat" name="state">
+                        <md-select [(ngModel)]="devis.state" placeholder="Etat" name="state" (change)="onStateChange()">
                             <md-option [value]="devisState.DRAFT">Brouillon</md-option>
                             <md-option [value]="devisState.PENDING">En attente</md-option>
                             <md-option [value]="devisState.ACCEPTED">Accepté</md-option>

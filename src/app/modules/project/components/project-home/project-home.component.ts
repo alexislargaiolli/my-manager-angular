@@ -70,7 +70,7 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   public delete(project) {
-    this._projectActions.dispatchDelete(project.id);
+    this._projectActions.dispatchDelete(project);
   }
 
   public onSelectionStarts(project) {
@@ -85,8 +85,8 @@ export class ProjectHomeComponent implements OnInit {
     this._noteActions.dispatchCreate(note);
   }
 
-  public deleteNote(noteId: number) {
-    this._noteActions.dispatchDelete(noteId);
+  public deleteNote(note: Note) {
+    this._noteActions.dispatchDelete(note);
   }
 
 

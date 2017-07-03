@@ -9,10 +9,12 @@ import { modelReducer } from '../model/model.reducer';
 const INITIAL_STATE: IModelList<Project> = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    skip: 0,
+    limit: 10
 };
 
-export function projectReducer(state: IModelList<Project> = INITIAL_STATE, action) {
+export function projectReducer(state: IModelList<Project> = INITIAL_STATE, action: Action) {
     state = modelReducer<Project>(Project.REPO_KEY, Project.REPO_KEY, state, action);
 
     return state;

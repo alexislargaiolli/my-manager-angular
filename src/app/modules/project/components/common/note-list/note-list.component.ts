@@ -28,7 +28,7 @@ export class NoteListComponent implements OnInit {
   create: EventEmitter<Note> = new EventEmitter<Note>();
 
   @Output()
-  delete: EventEmitter<number> = new EventEmitter<number>();
+  delete: EventEmitter<Note> = new EventEmitter<Note>();
 
   @Output()
   toggle: EventEmitter<Note> = new EventEmitter<Note>();
@@ -41,7 +41,7 @@ export class NoteListComponent implements OnInit {
     });
     _dragulaService.remove.subscribe((value) => {
       const noteId = +value[1].getAttribute('note-id');
-      this.delete.emit(noteId);
+      this.delete.emit(this.notes.find(n => n.id === noteId));
     });
   }
 

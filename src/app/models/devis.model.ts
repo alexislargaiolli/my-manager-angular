@@ -13,7 +13,7 @@ export class Devis implements IModel {
     public devisId: string;
     public title: string;
     public siret: string;
-    public project: number;
+    public projectId: number;
     public budget: number;
     public totalPrice: number;
     public paid: boolean;

@@ -8,12 +8,18 @@ import { of } from 'rxjs/observable/of';
 import { SelectedProjectActions, IAppState } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { NgRedux } from '@angular-redux/store';
+import { ModelActions } from '../model/model.actions';
+import { ActionUtils } from '../model/action.utils';
+import { ProjectHistoryEntryActions } from '../project-history/project-history.actions';
+import { HistoryEntry } from '../../../../models/historyentry.model';
+import { HistoryEntryFactory } from "app/models/historyentry.factory";
 
 @Injectable()
 export class ProjectDevisEpics extends ModelEpics<Devis> {
 
     constructor(
         protected _devisActions: ProjectDevisActions,
+        protected _historyActions: ProjectHistoryEntryActions,
         protected _repo: RepositoriesService
     ) {
         super(Devis.REPO_KEY, _repo, _devisActions);
@@ -32,6 +38,15 @@ export class ProjectDevisEpics extends ModelEpics<Devis> {
     delete = this.delete;
 
     @Epic()
-    projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
+    loadOnProjectSelection = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
         .map(action => this._devisActions.load(action.payload.id));
+
+    @Epic()
+    createHistoryEntryOnCreation = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))
+        .map(action => this._historyActions.create(HistoryEntryFactory.devisCreated(action.payload), action.payload.projectId));
+
+    @Epic()
+    createHistoryEntryOnRemoval = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.SUCCESS))
+        .map(action => this._historyActions.create(HistoryEntryFactory.devisDeleted(action.payload.model), action.payload.model.projectId));
+
 }

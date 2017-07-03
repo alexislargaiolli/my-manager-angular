@@ -41,7 +41,7 @@ export class ClientComponent implements OnInit {
   }
 
   public deleteClient(client: Client) {
-    this._clientActions.dispatchDelete(client.id);
+    this._clientActions.dispatchDelete(client);
     this.unselect();
   }
 

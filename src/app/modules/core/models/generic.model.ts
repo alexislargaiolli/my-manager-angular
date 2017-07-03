@@ -9,6 +9,8 @@ export interface IModelList<T extends IModel> {
     items: T[];
     loading: boolean;
     error: any;
+    skip: number;
+    limit: number;
 }
 
 /**

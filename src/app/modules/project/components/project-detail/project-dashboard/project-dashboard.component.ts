@@ -113,12 +113,16 @@ export class ProjectDashboardComponent implements OnInit, OnDestroy {
     this._projectNoteActions.dispatchCreate(note, this.project.id);
   }
 
-  public deleteNote(noteId: number) {
-    this._projectNoteActions.dispatchDelete(noteId, this.project.id)
+  public deleteNote(note: Note) {
+    this._projectNoteActions.dispatchDelete(note, this.project.id)
   }
 
   public createHistoryEntry(entry: HistoryEntry) {
     this._projectHistoryActions.dispatchCreate(entry, this.project.id);
+  }
+
+  public loadMoreHistoryEntry() {
+    this._projectHistoryActions.dispatchLoadMore(this.project.id, 10, this._ngRedux.getState().projectHistory.items.length);
   }
 
   public onDevisClicked(devis: Devis) {

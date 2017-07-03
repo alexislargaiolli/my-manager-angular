@@ -26,7 +26,7 @@
                             <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
                         </md-input-container>
                         <md-datepicker #validityDatePicker></md-datepicker>
-                        <md-select [(ngModel)]="invoice.state" placeholder="Etat" name="state">
+                        <md-select [(ngModel)]="invoice.state" placeholder="Etat" name="state" (change)="onStateChange()">
                             <md-option [value]="invoiceState.DRAFT">Brouillon</md-option>
                             <md-option [value]="invoiceState.PENDING">En attente</md-option>
                             <md-option [value]="invoiceState.PAID">Payé</md-option>

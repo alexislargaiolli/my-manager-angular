@@ -29,7 +29,7 @@ export class TaskKabanComponent implements OnInit, OnDestroy {
   create: EventEmitter<Task> = new EventEmitter<Task>();
 
   @Output()
-  remove: EventEmitter<number> = new EventEmitter<number>();
+  remove: EventEmitter<Task> = new EventEmitter<Task>();
 
   public dragulaName = 'KABAN';
 
@@ -48,7 +48,19 @@ export class TaskKabanComponent implements OnInit, OnDestroy {
     });
     this._dragulaService.remove.subscribe((value) => {
       const taskId = +value[1].getAttribute('task-id');
-      this.remove.emit(taskId);
+      const state: number = +value[2].getAttribute('column-id');
+      let task = null;
+      if (state === 0) {
+        task = this.todoTasks.find(t => t.id === taskId);
+      }
+      else if (state === 1) {
+        task = this.inProgressTasks.find(t => t.id === taskId);
+      }
+      else if (state === 2) {
+        task = this.finishedTasks.find(t => t.id === taskId);
+      }
+
+      this.remove.emit(task);
       // this._noteActions.dispatchDelete(noteId);
     });
   }

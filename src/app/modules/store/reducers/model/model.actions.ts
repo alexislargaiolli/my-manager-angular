@@ -6,6 +6,7 @@ import { ActionUtils } from './action.utils';
 
 export abstract class ModelActions<T extends IModel> {
     public static readonly LOAD = 'LOAD';
+    public static readonly LOAD_MORE = 'LOAD_MORE';
     public static readonly CREATE = 'CREATE';
     public static readonly UPDATE = 'UPDATE';
     public static readonly PATCH = 'PATCH';
@@ -26,8 +27,8 @@ export abstract class ModelActions<T extends IModel> {
 
     // Load
 
-    load(projectId?: number) {
-        return this.createAction(ModelActions.LOAD, ActionUtils.REQUEST, projectId);
+    load(projectId?: number, limit?: number) {
+        return this.createAction(ModelActions.LOAD, ActionUtils.REQUEST, { projectId, limit });
     }
 
     loadSuccess(models) {
@@ -105,21 +106,45 @@ export abstract class ModelActions<T extends IModel> {
 
     // Delete 
 
-    delete(id: number, projectId?: number) {
-        return this.createAction(ModelActions.DELETE, ActionUtils.REQUEST, { id, projectId });
+    delete(model: T, projectId?: number) {
+        return this.createAction(ModelActions.DELETE, ActionUtils.REQUEST, { model, projectId });
     }
 
-    deleteSuccess(id) {
-        return this.createAction(ModelActions.DELETE, ActionUtils.SUCCESS, { id });
+    deleteSuccess(model: T) {
+        return this.createAction(ModelActions.DELETE, ActionUtils.SUCCESS, { model });
     }
 
     deleteError(error) {
         return this.createAction(ModelActions.DELETE, ActionUtils.ERROR, error);
     }
 
-    dispatchDelete(id: number, projectId?: number) {
-        this._ngRedux.dispatch(this.delete(id, projectId));
+    dispatchDelete(model: T, projectId?: number) {
+        this._ngRedux.dispatch(this.delete(model, projectId));
     }
+
+
+
+
+
+
+    public loadMore(projectId?: number, limit?: number, skip?: number) {
+        return this.createAction(ModelActions.LOAD_MORE, ActionUtils.REQUEST, { projectId, limit, skip });
+    }
+
+    public loadMoreSuccess(items: T[]) {
+        return this.createAction(ModelActions.LOAD_MORE, ActionUtils.SUCCESS, items);
+    }
+
+    public loadMoreError(error) {
+        return this.createAction(ModelActions.LOAD_MORE, ActionUtils.ERROR, error);
+    }
+
+    public dispatchLoadMore(projectId?: number, limit?: number, skip?: number) {
+        return this._ngRedux.dispatch(this.loadMore(projectId, limit, skip));
+    }
+
+
+
 
 
 

@@ -8,6 +8,8 @@ import { ModelActions } from '../model/model.actions';
 @Injectable()
 export class ProjectHistoryEntryActions extends ModelActions<HistoryEntry> {
 
+    public static LIMIT = 10;
+
     constructor(protected _repo: RepositoriesService, protected _ngRedux: NgRedux<IAppState>) {
         super(_ngRedux, _repo, HistoryEntry.REPO_KEY)
     }

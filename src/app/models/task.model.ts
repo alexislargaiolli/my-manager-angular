@@ -7,7 +7,7 @@ export class Task implements IModel {
     public updatedAt: Date;
     public title: string;
     public description: string;
-    public project: number;
+    public projectId: number;
     public state: TaskState = TaskState.TODO;
 }
 

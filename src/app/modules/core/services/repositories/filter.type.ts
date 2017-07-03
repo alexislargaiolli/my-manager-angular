@@ -1,4 +1,5 @@
-export interface RequestFilter{
+export interface RequestFilter {
     type: string;
-    value: string;
+    property?: string;
+    value: any;
 }

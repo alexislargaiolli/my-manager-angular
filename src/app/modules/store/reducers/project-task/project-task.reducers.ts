@@ -6,7 +6,9 @@ import { Task } from 'app/models';
 const INITIAL_STATE = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    skip: 0,
+    limit: 10
 };
 
 export function projectTaskReducer(state: IProjectTaskState = INITIAL_STATE, action) {

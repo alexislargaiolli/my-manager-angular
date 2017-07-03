@@ -3,14 +3,15 @@ import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { InvoiceState, DevisLine, Address, Invoice, Devis } from 'app/models';
-import { NotificationService, DialogsService } from 'app/modules/core';
+import { NotificationService, DialogsService, ReduxSubscriptionComponent } from 'app/modules/core';
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState, ProjectInvoiceActions } from 'app/modules/store';
+import { IAppState, ProjectInvoiceActions, ProjectHistoryEntryActions } from 'app/modules/store';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as moment from 'moment';
 import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
 import { MdDialog } from '@angular/material';
 import { SelectDevisComponent } from './select-devis/select-devis.component';
+import { HistoryEntryFactory } from "app/models/historyentry.factory";
 
 @Component({
   selector: 'app-project-invoice-edition',
@@ -18,13 +19,14 @@ import { SelectDevisComponent } from './select-devis/select-devis.component';
   styleUrls: ['./project-invoice-edition.component.scss'],
   animations: [rightSlideApparitionAnimation, slideApparitionAnimation]
 })
-export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
+export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent implements OnInit, OnDestroy {
 
   @ViewChild('invoicePreview') el: ElementRef;
 
   public invoiceState = InvoiceState;
 
   public invoice: Invoice;
+  public stateHasChanged = false;
 
 
   constructor(
@@ -34,9 +36,11 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
     private _ngRedux: NgRedux<IAppState>,
     private _invoiceActions: ProjectInvoiceActions,
     private _dragulaService: DragulaService,
+    private _historyActions: ProjectHistoryEntryActions,
     private _elementRef: ElementRef,
     public _mdDialog: MdDialog
   ) {
+    super();
     _dragulaService.setOptions('lines', {
       removeOnSpill: true,
       moves: function (el, container, handle) {
@@ -52,14 +56,22 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._dragulaService.destroy('lines');
+    super.ngOnDestroy();
   }
 
   public loadInvoice(invoiceId) {
     if (invoiceId) {
-      this._ngRedux.select(['projectInvoices', 'items']).subscribe((invoiceList: Invoice[]) => {
-        this.invoice = new Invoice();
-        this.invoice = Object.assign(this.invoice, invoiceList.find(invoice => invoice.id === invoiceId));
-      });
+      this.addSub(
+        this._ngRedux.select(['projectInvoices', 'items']).subscribe((invoiceList: Invoice[]) => {
+          const storeInvoice = invoiceList.find(invoice => invoice.id === invoiceId);
+          if (this.invoice && this.stateHasChanged) {
+            this._historyActions.dispatchCreate(HistoryEntryFactory.invoiceStateUpdated(this.invoice), this.invoice.projectId);
+          }
+          this.invoice = new Invoice();
+          this.invoice = Object.assign(this.invoice, storeInvoice);
+          this.stateHasChanged = false;
+        })
+      );
     } else {
       this.createInvoice();
     }
@@ -85,7 +97,7 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
 
   public submitForm(form: NgForm) {
     if (form.valid) {
-      this._invoiceActions.dispatchSave(this.invoice, this._ngRedux.getState().selectedProject.id);
+      this.save();
     }
     // this.goBack();
   }
@@ -100,6 +112,13 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
     this._invoiceActions.dispatchSave(this.invoice, this._ngRedux.getState().selectedProject.id);
   }
 
+  public onStateChange() {
+    if (this.invoice.state === InvoiceState.PAID && this.invoice.paidDate == null) {
+      this.invoice.paidDate = new Date();
+    }
+    this.stateHasChanged = true;
+  }
+
   public importDevis() {
     let dialogRef = this._mdDialog.open(SelectDevisComponent);
     dialogRef.afterClosed().subscribe((devis: Devis) => {
@@ -112,7 +131,7 @@ export class ProjectInvoiceEditionComponent implements OnInit, OnDestroy {
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
       if (confirmed) {
-        this._invoiceActions.dispatchDelete(this.invoice.id, this._ngRedux.getState().selectedProject.id);
+        this._invoiceActions.dispatchDelete(this.invoice, this.invoice.projectId);
         this.goBack();
       }
     });

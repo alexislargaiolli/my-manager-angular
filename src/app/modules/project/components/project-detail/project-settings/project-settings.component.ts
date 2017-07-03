@@ -59,7 +59,7 @@ export class ProjectSettingsComponent implements OnInit {
   public deleteProject() {
     this._dialogsService.confirmGeneric().subscribe(confirm => {
       if (confirm === true) {
-        this._projectActions.dispatchDelete(this.project.id);
+        this._projectActions.dispatchDelete(this.project);
         this._router.navigate(['/project']);
       }
     });

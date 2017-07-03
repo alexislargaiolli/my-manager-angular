@@ -9,6 +9,8 @@ const INITIAL_STATE = {
     items: [],
     loading: false,
     error: null,
+    skip: 0,
+    limit: 10,
     selectedId: null
 };
 

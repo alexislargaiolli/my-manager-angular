@@ -31,11 +31,11 @@ export class ProjectNoteListComponent implements OnInit {
     _dragulaService.setOptions('project-notes', {
       removeOnSpill: true
     });
-    _dragulaService.remove.subscribe((value) => {
-      const noteId = +value[1].getAttribute('note-id');
-      const projectId = this._redux.getState().selectedProject.id;
-      this._projectNoteActions.dispatchDelete(noteId, projectId);
-    });
+    // _dragulaService.remove.subscribe((value) => {
+    //   const noteId = +value[1].getAttribute('note-id');
+    //   const projectId = this._redux.getState().selectedProject.id;
+    //   this._projectNoteActions.dispatchDelete(noteId, projectId);
+    // });
   }
 
   ngOnInit() {

@@ -45,12 +45,19 @@ export class ProjectHistoryComponent implements OnInit {
   @Output()
   create: EventEmitter<HistoryEntry> = new EventEmitter<HistoryEntry>();
 
+  @Output()
+  loadMore: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() { }
 
   public createEntry(entry) {
     this.create.emit(entry);
+  }
+
+  public loadMoreEntry() {
+    this.loadMore.emit();
   }
 
   protected onElementLoaded() {

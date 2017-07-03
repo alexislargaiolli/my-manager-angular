@@ -5,15 +5,19 @@ import { RepositoriesService } from 'app/modules/core';
 import { Invoice, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState } from 'app/modules/store';
+import { SelectedProjectActions, IAppState, ProjectHistoryEntryActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { NgRedux } from '@angular-redux/store';
+import { ActionUtils } from '../model/action.utils';
+import { ModelActions } from '../model/model.actions';
+import { HistoryEntryFactory } from 'app/models/historyentry.factory';
 
 @Injectable()
 export class ProjectInvoiceEpics extends ModelEpics<Invoice> {
 
     constructor(
         protected _invoiceActions: ProjectInvoiceActions,
+        private _historyActions: ProjectHistoryEntryActions,
         protected _repo: RepositoriesService
     ) {
         super(Invoice.REPO_KEY, _repo, _invoiceActions);
@@ -32,6 +36,14 @@ export class ProjectInvoiceEpics extends ModelEpics<Invoice> {
     delete = this.delete;
 
     @Epic()
-    projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
+    loadOnProjectSelection = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
         .map(action => this._invoiceActions.load(action.payload.id));
+
+    @Epic()
+    createHistoryEntryOnCreation = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))
+        .map(action => this._historyActions.create(HistoryEntryFactory.invoiceCreated(action.payload), action.payload.projectId));
+
+    @Epic()
+    createHistoryEntryOnRemoval = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.SUCCESS))
+        .map(action => this._historyActions.create(HistoryEntryFactory.invoiceDeleted(action.payload.model), action.payload.model.projectId));
 }

@@ -44,4 +44,12 @@ export class ModelUtils {
             ...items.slice(i + 1)
         ]
     }
+
+    public static immutableInsert<T extends { id: number }>(items: T[], elt: T, i: number): T[] {
+        return [
+            ...items.slice(0, i),
+            elt,
+            ...items.slice(i)
+        ]
+    }
 }

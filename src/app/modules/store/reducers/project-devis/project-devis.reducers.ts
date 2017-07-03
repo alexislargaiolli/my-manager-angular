@@ -7,7 +7,9 @@ import { IModelList } from 'app/modules/core';
 const INITIAL_STATE = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    skip: 0,
+    limit: 10
 };
 
 export function projectDevisReducer(state: IProjectDevisState = INITIAL_STATE, action) {

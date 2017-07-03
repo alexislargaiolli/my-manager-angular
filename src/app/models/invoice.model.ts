@@ -14,7 +14,7 @@ export class Invoice implements IModel {
     public invoiceId: string;
     public title: string;
     public siret: string;
-    public project: number;
+    public projectId: number;
     public totalPrice: number;
     public paidDate: Date;
     public state: InvoiceState = InvoiceState.DRAFT;

@@ -34,6 +34,7 @@ export class InplaceDateComponent implements OnInit {
   public save(form: NgForm) {
     if (form.valid) {
       this.date = form.value.date;
+      this.dateChange.emit(this.date);
       this.toggle();
     }
   }
@@ -45,7 +46,6 @@ export class InplaceDateComponent implements OnInit {
 
   set date(date: Date) {
     this._date = date;
-    this.dateChange.emit(this._date);
   }
 
   @Input()

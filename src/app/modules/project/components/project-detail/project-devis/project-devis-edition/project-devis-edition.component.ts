@@ -10,6 +10,9 @@ import { ProjectDevisActions } from '../../../../../store/reducers/project-devis
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as moment from 'moment';
 import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
+import { ReduxSubscriptionComponent } from '../../../../../core/components/redux-subscription-component/redux-subscription-component';
+import { ProjectHistoryEntryActions } from '../../../../../store/reducers/project-history/project-history.actions';
+import { HistoryEntryFactory } from '../../../../../../models/historyentry.factory';
 
 @Component({
   selector: 'app-project-devis-edition',
@@ -17,11 +20,11 @@ import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/ani
   styleUrls: ['./project-devis-edition.component.scss'],
   animations: [rightSlideApparitionAnimation, slideApparitionAnimation]
 })
-export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
+export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent implements OnInit, OnDestroy {
   @ViewChild('devisPreview') el: ElementRef;
   public devisState = DevisState;
   public devis: Devis;
-
+  public stateHasChanged = false;
 
   constructor(
     private location: Location,
@@ -29,9 +32,11 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
     private dialog: DialogsService,
     private _ngRedux: NgRedux<IAppState>,
     private _devisActions: ProjectDevisActions,
+    private _historyActions: ProjectHistoryEntryActions,
     private _dragulaService: DragulaService,
     private _elementRef: ElementRef
   ) {
+    super();
     _dragulaService.setOptions('lines', {
       removeOnSpill: true,
       moves: function (el, container, handle) {
@@ -47,14 +52,22 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._dragulaService.destroy('lines');
+    super.ngOnDestroy();
   }
 
   public loadDevis(devisId) {
     if (devisId) {
-      this._ngRedux.select(['projectDevis', 'items']).subscribe((devisList: Devis[]) => {
-        this.devis = new Devis();
-        this.devis = Object.assign(this.devis, devisList.find(devis => devis.id === devisId));
-      });
+      this.addSub(
+        this._ngRedux.select(['projectDevis', 'items']).subscribe((devisList: Devis[]) => {
+          const storeDevis = devisList.find(devis => devis.id === devisId);
+          if (this.devis && this.stateHasChanged) {
+            this._historyActions.dispatchCreate(HistoryEntryFactory.devisStateUpdated(this.devis), this.devis.projectId);
+          }
+          this.devis = new Devis();
+          this.devis = Object.assign(this.devis, storeDevis);
+          this.stateHasChanged = false;
+        })
+      );
     } else {
       this.createDevis();
     }
@@ -80,7 +93,7 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
 
   public submitForm(form: NgForm) {
     if (form.valid) {
-      this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
+      this.save();
     }
   }
 
@@ -98,12 +111,13 @@ export class ProjectDevisEditionComponent implements OnInit, OnDestroy {
     if (this.devis.state === DevisState.ACCEPTED && this.devis.acceptedDate == null) {
       this.devis.acceptedDate = new Date();
     }
+    this.stateHasChanged = true;
   }
 
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
       if (confirmed) {
-        this._devisActions.dispatchDelete(this.devis.id, this._ngRedux.getState().selectedProject.id);
+        this._devisActions.dispatchDelete(this.devis, this._ngRedux.getState().selectedProject.id);
         this.goBack();
       }
     });

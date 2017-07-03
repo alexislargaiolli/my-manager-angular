@@ -55,7 +55,7 @@
             <span class="flex-1">{{note.title}}</span>
 
             <div class="d-flex" [style.opacity]="state === 'ACTIVE' ? 1: 0">
-                <button md-button (click)="deleteNote(note.id)" class="icon-only"><md-icon>delete</md-icon></button>
+                <button md-button (click)="deleteNote(note)" class="icon-only"><md-icon>delete</md-icon></button>
             </div>
         </div>
     </app-list>

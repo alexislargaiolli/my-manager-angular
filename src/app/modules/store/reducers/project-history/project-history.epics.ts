@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Epic } from 'redux-observable-decorator';
 import { ProjectHistoryEntryActions } from './project-history.actions';
-import { RepositoriesService } from 'app/modules/core';
+import { RepositoriesService, RepositoryRequest, IModel } from 'app/modules/core';
 import { HistoryEntry, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
@@ -31,6 +31,13 @@ export class ProjectHistoryEntryEpics extends ModelEpics<HistoryEntry>{
     delete = this.delete;
 
     @Epic()
+    loadMore = this.loadMore;
+
+    @Epic()
     projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
-        .map(action => this._historyEntryActions.load(action.payload.id));
+        .map(action => this._historyEntryActions.load(action.payload.id, ProjectHistoryEntryActions.LIMIT));
+
+    protected loadRequest(request: RepositoryRequest<IModel>) {
+        request.orderBy('date', true);
+    }
 }

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Epic } from 'redux-observable-decorator';
-import { ProjectTaskActions } from './project-task.actions';
 import { RepositoriesService } from 'app/modules/core';
 import { Task, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState, ProjectActions } from 'app/modules/store';
+import { SelectedProjectActions, IAppState, ProjectActions, ProjectTaskActions, ProjectHistoryEntryActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { ActionUtils } from '../model/action.utils';
 import { ModelActions } from '../model/model.actions';
 import { NgRedux } from '@angular-redux/store';
 import { TaskState } from '../../../../models/task.model';
+import { HistoryEntryFactory } from 'app/models/historyentry.factory';
 
 @Injectable()
 export class ProjectTaskEpics extends ModelEpics<Task>{
@@ -19,7 +19,8 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
         private _taskActions: ProjectTaskActions,
         private _projectActions: ProjectActions,
         private _ngRedux: NgRedux<IAppState>,
-        protected _repo: RepositoriesService
+        protected _repo: RepositoriesService,
+        private _historyAction: ProjectHistoryEntryActions
     ) {
         super(Task.REPO_KEY, _repo, _taskActions);
     }
@@ -49,4 +50,11 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
             return this._projectActions.updateProgress(action.payload.projectId, progress);
         });
 
+    @Epic()
+    createHistoryOnCreate = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))
+        .map(action => this._historyAction.create(HistoryEntryFactory.createdTask(action.payload), action.payload.projectId));
+
+    @Epic()
+    createHistoryOnDelete = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.SUCCESS))
+        .map(action => this._historyAction.create(HistoryEntryFactory.createdTask(action.payload.model), action.payload.model.projectId));
 }

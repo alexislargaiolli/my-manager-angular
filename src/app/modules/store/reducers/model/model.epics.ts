@@ -1,4 +1,4 @@
-import { IModel, RepositoriesService } from 'app/modules/core';
+import { IModel, RepositoriesService, IModelList } from 'app/modules/core';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { ModelActions } from './model.actions';
 import { of } from 'rxjs/observable/of';
@@ -6,6 +6,7 @@ import { ActionUtils } from './action.utils';
 import { Epic } from 'redux-observable-decorator';
 import { RepositoryRequest } from '../../../core/services/repositories/repository-request';
 import { Project } from 'app/models';
+import { IAppState } from '../../store.types';
 
 export abstract class ModelEpics<T extends IModel> {
 
@@ -26,11 +27,15 @@ export abstract class ModelEpics<T extends IModel> {
         return action$ => action$.ofType(actionName).switchMap((action) => request.exec().map(mapFunction).catch(catchFunction));
     }
 
-    protected load = action$ => action$
+    protected load = (action$) => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD, ActionUtils.REQUEST))
         .switchMap((action) => {
             const request = this._repo.get(this._modelName, null);
-            action.payload == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload);
+            action.payload && action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
+            if (action.payload.limit) {
+                request.limit(action.payload.limit);
+            }
+            this.loadRequest(request);
             return request.exec()
                 .map(models => this._modelAction.loadSuccess(models))
                 .catch(error => of(this._modelAction.loadError(error)));
@@ -54,19 +59,40 @@ export abstract class ModelEpics<T extends IModel> {
             return request.exec()
                 .map(model => this._modelAction.updateSuccess(model))
                 .catch(error => of(this._modelAction.updateError(error)));
-        }
-        )
+        })
 
     protected delete = action$ => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.REQUEST))
         .switchMap(action => {
-            const request = this._repo.delete(this._modelName, action.payload.id);
+            const request = this._repo.delete(this._modelName, action.payload.model.id);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
             return request.exec()
-                .map(() => this._modelAction.deleteSuccess(action.payload.id))
+                .map(() => this._modelAction.deleteSuccess(action.payload.model))
                 .catch(error => of(this._modelAction.deleteError(error)));
-        }
-        )
+        })
 
+    protected loadMore = (action$) => action$
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.LOAD_MORE, ActionUtils.REQUEST))
+        .switchMap((action) => {
+            const request = this._repo.get(this._modelName, null);
+            action.payload && action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
+            if (action.payload.limit) {
+                request.limit(action.payload.limit);
+            }
+            if (action.payload.skip) {
+                request.skip(action.payload.skip);
+            }
+            this.loadRequest(request);
+            return request.exec()
+                .map(models => this._modelAction.loadMoreSuccess(models))
+                .catch(error => of(this._modelAction.loadMoreError(error)));
+        })
 
+    /**
+     * Call before load request execution. Allow to add filter / sort to request.
+     * @param request 
+     */
+    protected loadRequest(request: RepositoryRequest<IModel>) {
+
+    }
 }
