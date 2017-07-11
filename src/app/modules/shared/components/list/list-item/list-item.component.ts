@@ -10,9 +10,6 @@ import { fadeAnim } from 'app/animations';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    itemStateAnim, itemActionAnim
-  ]
 })
 export class ListItemComponent implements OnInit {
 
@@ -41,18 +38,6 @@ export class ListItemComponent implements OnInit {
   constructor(public elementRef: ElementRef, private _builder: AnimationBuilder) { }
 
   ngOnInit() {
-  }
-
-  @HostListener('mouseenter') onMouseEnter() {
-    if (!this.isLeaving() && !this.isEntering()) {
-      this.switchState(ListItemComponent.STATE_ACTIVE);
-    }
-  }
-
-  @HostListener('mouseleave') onMouseLeave() {
-    if (!this.isLeaving() && !this.isEntering()) {
-      this.switchState(ListItemComponent.STATE_INACTIVE);
-    }
   }
 
   /**

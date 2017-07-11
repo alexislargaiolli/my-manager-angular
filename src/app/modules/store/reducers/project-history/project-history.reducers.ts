@@ -19,6 +19,12 @@ export function projectHistoryEntryReducer(state: IProjectHistoryState = INITIAL
     switch (action.type) {
         case ActionUtils.asyncActionType(HistoryEntry.REPO_KEY, ModelActions.CREATE, ActionUtils.SUCCESS):
             return Object.assign({}, state, { items: ModelUtils.immutableInsert(state.items, action.payload, 0), loading: false, error: null });
+
+        case ActionUtils.asyncActionType(HistoryEntry.REPO_KEY, ModelActions.LOAD, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { items: action.payload.reverse(), loading: false });
+
+        case ActionUtils.asyncActionType(HistoryEntry.REPO_KEY, ModelActions.LOAD_MORE, ActionUtils.SUCCESS):
+            return Object.assign({}, state, { loading: false, error: null, items: [...action.payload.reverse(), ...state.items] });
     }
     state = modelReducer<HistoryEntry>(HistoryEntry.REPO_KEY, HistoryEntry.REPO_KEY, state, action);
     return state;

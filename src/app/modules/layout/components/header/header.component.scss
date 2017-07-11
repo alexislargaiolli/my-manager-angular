@@ -1,27 +1,26 @@
 @import 'variables';
 @import 'components';
 :host {
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }
 
 .header-nav {
-    @extend .default-panel;
-    height: calc($header-height - 1px);
-    .header-left {
-        padding-left: 20px;
-    }
-    button {
-        color: $primary-color;
-        outline: 0;
-        border-radius: none;
-    }
-    .logo {
-        line-height: 65px;
-    }
+  background: $header-bg;
+  height: $header-height;
+  .header-left {
+    padding-left: 20px;
+  }
+  button {
+    outline: 0;
+    border-radius: none;
+  }
+  .logo {
+    line-height: 65px;
+  }
 }
 
 .header-nav /deep/ .mat-toolbar-row {
-    align-items: stretch;
+  align-items: stretch;
 }

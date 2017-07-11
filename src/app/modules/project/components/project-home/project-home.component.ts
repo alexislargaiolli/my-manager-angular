@@ -11,18 +11,18 @@ import { SelectedProjectActions, IAppState } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
 import { Router } from '@angular/router';
 import { projectHomeAnimation } from './project-home.animation';
-import { rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation } from 'app/animations';
+import { leaveWorkaround } from 'app/animations';
 import { ModelUtils } from '../../../core/models/model.utils';
 
 @Component({
   selector: 'project-home',
   templateUrl: './project-home.component.html',
   styleUrls: ['./project-home.component.scss'],
-  animations: [projectHomeAnimation, rightSlideApparitionAnimation, slideApparitionAnimation, centerApparitionAnimation]
+  animations: [leaveWorkaround]
 })
 export class ProjectHomeComponent implements OnInit {
 
-  @HostBinding('class') containerClasses = 'd-flex flex-column flex-sm-row';
+  @HostBinding('@leaveWorkaround') anim = true;
 
   @select(['profile', 'profile'])
   profile$: Observable<Profile>;
@@ -30,13 +30,13 @@ export class ProjectHomeComponent implements OnInit {
   @select(['projects', 'items'])
   projects$: Observable<Project[]>;
 
-  @select(['projects', 'boolean'])
+  @select(['projects', 'loading'])
   loading$: Observable<boolean>;
 
   @select(['notes', 'items'])
   notes$: Observable<Note[]>;
 
-  @select(['notes', 'boolean'])
+  @select(['notes', 'loading'])
   notesLoading$: Observable<boolean>;
 
   @select(['dashboard', 'waitingDevis'])
@@ -78,7 +78,7 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   public onSelectionEnds(project) {
-    this._router.navigate(['./project', project.id]);
+    this._router.navigate(['./project', project.id, 'dashboard']);
   }
 
   public createNote(note: Note) {

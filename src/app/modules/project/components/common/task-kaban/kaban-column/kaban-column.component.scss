@@ -1,53 +1,37 @@
 @import 'components';
 :host {
-    overflow-y: auto;
-}
-
-.kaban-column {
-    min-height: 300px;
+  overflow-y: auto;
+  display: flex;
 }
 
 .kaban-column-list-item {
-    @extend .default-panel-item;
-    transition: all 0.1s ease-in-out;
-    font-size: 13px;
-    margin: 2px 0;
-    padding: 5px 10px;
-    cursor: move;
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-    &.gu-mirror {
-        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        color: #ddd;
-        cursor: grabbing;
-        cursor: -moz-grabbing;
-        cursor: -webkit-grabbing;
-    }
-    &.gu-transit {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(0.95);
-        margin: 15px 0;
-        padding: 10px;
-        color: #ddd;
-    }
-    md-icon {
-        float: left;
-        font-size: 20px;
-        margin-right: 10px;
-    }
+  transition: all 0.1s ease-in-out;
+  font-size: 13px;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  &.gu-mirror {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.5);
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+  &.gu-transit {
+    border: 2px dashed #666;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  md-icon {
+    float: left;
+    font-size: 20px;
+    margin-right: 10px;
+  }
 }
 
 .handle {
-    padding: 0 5px;
-    margin-right: 5px;
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: move;
-}
-
-nested-repeat-example .kaban-column span {
-    display: block;
-    padding: 8px;
+  padding: 0 5px;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: move;
 }

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { BackgroundComponent } from './background.component';
+import { ProjectMenuComponent } from './project-menu.component';
 
-describe('BackgroundComponent', () => {
-  let component: BackgroundComponent;
-  let fixture: ComponentFixture<BackgroundComponent>;
+describe('ProjectMenuComponent', () => {
+  let component: ProjectMenuComponent;
+  let fixture: ComponentFixture<ProjectMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BackgroundComponent ]
+      declarations: [ ProjectMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BackgroundComponent);
+    fixture = TestBed.createComponent(ProjectMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

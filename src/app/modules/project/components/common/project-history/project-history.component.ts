@@ -1,7 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { IMyOptions } from 'mydatepicker';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnChanges, SimpleChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { HistoryEntry } from 'app/models';
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { Observable } from 'rxjs/Observable';
@@ -12,35 +12,17 @@ import { select } from '@angular-redux/store';
   templateUrl: './project-history.component.html',
   styleUrls: ['./project-history.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('itemState', [
-      state('*', style({
-        transform: 'scale(1)',
-      })),
-      transition(':enter', [
-        style({
-          transform: 'scale(0)'
-        }),
-        animate('250ms ease-out')
-
-      ]),
-      transition(':leave', [
-        animate('250ms ease-in',
-          style({
-            transform: 'scale(0)',
-          }))
-      ])
-    ])
-  ]
 })
 export class ProjectHistoryComponent implements OnInit {
 
+  @ViewChild('historyWrapper')
+  historyWrapper: ElementRef;
 
-  @Input('historyEntries')
-  historyEntries$: Observable<HistoryEntry>;
+  @Input()
+  historyEntries: HistoryEntry[];
 
-  @Input('loading')
-  loading$: Observable<boolean>;
+  @Input()
+  loading: boolean;
 
   @Output()
   create: EventEmitter<HistoryEntry> = new EventEmitter<HistoryEntry>();
@@ -48,7 +30,7 @@ export class ProjectHistoryComponent implements OnInit {
   @Output()
   loadMore: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private _changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() { }
 
@@ -60,42 +42,34 @@ export class ProjectHistoryComponent implements OnInit {
     this.loadMore.emit();
   }
 
-  protected onElementLoaded() {
-    this.sortByDate();
+  public scrollRight() {
+    this.scroll(1000, 0, 300, 0);
   }
 
-  public sortByDate() {
-    // this.elements.sort((a, b) => {
-    //   let dateA = new Date(a.date);
-    //   let dateB = new Date(b.date);
-    //   if (dateA > dateB) {
-    //     return -1;
-    //   } else if (dateA < dateB) {
-    //     return 1;
-    //   } else {
-    //     return 0;
-    //   }
-    // });
+  public scrollLeft() {
+    this.scroll(1000, 0, -300, 0);
   }
 
-  public select(elt: HistoryEntry) {
-    // if (!this.selected) {
-    //   this.selected = Object.assign({}, elt);
-    //   if (elt.date) {
-    //     this.selected.date = new Date(elt.date);
-    //   }
-    // }
+  private scroll(duration, elapsedTime, deltaScroll, prevAdd) {
+    if (elapsedTime > duration) {
+      this._changeDetector.detectChanges();
+      return;
+    }
+    const progression = elapsedTime / duration;
+    const delta = (deltaScroll * progression) - prevAdd;
+    this.historyWrapper.nativeElement.scrollLeft += delta;
+    const deltaTime = 10;
+    setTimeout(() => this.scroll(duration, elapsedTime + deltaTime, deltaScroll, delta), deltaTime);
   }
 
-  public itemState(elt: HistoryEntry) {
-    // return this.selected && this.selected === elt ? 'active' : 'inactive';
+  public showScrollLeftBtn(): boolean {
+    return this.historyWrapper.nativeElement.scrollLeft > 0;
   }
 
-  protected onElementCreated(elt: HistoryEntry) {
-    this.sortByDate();
+  public showScrollRightBtn(): boolean {
+    const elt = this.historyWrapper.nativeElement;
+    const maxScroll = elt.scrollWidth - elt.clientWidth;
+    return elt.scrollLeft < maxScroll;
   }
 
-  protected onElementUpdated(elt: HistoryEntry) {
-    this.sortByDate();
-  }
 }

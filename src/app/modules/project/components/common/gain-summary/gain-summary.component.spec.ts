@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { GainListComponent } from './gain-list.component';
+import { GainSummaryComponent } from './gain-summary.component';
 
-describe('GainListComponent', () => {
-  let component: GainListComponent;
-  let fixture: ComponentFixture<GainListComponent>;
+describe('GainSummaryComponent', () => {
+  let component: GainSummaryComponent;
+  let fixture: ComponentFixture<GainSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GainListComponent ]
+      declarations: [ GainSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GainListComponent);
+    fixture = TestBed.createComponent(GainSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,23 +1,24 @@
-<div class="loading-bar-wrapper">
-    <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
+<div *ngIf="loading" class="loading-status pl-4">
+  Chargement des projects
+  <app-spinner></app-spinner>
 </div>
-
-<div class="square-list" [@listFadeAnim]="animationState()">
-    <article>
-        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau projet</button>
-    </article>
-    <article *ngFor="let project of projects" class="anim-item">
-        <button md-button (click)="selectProject(project)">
-            <header>
-                <h3 class="text-center">{{project.name}}</h3>
-            </header>
-            <p>{{project.description}}</p>
-            <p class="badge badge-default" *ngIf="project.state == 0">En cours de prospection</p>
-            <p class="badge badge-info" *ngIf="project.state == 1">En attente de validation du devis</p>
-            <p class="badge badge-primary" *ngIf="project.state == 2">En cours de réalisation</p>
-            <p class="badge badge-warning" *ngIf="project.state == 3">En attente de paiement</p>
-            <p class="badge badge-success" *ngIf="project.state == 4">Terminé</p>
-            <md-progress-bar [value]="project.progress"></md-progress-bar>
-        </button>
-    </article>
+<div class="d-flex flex-wrap">
+  <md-card class="create-project selectable-card" (click)="create.emit()" *ngIf="!loading">
+    <md-card-title>
+      <md-icon>add box</md-icon>Nouveau projet</md-card-title>
+  </md-card>
+  <md-card *ngFor="let project of projects" class="anim-item selectable-card" (click)="selectProject(project)">
+    <md-card-title>{{project.name}}</md-card-title>
+    <md-card-content>
+      <p>{{project.description}}</p>
+      <p class="badge badge-default" *ngIf="project.state == 0">En cours de prospection</p>
+      <p class="badge badge-info" *ngIf="project.state == 1">En attente de validation du devis</p>
+      <p class="badge badge-primary" *ngIf="project.state == 2">En cours de réalisation</p>
+      <p class="badge badge-warning" *ngIf="project.state == 3">En attente de paiement</p>
+      <p class="badge badge-success" *ngIf="project.state == 4">Terminé</p>
+    </md-card-content>
+    <md-card-footer>
+      <md-progress-bar [value]="project.progress" color="accent"></md-progress-bar>
+    </md-card-footer>
+  </md-card>
 </div>

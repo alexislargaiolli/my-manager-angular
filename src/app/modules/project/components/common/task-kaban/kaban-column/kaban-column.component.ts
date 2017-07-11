@@ -8,7 +8,6 @@ import { listSlideAnim } from 'app/animations';
   selector: 'app-kaban-column',
   templateUrl: './kaban-column.component.html',
   styleUrls: ['./kaban-column.component.scss'],
-  animations: [listSlideAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KabanColumnComponent implements OnInit {
@@ -22,12 +21,19 @@ export class KabanColumnComponent implements OnInit {
   @Input()
   columnId: number;
 
+  @Output()
+  select: EventEmitter<Task> = new EventEmitter<Task>();
+
   public state = TaskState;
 
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  public selectTask(task: Task) {
+    this.select.emit(task);
   }
 
 }

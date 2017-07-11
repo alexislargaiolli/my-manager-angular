@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Devis } from 'app/models';
 import { NavigationService } from '../../../services/navigation.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { centerApparitionAnimation } from 'app/animations';
+import { centerApparitionAnimation, leaveWorkaround } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 
@@ -10,9 +10,11 @@ import { select } from '@angular-redux/store';
   selector: 'app-project-devis',
   templateUrl: './project-devis.component.html',
   styleUrls: ['./project-devis.component.scss'],
-  animations: [centerApparitionAnimation]
+  animations: [centerApparitionAnimation, leaveWorkaround]
 })
 export class ProjectDevisComponent implements OnInit {
+
+  @HostBinding('@leaveWorkaround') anim = true;
 
   @select(['projectDevis', 'items'])
   devis$: Observable<Devis[]>;

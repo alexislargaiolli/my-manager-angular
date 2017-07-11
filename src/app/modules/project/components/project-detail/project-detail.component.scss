@@ -1,76 +1,73 @@
 @import 'variables';
 @import 'components';
 @import 'utils';
-/deep/ .header-nav {
-    box-shadow: none;
-}
-
 :host {
-    flex: 1;
+    display: block;
 }
 
-/deep/ .project-state-buttons {
-    margin: 0 10px;
-    background: #fff;
-}
-
-nav {
-    @extend .default-panel;
-    z-index: 1000;
-    position: fixed;
-    width: 100%;
-    a {
-        color: #fff;
-        transition: background-size 250ms, color 250ms;
-        text-decoration: none;
-        @include border-gradient($primary-color, 100%, 2px);
-        background-size: 0% 2px;
-        &:hover,
-        &:focus,
-        &.active {
-            background-size: 100% 2px;
-            outline: 0;
-            color: $primary-color;
-        }
-        &.active {
-            background-image: linear-gradient(to right, $primary-color, $primary-color);
-        }
-    }
-    &>div {
-        height: $subheader-height;
-    }
-}
-
-nav a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 150px;
-    padding: 0 10px;
-    &>span {
-        margin-left: 10px;
-    }
-    @media (max-width: 767px) {
-        min-width: 50px;
-    }
-}
-
+// nav {
+//     z-index: 1000;
+//     position: fixed;
+//     width: 64%;
+//     left: 18%;
+//     margin-top: -20px;
+//     background: $project-nav-bg;
+//     @media (min-width: 1500px) {
+//         width: 50%;
+//         left: 25%;
+//     }
+//     a {
+//         font-family: $project-nav-font;
+//         color: $project-nav-color;
+//         text-transform: uppercase;
+//         display: inline-flex;
+//         justify-content: center;
+//         align-items: center;
+//         min-width: 150px;
+//         padding: 10px;
+//         transition: background-size 250ms, color 250ms;
+//         text-decoration: none;
+//         @include border-gradient($primary-color, 100%, 2px);
+//         background-size: 0% 2px;
+//         &:hover,
+//         &:focus,
+//         &.active {
+//             background-size: 100% 2px;
+//             outline: 0;
+//             color: $primary-color;
+//         }
+//         &.active {
+//             background-image: linear-gradient(to right, $primary-color, $primary-color);
+//         }
+//         &>span {
+//             margin-left: 10px;
+//         }
+//         @media (max-width: 767px) {
+//             min-width: 50px;
+//         }
+//     }
+//     &>div {
+//         height: $subheader-height;
+//     }
+// }
 .main-content {
-    margin-top: $subheader-height;
+    min-height: calc(100vh - #{$header-height});
+    margin-left: $project-side-nav-width;
+    // margin-top: $subheader-height;
 }
 
-$nav-background:#282828;
-$nav-color:#fff;
 .side-nav-bar {
-    width: 120px;
-    background: $nav-background;
+    min-height: calc(100vh - #{$header-height});
+    z-index: 1000;
+    width: $project-side-nav-width;
+    background: $project-nav-bg;
     padding: 20px 0;
-    border-right: 3px solid $primary-color;
-    position: relative;
+    border-right: 3px solid $project-side-nav-border;
+    position: fixed;
     z-index: 1000;
     a {
         transition: background-color 300ms;
-        color: $nav-color;
+        color: $project-nav-color;
         display: block;
         margin: 10px 0;
         padding: 7px 0;
@@ -86,11 +83,11 @@ $nav-color:#fff;
             width: 36px;
         }
         &:hover {
-            background-color: rgba(255, 255, 255, 0.02);
+            background-color: $project-side-nav-bg;
         }
         &.active {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid $primary-color;
+            background-color: $project-side-nav-bg;
+            border-left: 3px solid $project-side-nav-border;
         }
     }
 }

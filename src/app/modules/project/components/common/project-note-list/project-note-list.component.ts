@@ -6,50 +6,59 @@ import { ProjectTaskActions } from '../../../../store/reducers/project-task/proj
 import { NgRedux } from '@angular-redux/store';
 import { IAppState, ProjectNoteActions } from 'app/modules/store';
 import { NgForm } from '@angular/forms';
+import { trigger, transition, query, style, animate, animateChild, state } from '@angular/animations';
 
 @Component({
   selector: 'app-project-note-list',
   templateUrl: './project-note-list.component.html',
   styleUrls: ['./project-note-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('listAnim', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)', opacity: '0' }),
+        animate('300ms ease-out', style({ transform: 'translateX(0%)', opacity: '1' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0%)', opacity: '1', overflow: 'hidden' }),
+        animate('150ms ease-in', style({ transform: 'translateX(-100%)', opacity: '0' }))
+      ])
+    ]),
+    trigger('formAnim', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)', position: 'absolute', width: '*', opacity: '0' }),
+        animate('300ms ease-out', style({ transform: 'translateX(0%)', opacity: '1' }))
+      ]),
+      transition(':leave', [
+        style({ position: 'absolute', width: '*', transform: 'translateX(0%)', opacity: '1' }),
+        animate('150ms ease-in', style({ transform: 'translateX(100%)', opacity: '0' }))
+      ])
+    ])
+  ]
 })
 export class ProjectNoteListComponent implements OnInit {
 
-  @Input('notes')
-  notes$: Observable<Note[]>;
+  @Input()
+  notes: Note[];
 
-  @Input('loading')
-  loading$: Observable<boolean>;
+  @Input()
+  loading: boolean;
 
   @Output()
   create: EventEmitter<Note> = new EventEmitter<Note>();
 
   @Output()
-  toggle: EventEmitter<Note> = new EventEmitter<Note>();
+  delete: EventEmitter<Note> = new EventEmitter<Note>();
 
-  constructor(private _dragulaService: DragulaService, private _projectNoteActions: ProjectNoteActions, private _redux: NgRedux<IAppState>) {
-    _dragulaService.setOptions('project-notes', {
-      removeOnSpill: true
-    });
-    // _dragulaService.remove.subscribe((value) => {
-    //   const noteId = +value[1].getAttribute('note-id');
-    //   const projectId = this._redux.getState().selectedProject.id;
-    //   this._projectNoteActions.dispatchDelete(noteId, projectId);
-    // });
-  }
+  creationMode = false;
+
+  constructor() { }
 
   ngOnInit() {
   }
 
-  ngOnDestroy(): void {
-    this._dragulaService.destroy('project-notes');
-  }
-
-  submitCreate(form: NgForm) {
-    if (form.valid) {
-      this.create.emit(form.value);
-      form.reset();
-    }
+  public toggleCreationMode() {
+    this.creationMode = !this.creationMode;
   }
 
 }

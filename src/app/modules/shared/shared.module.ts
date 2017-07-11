@@ -9,7 +9,8 @@ import {
   MdButtonToggleModule, MdTabsModule, MdIconModule, MdToolbarModule,
   MdProgressSpinnerModule, MdSlideToggleModule, MdRadioModule, MdNativeDateModule,
   MdDatepickerModule,
-  MdTooltipModule
+  MdTooltipModule,
+  MdSidenavModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeysPipe } from './utils/keys.pipe';
@@ -78,6 +79,7 @@ import { ListItemDirective } from './components/list/list-item-directive/list-it
     InplaceComponent,
     InplaceDateComponent,
     MdTooltipModule,
+    MdSidenavModule,
     ListComponent,
     ListItemComponent,
     ListItemDirective,

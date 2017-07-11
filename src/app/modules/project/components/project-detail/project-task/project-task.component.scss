@@ -1,6 +1,16 @@
-@import '../project-details-variables';
-:host {
-    flex: 1;
-    display: flex;
-    @include project-details-container;
+@import 'variables';
+:host {}
+
+app-task-kaban {
+  margin-top: 80px;
+  min-height: calc(100vh - #{$header-height} - 80px);
+}
+
+md-sidenav {
+  width: 300px;
+}
+
+app-task-edition {
+  height: 100%;
+  display: block;
 }

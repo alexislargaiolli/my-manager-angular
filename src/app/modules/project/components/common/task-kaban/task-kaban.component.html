@@ -1,17 +1,17 @@
-<div class="column default-panel p-2 mat-elevation-z4 rounded d-flex flex-column">
-    <h2>A faire</h2>
-    <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)" class="mx-5 my-4">
-        <md-input-container class="d-block translucide-input">
-            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
-        </md-input-container>
-    </form>
-    <app-kaban-column [tasks]="todoTasks" [name]="dragulaName" [columnId]="0" class="light-scrollbar"></app-kaban-column>
+<div class="kanban-column-wrapper p-2 d-flex flex-column">
+  <h2>A faire ({{todoTasks.length}})</h2>
+  <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)" class="mx-5 my-4">
+    <md-input-container class="d-block">
+      <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
+    </md-input-container>
+  </form>
+  <app-kaban-column [tasks]="todoTasks" [name]="dragulaName" [columnId]="0" class="light-scrollbar flex-1" (select)="selectTask($event)"></app-kaban-column>
 </div>
-<div class="column default-panel p-2 mat-elevation-z4 rounded">
-    <h2>En cours</h2>
-    <app-kaban-column [tasks]="inProgressTasks" [name]="dragulaName" [columnId]="1" class="light-scrollbar"></app-kaban-column>
+<div class="kanban-column-wrapper p-2 d-flex flex-column">
+  <h2>En cours ({{inProgressTasks.length}})</h2>
+  <app-kaban-column [tasks]="inProgressTasks" [name]="dragulaName" [columnId]="1" class="light-scrollbar flex-1" (select)="selectTask($event)"></app-kaban-column>
 </div>
-<div class="column default-panel p-2 mat-elevation-z4 rounded">
-    <h2>Fait</h2>
-    <app-kaban-column [tasks]="finishedTasks" [name]="dragulaName" [columnId]="2" class="light-scrollbar"></app-kaban-column>
+<div class="kanban-column-wrapper p-2 d-flex flex-column">
+  <h2>Fait ({{finishedTasks.length}})</h2>
+  <app-kaban-column [tasks]="finishedTasks" [name]="dragulaName" [columnId]="2" class="light-scrollbar flex-1" (select)="selectTask($event)"></app-kaban-column>
 </div>

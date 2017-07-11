@@ -1,35 +1,29 @@
 @import 'utils';
 @import 'variables';
 :host {
-    flex: 1;
-    display: flex;
+  flex: 1;
+  display: flex;
 }
 
 h2 {
-    font-size: 20px;
-    text-align: center;
-    padding-bottom: 10px;
-    @include border-gradient($primary-color, 100%, 2px);
+  font: 20px $title-font;
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 10px;
 }
 
-.column {
-    flex-grow: 1;
-    width: 33%;
+.kanban-column-wrapper {
+  flex-grow: 1;
+  width: 33%;
 }
 
-.column+.column {
-    margin-left: 20px;
-}
-
-.gh-fork {
-    position: fixed;
-    top: 0;
-    right: 0;
-    border: 0;
+.kanban-column-wrapper+.kanban-column-wrapper {
+  margin-left: 20px;
+  border-left: 1px solid #eee;
 }
 
 .create-task-form {
-    md-input-container {
-        display: block;
-    }
+  md-input-container {
+    display: block;
+  }
 }

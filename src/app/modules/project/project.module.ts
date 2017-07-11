@@ -13,7 +13,6 @@ import { ProjectTaskComponent } from './components/project-detail/project-task/p
 import { ProjectSettingsComponent } from './components/project-detail/project-settings/project-settings.component';
 import { NoteListComponent } from './components/common/note-list/note-list.component';
 import { ProjectClientComponent } from './components/common/project-client/project-client.component';
-import { GainListComponent } from './components/common/gain-list/gain-list.component';
 import { ProjectHistoryComponent } from './components/common/project-history/project-history.component';
 import { ProjectDashboardComponent } from './components/project-detail/project-dashboard/project-dashboard.component';
 import { ProjectInvoiceComponent } from './components/project-detail/project-invoice/project-invoice.component';
@@ -35,6 +34,10 @@ import { ProjectInvoiceEditionComponent } from './components/project-detail/proj
 import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
 import { CreateNoteComponent } from './components/common/create-note/create-note.component';
 import { ButtonInplaceComponent } from './components/common/button-inplace/button-inplace.component';
+import { GainSummaryComponent } from './components/common/gain-summary/gain-summary.component';
+import { ProjectMenuComponent } from './components/project-detail/project-menu/project-menu.component';
+import { ProjectDetailResolver } from './services/project-resolver';
+import { TaskEditionComponent } from './components/project-detail/project-task/task-edition/task-edition.component';
 
 @NgModule({
   imports: [
@@ -52,7 +55,6 @@ import { ButtonInplaceComponent } from './components/common/button-inplace/butto
     ProjectTaskComponent,
     ProjectSettingsComponent,
     NoteListComponent,
-    GainListComponent,
     ProjectClientComponent,
     ProjectHistoryComponent,
     ProjectDashboardComponent,
@@ -74,10 +76,14 @@ import { ButtonInplaceComponent } from './components/common/button-inplace/butto
     ProjectInvoiceEditionComponent,
     SelectDevisComponent,
     CreateNoteComponent,
-    ButtonInplaceComponent
+    ButtonInplaceComponent,
+    GainSummaryComponent,
+    ProjectMenuComponent,
+    TaskEditionComponent
   ],
   providers: [
-    NavigationService
+    NavigationService,
+    ProjectDetailResolver
   ],
   entryComponents: [
     SelectDevisComponent

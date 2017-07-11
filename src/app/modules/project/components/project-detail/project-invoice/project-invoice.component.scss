@@ -1,32 +1,34 @@
 @import '../project-details-variables';
 :host {
-    flex: 1;
-    display: flex;
-    @include project-details-container;
+  @include project-details-container;
+}
+
+.square-list {
+  margin-top: 100px;
 }
 
 app-invoice-preview {
-    transform: scale(0.38);
-    transform-origin: top left;
+  transform: scale(0.38);
+  transform-origin: top left;
 }
 
 .devis-state {
-    height: 30px;
-    line-height: 30px;
-    position: absolute;
-    z-index: 100;
-    background: #fff;
-    width: 300px;
-    color: #fff;
-    font-family: 'Oswald', sans-serif;
-    text-align: center;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  z-index: 100;
+  background: #fff;
+  width: 300px;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
 }
 
 .draft {
-    color: #222;
+  color: #222;
 }
 
 .square-list-item {
-    width: 300px;
-    height: 420px;
+  width: 300px;
+  height: 420px;
 }

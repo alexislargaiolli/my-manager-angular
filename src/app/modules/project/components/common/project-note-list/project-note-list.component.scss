@@ -1,27 +1,26 @@
 @import 'components';
-.post-it {
-    @extend .default-panel-item;
-    cursor: move;
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
+md-card-actions {
+  margin: 0;
+  padding: 0;
 }
 
-.note-list-wrapper {
-    min-height: 100px;
+app-list {
+  height: 250px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.gu-transit {
-    opacity: 0.5;
+md-card-content {
+  height: 250px;
+  overflow: hidden;
 }
 
-.gu-mirror {
-    background-color: rgba(0, 0, 0, 0.2);
-    transition: opacity 0.4s ease-in-out;
+.note-remove-button {
+  color: #aaa;
+  transition: 300ms ease-in-out opacity;
+  opacity: 0;
 }
 
-.gu-mirror {
-    cursor: grabbing;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
+.note-item:hover .note-remove-button {
+  opacity: 1;
 }

@@ -1,1 +1,16 @@
 @import 'components';
+:host {
+  display: block;
+}
+
+.create-project {
+  margin-right: 10px;
+}
+
+md-card {
+  margin-bottom: 10px;
+}
+
+md-card+md-card {
+  margin-right: 10px;
+}

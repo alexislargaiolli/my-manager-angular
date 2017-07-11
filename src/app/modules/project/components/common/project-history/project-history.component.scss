@@ -2,39 +2,87 @@
 @import 'utils';
 @import 'variables';
 :host {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    @extend .default-panel;
+    display: block;
 }
 
-.history-item {
-    margin-top: 2px;
-}
-
-.history-item-content {
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-}
-
-.history-date {
-    font-size: 10px;
-    color: #aaa;
-}
-
-.history-content-wrapper {
-    flex: 1;
-    .history-title {
-        color: #eee;
-        font-size: 12px;
+.history-wrapper {
+    min-height: 108px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    .history-item {
+        margin: 0 10px;
+        .history-item-label {
+            background: #fff;
+            border-radius: 2px;
+        }
+        .history-item-icon {
+            color: #666;
+        }
+        .history-item-spacer {
+            display: inline-block;
+            background: #ccc;
+            width: 2px;
+            height: 20px;
+        }
+        .history-title {
+            font: 13px $title-font;
+            color: #666;
+            white-space: nowrap;
+        }
+        .history-content {
+            font: 11px $text-font;
+            color: #888;
+            white-space: nowrap;
+        }
+        .history-item-dot {
+            position: relative;
+            z-index: 11;
+            color: #ccc;
+        }
+        .history-date {
+            font: 10px $text-font;
+            color: #888;
+        }
     }
-    .history-content {
-        font-size: 10px;
+    &::-webkit-scrollbar {
+        height: 10px;
+        // background-color: rgba(255, 255, 255, 0.5);
+    }
+    &::-webkit-scrollbar-track {
+        // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }
 
-.update-form-wrapper {
-    background: #fff;
+.time-arrow {
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: -26px;
+    position: absolute;
+    z-index: 10;
+    background: #ccc;
+}
+
+.shift-icon {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.left-button,
+.right-button {
+    outline: none;
+    position: absolute;
+    z-index: 100;
+}
+
+.left-button {
+    margin-left: 20px;
+}
+
+.right-button {
+    left: calc(100% - 60px);
 }

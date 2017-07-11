@@ -1,43 +1,92 @@
-<div>
-    <h2 class="panel-title">Activités</h2>
-    <md-progress-bar color="primary" mode="indeterminate" *ngIf="loading$ | async">
-    </md-progress-bar>
-    <form #historyForm="ngForm" autocomplete="false" (ngSubmit)="createEntry(historyForm.value)" class="list-create-form my-2">
-        <md-input-container class="translucide-input">
-            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle activité..." required>
-        </md-input-container>
-        <button md-button type="submit"><md-icon>add</md-icon></button>
-    </form>
-    <p *ngIf="(historyEntries$ | async)?.length == 0">Aucun historique...</p>
-</div>
-<div class="mt-2">
-    <div *ngFor="let entry of (historyEntries$ | async)" class="history-item selectable">
-
-        <!--<div *ngIf="selected?.id == entry.id" class="update-form-wrapper" [@itemState]="true">
-            <form #selectedEntryForm="ngForm" (ngSubmit)="updateSelected()" class="d-flex flex-column">
-                <md-input-container fxFlex="70">
-                    <input name="title" type="text" mdInput [(ngModel)]="selected.title" placeholder="Libellé..." required>
-                </md-input-container>
-                <md-input-container>
-                    <input name="content" type="text" mdInput [(ngModel)]="selected.content" placeholder="Description...">
-                </md-input-container>
-                <material-datepicker name="date" [(date)]="selected.date"></material-datepicker>
-
-                <div class="d-flex justify-content-end">
-                    <button md-button type="submit"><md-icon>save</md-icon></button>
-                    <button md-button type="button" (click)="unselect();$event.stopPropagation()"><md-icon>cancel</md-icon></button>
-                    <button md-button type="button" (click)="deleteSelected();$event.stopPropagation()"><md-icon>delete</md-icon></button>
-                </div>
-            </form>
-        </div>-->
-        <div class="history-item-content">
-            <span class="fa fa-folder p-2"></span>
-            <div class="history-content-wrapper">
+<div #historyWrapper class="history-wrapper d-flex">
+    <div class="loading-status text-info pl-4" *ngIf="loading">
+        Chargement de l'historique
+        <app-spinner></app-spinner>
+    </div>
+    <div *ngFor="let entry of historyEntries" class="history-item">
+        <div class="history-item-label mat-elevation-z2 d-flex align-items-center p-2">
+            <!--<span class="history-item-icon fa fa-file-o mr-2" *ngIf="entry.type === 'DEVIS_CREATED'"></span>-->
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'DEVIS_CREATED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-plus fa-stack-1x"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'DEVIS_PENDING'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-hourglass-o fa-stack-1x text-info"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'DEVIS_DRAFT'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-pencil fa-stack-1x"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'DEVIS_ACCEPTED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-check fa-stack-1x text-success"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'DEVIS_DELETED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-remove fa-stack-1x text-danger"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_CREATED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-plus fa-stack-1x"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_PENDING'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-hourglass-o fa-stack-1x text-info"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_DRAFT'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-pencil fa-stack-1x"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_PAID'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-check fa-stack-1x text-success"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_DELETED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-remove fa-stack-1x text-danger"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'INVOICE_ABANDONED'">
+                <i class="fa fa-file-o fa-stack-2x"></i>
+                <i class="fa fa-ban fa-stack-1x text-danger"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'TASK_CREATED'">
+                <i class="fa fa-bars fa-stack-2x"></i>
+                <i class="fa fa-plus fa-stack-1x shift-icon text-success"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'TASK_TODO'">
+                <i class="fa fa-bars fa-stack-2x"></i>
+                <i class="fa fa-circle-o fa-stack-1x shift-icon text-info"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'TASK_INPROGRESS'">
+                <i class="fa fa-bars fa-stack-2x"></i>
+                <i class="fa fa-hourglass fa-stack-1x shift-icon text-info"></i>
+            </span>
+            <span class="history-item-icon fa-stack mr-2" *ngIf="entry.type === 'TASK_FINISHED'">
+                <i class="fa fa-bars fa-stack-2x"></i>
+                <i class="fa fa-check fa-stack-1x shift-icon text-success"></i>
+            </span>
+            <div class="d-flex flex-column">
                 <div class="history-title">{{entry.title}}</div>
                 <div class="history-content">{{entry.content}} </div>
-                <span class="history-date">{{entry.date | date}}</span>
             </div>
         </div>
+        <div class="text-center">
+            <span class="history-item-spacer"></span>
+            <span class="history-item-dot d-block fa fa-circle"></span>
+        </div>
+        <div class="text-center history-date">
+            {{entry.date | date}}
+        </div>
     </div>
-    <button md-button (click)="loadMoreEntry()">Plus</button>
 </div>
+<div class="time-arrow"></div>
+<button md-mini-fab (click)="loadMoreEntry()" class="left-button" *ngIf="!showScrollLeftBtn()" mdTooltip="Charger les éléments plus anciens" mdTooltipPosition="right">
+    <md-icon>more_horiz</md-icon>
+</button>
+<button md-mini-fab (click)="scrollLeft()" class="left-button" *ngIf="showScrollLeftBtn()">
+    <md-icon>arrow_backward</md-icon>
+</button>
+<button md-mini-fab (click)="scrollRight()" class="right-button" *ngIf="showScrollRightBtn()">
+    <md-icon>arrow_forward</md-icon>
+</button>

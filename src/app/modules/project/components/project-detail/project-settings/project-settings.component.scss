@@ -1,10 +1,17 @@
 @import '../project-details-variables';
 :host {
-    display:block;
-    @include project-details-container;    
+  @include project-details-container;
 }
 
 nav /deep/ .mat-tab-links {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+:host>div.container {
+  padding-top: 100px;
+}
+
+md-input-container {
+  display: block;
 }

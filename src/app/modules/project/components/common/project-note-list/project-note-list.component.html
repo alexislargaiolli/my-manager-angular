@@ -1,17 +1,32 @@
-<h2>Post it</h2>
-<md-progress-bar color="primary" mode="indeterminate" *ngIf="loading$ | async">
-</md-progress-bar>
-<form #noteForm="ngForm" (ngSubmit)="submitCreate(noteForm)" class="p-2">
-    <md-input-container>
-        <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." minlength="4" required>
-    </md-input-container>
-    <button md-button type="submit"><md-icon>add</md-icon></button>
-</form>
+<md-card class="note-panel custom-title">
+  <md-card-title class="mat-elevation-z4">Notes</md-card-title>
+  <md-card-content>
+    <app-create-note (create)="create.emit($event);toggleCreationMode()" *ngIf="creationMode" [@formAnim]="'true'"
+      class="d-block default-panel-item rounded"></app-create-note>
 
-<div class="note-list">
-    <div [dragula]='"project-notes"' class="note-list-wrapper">
-        <div *ngFor="let note of (notes$ | async)" (click)="toggle.emit(note)" class="post-it p-2 my-2 rounded" [attr.note-id]="note.id" [ngClass]="{'done' : note.done}">
-            {{note.title}}
+    <app-list [items]="notes" [loading]="loading" class="light-scrollbar default-theme" *ngIf="!creationMode"
+      [@listAnim]="'true'">
+      <div class="note-item flex-1 rounded d-flex align-items-center p-2" *appListItem="let note=item;let state=state;">
+        <md-icon *ngIf="note.priority == 0" class="text-success mx-2">arrow_downward</md-icon>
+        <md-icon *ngIf="note.priority == 1" class="text-warning mx-2">arrow_upward</md-icon>
+        <md-icon *ngIf="note.priority == 2" class="text-danger mx-2">arrow_upward</md-icon>
+        <span class="flex-1">{{note.title}}</span>
+
+        <div class="d-flex note-remove-button" [class.hide]="state === 'ACTIVE'">
+          <button md-button (click)="delete.emit(note)" class="icon-only">
+            <md-icon>delete</md-icon>
+          </button>
         </div>
-    </div>
-</div>
+      </div>
+    </app-list>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="toggleCreationMode()">
+      <md-icon *ngIf="creationMode">arrow_back</md-icon>
+      {{ creationMode ? 'Annuler': 'Nouvelle note' }}
+    </button>
+  </md-card-actions>
+  <md-card-footer>
+    <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
+  </md-card-footer>
+</md-card>

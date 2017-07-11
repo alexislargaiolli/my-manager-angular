@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy, HostBinding, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgForm } from '@angular/forms';
 import { centerApparitionAnimation, listSlideAnim } from 'app/animations';
+import { MdSidenav } from "@angular/material";
 
 @Component({
   selector: 'app-task-kaban',
@@ -29,7 +30,7 @@ export class TaskKabanComponent implements OnInit, OnDestroy {
   create: EventEmitter<Task> = new EventEmitter<Task>();
 
   @Output()
-  remove: EventEmitter<Task> = new EventEmitter<Task>();
+  select: EventEmitter<Task> = new EventEmitter<Task>();
 
   public dragulaName = 'KABAN';
 
@@ -42,27 +43,6 @@ export class TaskKabanComponent implements OnInit, OnDestroy {
       const previousState: number = +value[3].getAttribute('column-id');
       this.stateChange.emit({ taskId, previousState, nextState });
     });
-
-    this._dragulaService.setOptions(this.dragulaName, {
-      removeOnSpill: true
-    });
-    this._dragulaService.remove.subscribe((value) => {
-      const taskId = +value[1].getAttribute('task-id');
-      const state: number = +value[2].getAttribute('column-id');
-      let task = null;
-      if (state === 0) {
-        task = this.todoTasks.find(t => t.id === taskId);
-      }
-      else if (state === 1) {
-        task = this.inProgressTasks.find(t => t.id === taskId);
-      }
-      else if (state === 2) {
-        task = this.finishedTasks.find(t => t.id === taskId);
-      }
-
-      this.remove.emit(task);
-      // this._noteActions.dispatchDelete(noteId);
-    });
   }
 
   ngOnDestroy() {
@@ -74,6 +54,10 @@ export class TaskKabanComponent implements OnInit, OnDestroy {
       this.create.emit(taskForm.value)
       taskForm.reset();
     }
+  }
+
+  selectTask(task: Task) {
+    this.select.emit(task);
   }
 
 }

@@ -2,20 +2,36 @@
 @import 'variables';
 @import 'components';
 :host {
-    @include project-details-container;
+    display: block;
+}
+
+section {
+    @extend .subheader;
+    padding-top: 50px;
+    height: 450px;
+    margin-bottom: 100px;
+    app-gain-summary {
+        margin-bottom: -20px;
+    }
+    .note-panel {
+        background: #fff;
+        height: 300px;
+        margin-bottom: -20px;
+        md-card-content {
+            max-height: 240px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    }
 }
 
 .project-header {
     h1 {
-        color: #333;
         font-family: $title-font;
         text-transform: uppercase;
         font-size: 50px;
         line-height: 50px;
         margin: 0;
-    }
-    p {
-        color: #333;
     }
 }
 
@@ -47,11 +63,24 @@
     }
 }
 
-project-history {
-    max-width: 275px;
-}
-
 app-note-list {
     @extend .default-panel;
     min-width: 300px;
+}
+
+.block-link {
+    color: $color2;
+    text-decoration: none;
+    width: 20%;
+    height: 200px;
+    text-align: center;
+    h2 {
+        font-size: 30px;
+    }
+    .mat-icon {
+        font-size: 100px;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
 }

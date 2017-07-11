@@ -1,12 +1,8 @@
 @import '../project-details-variables';
 :host {
-    flex: 1;
-    display: flex;
-    @include project-details-container;
+  @include project-details-container;
 }
 
 app-project-devis-list {
-    flex: 1;
+  margin-top: 100px;
 }
-
-.square-list {}

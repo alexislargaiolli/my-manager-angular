@@ -1,20 +1,29 @@
-<form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)" autocomplete="false">
-    <div class="p-2 d-flex align-items-baseline">
-        <md-button-toggle-group [ngModel]="0" name="priority">
-            <md-button-toggle value="0" mdTooltip="Priorité normale" class="text-info">
-                <md-icon>info_outline</md-icon>
-            </md-button-toggle>
-            <md-button-toggle value="1" mdTooltip="Priorité importante" class="text-warning">
-                <md-icon>warning</md-icon>
-            </md-button-toggle>
-            <md-button-toggle value="2" mdTooltip="Priorité urgente" class="text-danger">
-                <md-icon>priority_hight</md-icon>
-            </md-button-toggle>
-        </md-button-toggle-group>
-        <md-input-container class="translucide-input flex-1 mx-2">
-            <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
-        </md-input-container>
-        <button md-button type="submit" class="text-success icon-only"><md-icon>add_circle</md-icon></button>
-        <button md-button (click)="cancelCreation(noteForm)" class="icon-only"><md-icon>cancel</md-icon></button>
+<div>
+  <form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)" autocomplete="false">
+    <div class="p-2 d-flex flex-column">
+      <md-button-toggle-group [ngModel]="0" value="0" name="priority">
+        <md-button-toggle value="0" mdTooltip="Priorité normale" class="text-info">
+          <md-icon>arrow_downward</md-icon>
+          Normal
+        </md-button-toggle>
+        <md-button-toggle value="1" mdTooltip="Priorité importante" class="text-warning">
+          <md-icon>arrow_upward</md-icon>
+          Important
+        </md-button-toggle>
+        <md-button-toggle value="2" mdTooltip="Priorité urgente" class="text-danger">
+          <md-icon>arrow_upward</md-icon>
+          Urgent
+        </md-button-toggle>
+      </md-button-toggle-group>
+      <md-input-container>
+        <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
+      </md-input-container>
+      <!--<button md-button (click)="cancelCreation(noteForm)">
+        <md-icon>cancel</md-icon>
+      </button>-->
+      <button md-raised-button type="submit" class="align-self-end">
+        Ajouter
+      </button>
     </div>
-</form>
+  </form>
+</div>

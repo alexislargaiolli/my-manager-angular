@@ -1,3 +1,14 @@
+:host {
+  display: block;
+}
+
 .items-wrapper>app-list-item {
-    padding: 3px 0;
+  padding: 3px 0;
+}
+
+:host.default-theme /deep/ app-list-item {
+  border-top: 1px solid #eee;
+  &:last-child {
+    border-bottom: 1px solid #eee;
+  }
 }

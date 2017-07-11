@@ -14,7 +14,7 @@ export class SelectedProjectActions {
      * Utils method to get current project with @select(SelectedProjectActions.currentProject)
      * @param state 
      */
-    public static currentProject(state: IAppState) {
+    public static currentProject(state: IAppState): Project {
         let currentId = state.selectedProject.id;
         return ProjectActions.findProject(state, currentId);
     }

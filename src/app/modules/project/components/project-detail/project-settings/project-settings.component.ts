@@ -5,7 +5,7 @@ import { Component, OnInit, Input, EventEmitter, Output, HostBinding } from '@an
 import { DialogsService, NotificationService } from 'app/modules/core';
 import { Project, Client } from 'app/models';
 import { DateUtils } from 'app/modules/shared';
-import { centerApparitionAnimation } from 'app/animations';
+import { centerApparitionAnimation, leaveWorkaround } from 'app/animations';
 import { IAppState, ProjectActions } from 'app/modules/store';
 import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -15,9 +15,11 @@ import { ProjectClientActions } from '../../../../store/reducers/project-client/
   selector: 'app-project-settings',
   templateUrl: './project-settings.component.html',
   styleUrls: ['./project-settings.component.scss'],
-  animations: [centerApparitionAnimation]
+  animations: [centerApparitionAnimation, leaveWorkaround]
 })
 export class ProjectSettingsComponent implements OnInit {
+
+  @HostBinding('@leaveWorkaround') anim = true;
 
   @select(['projectClient', 'items'])
   clients$: Observable<Client>;

@@ -1,8 +1,12 @@
+:host {
+  display: block;
+}
+
 md-button-toggle-group {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .mat-button-toggle-checked {
-    background: none;
-    border: 1px solid;
+  background: none;
+  border: 1px solid;
 }

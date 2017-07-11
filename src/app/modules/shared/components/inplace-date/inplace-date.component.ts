@@ -18,6 +18,9 @@ export class InplaceDateComponent implements OnInit {
   @Input()
   noValueLabel: string;
 
+  @Input()
+  inputClass: string;
+
   _date: Date;
 
   display = false;
