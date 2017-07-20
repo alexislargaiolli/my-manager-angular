@@ -8,9 +8,7 @@ export class KeysPipe implements PipeTransform {
         for (let enumMember in value) {
             let isValueProperty = parseInt(enumMember, 10) >= 0;
             if (isValueProperty) {
-                keys.push({ key: enumMember, value: value[enumMember] });
-                // Uncomment if you want log
-                // console.log("enum member: ", value[enumMember]);
+                keys.push({ key: Number(enumMember), value: value[enumMember] });
             }
         }
         return keys;

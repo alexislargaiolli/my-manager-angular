@@ -13,9 +13,7 @@ import { IAppState } from 'app/modules/store';
   animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectListComponent implements OnInit, OnChanges {
-
-  public static readonly ITEM_PER_LINE = 4;
+export class ProjectListComponent implements OnInit {
 
   @Input()
   loading: boolean;
@@ -26,15 +24,19 @@ export class ProjectListComponent implements OnInit, OnChanges {
   @Output()
   public create: EventEmitter<Project> = new EventEmitter<Project>();
 
+  originalProjectList: Project[] = null;
+
+  projectStates = ProjectState;
+
   _projects: Project[] = [];
 
-  public ProjectState = ProjectState;
+  _animationState = -1;
 
-  public today: Date = new Date();
+  slots = [1, 1, 1, 1];
 
-  public _animationState = -1;
-
-  public slots = [];
+  sortField: string;
+  sortOrder = 1;
+  filterState: ProjectState;
 
   constructor(private elementRef: ElementRef) {
   }
@@ -42,20 +44,43 @@ export class ProjectListComponent implements OnInit, OnChanges {
   public ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const slotCount = ProjectListComponent.ITEM_PER_LINE - (this.projects.length % ProjectListComponent.ITEM_PER_LINE);
-    this.slots = Array(slotCount).fill(1);
-  }
-
   public selectProject(p: Project) {
     this.select.emit(p);
   }
 
-  public isLate(p: Project): boolean {
-    if (p.plannedEndDate) {
-      return new Date(p.plannedEndDate) < this.today;
+  public sort(event) {
+    const field = event.value;
+    this.sortOrder = field === this.sortField ? this.sortOrder * -1 : 1;
+    this.sortField = field;
+    if (this.sortField === 'name') {
+      this.projects = this.projects.sort((p1, p2) => {
+        return p1.name.localeCompare(p2.name) * this.sortOrder;
+      });
+    } else if (this.sortField === 'state') {
+      this.projects = this.projects.sort((p1, p2) => {
+        return p1.state.toString().localeCompare(p2.state.toString()) * this.sortOrder;
+      });
+    } else if (this.sortField === 'deadline') {
+      this.projects = this.projects.sort((p1, p2) => {
+        if (!p1.plannedEndDate || !p2.plannedEndDate) {
+          return 1 * this.sortOrder;
+        }
+        return (new Date(p1.plannedEndDate).getTime() - new Date(p2.plannedEndDate).getTime()) * this.sortOrder;
+      });
     }
-    return false;
+  }
+
+  public filter() {
+    if (this.originalProjectList === null) {
+      this.originalProjectList = this._projects;
+    }
+    this._projects = this.originalProjectList.filter(p => {
+      let keep = true;
+      if (this.filterState !== null && p.state !== this.filterState) {
+        keep = false;
+      }
+      return keep;
+    });
   }
 
   public animationState() {
