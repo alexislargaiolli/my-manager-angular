@@ -1,3 +1,4 @@
+import { RepositoryRequest } from './../../../core/services/repositories/repository-request';
 import { Injectable } from '@angular/core';
 import { ProjectActions } from './project.actions';
 import { RepositoriesService } from 'app/modules/core';
@@ -16,16 +17,7 @@ import { NgRedux } from '@angular-redux/store';
 import { IAppState } from 'app/modules/store';
 
 @Injectable()
-export class ProjectEpics extends ModelEpics<Project>{
-
-    constructor(
-        protected _repo: RepositoriesService,
-        protected _projectActions: ProjectActions,
-        protected _redux: NgRedux<IAppState>,
-        private _selectedProjectActions: SelectedProjectActions
-    ) {
-        super(Project.REPO_KEY, _repo, _projectActions);
-    }
+export class ProjectEpics extends ModelEpics<Project> {
 
     @Epic()
     loadProject = this.load;
@@ -39,6 +31,14 @@ export class ProjectEpics extends ModelEpics<Project>{
     @Epic()
     deleteProject = this.delete;
 
+    constructor(
+        protected _repo: RepositoriesService,
+        protected _projectActions: ProjectActions,
+        protected _redux: NgRedux<IAppState>,
+        private _selectedProjectActions: SelectedProjectActions
+    ) {
+        super(Project.REPO_KEY, _repo, _projectActions);
+    }
 
     @Epic()
     onProjectCreated = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))
@@ -60,4 +60,8 @@ export class ProjectEpics extends ModelEpics<Project>{
             const updatedProject = Object.assign({}, project, { progress: action.payload.progress });
             return this._projectActions.update(updatedProject);
         })
+
+    protected loadRequest(request: RepositoryRequest<Project>) {
+        request.include('notes');
+    }
 }

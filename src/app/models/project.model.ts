@@ -1,3 +1,4 @@
+import { Note } from './note.model';
 import { Client } from './client.model';
 import { IModel } from 'app/modules/core';
 
@@ -16,6 +17,7 @@ export class Project implements IModel {
     public progress = 0;
     public state: ProjectState = ProjectState.PROSPECTION;
     public clients: Client[];
+    public notes: Note[];
 
     constructor() { }
 

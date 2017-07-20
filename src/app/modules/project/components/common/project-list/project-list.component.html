@@ -2,23 +2,32 @@
   Chargement des projects
   <app-spinner></app-spinner>
 </div>
-<div class="d-flex flex-wrap">
-  <md-card class="create-project selectable-card" (click)="create.emit()" *ngIf="!loading">
-    <md-card-title>
-      <md-icon>add box</md-icon>Nouveau projet</md-card-title>
-  </md-card>
-  <md-card *ngFor="let project of projects" class="anim-item selectable-card" (click)="selectProject(project)">
-    <md-card-title>{{project.name}}</md-card-title>
-    <md-card-content>
-      <p>{{project.description}}</p>
-      <p class="badge badge-default" *ngIf="project.state == 0">En cours de prospection</p>
-      <p class="badge badge-info" *ngIf="project.state == 1">En attente de validation du devis</p>
-      <p class="badge badge-primary" *ngIf="project.state == 2">En cours de réalisation</p>
-      <p class="badge badge-warning" *ngIf="project.state == 3">En attente de paiement</p>
-      <p class="badge badge-success" *ngIf="project.state == 4">Terminé</p>
-    </md-card-content>
-    <md-card-footer>
-      <md-progress-bar [value]="project.progress" color="accent"></md-progress-bar>
-    </md-card-footer>
-  </md-card>
+
+<div class="row no-gutters">
+  <!-- FILTER PANEL -->
+  <div class="create-project-column col-sm-12 col-md-12 col-lg-3 col-xl-2">
+    <md-card class="create-project" *ngIf="!loading">
+      <md-card-content class="d-flex flex-column justify-content-around h-100">
+        <button (click)="create.emit()" md-raised-button class="blue mx-auto">Nouveau Projet</button>
+        <md-select placeholder="Organiser par">
+          <md-option [value]="'name'">Nom</md-option>
+          <md-option [value]="'status'">Status</md-option>
+        </md-select>
+        <md-select placeholder="Filter par">
+          <md-option [value]="'name'">En cours uniquement</md-option>
+          <md-option [value]="'status'">Terminé uniquement</md-option>
+        </md-select>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div class="project-list-column col d-flex flex-column flex-sm-row flex-wrap">
+    <!-- PROJECTS -->
+    <app-project-list-item *ngFor="let project of projects" [project]="project" (click)="selectProject(project)" class="pb-4"></app-project-list-item>
+
+    <!-- SLOTS -->
+    <div *ngFor="let slot of slots" class="project-slot pb-4">
+      <div class="project-slot-content"></div>
+    </div>
+  </div>
 </div>

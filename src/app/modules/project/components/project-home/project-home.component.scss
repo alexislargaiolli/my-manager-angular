@@ -1,17 +1,8 @@
 @import 'variables';
 @import 'components';
-:host {
-  display: block;
-}
-
-section {
-  @extend .subheader;
-  height: 300px;
-  margin-bottom: 60px;
-  app-gain-summary {
-    margin-bottom: -20px;
-  }
-  & /deep/ .note-panel {
-    margin: 40px 0 -20px 0;
-  }
+.actions-panel {
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  left: calc(100vw - 50px - 30px);
 }

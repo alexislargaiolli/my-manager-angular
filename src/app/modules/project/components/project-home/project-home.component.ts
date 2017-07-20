@@ -39,19 +39,9 @@ export class ProjectHomeComponent implements OnInit {
   @select(['notes', 'loading'])
   notesLoading$: Observable<boolean>;
 
-  @select(['dashboard', 'waitingDevis'])
-  waitingDevis$: Observable<number>;
-
-  @select(['dashboard', 'acceptedDevis'])
-  acceptedDevis$: Observable<number>;
-
-  @select(['dashboard', 'waitingInvoices'])
-  waitingInvoices$: Observable<number>;
-
-  @select(['dashboard', 'paidInvoices'])
-  paidInvoices$: Observable<number>;
-
   state: string = null;
+
+  creating = false;
 
   constructor(
     private _ngRedux: NgRedux<IAppState>,
@@ -63,10 +53,12 @@ export class ProjectHomeComponent implements OnInit {
   public ngOnInit() {
   }
 
+  public toggleProjectCreation() {
+    this.creating = !this.creating;
+  }
+
   public createProject(event) {
-    const project = new Project();
-    project.name = 'Nouveau projet';
-    this._projectActions.dispatchCreate(project);
+    this._projectActions.dispatchCreate(event);
   }
 
   public delete(project) {

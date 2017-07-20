@@ -1,20 +1,13 @@
-<div class="fluid-container">
-  <section class="row no-gutters subheader">
-    <div class="col-6 d-flex flex-column justify-content-between ml-4">
-      <h1>Dashboard projects</h1>
-      <app-gain-summary [waitingDevis]="waitingDevis$ | async" [acceptedDevis]="acceptedDevis$ | async" [waitingInvoices]="waitingInvoices$ | async"
-        [paidInvoices]="paidInvoices$ | async"></app-gain-summary>
-    </div>
-    <div class="col"></div>
-    <div class="col mr-4">
-      <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (create)="createNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
-    </div>
-  </section>
-
-  <div class="mx-4">
-    <h1>Mes projets</h1>
-    <project-list [projects]="projects$ | async" [loading]="loading$ | async" (select)="onSelectionEnds($event)" (create)="createProject($event)"
-      class="light-scrollbar">
-    </project-list>
+<div class="container-fluid" *ngIf="!creating">
+  <!-- <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (create)="createNote($event)" (delete)="deleteNote($event)"></app-project-note-list> -->
+  <div class="actions-panel">
+    <button md-mini-fab><md-icon>import_contacts</md-icon></button>
+    <button md-mini-fab class="mt-2"><md-icon>note_add</md-icon></button>
   </div>
+  <div class="p-5"></div>
+  <project-list [projects]="projects$ | async" [loading]="loading$ | async" (select)="onSelectionEnds($event)" (create)="toggleProjectCreation()"
+    class="light-scrollbar">
+  </project-list>
 </div>
+
+<app-create-project (create)="createProject($event)" (cancel)="toggleProjectCreation()" *ngIf="creating"></app-create-project>

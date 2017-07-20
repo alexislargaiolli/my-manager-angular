@@ -1,14 +1,16 @@
-<button class="profile-btn" md-button [mdMenuTriggerFor]="menu">
+<div class="d-inline-flex align-items-center">
+  <span class="username mr-2">{{profile?.firstname}} {{profile?.lastname}}</span>
+  <button class="profile-btn" md-button [mdMenuTriggerFor]="menu">
   <md-icon>person</md-icon>  
-  <span class="username">{{profile?.firstname}} {{profile?.lastname}}</span>
-  <md-icon>more_vert</md-icon>  
+  <!-- <md-icon>more_vert</md-icon>    -->
 </button>
+</div>
 <md-menu #menu="mdMenu">
-    <button [routerLink]="['/profile']" md-menu-item>
+  <button [routerLink]="['/profile']" md-menu-item>
     <md-icon>person</md-icon>
     <span>Mon profil</span>
   </button>
-    <button (click)="logout()" md-menu-item>
+  <button (click)="logout()" md-menu-item>
     <md-icon>exit_to_app</md-icon>
     <span>Se déconnecter</span>
   </button>

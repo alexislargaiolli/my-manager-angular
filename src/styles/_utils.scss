@@ -1,31 +1,49 @@
 .grow-1 {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .flex-1 {
-    flex: 1;
+  flex: 1;
 }
 
 .bg-white {
-    background: white;
+  background: white;
 }
 
 .toolbar-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .selectable {
-    transition: background 300ms;
+  transition: background 300ms;
 }
 
 .selectable:not(.selected-item):hover {
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 
 @mixin border-gradient($color, $width, $height) {
-    background-image: linear-gradient(to right, transparentize($color, 0.8), $color, transparentize($color, 0.8));
-    background-repeat: no-repeat;
-    background-size: $width $height;
-    background-position: center bottom;
+  background-image: linear-gradient(to right, transparentize($color, 0.8), $color, transparentize($color, 0.8));
+  background-repeat: no-repeat;
+  background-size: $width $height;
+  background-position: center bottom;
+}
+
+.light-scrollbar::-webkit-scrollbar {
+  width: 10px; // background-color: rgba(255, 255, 255, 0.5);
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+  // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.mat-button.icon-only {
+  padding: 0;
+  min-width: 40px;
 }

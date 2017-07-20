@@ -17,6 +17,18 @@ export class HeaderComponent implements OnInit {
   @select(['profile', 'profile'])
   profile$: Observable<Profile>;
 
+  @select(['dashboard', 'waitingDevis'])
+  waitingDevis$: Observable<number>;
+
+  @select(['dashboard', 'acceptedDevis'])
+  acceptedDevis$: Observable<number>;
+
+  @select(['dashboard', 'waitingInvoices'])
+  waitingInvoices$: Observable<number>;
+
+  @select(['dashboard', 'paidInvoices'])
+  paidInvoices$: Observable<number>;
+
   constructor() { }
 
   ngOnInit() {

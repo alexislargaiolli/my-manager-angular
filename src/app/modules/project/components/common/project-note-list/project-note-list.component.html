@@ -1,11 +1,9 @@
 <md-card class="note-panel custom-title">
   <md-card-title class="mat-elevation-z4">Notes</md-card-title>
   <md-card-content>
-    <app-create-note (create)="create.emit($event);toggleCreationMode()" *ngIf="creationMode" [@formAnim]="'true'"
-      class="d-block default-panel-item rounded"></app-create-note>
+    <app-create-note (create)="create.emit($event);toggleCreationMode()" *ngIf="creationMode" [@formAnim]="'true'" class="d-block default-panel-item rounded"></app-create-note>
 
-    <app-list [items]="notes" [loading]="loading" class="light-scrollbar default-theme" *ngIf="!creationMode"
-      [@listAnim]="'true'">
+    <app-list [items]="notes" [loading]="loading" class="light-scrollbar default-theme" *ngIf="!creationMode" [@listAnim]="'true'">
       <div class="note-item flex-1 rounded d-flex align-items-center p-2" *appListItem="let note=item;let state=state;">
         <md-icon *ngIf="note.priority == 0" class="text-success mx-2">arrow_downward</md-icon>
         <md-icon *ngIf="note.priority == 1" class="text-warning mx-2">arrow_upward</md-icon>

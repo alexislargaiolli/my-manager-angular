@@ -1,3 +1,5 @@
+import { ProjectStatePipe } from './services/projectState.pipe';
+import { CreateProjectComponent } from './components/common/create-project/create-project.component';
 import { NgModule } from '@angular/core';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DatepickerModule } from 'angular2-material-datepicker';
@@ -29,15 +31,15 @@ import { TaskKabanComponent } from './components/common/task-kaban/task-kaban.co
 import { DevisListItemComponent } from './components/common/devis-list-item/devis-list-item.component';
 import { DevisPreviewComponent } from './components/common/devis-preview/devis-preview.component';
 import { DevisLinePipe } from './services/devis-line.pipe';
-import { InvoicePreviewComponent } from "./components/common/project/invoice/invoice-preview/invoice-preview.component";
+import { InvoicePreviewComponent } from './components/common/project/invoice/invoice-preview/invoice-preview.component';
 import { ProjectInvoiceEditionComponent } from './components/project-detail/project-invoice/project-invoice-edition/project-invoice-edition.component';
 import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
 import { CreateNoteComponent } from './components/common/create-note/create-note.component';
 import { ButtonInplaceComponent } from './components/common/button-inplace/button-inplace.component';
-import { GainSummaryComponent } from './components/common/gain-summary/gain-summary.component';
 import { ProjectMenuComponent } from './components/project-detail/project-menu/project-menu.component';
 import { ProjectDetailResolver } from './services/project-resolver';
 import { TaskEditionComponent } from './components/project-detail/project-task/task-edition/task-edition.component';
+import { ProjectListItemComponent } from 'app/modules/project/components/common/project-list/project-list-item/project-list-item.component';
 
 @NgModule({
   imports: [
@@ -48,6 +50,9 @@ import { TaskEditionComponent } from './components/project-detail/project-task/t
     MyManagerRoutingModule,
   ],
   declarations: [
+    DevisStatePipe,
+    DevisLinePipe,
+    ProjectStatePipe,
     ProjectHomeComponent,
     ProjectListComponent,
     ProjectCreateComponent,
@@ -62,8 +67,6 @@ import { TaskEditionComponent } from './components/project-detail/project-task/t
     ProjectInvoiceComponent,
     ProjectDevisEditionComponent,
     DevisDashboardComponent,
-    DevisStatePipe,
-    DevisLinePipe,
     OneValueCardComponent,
     ProjectStateComponent,
     ProjectNoteListComponent,
@@ -77,9 +80,10 @@ import { TaskEditionComponent } from './components/project-detail/project-task/t
     SelectDevisComponent,
     CreateNoteComponent,
     ButtonInplaceComponent,
-    GainSummaryComponent,
     ProjectMenuComponent,
-    TaskEditionComponent
+    TaskEditionComponent,
+    ProjectListItemComponent,
+    CreateProjectComponent
   ],
   providers: [
     NavigationService,
@@ -88,6 +92,7 @@ import { TaskEditionComponent } from './components/project-detail/project-task/t
   entryComponents: [
     SelectDevisComponent
   ],
-  exports: []
+  exports: [
+  ]
 })
 export class ProjectModule { }

@@ -1,5 +1,6 @@
 @import '../../node_modules/bootstrap/scss/bootstrap-reboot';
 @import '../../node_modules/bootstrap/scss/bootstrap-grid';
+@import '../../node_modules/bootstrap/scss/badge';
 @import '../../node_modules/bootstrap/scss/utilities';
 @import "../../node_modules/font-awesome/css/font-awesome.min.css";
 @import '~@angular/material/theming';
@@ -41,8 +42,8 @@ $bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
 .mat-slide-toggle-content,
 .mat-toolbar,
 .mat-tooltip {
-    // font-family: $text-font;
-    // color: $text-color;
+  // font-family: $text-font;
+  // color: $text-color;
 }
 
 .mat-button-toggle,
@@ -51,9 +52,9 @@ $bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
 .mat-raised-button,
 .mat-fab,
 .mat-icon-button {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .mat-input-placeholder-wrapper {
-    font-size: 13px;
+  font-size: 13px;
 }

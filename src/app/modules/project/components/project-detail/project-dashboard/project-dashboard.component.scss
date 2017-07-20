@@ -2,85 +2,84 @@
 @import 'variables';
 @import 'components';
 :host {
-    display: block;
+  display: block;
 }
 
 section {
-    @extend .subheader;
-    padding-top: 50px;
-    height: 450px;
-    margin-bottom: 100px;
-    app-gain-summary {
-        margin-bottom: -20px;
+  padding-top: 50px;
+  height: 450px;
+  margin-bottom: 100px;
+  app-gain-summary {
+    margin-bottom: -20px;
+  }
+  .note-panel {
+    background: #fff;
+    height: 300px;
+    margin-bottom: -20px;
+    md-card-content {
+      max-height: 240px;
+      overflow-x: hidden;
+      overflow-y: scroll;
     }
-    .note-panel {
-        background: #fff;
-        height: 300px;
-        margin-bottom: -20px;
-        md-card-content {
-            max-height: 240px;
-            overflow-x: hidden;
-            overflow-y: scroll;
-        }
-    }
+  }
 }
 
 .project-header {
-    h1 {
-        font-family: $title-font;
-        text-transform: uppercase;
-        font-size: 50px;
-        line-height: 50px;
-        margin: 0;
-    }
+  h1 {
+    font-family: $title-font;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 50px;
+    margin: 0;
+  }
 }
 
 .progress-wrapper {
+  md-progress-spinner,
+  .progress-wrapper-value {
+    width: 200px;
+    height: 200px;
+  }
+  .progress-wrapper-value {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      font-family: $title-font;
+      font-size: 40px;
+    }
+  }
+  @media (max-width: 575px) {
     md-progress-spinner,
     .progress-wrapper-value {
-        width: 200px;
-        height: 200px;
+      width: 100px;
+      height: 100px;
     }
-    .progress-wrapper-value {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        span {
-            font-family: $title-font;
-            font-size: 40px;
-        }
+    .progress-wrapper-value span {
+      font-size: 30px;
     }
-    @media (max-width: 575px) {
-        md-progress-spinner,
-        .progress-wrapper-value {
-            width: 100px;
-            height: 100px;
-        }
-        .progress-wrapper-value span {
-            font-size: 30px;
-        }
-    }
+  }
 }
 
 app-note-list {
-    @extend .default-panel;
-    min-width: 300px;
+  @extend .default-panel;
+  min-width: 300px;
 }
 
 .block-link {
-    color: $color2;
-    text-decoration: none;
-    width: 20%;
-    height: 200px;
-    text-align: center;
-    h2 {
-        font-size: 30px;
-    }
-    .mat-icon {
-        font-size: 100px;
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-    }
+  color: $color2;
+  text-decoration: none;
+  width: 20%;
+  height: 200px;
+  text-align: center;
+  h2 {
+    font-size: 30px;
+  }
+  .mat-icon {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
 }

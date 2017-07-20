@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Project, ProjectState } from 'app/models';
 import { select, NgRedux } from '@angular-redux/store';
@@ -13,9 +13,9 @@ import { IAppState } from 'app/modules/store';
   animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectListComponent implements OnInit {
+export class ProjectListComponent implements OnInit, OnChanges {
 
-  _projects: Project[] = [];
+  public static readonly ITEM_PER_LINE = 4;
 
   @Input()
   loading: boolean;
@@ -26,15 +26,25 @@ export class ProjectListComponent implements OnInit {
   @Output()
   public create: EventEmitter<Project> = new EventEmitter<Project>();
 
+  _projects: Project[] = [];
+
   public ProjectState = ProjectState;
+
   public today: Date = new Date();
 
   public _animationState = -1;
 
-  constructor() {
+  public slots = [];
+
+  constructor(private elementRef: ElementRef) {
   }
 
   public ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const slotCount = ProjectListComponent.ITEM_PER_LINE - (this.projects.length % ProjectListComponent.ITEM_PER_LINE);
+    this.slots = Array(slotCount).fill(1);
   }
 
   public selectProject(p: Project) {

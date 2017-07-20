@@ -20,4 +20,9 @@ export class DateUtils {
         }
         return new Date(object['date']['year'], object['date']['month'], object['date']['day']);
     }
+
+    public static dayBeweenTwoDate(date1: Date, date2: Date) {
+        const timeDiff = date2.getTime() - date1.getTime();
+        return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
 }

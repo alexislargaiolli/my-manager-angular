@@ -8,16 +8,17 @@ import { ProjectState } from 'app/models';
 
 @Injectable()
 export class ProjectActions extends ModelActions<Project> {
+    public static readonly UPDATE_STATE = 'UPDATE_STATE';
+    public static readonly UPDATE_PROGRESS = 'UPDATE_PROGRESS';
+
+    public static findProject(state: IAppState, projectId) {
+        return state.projects.items.find(p => p.id === projectId);
+    }
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
         super(_ngRedux, _repo, Project.REPO_KEY);
     }
 
-    public static findProject(state: IAppState, projectId) {
-        return state.projects.items.find(p => p.id == projectId);
-    }
-
-    public static readonly UPDATE_STATE = 'UPDATE_STATE';
     updateState(project: Project, state: ProjectState) {
         return {
             type: ProjectActions.UPDATE_STATE,
@@ -25,7 +26,6 @@ export class ProjectActions extends ModelActions<Project> {
         };
     }
 
-    public static readonly UPDATE_PROGRESS = 'UPDATE_PROGRESS';
     updateProgress(projectId: number, progress: number) {
         return {
             type: ProjectActions.UPDATE_PROGRESS,
