@@ -15,8 +15,8 @@ import { IAppState } from 'app/modules/store';
 })
 export class ProjectListComponent implements OnInit {
 
-  @Input()
-  loading: boolean;
+  @Input('loading')
+  loading: boolean = true;
 
   @Output()
   public select: EventEmitter<Project> = new EventEmitter<Project>();
@@ -92,7 +92,7 @@ export class ProjectListComponent implements OnInit {
     return this._projects;
   }
 
-  @Input()
+  @Input('projects')
   set projects(projects: Project[]) {
     this._projects = projects;
     this._animationState = this.projects.length;

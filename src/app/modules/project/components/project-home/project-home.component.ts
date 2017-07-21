@@ -1,3 +1,5 @@
+import { CreateNoteComponent } from './../common/create-note/create-note.component';
+import { MdDialog } from '@angular/material';
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { RepositoriesService } from 'app/modules/core';
@@ -47,7 +49,8 @@ export class ProjectHomeComponent implements OnInit {
     private _ngRedux: NgRedux<IAppState>,
     private _projectActions: ProjectActions,
     private _noteActions: NoteActions,
-    private _router: Router
+    private _router: Router,
+    private dialog: MdDialog
   ) { }
 
   public ngOnInit() {
@@ -73,8 +76,21 @@ export class ProjectHomeComponent implements OnInit {
     this._router.navigate(['./project', project.id, 'dashboard']);
   }
 
+  public openCreateNote() {
+    const ref = this.dialog.open(CreateNoteComponent);
+    ref.afterClosed().subscribe(note => {
+      if(note){
+        this.createNote(note);
+      }
+    });
+  }
+
   public createNote(note: Note) {
     this._noteActions.dispatchCreate(note);
+  }
+
+  public editNote(note: Note) {
+    this._noteActions.dispatchUpdate(note);
   }
 
   public deleteNote(note: Note) {

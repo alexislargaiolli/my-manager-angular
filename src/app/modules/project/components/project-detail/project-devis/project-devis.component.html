@@ -1,2 +1,4 @@
-<app-project-menu></app-project-menu>
-<app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (select)="onDevisClick($event)"></app-project-devis-list>
+<div class="container-fluid w-100 flex-1">
+  <app-project-title [title]="title" (back)="goBack()"></app-project-title>
+  <app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (select)="onDevisClick($event)"></app-project-devis-list>
+</div>

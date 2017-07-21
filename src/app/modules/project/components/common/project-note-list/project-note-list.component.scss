@@ -1,26 +1,9 @@
 @import 'components';
-md-card-actions {
-  margin: 0;
-  padding: 0;
+
+:host{
+    text-align:center;
 }
 
-app-list {
-  height: 250px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-md-card-content {
-  height: 250px;
-  overflow: hidden;
-}
-
-.note-remove-button {
-  color: #aaa;
-  transition: 300ms ease-in-out opacity;
-  opacity: 0;
-}
-
-.note-item:hover .note-remove-button {
-  opacity: 1;
+app-note-item+app-note-item{
+    margin-left:15px;
 }

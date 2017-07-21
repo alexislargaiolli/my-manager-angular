@@ -2,7 +2,6 @@
 :host {}
 
 app-task-kaban {
-  margin-top: 80px;
   min-height: calc(100vh - #{$header-height} - 80px);
 }
 
@@ -13,4 +12,12 @@ md-sidenav {
 app-task-edition {
   height: 100%;
   display: block;
+}
+
+.mat-sidenav-container {
+  background: none;
+}
+
+:host /deep/ .mat-sidenav-content {
+  padding: 0 15px;
 }

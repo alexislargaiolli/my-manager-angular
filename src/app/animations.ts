@@ -175,7 +175,7 @@ export const leaveWorkaround: AnimationMetadata =
     trigger('leaveWorkaround', [
         transition(':leave', [
             style({ opacity: 1 }),
-            animate('600ms ease-out', style({ opacity: 1 })),
+            // animate('600ms ease-out', style({ opacity: 1 })),
         ])
     ]);
 

@@ -1,10 +1,10 @@
 @import 'variables';
 html,
 body {
-    height: 100%;
-    font-family: $text-font;
-    color: $text-color;
-    background: $body-bg;
+  height: 100%;
+  font-family: $text-font;
+  color: $text-color;
+  background: $body-bg;
 }
 
 h1,
@@ -13,9 +13,16 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $title-font;
+  font-family: $title-font;
 }
 
 .loading-bar-wrapper {
-    height: 5px;
+  height: 5px;
+}
+
+.actions-panel {
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  left: calc(100vw - 50px - 15px);
 }

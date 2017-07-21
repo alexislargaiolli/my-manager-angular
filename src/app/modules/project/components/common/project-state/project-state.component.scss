@@ -1,12 +1,14 @@
 @import 'variables';
-:host {
-    display: block;
-}
-
-button {
-    outline: 0;
-}
-
-button.active {
-    background: rgba(255, 255, 255, 0.2);
+:host /deep/ {
+  .mat-button-toggle-group {
+    box-shadow: none;
+  }
+  .mat-button-toggle {
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+  .mat-button-toggle-label-content {
+    width: 36px;
+    padding: 0 5px;
+  }
 }

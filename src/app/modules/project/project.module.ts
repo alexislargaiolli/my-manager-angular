@@ -1,3 +1,5 @@
+import { ProjectTitleComponent } from './components/common/project-title/project-title.component';
+import { NoteItemComponent } from './components/common/project-note-list/note-item/note-item.component';
 import { ProjectStatePipe } from './services/projectState.pipe';
 import { CreateProjectComponent } from './components/common/create-project/create-project.component';
 import { NgModule } from '@angular/core';
@@ -83,14 +85,17 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     ProjectMenuComponent,
     TaskEditionComponent,
     ProjectListItemComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    NoteItemComponent,
+    ProjectTitleComponent
   ],
   providers: [
     NavigationService,
     ProjectDetailResolver
   ],
   entryComponents: [
-    SelectDevisComponent
+    SelectDevisComponent,
+    CreateNoteComponent
   ],
   exports: [
   ]

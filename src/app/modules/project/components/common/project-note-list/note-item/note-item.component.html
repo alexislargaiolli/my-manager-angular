@@ -1,0 +1,35 @@
+<div class="note rounded priority-{{note.priority}}" (mouseenter)="toggleActions()" (mouseleave)="toggleActions()">
+  <div class="note-actions rounded" *ngIf="actionsShown">
+    <button (click)="toggleEdit()" md-button class="icon-only"><md-icon>mode_edit</md-icon></button>
+    <button (click)="delete.emit(note)" md-button class="icon-only"><md-icon>delete</md-icon></button>
+  </div>
+  <form id="editForm" #editForm="ngForm" (ngSubmit)="editNote(editForm)" *ngIf="edition; else elseTemplate" (keydown)="keyDownFunction($event, editForm)">
+    <div class="p-2 d-flex">
+      <div class="d-flex flex-column">
+        <md-input-container>
+          <input mdInput [(ngModel)]="editedNote.title" placeholder="Pense bête" name="name">
+        </md-input-container>
+        <md-button-toggle-group [(ngModel)]="editedNote.priority" value="0" name="priority">
+          <md-button-toggle value="0" mdTooltip="Priorité normale" class="text-info">
+            <md-icon>arrow_downward</md-icon>
+          </md-button-toggle>
+          <md-button-toggle value="1" mdTooltip="Priorité importante" class="text-warning">
+            <md-icon>arrow_upward</md-icon>
+          </md-button-toggle>
+          <md-button-toggle value="2" mdTooltip="Priorité urgente" class="text-danger">
+            <md-icon>arrow_upward</md-icon>
+          </md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+      <div class="d-flex flex-column justify-content-between">
+        <button (click)="toggleEdit()" md-button class="icon-only"><md-icon>cancel</md-icon></button>
+        <button type="submit" md-button class="icon-only text-success"><md-icon>save</md-icon></button>
+      </div>
+    </div>
+  </form>
+  <ng-template #elseTemplate>
+    <div class="note-content">
+      {{note.title}}
+    </div>
+  </ng-template>
+</div>

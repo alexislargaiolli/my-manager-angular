@@ -1,15 +1,17 @@
-<div class="d-flex align-items-center flex-wrap">
-    <button md-button (click)="changeState(allState.PROSPECTION)" [ngClass]="{'active' : state === allState.PROSPECTION}">Prospection</button>
-    <md-icon>keyboard_arrow_right</md-icon>
-
-    <button md-button (click)="changeState(allState.DEVIS)" [ngClass]="{'active' : state === allState.DEVIS}">Devis</button>
-    <md-icon>keyboard_arrow_right</md-icon>
-
-    <button md-button (click)="changeState(allState.PRODUCTION)" [ngClass]="{'active' : state === allState.PRODUCTION}">Production</button>
-    <md-icon>keyboard_arrow_right</md-icon>
-
-    <button md-button (click)="changeState(allState.FACTURATION)" [ngClass]="{'active' : state === allState.FACTURATION}">Facturé</button>
-    <md-icon>keyboard_arrow_right</md-icon>
-
-    <button md-button (click)="changeState(allState.FINISHED)" [ngClass]="{'active' : state === allState.FINISHED}">Payé</button>
-</div>
+<md-button-toggle-group [value]="state" (change)="onChange($event)">
+  <md-button-toggle value="0" mdTooltip="En prospection">
+    <md-icon>explore</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="1" mdTooltip="Attente de validation du devis">
+    <md-icon>assignment</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="2" mdTooltip="En production">
+    <md-icon>list</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="3" mdTooltip="Attente de paiement">
+    <md-icon>attach_money</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="4" mdTooltip="Projet terminé">
+    <md-icon>check</md-icon>
+  </md-button-toggle>
+</md-button-toggle-group>

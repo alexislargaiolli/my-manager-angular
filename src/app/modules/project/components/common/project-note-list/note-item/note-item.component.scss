@@ -1,0 +1,59 @@
+$height: 30px;
+:host {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.note {
+  display: inline-block;
+  min-height: $height;
+  background: #fff;
+  padding: 0;
+  cursor: pointer;
+}
+
+.note.priority-1 {
+  background: #f0ad4e;
+}
+
+.note.priority-2 {
+  background: #d9534f;
+}
+
+.note.priority-1,
+.note.priority-2 {
+  .note-content {
+    color: #fff;
+  }
+  .note-actions md-icon {
+    color: #444;
+  }
+}
+
+.note-content {
+  padding: 2px 10px;
+}
+
+form {
+  background: #fff;
+}
+
+.note-actions {
+  position: relative;
+  text-align: right;
+  height: 30px;
+  margin-top: -$height;
+  top: $height;
+  background: rgba(238, 238, 238, 0.80);
+  button {
+    width: $height;
+    height: $height;
+    md-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+md-button-toggle-group {
+  box-shadow: none;
+}

@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { AbstractProjectComponent } from './../abstract-project.component';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Component, OnInit, Inject, Input, HostBinding, ViewChild } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -17,7 +19,7 @@ import { MdSidenav } from '@angular/material';
   styleUrls: ['./project-task.component.scss'],
   animations: [leaveWorkaround]
 })
-export class ProjectTaskComponent implements OnInit {
+export class ProjectTaskComponent extends AbstractProjectComponent implements OnInit {
 
   @HostBinding('@leaveWorkaround') anim = true;
 
@@ -38,10 +40,17 @@ export class ProjectTaskComponent implements OnInit {
 
   selectedTask: Task;
 
-  constructor(private _taskAction: ProjectTaskActions, private _ngRedux: NgRedux<IAppState>, private _historyActions: ProjectHistoryEntryActions) {
+  constructor(
+    private _taskAction: ProjectTaskActions,
+    protected _ngRedux: NgRedux<IAppState>,
+    protected _location: Location,
+    private _historyActions: ProjectHistoryEntryActions) {
+    super(_ngRedux, _location);
   }
 
-  public ngOnInit() { }
+  public ngOnInit() {
+    super.ngOnInit();
+  }
 
   public onStateChanged(event: IKabanChangeStateEvent) {
     const previousTask = this._ngRedux.getState().projectTasks.items.find(t => t.id === event.taskId);
@@ -72,6 +81,10 @@ export class ProjectTaskComponent implements OnInit {
 
   public cancelEdition(task: Task) {
     this.sidenav.close();
+  }
+
+  protected initProject(project) {
+    this.title = `${project.name} - Tâches`;
   }
 
 }

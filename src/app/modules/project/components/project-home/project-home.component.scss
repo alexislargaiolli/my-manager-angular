@@ -1,8 +1,6 @@
 @import 'variables';
 @import 'components';
-.actions-panel {
-  position: absolute;
-  text-align: center;
-  width: 50px;
-  left: calc(100vw - 50px - 30px);
+app-project-note-list {
+  display: block;
+  padding: 40px;
 }

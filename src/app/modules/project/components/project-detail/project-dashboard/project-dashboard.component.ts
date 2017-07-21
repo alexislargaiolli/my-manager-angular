@@ -1,3 +1,7 @@
+import { Location } from '@angular/common';
+import { AbstractProjectComponent } from './../abstract-project.component';
+import { CreateNoteComponent } from './../../common/create-note/create-note.component';
+import { MdDialog } from '@angular/material';
 import { Component, OnInit, HostBinding, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
 import { Project, Note, HistoryEntry, ProjectState, Devis, Client } from 'app/models';
 import { leaveWorkaround } from 'app/animations';
@@ -6,10 +10,10 @@ import { select, NgRedux } from '@angular-redux/store';
 import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions, ProjectInvoiceActions } from 'app/modules/store';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { InplaceComponent } from "app/modules/shared/components/inplace/inplace.component";
+import { InplaceComponent } from 'app/modules/shared/components/inplace/inplace.component';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'app/modules/core';
-import { ClientActions } from "app/modules/store/reducers/client/client.actions";
+import { ClientActions } from 'app/modules/store/reducers/client/client.actions';
 import { ProjectDevisActions } from '../../../../store/reducers/project-devis/project-devis.actions';
 import { ReduxSubscriptionComponent } from '../../../../core/components/redux-subscription-component/redux-subscription-component';
 
@@ -21,7 +25,7 @@ import { ReduxSubscriptionComponent } from '../../../../core/components/redux-su
         leaveWorkaround
     ]
 })
-export class ProjectDashboardComponent extends ReduxSubscriptionComponent implements OnInit, OnDestroy {
+export class ProjectDashboardComponent extends AbstractProjectComponent implements OnInit, OnDestroy {
 
     @HostBinding('@leaveWorkaround') anim = true;
 
@@ -49,40 +53,32 @@ export class ProjectDashboardComponent extends ReduxSubscriptionComponent implem
     @select(['projectClient', 'loading'])
     loadingClient$: Observable<boolean>;
 
-    @select(ProjectDevisActions.totalWaiting)
-    totalWaitingDevis$: Observable<number>;
-
-    @select(ProjectDevisActions.totalAccepted)
-    totalAcceptedDevis$: Observable<number>;
-
-    @select(ProjectInvoiceActions.totalWaiting)
-    totalWaitingInvoices$: Observable<number>;
-
-    @select(ProjectInvoiceActions.totalAccepted)
-    totalAcceptedInvoices$: Observable<number>;
-
     taskSummary: number[];
+    devisSummary: number[];
+    invoiceSummary: number[];
     clients: Client[] = [];
     allClients: Client[] = [];
-    project: Project;
-
 
     constructor(
-        private _ngRedux: NgRedux<IAppState>,
+        protected _ngRedux: NgRedux<IAppState>,
         private _projectAction: ProjectActions,
         private _clientAction: ClientActions,
         private _projectNoteActions: ProjectNoteActions,
         private _projectHistoryActions: ProjectHistoryEntryActions,
         private _projectClientActions: ProjectClientActions,
-        private _router: Router,
-        private _route: ActivatedRoute
-    ) { super(); }
+        protected _router: Router,
+        private _route: ActivatedRoute,
+        private dialog: MdDialog,
+        protected _location: Location
+    ) { super(_ngRedux, _location); }
 
     public ngOnInit() {
-        this.addSub(this._ngRedux.select(SelectedProjectActions.currentProject).subscribe(p => this.project = Object.assign({}, p)));
+        super.ngOnInit();
         this.addSub(this._ngRedux.select(['projectClient', 'items']).subscribe(clients => this.clients = Object.assign([], clients)));
         this.addSub(this._ngRedux.select(['clients', 'items']).subscribe(clients => this.allClients = Object.assign([], clients)));
         this.addSub(this._ngRedux.select(ProjectTaskActions.todoTaskCount).subscribe((taskSummary: number[]) => this.taskSummary = taskSummary));
+        this.addSub(this._ngRedux.select(ProjectDevisActions.devisSummary).subscribe((summary) => this.devisSummary = summary));
+        this.addSub(this._ngRedux.select(ProjectInvoiceActions.invoiceSummary).subscribe((summary) => this.invoiceSummary = summary));
     }
 
     public saveProject() {
@@ -103,8 +99,21 @@ export class ProjectDashboardComponent extends ReduxSubscriptionComponent implem
         this._projectAction.dispatchUpdateState(project, state);
     }
 
+    public openCreateNote() {
+        const ref = this.dialog.open(CreateNoteComponent);
+        ref.afterClosed().subscribe(note => {
+            if (note) {
+                this.createNote(note);
+            }
+        });
+    }
+
     public createNote(note: Note) {
         this._projectNoteActions.dispatchCreate(note, this.project.id);
+    }
+
+    public editNote(note: Note) {
+        this._projectNoteActions.dispatchUpdate(note, this.project.id);
     }
 
     public deleteNote(note: Note) {
@@ -134,5 +143,4 @@ export class ProjectDashboardComponent extends ReduxSubscriptionComponent implem
     public removeClient(client: Client) {
         this._projectClientActions.dispatchRemoveFromProject(client.id, this.project.id);
     }
-
 }

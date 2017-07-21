@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { AbstractProjectComponent } from './../abstract-project.component';
 import { MdDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -17,7 +19,7 @@ import { ProjectClientActions } from '../../../../store/reducers/project-client/
   styleUrls: ['./project-settings.component.scss'],
   animations: [centerApparitionAnimation, leaveWorkaround]
 })
-export class ProjectSettingsComponent implements OnInit {
+export class ProjectSettingsComponent extends AbstractProjectComponent implements OnInit {
 
   @HostBinding('@leaveWorkaround') anim = true;
 
@@ -27,19 +29,19 @@ export class ProjectSettingsComponent implements OnInit {
   @select(['clients', 'items'])
   allClient$: Observable<Client>;
 
-  public project: Project;
-
   constructor(
-    private _ngRedux: NgRedux<IAppState>,
+    protected _ngRedux: NgRedux<IAppState>,
+    protected _location: Location,
     private _projectActions: ProjectActions,
     private _projectClientActions: ProjectClientActions,
     private _router: Router,
     private _dialogsService: DialogsService
-  ) { }
+  ) {
+    super(_ngRedux, _location);
+  }
 
   public ngOnInit() {
-    const p = ProjectActions.findProject(this._ngRedux.getState(), this._ngRedux.getState().selectedProject.id);
-    this.project = Object.assign({}, p);
+    super.ngOnInit();
   }
 
   public addClient(client: Client) {
@@ -65,6 +67,10 @@ export class ProjectSettingsComponent implements OnInit {
         this._router.navigate(['/project']);
       }
     });
+  }
+
+  protected initProject(project) {
+    this.title = `${project.name} - Options`;
   }
 
 }

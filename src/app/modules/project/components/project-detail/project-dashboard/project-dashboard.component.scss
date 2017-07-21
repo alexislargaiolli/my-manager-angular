@@ -2,7 +2,46 @@
 @import 'variables';
 @import 'components';
 :host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+app-project-note-list {
   display: block;
+  padding: 40px;
+}
+
+.link-square {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  md-icon {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.square-devis {
+  background: #eee;
+}
+
+.square-tasks {
+  background: #ccc;
+}
+
+.square-invoices {
+  background: #bbb;
+}
+
+@media(max-width:576px) {
+  .link-squares {
+    flex-direction: column;
+  }
 }
 
 section {

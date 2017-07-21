@@ -1,3 +1,4 @@
+import { MdDialogRef } from '@angular/material';
 import { Component, OnInit, EventEmitter, Output, HostBinding } from '@angular/core';
 import { Note } from 'app/models';
 import { NgForm } from '@angular/forms';
@@ -8,21 +9,15 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-note.component.css'],
 })
 export class CreateNoteComponent implements OnInit {
-  @Output()
-  create: EventEmitter<Note> = new EventEmitter<Note>();
 
-  @Output()
-  cancel: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor() { }
+  constructor(public dialogRef: MdDialogRef<CreateNoteComponent>) { }
 
   ngOnInit() {
   }
 
   createNote(noteForm: NgForm) {
     if (noteForm.valid) {
-      this.create.emit(noteForm.value);
-      this.resetForm(noteForm);
+      this.dialogRef.close(noteForm.value);
     }
   }
 
@@ -32,8 +27,7 @@ export class CreateNoteComponent implements OnInit {
   }
 
   cancelCreation(noteForm: NgForm) {
-    this.resetForm(noteForm);
-    this.cancel.emit();
+    this.dialogRef.close(noteForm.value);
   }
 
 }
