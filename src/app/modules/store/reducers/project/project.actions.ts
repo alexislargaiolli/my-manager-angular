@@ -10,6 +10,7 @@ import { ProjectState } from 'app/models';
 export class ProjectActions extends ModelActions<Project> {
     public static readonly UPDATE_STATE = 'UPDATE_STATE';
     public static readonly UPDATE_PROGRESS = 'UPDATE_PROGRESS';
+    public static readonly ASSIGN_CLIENT = 'ASSIGN_CLIENT';
 
     public static findProject(state: IAppState, projectId) {
         return state.projects.items.find(p => p.id === projectId);
@@ -33,12 +34,26 @@ export class ProjectActions extends ModelActions<Project> {
         };
     }
 
+    public assignClient(projectId: number, client: Client) {
+        return {
+            type: ProjectActions.ASSIGN_CLIENT,
+            payload: {
+                projectId,
+                client
+            }
+        };
+    }
+
     public dispatchUpdateState(project: Project, state: ProjectState) {
         this._ngRedux.dispatch(this.updateState(project, state));
     }
 
     public dispatchUpdateProgress(projectId: number, progress: number) {
         this._ngRedux.dispatch(this.updateProgress(projectId, progress));
+    }
+
+    public dispatchAssignClient(projectId: number, client: Client) {
+        this._ngRedux.dispatch(this.assignClient(projectId, client));
     }
 
 }

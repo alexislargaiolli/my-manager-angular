@@ -12,4 +12,18 @@ export class Profile implements IModel {
     public phone: string;
     public siret: string;
     public addresses: Address[];
+    constructor() {
+        this.addresses = [];
+    }
+
+    public hasAddress(): boolean {
+        return this.addresses.length !== 0;
+    }
+
+    public getDefaultAddress(): Address {
+        if (this.addresses.length === 0) {
+            return null;
+        }
+        return this.addresses[0];
+    }
 }

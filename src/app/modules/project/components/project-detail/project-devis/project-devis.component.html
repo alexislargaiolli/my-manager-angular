@@ -1,4 +1,7 @@
-<div class="container-fluid w-100 flex-1">
+<div class="container-fluid w-100 h-100 d-flex flex-column">
   <app-project-title [title]="title" (back)="goBack()"></app-project-title>
-  <app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (select)="onDevisClick($event)"></app-project-devis-list>
+  <app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (create)="toggleCreation()" (select)="onDevisClick($event)"
+    *ngIf="!creation">
+  </app-project-devis-list>
+  <app-create-devis [project]="project" (create)="createDevis($event)" (cancel)="toggleCreation()" *ngIf="creation"></app-create-devis>
 </div>

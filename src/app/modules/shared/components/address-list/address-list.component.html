@@ -1,29 +1,32 @@
-<md-toolbar color="accent">
-    <button (click)="unselect()" md-button [hidden]="!selected"><md-icon>backspace</md-icon></button>
-    <span>Adresses</span>
-    <span class="toolbar-spacer"></span>
-    <button (click)="create()" md-button [hidden]="selected"><md-icon>add</md-icon></button>
-    <button form="addressForm" md-button [hidden]="!selected"><md-icon>save</md-icon></button>
-    <button (click)="delete(selected)" md-button [hidden]="!selected"><md-icon>delete</md-icon></button>
-</md-toolbar>
-<div [hidden]="selected" class="basic-list">
-    <div *ngFor="let address of addresses" (click)="select(address)" class="address-item p-2">
-        <md-icon class="align-middle">contact_mail</md-icon>
-        <span class="ml-2">{{address | myAddress}}</span>
-    </div>
-    <div *ngIf="addresses.length == 0" class="p-2">Aucune addresse...</div>
+<div *ngIf="!selected" class="basic-list">
+  <button md-button *ngFor="let address of addresses" (click)="select(address)">{{address | myAddress}}</button>
+  <!-- <div *ngFor="let address of addresses" (click)="select(address)" class="address-item p-2">
+    <md-icon class="align-middle">contact_mail</md-icon>
+    <span class="ml-2">{{address | myAddress}}</span>
+  </div> -->
+  <div *ngIf="addresses.length == 0" class="p-2">Aucune addresse...</div>
+  <div class="d-flex justify-content-end mt-2">
+    <button (click)="create()" class="blue" md-button>Nouvelle adresse</button>
+  </div>
 </div>
 <form id="addressForm" #addressForm="ngForm" (ngSubmit)="save(addressForm)" autocomplete="off" *ngIf="selected" class="d-flex flex-column">
-    <md-input-container class="translucide-input">
-        <input mdInput [ngModel]="selected?.street" name="street" type="text" required placeholder="Rue">
-    </md-input-container>
-    <md-input-container class="translucide-input">
-        <input mdInput [ngModel]="selected?.complement" name="complement" type="text" placeholder="Complément">
-    </md-input-container>
-    <md-input-container class="translucide-input">
-        <input mdInput [ngModel]="selected?.zipcode" name="zipcode" type="text" required placeholder="Code postal">
-    </md-input-container>
-    <md-input-container class="translucide-input">
-        <input mdInput [ngModel]="selected?.city" name="city" type="text" required placeholder="Ville">
-    </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput [ngModel]="selected?.street" name="street" type="text" required placeholder="Rue">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput [ngModel]="selected?.complement" name="complement" type="text" placeholder="Complément">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput [ngModel]="selected?.zipcode" name="zipcode" type="text" required placeholder="Code postal">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput [ngModel]="selected?.city" name="city" type="text" required placeholder="Ville">
+  </md-input-container>
+  <div class="d-flex justify-content-between">
+    <button (click)="unselect()" md-button [hidden]="!selected"><md-icon>arrow back</md-icon></button>
+    <div class="d-flex justify-content-end">
+      <button class="flex-last" type="submit" md-button><md-icon>save</md-icon></button>
+      <button (click)="delete(selected)" md-button *ngIf="!creation"><md-icon>delete</md-icon></button>
+    </div>
+  </div>
 </form>

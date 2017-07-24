@@ -1,3 +1,4 @@
+import { ClientActions } from './../../../../store/reducers/client/client.actions';
 import { Location } from '@angular/common';
 import { AbstractProjectComponent } from './../abstract-project.component';
 import { MdDialog } from '@angular/material';
@@ -23,6 +24,9 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
 
   @HostBinding('@leaveWorkaround') anim = true;
 
+  @select(['projectClient', 'loading'])
+  loadingClient$: Observable<boolean>;
+
   @select(['projectClient', 'items'])
   clients$: Observable<Client>;
 
@@ -34,6 +38,7 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
     protected _location: Location,
     private _projectActions: ProjectActions,
     private _projectClientActions: ProjectClientActions,
+    private _clientActions: ClientActions,
     private _router: Router,
     private _dialogsService: DialogsService
   ) {
@@ -42,14 +47,6 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
 
   public ngOnInit() {
     super.ngOnInit();
-  }
-
-  public addClient(client: Client) {
-    this._projectClientActions.dispatchAddToProject(client, this._ngRedux.getState().selectedProject.id);
-  }
-
-  public removeClient(client: Client) {
-    this._projectClientActions.dispatchRemoveFromProject(client.id, this._ngRedux.getState().selectedProject.id);
   }
 
   public saveSettings(form: NgForm) {
@@ -71,6 +68,18 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
 
   protected initProject(project) {
     this.title = `${project.name} - Options`;
+  }
+
+  public addClient(client: Client) {
+    this._projectClientActions.dispatchAddToProject(client, this.project.id);
+  }
+
+  public createClient(client: Client) {
+    this._clientActions.dispatchCreate(client);
+  }
+
+  public removeClient(client: Client) {
+    this._projectClientActions.dispatchRemoveFromProject(client.id, this.project.id);
   }
 
 }

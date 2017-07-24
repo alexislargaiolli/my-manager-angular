@@ -38,8 +38,11 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
 
         // -----------  CREATE  -------------- //
 
+        case ActionUtils.asyncActionType(actionSource, ModelActions.CREATE, ActionUtils.REQUEST):
+            return Object.assign({}, state, { creating: true, lastCreated: null });
+
         case ActionUtils.asyncActionType(actionSource, ModelActions.CREATE, ActionUtils.SUCCESS):
-            return Object.assign({}, state, { items: state.items.concat(action.payload), loading: false, error: null });
+            return Object.assign({}, state, { items: state.items.concat(action.payload), loading: false, error: null, creating: false, lastCreated: action.payload });
 
 
 

@@ -8,6 +8,9 @@ import { NgRedux } from '@angular-redux/store';
 @Injectable()
 export class ClientActions extends ModelActions<Client> {
 
+    public static readonly SELECT_CLIENT = 'SELECT_CLIENT';
+    public static readonly UNSELECT_CLIENT = 'UNSELECT_CLIENT';
+    public static readonly ADD_ADDRESS = 'ADD_ADDRESS';
     public static findSelectedClient(state: IAppState) {
         return state.clients.items.find(c => c.id === state.clients.selectedId);
     }
@@ -17,8 +20,7 @@ export class ClientActions extends ModelActions<Client> {
     }
 
 
-    public static readonly SELECT_CLIENT = 'SELECT_CLIENT';
-    selectClient(clientId: number) {
+    public selectClient(clientId: number) {
         return {
             type: ClientActions.SELECT_CLIENT,
             payload: clientId
@@ -29,8 +31,7 @@ export class ClientActions extends ModelActions<Client> {
         this._ngRedux.dispatch(this.selectClient(clientId));
     }
 
-    public static readonly UNSELECT_CLIENT = 'UNSELECT_CLIENT';
-    unSelectClient() {
+    public unSelectClient() {
         return {
             type: ClientActions.UNSELECT_CLIENT
         };

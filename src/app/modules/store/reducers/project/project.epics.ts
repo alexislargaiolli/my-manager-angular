@@ -61,6 +61,15 @@ export class ProjectEpics extends ModelEpics<Project> {
             return this._projectActions.update(updatedProject);
         })
 
+    @Epic()
+    assignClient = action$ => action$.ofType(ProjectActions.ASSIGN_CLIENT)
+        .map(action => {
+            const index = this._redux.getState().projects.items.findIndex(p => p.id === action.payload.projectId);
+            const project = this._redux.getState().projects.items[index];
+            const updatedProject = Object.assign({}, project, { clients: project.clients.concat(action.payload.progress) });
+            return this._projectActions.update(updatedProject);
+        })
+
     protected loadRequest(request: RepositoryRequest<Project>) {
         request.include('notes');
     }

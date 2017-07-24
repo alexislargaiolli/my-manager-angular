@@ -16,7 +16,7 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
 
     ngOnInit(): void {
         this.addSub(this._ngRedux.select(SelectedProjectActions.currentProject).subscribe(p => {
-            this.project = Object.assign({}, p);
+            this.project = Object.assign(new Project(), p);
             this.title = this.project.name;
             this.initProject(this.project);
         }));

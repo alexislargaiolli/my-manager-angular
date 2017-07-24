@@ -50,8 +50,6 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
     @select(['projectDevis', 'loading'])
     devisLoading$: Observable<boolean>;
 
-    @select(['projectClient', 'loading'])
-    loadingClient$: Observable<boolean>;
 
     taskSummary: number[];
     devisSummary: number[];
@@ -132,15 +130,4 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         this._router.navigate(['../devis', devis.id], { relativeTo: this._route });
     }
 
-    public addClient(client: Client) {
-        this._projectClientActions.dispatchAddToProject(client, this.project.id);
-    }
-
-    public createClient(client: Client) {
-        this._clientAction.dispatchCreate(client);
-    }
-
-    public removeClient(client: Client) {
-        this._projectClientActions.dispatchRemoveFromProject(client.id, this.project.id);
-    }
 }

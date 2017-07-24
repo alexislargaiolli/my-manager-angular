@@ -2,7 +2,7 @@ import { IModel } from 'app/modules/core';
 
 export class Address implements IModel {
     public static readonly REPO_KEY = 'Address';
-    public id: number;
+    public id: any;
     public createdAt: Date;
     public updatedAt: Date;
     public street: string;

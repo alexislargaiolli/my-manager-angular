@@ -20,7 +20,7 @@ export interface IAppState {
 }
 
 export interface INotificationState {
-    items: MyNotification[]
+    items: MyNotification[];
 }
 
 export interface IProfileState {

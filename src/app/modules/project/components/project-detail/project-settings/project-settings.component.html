@@ -14,6 +14,8 @@
             <md-input-container>
               <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
             </md-input-container>
+            <project-client [clients]="clients$ | async" [allClients]="allClients$ | async" [loading]="loadingClient$ | async" (add)="addClient($event)" (create)="createClient($event)"
+              (remove)="removeClient($event)" class="ml-4"></project-client>
           </div>
           <div class="col">
             <md-input-container>

@@ -1,3 +1,5 @@
+import { ClientModule } from './../client/client.module';
+import { CreateDevisComponent } from './components/common/create-devis/create-devis.component';
 import { ProjectTitleComponent } from './components/common/project-title/project-title.component';
 import { NoteItemComponent } from './components/common/project-note-list/note-item/note-item.component';
 import { ProjectStatePipe } from './services/projectState.pipe';
@@ -50,6 +52,7 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     MyDatePickerModule,
     DatepickerModule,
     MyManagerRoutingModule,
+    ClientModule
   ],
   declarations: [
     DevisStatePipe,
@@ -87,7 +90,8 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     ProjectListItemComponent,
     CreateProjectComponent,
     NoteItemComponent,
-    ProjectTitleComponent
+    ProjectTitleComponent,
+    CreateDevisComponent
   ],
   providers: [
     NavigationService,

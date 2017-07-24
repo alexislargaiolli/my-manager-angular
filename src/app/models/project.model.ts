@@ -19,7 +19,10 @@ export class Project implements IModel {
     public clients: Client[];
     public notes: Note[];
 
-    constructor() { }
+    constructor() {
+        this.clients = [];
+        this.notes = [];
+    }
 
     public isLate(): boolean {
         return false;

@@ -41,6 +41,11 @@ export class UserProfileGeneralComponent implements OnInit, OnDestroy {
     this._profileActions.dispatchUpdate(this.profile);
   }
 
+  public createAdresse(address: Address) {
+    this.profile.addresses.push(address);
+    this._profileActions.dispatchUpdate(this.profile);
+  }
+
   public saveAddress(address: Address) {
     this._profileActions.dispatchUpdate(this.profile);
   }

@@ -11,6 +11,8 @@ export interface IModelList<T extends IModel> {
     error: any;
     skip: number;
     limit: number;
+    creating?: boolean;
+    lastCreated?: T;
 }
 
 /**

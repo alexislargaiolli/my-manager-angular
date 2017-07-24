@@ -28,7 +28,7 @@ export class ProjectDevisActions extends ModelActions<Devis> {
     }
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Devis.REPO_KEY)
+        super(_ngRedux, _repo, Devis.REPO_KEY);
     }
 
 }

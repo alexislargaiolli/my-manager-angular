@@ -29,6 +29,9 @@ export class ProjectDevisListComponent implements OnInit {
   @Output()
   select: EventEmitter<Devis> = new EventEmitter<Devis>();
 
+  @Output()
+  create: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() { }

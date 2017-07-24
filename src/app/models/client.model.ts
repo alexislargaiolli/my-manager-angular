@@ -16,4 +16,15 @@ export class Client implements IModel {
     constructor() {
         this.addresses = [];
     }
+
+    public hasAddress(): boolean {
+        return this.addresses.length !== 0;
+    }
+
+    public getDefaultAddress(): Address {
+        if (this.addresses.length === 0) {
+            return null;
+        }
+        return this.addresses[0];
+    }
 }

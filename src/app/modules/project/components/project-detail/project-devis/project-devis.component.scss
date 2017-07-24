@@ -1,8 +1,1 @@
 @import '../project-details-variables';
-:host {
-  @include project-details-container;
-}
-
-app-project-devis-list {
-  margin-top: 100px;
-}

@@ -58,10 +58,7 @@ export class Devis implements IModel {
     }
 
     public importProfile(profile: Profile) {
-        if (profile.addresses != null && profile.addresses.length > 0) {
-            this.userAddress = profile.addresses[0];
-        }
-        this.userName = `${profile.firstname}  ${profile.lastname}`;
+        this.userName = `${profile.firstname} ${profile.lastname}`;
         this.siret = profile.siret;
         this.userPhone = profile.phone;
         this.userMail = profile.email;
@@ -74,11 +71,19 @@ export class Devis implements IModel {
         this.clientName = client.name;
     }
 
+    public setClient(client: Client) {
+        this.clientName = client.name;
+    }
+
     public generateFileName() {
         const client = this.clientName ? ' - ' + this.clientName : '';
         const username = this.userName ? ' - ' + this.userName : '';
         const date = this.createDate ? moment(this.createDate).format(' - DD-MM-YY') : moment().format(' - DD-MM-YY');
         return `Devis${username}${client}${date}.pdf`;
+    }
+
+    public generateDevisId(devisCountInProject: number) {
+        this.devisId = `${moment().format('YY-MM-DD')}-${devisCountInProject}`;
     }
 }
 

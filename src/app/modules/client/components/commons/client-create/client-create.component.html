@@ -1,18 +1,18 @@
-<form #clientForm="ngForm" (ngSubmit)="create.emit(clientForm);clientForm.reset()" autocomplete="off">
-    <md-input-container>
-        <input mdInput ngModel name="name" type="text" placeholder="Nom..." required>
-    </md-input-container>
-    <md-input-container>
-        <input mdInput ngModel name="firstname" type="text" placeholder="Prénom...">
-    </md-input-container>
-    <md-input-container>
-        <input mdInput ngModel name="lastname" type="text" placeholder="Nom de famille...">
-    </md-input-container>
-    <md-input-container>
-        <input mdInput ngModel name="email" type="email" placeholder="Email...">
-    </md-input-container>
-    <md-input-container>
-        <input mdInput ngModel name="tel" type="tel" placeholder="Téléphone...">
-    </md-input-container>
-    <button md-button type="submit"><md-icon>add box</md-icon>Créer</button>
+<form #clientForm="ngForm" (ngSubmit)="createClient(clientForm);" autocomplete="off">
+  <md-input-container>
+    <input mdInput [(ngModel)]="client.name" name="name" type="text" placeholder="Nom..." required>
+  </md-input-container>
+  <md-input-container>
+    <input mdInput [(ngModel)]="client.firstname" name="firstname" type="text" placeholder="Prénom...">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput [(ngModel)]="client.lastname" name="lastname" type="text" placeholder="Nom de famille...">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput [(ngModel)]="client.email" name="email" type="email" placeholder="Email...">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput [(ngModel)]="client.tel" name="tel" type="tel" placeholder="Téléphone...">
+  </md-input-container>
+  <button md-button type="submit">{{createButtonLabel}}</button>
 </form>
