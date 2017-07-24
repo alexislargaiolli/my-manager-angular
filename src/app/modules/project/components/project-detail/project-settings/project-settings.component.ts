@@ -31,7 +31,7 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
   clients$: Observable<Client>;
 
   @select(['clients', 'items'])
-  allClient$: Observable<Client>;
+  allClients$: Observable<Client>;
 
   constructor(
     protected _ngRedux: NgRedux<IAppState>,

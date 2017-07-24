@@ -7,7 +7,7 @@ import { Project } from 'app/models';
 import { OnInit } from '@angular/core';
 import { ReduxSubscriptionComponent } from 'app/modules/core';
 export class AbstractProjectComponent extends ReduxSubscriptionComponent implements OnInit {
-    protected project: Project;
+    public project: Project;
     public title: string;
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _location: Location) {
@@ -26,7 +26,7 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
 
     }
 
-    protected goBack() {
+    public goBack() {
         this._location.back();
     }
 }
