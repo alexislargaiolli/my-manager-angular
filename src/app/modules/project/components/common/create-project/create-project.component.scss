@@ -3,7 +3,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 100px;
+}
+
+.create-project-wrapper {
+  min-width: 400px;
 }
 
 .step {

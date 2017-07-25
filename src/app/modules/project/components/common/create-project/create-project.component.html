@@ -1,20 +1,30 @@
-<form #nameForm="ngForm" class="step" *ngIf="step === 0" (ngSubmit)="nextStep(nameForm)">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est le nom de votre
-    projet ?</p>
-  <md-input-container>
-    <input name="name" type="text" mdInput [(ngModel)]="project.name" placeholder="Nom du projet" required>
-  </md-input-container>
-  <button md-button class="align-self-end" type="submit">Suivant</button>
-</form>
+<div class="create-project-wrapper">
+  <form #nameForm="ngForm" class="step" *ngIf="step === 0" (ngSubmit)="nextStep(nameForm)">
+    <button type="submit" style="display:none">hidden submit</button>
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est le nom de votre
+      projet ?</p>
+    <md-input-container>
+      <input name="name" type="text" mdInput [(ngModel)]="project.name" placeholder="Nom du projet" required>
+    </md-input-container>
+    <button md-raised-button class="align-self-end" type="submit">Suivant</button>
+  </form>
 
 
-<form #deadForm="ngForm" class="step" *ngIf="step === 1" (ngSubmit)="createProject(deadForm)">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quelle est la deadline
-    du projet ?</p>
-  <md-input-container>
-    <input mdInput [(ngModel)]="project.plannedEndDate" [mdDatepicker]="myDatepicker" placeholder="Sélectionnez une date" name="deadline">
-    <button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
-  </md-input-container>
-  <md-datepicker #myDatepicker></md-datepicker>
-  <button md-raised-button class="blue align-self-end" type="submit">Créer</button>
-</form>
+  <form #deadForm="ngForm" class="step" *ngIf="step === 1" (ngSubmit)="createProject(deadForm)">
+    <button type="submit" style="display:none">hidden submit</button>
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quelle est la deadline
+      du projet ?</p>
+    <md-input-container>
+      <input mdInput [(ngModel)]="project.plannedEndDate" [mdDatepicker]="myDatepicker" placeholder="Sélectionnez une date" name="deadline">
+      <button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
+    </md-input-container>
+    <md-datepicker #myDatepicker></md-datepicker>
+    <button md-raised-button class="blue align-self-end" type="submit">Créer</button>
+  </form>
+
+  <div class="step" *ngIf="projectCreating | async">
+    <p>Création du projet
+      <app-spinner></app-spinner>
+    </p>
+  </div>
+</div>

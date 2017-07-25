@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
 import { Project } from './../../../../../models/project.model';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
@@ -14,6 +16,9 @@ export class CreateProjectComponent implements OnInit {
 
   @Output()
   cancel: EventEmitter<any> = new EventEmitter<any>();
+
+  @select(['projects', 'creating'])
+  projectCreating: Observable<boolean>;
 
   step: number = 0;
   project: Project;

@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <!-- Company info -->
+  <!-- Company info  -->
   <form #userProfileForm="ngForm" (ngSubmit)="userInfo(userProfileForm)" class="step" *ngIf="isStepProfileInfo()">
     <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Informations sur votre
       société
@@ -124,10 +124,10 @@
     <md-input-container>
       <input name="title" type="text" mdInput [ngModel]="devis.title" placeholder="Nom du devis" required>
     </md-input-container>
-    <button md-raised-button class="align-self-end" type="submit">Créer</button>
+    <button md-raised-button class="align-self-end blue" type="submit">Créer</button>
   </form>
 
-  <div *ngIf="isStepCreation() && (devisCreating | async)">
+  <div class="text-center" *ngIf="isStepCreation() && (devisCreating | async)">
     <p>Création du devis
       <app-spinner></app-spinner>
     </p>

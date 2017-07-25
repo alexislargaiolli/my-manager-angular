@@ -6,7 +6,7 @@
   <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
 </div>
 <project-list [projects]="projects$ | async" [loading]="loading$ | async" (select)="onSelectionEnds($event)" (create)="toggleProjectCreation()"
-  class="light-scrollbar">
+  class="light-scrollbar" *ngIf="!creating">
 </project-list>
 
 <app-create-project (create)="createProject($event)" (cancel)="toggleProjectCreation()" *ngIf="creating"></app-create-project>
