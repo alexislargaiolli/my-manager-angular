@@ -6,3 +6,9 @@ md-button-toggle-group {
   background: none;
   border: 1px solid;
 }
+
+@media (max-width: 767px) {
+   :host /deep/ .mat-button-toggle-label-content span {
+    display: none;
+  }
+}

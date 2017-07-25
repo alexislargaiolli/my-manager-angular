@@ -42,3 +42,9 @@
     width: 300px;
   }
 }
+
+@media (max-width: 767px) {
+  .gain-summary {
+    text-align: left;
+  }
+}

@@ -13,6 +13,10 @@ app-project-note-list {
   padding: 40px;
 }
 
+.link-squares {
+  flex: 1;
+}
+
 .link-square {
   cursor: pointer;
   display: flex;
@@ -23,6 +27,17 @@ app-project-note-list {
     font-size: 100px;
     width: 100px;
     height: 100px;
+  }
+  h2 {
+    text-align: center;
+  }
+  .summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    .badge {
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -38,9 +53,17 @@ app-project-note-list {
   background: #bbb;
 }
 
-@media(max-width:576px) {
+@media (max-width: 767px) {
   .link-squares {
+    flex: 2;
     flex-direction: column;
+  }
+  .link-square {
+    flex-direction: row;
+    justify-content: flex-start;
+    &>div {
+      flex: 1;
+    }
   }
 }
 
