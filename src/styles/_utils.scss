@@ -27,11 +27,12 @@
   cursor: pointer;
 }
 
-@mixin border-gradient($color, $width, $height) {
-  background-image: linear-gradient(to right, transparentize($color, 0.8), $color, transparentize($color, 0.8));
+@mixin border-gradient($startColor, $endColor, $width, $height, $position) {
+  background-image: -webkit-linear-gradient(to right, $startColor, $endColor);
+  background-image: linear-gradient(to right, $startColor, $endColor);
   background-repeat: no-repeat;
   background-size: $width $height;
-  background-position: center bottom;
+  background-position: $position;
 }
 
 .light-scrollbar::-webkit-scrollbar {

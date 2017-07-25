@@ -1,86 +1,135 @@
-<!-- Devis name -->
-<form #nameForm="ngForm" class="step" *ngIf="isStepName()" (ngSubmit)="devisInfo(nameForm)" (keyup.enter)="devisInfo(nameForm)">
-  <button type="submit" style="display:none">hidden submit</button>
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est le nom de votre
-    devis ?</p>
-  <md-input-container>
-    <input name="title" type="text" mdInput [ngModel]="devis.title" placeholder="Nom du devis" required>
-  </md-input-container>
-  <button md-button class="align-self-end" type="submit">Suivant</button>
-</form>
-
-<!-- User address selection -->
-<div class="step" *ngIf="isStepUserAddress()">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est votre adresse
-    de facturation ?
-  </p>
-  <app-address-list (onSelect)="selectUserAddress($event)" [addresses]="userAddresses" *ngIf="userAddresses.length > 0"></app-address-list>
-  <form #userAddressForm="ngForm" (ngSubmit)="createUserAddress(userAddressForm.value)" class="step" *ngIf="userAddresses.length === 0">
-    <md-input-container>
-      <input mdInput ngModel name="street" type="text" placeholder="Nom de rue">
-    </md-input-container>
-    <md-input-container>
-      <input mdInput ngModel name="complement" type="text" placeholder="Complément">
-    </md-input-container>
-    <md-input-container>
-      <input mdInput ngModel name="zipcode" type="text" placeholder="Code postal">
-    </md-input-container>
-    <md-input-container>
-      <input mdInput ngModel name="city" type="text" placeholder="Ville">
-    </md-input-container>
-    <button md-button type="submit">Suivant</button>
-  </form>
-</div>
-
-<form #userProfileForm="ngForm" (ngSubmit)="userInfo(userProfileForm)" class="step" *ngIf="isStepProfileInfo()">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Informations sur votre
-    société
-  </p>
-  <md-input-container>
-    <input mdInput [(ngModel)]="profile.siret" name="siret" placeholder="Numéro de siret">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput [(ngModel)]="profile.phone" name="phone" placeholder="Numéro de téléphone">
-  </md-input-container>
-  <button md-button type="submit">Suivant</button>
-</form>
-
-
-<!-- Client selection -->
-<div class="step" *ngIf="isStepClient()">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Qui est le client ?</p>
-  <div *ngIf="clients.length > 0">
-    <button md-button (click)="selectClient(client)" *ngFor="let client of clients">{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></button>
+<div class="create-devis-wrapper">
+  <div class="steps d-flex">
+    <div [ngClass]="{'active': isStepProfileInfo(), 'complete': isStepComplete(STEP_PROFILE_INFO)}">
+      <div class="step-number">
+        <span>1</span>
+        <span class="fa fa-check"></span>
+      </div>
+      <div class="step-title">Société</div>
+    </div>
+    <div [ngClass]="{'active': isStepUserAddress(), 'complete': isStepComplete(STEP_USER_ADDRESS)}">
+      <div class="step-number">
+        <span>2</span>
+        <span class="fa fa-check"></span>
+      </div>
+      <div class="step-title">Mon adresse</div>
+    </div>
+    <div [ngClass]="{'active': isStepClient(), 'complete': isStepComplete(STEP_CLIENT)}">
+      <div class="step-number">
+        <span>3</span>
+        <span class="fa fa-check"></span>
+      </div>
+      <div class="step-title">Client</div>
+    </div>
+    <div [ngClass]="{'active': isStepClientAddress(), 'complete': isStepComplete(STEP_CLIENT_ADDRESS)}">
+      <div class="step-number">
+        <span>4</span>
+        <span class="fa fa-check"></span>
+      </div>
+      <div class="step-title">Son adresse</div>
+    </div>
+    <div [ngClass]="{'active': isStepName(), 'complete': isStepComplete(STEP_NAME)}">
+      <div class="step-number">
+        <span>5</span>
+        <span class="fa fa-check"></span>
+      </div>
+      <div class="step-title">Devis</div>
+    </div>
   </div>
-  <app-client-create (create)="createClient($event)" *ngIf="clients.length === 0"></app-client-create>
-</div>
 
-<!-- Client address selection -->
-<div class="step" *ngIf="isStepClientAddress()">
-  <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quelle est l'adresse de
-    facturation du client ?</p>
-  <div *ngIf="client.addresses.length > 0">
-    <button md-button (click)="selectClientAddress(address)" *ngFor="let address of client.addresses">{{ address | myAddress}}</button>
-  </div>
-  <form #clientAddressForm="ngForm" (ngSubmit)="createClientAddress(clientAddressForm.value)" class="step" *ngIf="client.addresses.length === 0">
+  <!-- Company info -->
+  <form #userProfileForm="ngForm" (ngSubmit)="userInfo(userProfileForm)" class="step" *ngIf="isStepProfileInfo()">
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Informations sur votre
+      société
+    </p>
     <md-input-container>
-      <input mdInput ngModel name="street" type="text" placeholder="Nom de rue">
+      <input mdInput [(ngModel)]="profile.siret" name="siret" placeholder="Numéro de siret">
     </md-input-container>
     <md-input-container>
-      <input mdInput ngModel name="complement" type="text" placeholder="Complément">
+      <input mdInput [(ngModel)]="profile.phone" name="phone" placeholder="Numéro de téléphone">
     </md-input-container>
-    <md-input-container>
-      <input mdInput ngModel name="zipcode" type="text" placeholder="Code postal">
-    </md-input-container>
-    <md-input-container>
-      <input mdInput ngModel name="city" type="text" placeholder="Ville">
-    </md-input-container>
-    <button md-button type="submit">Suivant</button>
+    <div class="d-flex justify-content-end">
+      <button md-raised-button type="submit" class="flex-last">Suivant</button>
+      <button md-button (click)="nextStep()" class="mr-2">Ignorer</button>
+    </div>
   </form>
-</div>
 
-<div *ngIf="isStepCreation() && (devisCreating | async)">
-  <p>Création du devis
-    <app-spinner></app-spinner>
-  </p>
+  <!-- User address selection -->
+  <div class="step" *ngIf="isStepUserAddress()">
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est votre adresse
+      de facturation ?
+    </p>
+    <app-address-list (onSelect)="selectUserAddress($event)" [addresses]="userAddresses" *ngIf="userAddresses.length > 0"></app-address-list>
+    <form #userAddressForm="ngForm" (ngSubmit)="userAddressForm.valid ? createUserAddress(userAddressForm.value) : ''" class="step"
+      *ngIf="userAddresses.length === 0">
+      <md-input-container>
+        <input mdInput ngModel name="street" type="text" placeholder="Nom de rue" required>
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="complement" type="text" placeholder="Complément">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="zipcode" type="text" placeholder="Code postal" required>
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="city" type="text" placeholder="Ville" required>
+      </md-input-container>
+      <div class="d-flex justify-content-end">
+        <button md-raised-button type="submit" class="flex-last">Suivant</button>
+        <button md-button (click)="nextStep()" class="mr-2">Ignorer</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <!-- Client selection -->
+  <div class="step" *ngIf="isStepClient()">
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Qui est le client ?</p>
+    <div *ngIf="clients.length > 0" class="d-flex flex-column">
+      <button md-button (click)="selectClient(client)" *ngFor="let client of clients" class="mb-2"><md-icon>person</md-icon>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></button>
+    </div>
+    <app-client-create (create)="createClient($event)" *ngIf="clients.length === 0"></app-client-create>
+  </div>
+
+  <!-- Client address selection -->
+  <div class="step" *ngIf="isStepClientAddress()">
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quelle est l'adresse
+      de facturation du client ?</p>
+    <div *ngIf="client.addresses.length > 0" class="d-flex flex-column">
+      <button md-button (click)="selectClientAddress(address)" *ngFor="let address of client.addresses">{{ address | myAddress}}</button>
+    </div>
+    <form #clientAddressForm="ngForm" (ngSubmit)="createClientAddress(clientAddressForm.value)" class="step" *ngIf="client.addresses.length === 0">
+      <md-input-container>
+        <input mdInput ngModel name="street" type="text" placeholder="Nom de rue">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="complement" type="text" placeholder="Complément">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="zipcode" type="text" placeholder="Code postal">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="city" type="text" placeholder="Ville">
+      </md-input-container>
+      <button md-button type="submit">Suivant</button>
+    </form>
+  </div>
+
+  <!-- Devis name -->
+  <form #nameForm="ngForm" class="step" *ngIf="isStepName()" (ngSubmit)="devisInfo(nameForm)" (keyup.enter)="devisInfo(nameForm)">
+    <button type="submit" style="display:none">hidden submit</button>
+    <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Quel est le nom de votre
+      devis ?</p>
+    <md-input-container>
+      <input name="title" type="text" mdInput [ngModel]="devis.title" placeholder="Nom du devis" required>
+    </md-input-container>
+    <button md-raised-button class="align-self-end" type="submit">Créer</button>
+  </form>
+
+  <div *ngIf="isStepCreation() && (devisCreating | async)">
+    <p>Création du devis
+      <app-spinner></app-spinner>
+    </p>
+  </div>
 </div>

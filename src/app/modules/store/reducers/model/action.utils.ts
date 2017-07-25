@@ -24,7 +24,7 @@ export class ActionUtils {
     public static createAction(actionSource: string, actionName: string, actionState: string, payload: any) {
         const action = {
             type: ActionUtils.asyncActionType(actionSource, actionName, actionState)
-        }
+        };
         if (payload != null) {
             action['payload'] = payload;
         }

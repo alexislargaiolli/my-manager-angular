@@ -104,7 +104,7 @@ export abstract class ModelActions<T extends IModel> {
 
 
 
-    // Delete 
+    // Delete
 
     delete(model: T, projectId?: number) {
         return this.createAction(ModelActions.DELETE, ActionUtils.REQUEST, { model, projectId });
@@ -150,8 +150,9 @@ export abstract class ModelActions<T extends IModel> {
 
 
     save(body, projectId?: number) {
-        if (body['id'])
+        if (body['id']) {
             return this.update(body, projectId);
+        }
         return this.create(body, projectId);
     }
 

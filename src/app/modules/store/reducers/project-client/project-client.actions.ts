@@ -9,9 +9,11 @@ import { NgRedux } from '@angular-redux/store';
 export class ProjectClientActions extends ModelActions<Client> {
 
     public static readonly CLIENT_SOURCE = 'CLIENT_SOURCE';
+    public static readonly ADD_TO_PROJECT = 'ADD_TO_PROJECT';
+    public static readonly REMOVE_FROM_PROJECT = 'REMOVE_FROM_PROJECT';
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {
-        super(_ngRedux, _repo, Client.REPO_KEY)
+        super(_ngRedux, _repo, Client.REPO_KEY);
     }
 
     /**
@@ -21,7 +23,6 @@ export class ProjectClientActions extends ModelActions<Client> {
         return ProjectClientActions.CLIENT_SOURCE;
     }
 
-    public static readonly ADD_TO_PROJECT = 'ADD_TO_PROJECT';
     addToProject(client: Client, projectId: number) {
         return {
             type: ProjectClientActions.ADD_TO_PROJECT,
@@ -29,14 +30,13 @@ export class ProjectClientActions extends ModelActions<Client> {
                 client,
                 projectId
             }
-        }
+        };
     }
 
     public dispatchAddToProject(client: Client, projectId: number) {
         this._ngRedux.dispatch(this.addToProject(client, projectId));
     }
 
-    public static readonly REMOVE_FROM_PROJECT = 'REMOVE_FROM_PROJECT';
     removeFromProject(clientId: number, projectId: number) {
         return {
             type: ProjectClientActions.REMOVE_FROM_PROJECT,
@@ -44,7 +44,7 @@ export class ProjectClientActions extends ModelActions<Client> {
                 clientId,
                 projectId
             }
-        }
+        };
     }
 
     public dispatchRemoveFromProject(clientId: number, projectId: number) {

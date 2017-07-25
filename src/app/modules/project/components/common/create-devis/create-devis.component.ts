@@ -19,12 +19,12 @@ import { Devis, Address, Client, Profile } from 'app/models';
 })
 export class CreateDevisComponent extends ReduxSubscriptionComponent implements OnInit {
 
-  public static readonly STEP_NAME = 'NAME';
-  public static readonly STEP_USER_ADDRESS = 'USER_ADDRESS';
-  public static readonly STEP_PROFILE_INFO = 'PROFILE_INFO';
-  public static readonly STEP_CLIENT = 'CLIENT';
-  public static readonly STEP_CLIENT_ADDRESS = 'CLIENT_ADDRESS';
-  public static readonly STEP_CREATION = 'CREATION';
+  public readonly STEP_NAME = 'NAME';
+  public readonly STEP_USER_ADDRESS = 'USER_ADDRESS';
+  public readonly STEP_PROFILE_INFO = 'PROFILE_INFO';
+  public readonly STEP_CLIENT = 'CLIENT';
+  public readonly STEP_CLIENT_ADDRESS = 'CLIENT_ADDRESS';
+  public readonly STEP_CREATION = 'CREATION';
 
   @Input()
   project: Project;
@@ -44,6 +44,7 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
   clientAddresses: Address[];
   clients: Client[];
   steps = [];
+  completeSteps = [];
 
   step = 0;
   devis: Devis;
@@ -64,32 +65,43 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
     this.devis.generateDevisId(this._ngRedux.getState().projectDevis.items.length);
 
 
-    this.steps = [CreateDevisComponent.STEP_NAME];
+    this.steps = [];
     this.profile = Object.assign(new Profile(), this._ngRedux.getState().profile.profile);
+
+    // Check if compagny info step in necessary
+    if (!this.profile.siret || !this.profile.phone) {
+      this.addStep(this.STEP_PROFILE_INFO);
+    } else {
+      this.completeStep(this.STEP_PROFILE_INFO);
+    }
+
+    // Check if user address step in necessary
     if (this.profile.hasAddress()) {
       this.devis.userAddress = this.profile.getDefaultAddress();
+      this.completeStep(this.STEP_USER_ADDRESS);
     } else {
-      this.addStep(CreateDevisComponent.STEP_USER_ADDRESS);
+      this.addStep(this.STEP_USER_ADDRESS);
     }
 
-    if (!this.profile.siret || !this.profile.phone) {
-      this.addStep(CreateDevisComponent.STEP_PROFILE_INFO);
-    }
-
+    // Check if client step in necessary
     if (this._ngRedux.getState().projectClient.items.length === 1) {
       this.client = Object.assign(new Client(), this._ngRedux.getState().projectClient.items[0]);
       this.devis.setClient(this.client);
+      this.completeStep(this.STEP_CLIENT);
     } else {
-      this.addStep(CreateDevisComponent.STEP_CLIENT);
+      this.addStep(this.STEP_CLIENT);
     }
 
+    // Check if client address step in necessary
     if (this.client && this.client.hasAddress()) {
       this.devis.clientAddress = this.client.getDefaultAddress();
+      this.completeStep(this.STEP_CLIENT_ADDRESS);
     } else {
-      this.addStep(CreateDevisComponent.STEP_CLIENT_ADDRESS);
+      this.addStep(this.STEP_CLIENT_ADDRESS);
     }
 
-    this.addStep(CreateDevisComponent.STEP_CREATION);
+    this.addStep(this.STEP_NAME);
+    this.addStep(this.STEP_CREATION);
 
     this.addSub(this._ngRedux.select(['profile', 'profile']).subscribe((profile: Profile) => {
       this.profile = Object.assign({}, profile);
@@ -103,6 +115,12 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
 
   private addStep(step: string) {
     this.steps.push(step);
+  }
+
+  private completeStep(step: string) {
+    if (this.completeSteps.indexOf(step) === -1) {
+      this.completeSteps.push(step);
+    }
   }
 
   prevStep() {
@@ -131,6 +149,7 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
   devisInfo(ngForm: NgForm) {
     if (ngForm.valid) {
       this.devis.title = ngForm.value.title;
+      this.completeStep(this.STEP_NAME);
       this.nextStep();
     }
   }
@@ -140,6 +159,7 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
       this.devis.siret = userProfileForm.value.siret;
       this.devis.userPhone = userProfileForm.value.phone;
       if (userProfileForm.value.siret || userProfileForm.value.phone) {
+        this.completeStep(this.STEP_PROFILE_INFO);
         this._profileActions.dispatchUpdate(this.profile);
       }
       this.nextStep();
@@ -147,14 +167,18 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
   }
 
   createUserAddress(address: Address) {
-    this.profile.addresses.push(address);
-    this._profileActions.dispatchUpdate(this.profile);
-    this.devis.userAddress = address;
+    if (address.city || address.complement || address.street || address.zipcode) {
+      this.profile.addresses.push(address);
+      this._profileActions.dispatchUpdate(this.profile);
+      this.devis.userAddress = address;
+      this.completeStep(this.STEP_USER_ADDRESS);
+    }
     this.nextStep();
   }
 
   selectUserAddress(address: Address) {
     this.devis.userAddress = address;
+    this.completeStep(this.STEP_USER_ADDRESS);
     this.nextStep();
   }
 
@@ -168,12 +192,14 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
       }));
       this.clientCreatedSubscribed = true;
     }
+    this.completeStep(this.STEP_CLIENT);
     this.devis.setClient(client);
     this.nextStep();
   }
 
   selectClient(client: Client) {
     this.client = client;
+    this.completeStep(this.STEP_CLIENT);
     this._projectClientActions.dispatchAddToProject(client, this.project.id);
     this.devis.setClient(client);
     this.nextStep();
@@ -181,42 +207,50 @@ export class CreateDevisComponent extends ReduxSubscriptionComponent implements 
 
   selectClientAddress(address: Address) {
     this.devis.clientAddress = address;
+    this.completeStep(this.STEP_CLIENT_ADDRESS);
     this.nextStep();
   }
 
   createClientAddress(address: Address) {
-    this.devis.clientAddress = address;
-    this.client.addresses.push(address);
-    this._clientActions.dispatchUpdate(this.client);
+    if (address.city || address.complement || address.street || address.zipcode) {
+      this.devis.clientAddress = address;
+      this.client.addresses.push(address);
+      this._clientActions.dispatchUpdate(this.client);
+    }
+    this.completeStep(this.STEP_CLIENT_ADDRESS);
     this.nextStep();
   }
 
-  isStep(step: string): boolean {
+  isStepActive(step: string): boolean {
     return this.steps[this.step] === step;
   }
 
+  isStepComplete(step: string): boolean {
+    return this.completeSteps.indexOf(step) !== -1;
+  }
+
   isStepName() {
-    return this.isStep(CreateDevisComponent.STEP_NAME);
+    return this.isStepActive(this.STEP_NAME);
   }
 
   isStepUserAddress() {
-    return this.isStep(CreateDevisComponent.STEP_USER_ADDRESS);
+    return this.isStepActive(this.STEP_USER_ADDRESS);
   }
 
   isStepProfileInfo() {
-    return this.isStep(CreateDevisComponent.STEP_PROFILE_INFO);
+    return this.isStepActive(this.STEP_PROFILE_INFO);
   }
 
   isStepClient() {
-    return this.isStep(CreateDevisComponent.STEP_CLIENT);
+    return this.isStepActive(this.STEP_CLIENT);
   }
 
   isStepClientAddress() {
-    return this.isStep(CreateDevisComponent.STEP_CLIENT_ADDRESS);
+    return this.isStepActive(this.STEP_CLIENT_ADDRESS);
   }
 
   isStepCreation() {
-    return this.isStep(CreateDevisComponent.STEP_CREATION);
+    return this.isStepActive(this.STEP_CREATION);
   }
 
 }
