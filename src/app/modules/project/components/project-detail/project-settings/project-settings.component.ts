@@ -51,10 +51,8 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
 
   public saveSettings(form: NgForm) {
     if (form.valid) {
-      this.project.name = form.value.name;
-      this.project.description = form.value.description;
+      this._projectActions.dispatchUpdate(this.project);
     }
-    // this.onUpdate.emit(this.project);
   };
 
   public deleteProject() {

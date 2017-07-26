@@ -1,5 +1,23 @@
 :host {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  a {
     display: flex;
-    flex: 1;
-    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #444;
+    md-icon {
+      margin-right: 10px;
+    }
+    &.active {
+      font-weight: bold;
+    }
+  }
 }

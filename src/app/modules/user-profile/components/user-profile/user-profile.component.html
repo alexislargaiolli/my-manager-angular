@@ -1,15 +1,17 @@
-<div class="container mt-2 default-panel rounded mat-elevation-z2">
-    <div fxLayout="row" [@centerApparitionAnimation]="'true'">
-        <ul class="side-menu" fxFlex="30">
-            <li [routerLink]="['./general']">
-                <md-icon>info</md-icon>Général
-            </li>
-            <li [routerLink]="['./password']">
-                <md-icon>lock</md-icon>Mot de passe
-            </li>
-        </ul>
-        <div fxFlex="70" class="p-4">
-            <router-outlet></router-outlet>
-        </div>
+<div class="container">
+  <div class="row" [@centerApparitionAnimation]="'true'">
+    <div class="col-3">
+      <div class="side-menu">
+        <a [routerLink]="['./general']" routerLinkActive="active">
+          <md-icon>info</md-icon>Général
+        </a>
+        <a [routerLink]="['./password']" routerLinkActive="active">
+          <md-icon>lock</md-icon>Mot de passe
+        </a>
+      </div>
     </div>
+    <div class="col-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

@@ -2,60 +2,53 @@
   <app-project-title [title]="title" (back)="goBack()"></app-project-title>
 </div>
 <div class="container">
-  <md-card>
-    <md-card-title>Options</md-card-title>
-    <md-card-content>
-      <form id="settingsForm" #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
-        <div class="row justify-content-md-center">
-          <div class="col d-flex flex-column">
-            <md-input-container>
-              <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
-            </md-input-container>
-            <md-input-container>
-              <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
-            </md-input-container>
-            <project-client [clients]="clients$ | async" [allClients]="allClients$ | async" [loading]="loadingClient$ | async" (add)="addClient($event)" (create)="createClient($event)"
-              (remove)="removeClient($event)" class="ml-4"></project-client>
-          </div>
-          <div class="col">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="plannedStartDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedStartDate"
-                name="plannedStartDate">
-              <button mdSuffix [mdDatepickerToggle]="plannedStartDate"></button>
-            </md-input-container>
-            <md-datepicker #plannedStartDate></md-datepicker>
-            <md-input-container>
-              <input mdInput [mdDatepicker]="startDate" placeholder="Date de départ effectif" [(ngModel)]="project.startDate" name="startDate">
-              <button mdSuffix [mdDatepickerToggle]="startDate"></button>
-            </md-input-container>
-            <md-datepicker #startDate></md-datepicker>
-            <md-input-container>
-              <input mdInput [mdDatepicker]="plannedEndDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedEndDate" name="plannedEndDate">
-              <button mdSuffix [mdDatepickerToggle]="plannedEndDate"></button>
-            </md-input-container>
-            <md-datepicker #plannedEndDate></md-datepicker>
-            <md-input-container>
-              <input mdInput [mdDatepicker]="endDate" placeholder="Date de départ effective" [(ngModel)]="project.endDate" name="endDate">
-              <button mdSuffix [mdDatepickerToggle]="endDate"></button>
-            </md-input-container>
-            <md-datepicker #endDate></md-datepicker>
-            <!--<project-client [clients]="clients$" [allClient]="allClient$" (add)="addClient($event)" (remove)="removeClient($event)"></project-client>-->
-          </div>
-        </div>
+  <form id="settingsForm" #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
+    <div class="row justify-content-md-center">
+      <div class="col d-flex flex-column">
+        <md-input-container>
+          <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
+        </md-input-container>
+        <md-input-container>
+          <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
+        </md-input-container>
+        <!-- <project-client [clients]="clients$ | async" [allClients]="allClients$ | async" [loading]="loadingClient$ | async" (add)="addClient($event)"
+          (create)="createClient($event)" (remove)="removeClient($event)" class="ml-4"></project-client> -->
+      </div>
+      <div class="col">
+        <md-input-container>
+          <input mdInput [mdDatepicker]="plannedStartDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedStartDate"
+            name="plannedStartDate">
+          <button mdSuffix [mdDatepickerToggle]="plannedStartDate"></button>
+        </md-input-container>
+        <md-datepicker #plannedStartDate></md-datepicker>
+        <md-input-container>
+          <input mdInput [mdDatepicker]="startDate" placeholder="Date de départ effectif" [(ngModel)]="project.startDate" name="startDate">
+          <button mdSuffix [mdDatepickerToggle]="startDate"></button>
+        </md-input-container>
+        <md-datepicker #startDate></md-datepicker>
+        <md-input-container>
+          <input mdInput [mdDatepicker]="plannedEndDate" placeholder="Date de fin prévu" [(ngModel)]="project.plannedEndDate" name="plannedEndDate">
+          <button mdSuffix [mdDatepickerToggle]="plannedEndDate"></button>
+        </md-input-container>
+        <md-datepicker #plannedEndDate></md-datepicker>
+        <md-input-container>
+          <input mdInput [mdDatepicker]="endDate" placeholder="Date de fin effective" [(ngModel)]="project.endDate" name="endDate">
+          <button mdSuffix [mdDatepickerToggle]="endDate"></button>
+        </md-input-container>
+        <md-datepicker #endDate></md-datepicker>
+      </div>
+    </div>
 
-      </form>
-    </md-card-content>
-
-    <md-card-actions class="text-right">
-      <button md-button (click)="deleteProject()">
-        <md-icon>delete</md-icon>
-        Supprimer ce projet
-      </button>
-      <button md-raised-button form="settingsForm">
-        <md-icon>save</md-icon>
+    <div class="d-flex flex-row-reverse justify-content-start">
+      <button class="blue" md-raised-button type="submit">
         Sauvegarder
       </button>
-    </md-card-actions>
+      <button md-button (click)="deleteProject()">
+        Supprimer ce projet
+      </button>
+    </div>
 
-  </md-card>
+  </form>
+
+
 </div>

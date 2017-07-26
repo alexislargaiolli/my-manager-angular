@@ -1,9 +1,10 @@
 @import 'components';
 :host {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.address-item {
-    @extend .default-panel-item;
+.address-list-item {
+  display: block;
+  width: 100%;
 }
