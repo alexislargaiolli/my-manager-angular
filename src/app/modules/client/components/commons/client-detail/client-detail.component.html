@@ -1,23 +1,26 @@
-<div class="p-4">
-    <button md-button (click)="unselect.emit()"><md-icon>arrow_back</md-icon></button>
-    <button md-button (click)="delete.emit(client)"><md-icon>delete</md-icon></button>
-    <button md-button form="clientForm"><md-icon>save</md-icon></button>
-    <form id="clientForm" #clientForm="ngForm" (ngSubmit)="submitForm(clientForm)" autocomplete="off" class="d-flex flex-column">
-        <md-input-container class="translucide-input">
-            <input mdInput placeholder="Nom du client" type="text" [(ngModel)]="client.name" name="name">
-        </md-input-container>
-        <md-input-container class="translucide-input">
-            <input mdInput placeholder="Prénom" type="text" [(ngModel)]="client.firstname" name="firstname">
-        </md-input-container>
-        <md-input-container class="translucide-input">
-            <input mdInput placeholder="Nom de famille" type="text" [(ngModel)]="client.lastname" name="lastname">
-        </md-input-container>
-        <md-input-container class="translucide-input">
-            <input mdInput placeholder="Email" type="email" [(ngModel)]="client.email" name="email">
-        </md-input-container>
-        <md-input-container class="translucide-input">
-            <input mdInput placeholder="Téléphone" type="tel" [(ngModel)]="client.tel" name="tel">
-        </md-input-container>
-    </form>
-    <app-address-list [(addresses)]="client.addresses" (onSaved)="addAddress($event)" (onDelete)="removeAddress($event)"></app-address-list>
+<div class="client-details-actions d-flex justify-content-between">
+  <button md-button (click)="unselect.emit()"><md-icon>arrow_back</md-icon></button>
+  <button md-button (click)="delete.emit(client)"><md-icon>delete</md-icon></button>
+  <button md-button form="clientForm"><md-icon>save</md-icon></button>
 </div>
+<h2>Informations</h2>
+<form id="clientForm" #clientForm="ngForm" (ngSubmit)="submitForm(clientForm)" autocomplete="off" class="d-flex flex-column">
+  <md-input-container class="translucide-input">
+    <input mdInput placeholder="Nom du client" type="text" [(ngModel)]="client.name" name="name" required>
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput placeholder="Prénom" type="text" [(ngModel)]="client.firstname" name="firstname">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput placeholder="Nom de famille" type="text" [(ngModel)]="client.lastname" name="lastname">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput placeholder="Email" type="email" [(ngModel)]="client.email" name="email">
+  </md-input-container>
+  <md-input-container class="translucide-input">
+    <input mdInput placeholder="Téléphone" type="tel" [(ngModel)]="client.tel" name="tel">
+  </md-input-container>
+</form>
+
+<h2>Adresses</h2>
+<app-address-list [(addresses)]="client.addresses" (onSaved)="saveAddress($event)" (onCreate)="createAddress($event)" (onDelete)="removeAddress($event)"></app-address-list>

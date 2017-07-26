@@ -1,3 +1,4 @@
+import { ClientDialogComponent } from './../../../client/components/commons/client-dialog/client-dialog.component';
 import { CreateNoteComponent } from './../common/create-note/create-note.component';
 import { MdDialog } from '@angular/material';
 import { Component, OnInit, HostBinding } from '@angular/core';
@@ -79,10 +80,14 @@ export class ProjectHomeComponent implements OnInit {
   public openCreateNote() {
     const ref = this.dialog.open(CreateNoteComponent);
     ref.afterClosed().subscribe(note => {
-      if(note){
+      if (note) {
         this.createNote(note);
       }
     });
+  }
+
+  public openClientDialog() {
+    this.dialog.open(ClientDialogComponent);
   }
 
   public createNote(note: Note) {

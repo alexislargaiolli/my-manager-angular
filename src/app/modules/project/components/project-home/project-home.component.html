@@ -1,6 +1,6 @@
 <div class="container-fluid" *ngIf="!creating">
   <div class="actions-panel">
-    <button md-mini-fab><md-icon>import_contacts</md-icon></button>
+    <button md-mini-fab (click)="openClientDialog()"><md-icon>import_contacts</md-icon></button>
     <button (click)="openCreateNote()" md-mini-fab class="mt-2"><md-icon>note_add</md-icon></button>
   </div>
   <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>

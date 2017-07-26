@@ -1,0 +1,5 @@
+<app-client-list [clients]="clients$ | async" (create)="createClient()" (clientSelect)="onSelectClient($event)" [loading]="loading$ | async"
+  *ngIf="!selected" class="grow-1"></app-client-list>
+
+<app-client-detail [client]="selected" (save)="onUpdate($event)" (delete)="deleteClient($event)" (unselect)="unselect()"
+  (addAddress)="addAddress($event)" (removeAddress)="removeAddress($event)" *ngIf="selected"></app-client-detail>

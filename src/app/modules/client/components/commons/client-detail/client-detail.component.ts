@@ -7,12 +7,13 @@ import { IAppState } from 'app/modules/store';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'client-detail',
+  selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientDetailComponent implements OnInit {
+
   @Input()
   public client: Client;
 
@@ -41,7 +42,11 @@ export class ClientDetailComponent implements OnInit {
     this.save.emit(this.client);
   }
 
-  public addAddress(address) {
+  public saveAddress(address) {
+    this.saveClient();
+  }
+  public createAddress(address) {
+    this.client.addresses.push(address);
     this.saveClient();
   }
 

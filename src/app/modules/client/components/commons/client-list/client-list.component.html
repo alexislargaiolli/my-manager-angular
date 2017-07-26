@@ -1,21 +1,9 @@
+<h2>Mes clients</h2>
 <div class="loading-bar-wrapper">
-    <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
+  <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
 </div>
-<div class="square-list" [@listFadeAnim]="clients">
-    <article class="">
-        <button md-button (click)="create.emit()"><md-icon>add box</md-icon>Nouveau client</button>
-    </article>
-    <article *ngFor="let client of clients" class="anim-item">
-        <button md-button (click)="selectClient(client)">
-            <header>
-                <h2>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></h2>
-            </header>
-            <div *ngIf="client.email">
-                <md-icon class="align-middle">contact_mail</md-icon><span class="align-middle ml-2">{{client.email}}</span>
-            </div>
-            <div *ngIf="client.tel">
-                <md-icon class="align-middle">contact_phone</md-icon><span class="align-middle ml-2">{{client.tel}}</span>
-            </div>
-        </button>
-    </article>
+<div class="d-flex flex-column">
+  <div class="p-2" *ngIf="clients.length ===0">Aucun client</div>
+  <button *ngFor="let client of clients" md-button (click)="selectClient(client)">{{client.name}}</button>
+  <button md-raised-button class="blue mt-2" (click)="create.emit()">Nouveau client</button>
 </div>

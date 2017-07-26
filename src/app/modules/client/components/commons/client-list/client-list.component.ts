@@ -5,10 +5,9 @@ import { createEpicMiddleware } from 'redux-observable';
 import { listFadeAnim, fadeAnim } from 'app/animations';
 
 @Component({
-  selector: 'client-list',
+  selector: 'app-client-list',
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.scss'],
-  animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientListComponent implements OnInit {
