@@ -7,157 +7,158 @@ sans-serif;
 $primary-color:#b3b3b3;
 $secondary-color:#ececec;
 :host {
-    width: 800px;
-    height: 1117px;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    font-family: $font-text;
+  // Original 800 * 1117
+  width: 800px;
+  height: 1117px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  font-family: $font-text;
 }
 
 .header {
-    background: #ececec;
-    border-bottom: 1px solid #ccc;
+  background: #ececec;
+  border-bottom: 1px solid #ccc;
+  height: 65px;
+  overflow: hidden;
+  .header-info {
+    font-size: 13px;
+    background: #f9f9f9;
+    height: 100%;
+    font-family: $font-title;
+    padding: 0 60px 0 50px;
+    text-transform: uppercase;
+  }
+  .header-spacer {
+    margin-left: -10px;
+    background: #ccc;
+    width: 20px;
+    height: 100px;
+    transform: skewX(-15deg);
+  }
+  .header-type {
+    flex: 1;
     height: 65px;
-    overflow: hidden;
-    .header-info {
-        font-size: 13px;
-        background: #f9f9f9;
-        height: 100%;
-        font-family: $font-title;
-        padding: 0 60px 0 50px;
-        text-transform: uppercase;
+    text-align: right;
+    .big-title {
+      font-size: 89px;
+      line-height: 60px;
+      color: #f9f9f9;
     }
-    .header-spacer {
-        margin-left: -10px;
-        background: #ccc;
-        width: 20px;
-        height: 100px;
-        transform: skewX(-15deg);
-    }
-    .header-type {
-        flex: 1;
-        height: 65px;
-        text-align: right;
-        .big-title {
-            font-size: 89px;
-            line-height: 60px;
-            color: #f9f9f9;
-        }
-    }
+  }
 }
 
 .content {
-    padding: 50px;
-    flex: 1;
-    .devis-id,
-    .coord-name {
-        font-family: $font-title;
-        color: $title-color;
-        font-size: $title-size;
+  padding: 50px;
+  flex: 1;
+  .devis-id,
+  .coord-name {
+    font-family: $font-title;
+    color: $title-color;
+    font-size: $title-size;
+  }
+  .coord-street,
+  .coord-siret,
+  .coord-complement,
+  .coord-city,
+  .devis-date,
+  .devis-validity {
+    color: $title-color;
+    font-size: 13px;
+  }
+  .devis-title {
+    background: $secondary-color;
+    padding: 8px;
+    font-family: $font-title;
+    color: $title-color;
+    font-size: 18px;
+    text-align: center;
+    margin: 40px 0;
+  }
+  .line {
+    &>div {
+      margin-left: 2px;
     }
-    .coord-street,
-    .coord-siret,
-    .coord-complement,
-    .coord-city,
-    .devis-date,
-    .devis-validity {
-        color: $title-color;
-        font-size: 13px;
+    &>div:first-child {
+      flex: 1;
+      margin-left: 0;
     }
-    .devis-title {
-        background: $secondary-color;
-        padding: 8px;
-        font-family: $font-title;
-        color: $title-color;
-        font-size: 18px;
-        text-align: center;
-        margin: 40px 0;
+    &>div:last-child {
+      margin-right: 0;
     }
-    .line {
-        &>div {
-            margin-left: 2px;
-        }
-        &>div:first-child {
-            flex: 1;
-            margin-left: 0;
-        }
-        &>div:last-child {
-            margin-right: 0;
-        }
-        &>div:not(:first-child) {
-            width: 70px;
-        }
+    &>div:not(:first-child) {
+      width: 70px;
     }
-    .line-content {
-        &>div {
-            font-size: 13px;
-            padding: 10px;
-            margin: 2px 0 0 2px;
-            background: $secondary-color;
-            color: $title-color;
-        }
-        &>div:not(:first-child) {
-            text-align: center;
-        }
+  }
+  .line-content {
+    &>div {
+      font-size: 13px;
+      padding: 10px;
+      margin: 2px 0 0 2px;
+      background: $secondary-color;
+      color: $title-color;
     }
-    .lines-header {
-        &>div {
-            padding: 0;
-        }
-        background: $primary-color;
-        font-family: $font-title;
-        color: #fff;
-        &>div {
-            text-align: center;
-        }
+    &>div:not(:first-child) {
+      text-align: center;
     }
-    .signature {
-        border: 1px dashed #ececec;
-        padding: 10px;
-        p {
-            font-size: 10px;
-            color: #333;
-            margin-bottom: 80px;
-        }
+  }
+  .lines-header {
+    &>div {
+      padding: 0;
     }
-    .total {
-        .total-header {
-            background: $primary-color;
-            text-align: center;
-            padding: 10px;
-            width: 215px;
-            font-family: $font-title;
-            color: #fff;
-        }
-        .total-label,
-        .total-price {
-            margin-top: 2px;
-            padding: 10px 20px;
-            background: $secondary-color;
-            font-family: $font-title;
-        }
-        .total-price {
-            margin-left: 2px;
-            text-align: center;
-        }
+    background: $primary-color;
+    font-family: $font-title;
+    color: #fff;
+    &>div {
+      text-align: center;
     }
+  }
+  .signature {
+    border: 1px dashed #ececec;
+    padding: 10px;
+    p {
+      font-size: 10px;
+      color: #333;
+      margin-bottom: 80px;
+    }
+  }
+  .total {
+    .total-header {
+      background: $primary-color;
+      text-align: center;
+      padding: 10px;
+      width: 215px;
+      font-family: $font-title;
+      color: #fff;
+    }
+    .total-label,
+    .total-price {
+      margin-top: 2px;
+      padding: 10px 20px;
+      background: $secondary-color;
+      font-family: $font-title;
+    }
+    .total-price {
+      margin-left: 2px;
+      text-align: center;
+    }
+  }
 }
 
 .devis-footer {
-    padding: 10px;
-    background: $secondary-color;
-    margin: 0 50px 50px 50px;
-    .contact-info {
-        font-family: $font-title;
-        margin-bottom: 10px;
-        &>div {
-            font-size: 18px;
-        }
+  padding: 10px;
+  background: $secondary-color;
+  margin: 0 50px 50px 50px;
+  .contact-info {
+    font-family: $font-title;
+    margin-bottom: 10px;
+    &>div {
+      font-size: 18px;
     }
-    p {
-        text-align: center;
-        font-size: 13px;
-        margin: 0;
-    }
+  }
+  p {
+    text-align: center;
+    font-size: 13px;
+    margin: 0;
+  }
 }

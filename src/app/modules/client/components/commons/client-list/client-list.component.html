@@ -2,8 +2,10 @@
 <div class="loading-bar-wrapper">
   <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
 </div>
-<div class="d-flex flex-column">
+<div class="client-list-wrapper light-scrollbar">
   <div class="p-2" *ngIf="clients.length ===0">Aucun client</div>
   <button *ngFor="let client of clients" md-button (click)="selectClient(client)">{{client.name}}</button>
+</div>
+<div class="text-right">
   <button md-raised-button class="blue mt-2" (click)="create.emit()">Nouveau client</button>
 </div>

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row py-2">
     <div class="col d-flex align-items-center hidden-xs-down">
-      <span class="logo">MyFreelanceManager</span>
+      <span class="logo" [routerLink]="['/']">MyFreelanceManager</span>
     </div>
     <div class="col d-flex align-items-center justify-content-start justify-content-md-center">
       <app-gain-summary [waitingDevis]="waitingDevis$ | async" [acceptedDevis]="acceptedDevis$ | async" [waitingInvoices]="waitingInvoices$ | async"

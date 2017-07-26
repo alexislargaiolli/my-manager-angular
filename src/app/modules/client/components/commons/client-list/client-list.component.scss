@@ -1,1 +1,10 @@
 @import 'components';
+.client-list-wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+  button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

@@ -1,141 +1,175 @@
-<div class="d-flex justify-content-around p-2 align-items-start">
-    <div class="devis-form rounded mat-elevation-z2" [@slideApparitionAnimation]="'true'">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="devis-form">
         <div class="d-flex p-2">
-            <button md-button (click)="goBack()" mdTooltip="Revenir aux factures"><md-icon>backspace</md-icon></button>
-            <span class="toolbar-spacer"></span>
-            <button form="invoiceForm" class="text-success" md-button mdTooltip="Sauvegarder les modifications"><md-icon>save</md-icon></button>
-            <button md-button (click)="importDevis()" mdTooltip="Importer depuis un devis"><md-icon class="mr-2">library_add</md-icon></button>
-            <button (click)="download()" md-button mdTooltip="Télécharger en PDF"><md-icon>file_download</md-icon></button>
-            <button (click)="remove()" class="text-danger" md-button mdTooltip="Supprimer cette facture"><md-icon>delete</md-icon></button>
+          <button md-button (click)="goBack()" mdTooltip="Revenir aux factures"><md-icon>arrow_back</md-icon></button>
+          <span class="toolbar-spacer"></span>
+          <button (click)="remove()" class="text-danger" md-button mdTooltip="Supprimer cette facture"><md-icon>delete</md-icon></button>
+          <button md-button (click)="importDevis()" mdTooltip="Importer depuis un devis"><md-icon class="mr-2">library_add</md-icon></button>
+          <button (click)="download()" md-button mdTooltip="Télécharger en PDF"><md-icon>file_download</md-icon></button>
+          <button form="invoiceForm" class="text-success" md-button mdTooltip="Sauvegarder les modifications"><md-icon>save</md-icon></button>
         </div>
         <form id="invoiceForm" #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)" autocomplete="off">
-            <div class="p-5 d-flex flex-column">
-                <div>
-                    <h3>Facture</h3>
-                    <div class="d-flex flex-row justify-content-between align-items-baseline">
-                        <md-input-container>
-                            <input mdInput placeholder="Numéro de facture" [(ngModel)]="invoice.invoiceId" name="invoiceId" required>
-                        </md-input-container>
-                        <md-input-container>
-                            <input mdInput [mdDatepicker]="createDatePicker" placeholder="Date de création" [(ngModel)]="invoice.createDate" name="createDate">
-                            <button mdSuffix [mdDatepickerToggle]="createDatePicker"></button>
-                        </md-input-container>
-                        <md-datepicker #createDatePicker></md-datepicker>
-                        <md-input-container>
-                            <input mdInput [mdDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [(ngModel)]="invoice.validityDate" name="validityDate">
-                            <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
-                        </md-input-container>
-                        <md-datepicker #validityDatePicker></md-datepicker>
-                        <md-select [(ngModel)]="invoice.state" placeholder="Etat" name="state" (change)="onStateChange()">
-                            <md-option [value]="invoiceState.DRAFT">Brouillon</md-option>
-                            <md-option [value]="invoiceState.PENDING">En attente</md-option>
-                            <md-option [value]="invoiceState.PAID">Payé</md-option>
-                            <md-option [value]="invoiceState.ABANDONED">Abandonnée</md-option>
-                        </md-select>
-                    </div>
-                </div>
+          <div class="d-flex flex-column">
 
-                <div class="mt-5 d-flex justify-content-between">
-                    <div>
-                        <h3>Mes coordonnées</h3>
-                        <app-inplace>
-                            <div class="inplace-output">
-                                <div>{{invoice.userName}}</div>
-                                <div>{{invoice.siret}}</div>
-                                <div>{{invoice.userPhone}}</div>
-                                <div>{{invoice.userMail}}</div>
-                                <div>{{invoice.userAddress.street}}</div>
-                                <div>{{invoice.userAddress.complement}}</div>
-                                <div>{{invoice.userAddress.zipcode}} {{invoice.userAddress.city}}</div>
-                                <div *ngIf="invoice.userAddress.street == null && invoice.userAddress.city == null && invoice.userAddress.zipcode == null && invoice.userName == null && invoice.userPhone == null && invoice.userMail == null && invoice.siret == null">
-                                    Saisissez vos coordonnées
-                                </div>
-                            </div>
-                            <div class="inplace-input">
-                                <md-input-container>
-                                    <input mdInput name="userName" [(ngModel)]="invoice.userName" type="text" placeholder="Nom et prénom">
-                                </md-input-container>
-                                <md-input-container>
-                                    <input mdInput name="userMail" [(ngModel)]="invoice.userMail" type="email" placeholder="Email">
-                                </md-input-container>
-                                <md-input-container>
-                                    <input mdInput name="siret" [(ngModel)]="invoice.siret" type="text" placeholder="Numéro de siret">
-                                </md-input-container>
-                                <md-input-container>
-                                    <input mdInput name="userPhone" [(ngModel)]="invoice.userPhone" type="tel" placeholder="Téléphone">
-                                </md-input-container>
-                                <app-address-input [(street)]="invoice.userAddress.street" [(city)]="invoice.userAddress.city" [(zipcode)]="invoice.userAddress.zipcode"></app-address-input>
-                            </div>
-                        </app-inplace>
-                    </div>
-                    <div>
-                        <h3>Client</h3>
-                        <app-inplace>
-                            <div class="inplace-output">
-                                <div>{{invoice.clientName}}</div>
-                                <div>{{invoice.clientAddress.street}}</div>
-                                <div>{{invoice.clientAddress.complement}}</div>
-                                <div>{{invoice.clientAddress.zipcode}} {{invoice.clientAddress.city}}</div>
-                                <div *ngIf="invoice.clientName == null && invoice.clientAddress.street == null && invoice.clientAddress.city==null && invoice.clientAddress.zipcode == null">
-                                    Saisissez les coordonnées du client
-                                </div>
-                            </div>
-                            <div class="inplace-input">
-                                <md-input-container>
-                                    <input mdInput name="clientName" [(ngModel)]="invoice.clientName" type="text" placeholder="Nom du client">
-                                </md-input-container>
-                                <app-address-input [(street)]="invoice.clientAddress.street" [(city)]="invoice.clientAddress.city" [(zipcode)]="invoice.clientAddress.zipcode"></app-address-input>
-                            </div>
-                        </app-inplace>
-                    </div>
-                </div>
-                <div class="mt-5 title-wrapper">
-                    <md-input-container>
-                        <input mdInput name="title" [(ngModel)]="invoice.title" type="text" placeholder="Titre de la facture" required>
-                    </md-input-container>
-                </div>
+            <div>
+              <h3>Facture</h3>
+              <div class="title-wrapper">
+                <md-input-container>
+                  <input mdInput name="title" [(ngModel)]="invoice.title" type="text" placeholder="Titre de la facture" required>
+                </md-input-container>
+              </div>
 
-                <div [dragula]='"lines"' [dragulaModel]='invoice.lines' class="mt-5 lines-wrapper">
-                    <div class="devis-line devis-line-header d-flex flex-row justify-content-between align-items-center">
-                        <div class="line-content">Détail de la prestation</div>
-                        <div class="line-quantity">Quantité</div>
-                        <div class="line-unit">Prix Unit.</div>
-                        <div class="line-total">TOTAL</div>
-                    </div>
-                    <div *ngFor="let line of invoice.lines" class="devis-line d-flex flex-row justify-content-between align-items-baseline">
-                        <md-input-container>
-                            <textarea mdInput [(ngModel)]="line.content" type="text" [ngModelOptions]="{standalone: true}" class="line-content"></textarea>
-                        </md-input-container>
-                        <md-input-container class="mx-3">
-                            <input mdInput [(ngModel)]="line.quantity" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}" class="line-quantity">
-                        </md-input-container>
-                        <md-input-container class="mx-3">
-                            <input mdInput [(ngModel)]="line.unitPrice" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}" class="line-unit">
-                            <span mdSuffix>€</span>
-                        </md-input-container>
-                        <div class="line-total">{{line.totalPrice}}<span [hidden]="line.totalPrice == null">€</span></div>
-
-                        <md-icon class="devis-line-drag-handle">drag_handle</md-icon>
-                    </div>
-                </div>
+              <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-baseline">
+                <md-input-container>
+                  <input mdInput placeholder="Numéro de facture" [(ngModel)]="invoice.invoiceId" name="invoiceId" required>
+                </md-input-container>
+                <md-input-container>
+                  <input mdInput [mdDatepicker]="createDatePicker" placeholder="Date de création" [(ngModel)]="invoice.createDate" name="createDate">
+                  <button mdSuffix [mdDatepickerToggle]="createDatePicker"></button>
+                </md-input-container>
+                <md-datepicker #createDatePicker></md-datepicker>
+                <md-input-container>
+                  <input mdInput [mdDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [(ngModel)]="invoice.validityDate" name="validityDate">
+                  <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
+                </md-input-container>
+                <md-datepicker #validityDatePicker></md-datepicker>
+                <md-select class="mt-3" [(ngModel)]="invoice.state" placeholder="Etat" name="state" (change)="onStateChange()">
+                  <md-option [value]="invoiceState.DRAFT">Brouillon</md-option>
+                  <md-option [value]="invoiceState.PENDING">En attente</md-option>
+                  <md-option [value]="invoiceState.PAID">Payé</md-option>
+                  <md-option [value]="invoiceState.ABANDONED">Abandonnée</md-option>
+                </md-select>
+              </div>
             </div>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between">
+              <div class="mt-3">
+                <h3>Mes coordonnées</h3>
+                <app-inplace>
+                  <div class="inplace-output">
+                    <div>{{invoice.userName}}</div>
+                    <div>{{invoice.siret}}</div>
+                    <div>{{invoice.userPhone}}</div>
+                    <div>{{invoice.userMail}}</div>
+                    <div *ngIf="invoice.userName == null && invoice.userPhone == null && invoice.userMail == null && invoice.siret == null">
+                      Saisissez vos coordonnées
+                    </div>
+                  </div>
+                  <div class="inplace-input d-flex flex-column">
+                    <md-input-container>
+                      <input mdInput name="userName" [(ngModel)]="invoice.userName" type="text" placeholder="Nom et prénom">
+                    </md-input-container>
+                    <md-input-container>
+                      <input mdInput name="userMail" [(ngModel)]="invoice.userMail" type="email" placeholder="Email">
+                    </md-input-container>
+                    <md-input-container>
+                      <input mdInput name="siret" [(ngModel)]="invoice.siret" type="text" placeholder="Numéro de siret">
+                    </md-input-container>
+                    <md-input-container>
+                      <input mdInput name="userPhone" [(ngModel)]="invoice.userPhone" type="tel" placeholder="Téléphone">
+                    </md-input-container>
+                  </div>
+                </app-inplace>
+              </div>
+              <div>
+                <h3>Mon adresse</h3>
+                <app-inplace>
+                  <div class="inplace-output">
+                    <div>{{invoice.userAddress.street}}</div>
+                    <div>{{invoice.userAddress.complement}}</div>
+                    <div>{{invoice.userAddress.zipcode}} {{invoice.userAddress.city}}</div>
+                    <div *ngIf="invoice.userAddress.street == null && invoice.userAddress.city == null && invoice.userAddress.zipcode == null">
+                      Saisissez votre adresse
+                    </div>
+                  </div>
+                  <div class="inplace-input">
+                    <app-address-input [(street)]="invoice.userAddress.street" [(city)]="invoice.userAddress.city" [(zipcode)]="invoice.userAddress.zipcode"></app-address-input>
+                  </div>
+                </app-inplace>
+              </div>
+              <div>
+                <h3>Client</h3>
+                <app-inplace>
+                  <div class="inplace-output">
+                    <div>{{invoice.clientName}}</div>
+                    <div>{{invoice.clientAddress.street}}</div>
+                    <div>{{invoice.clientAddress.complement}}</div>
+                    <div>{{invoice.clientAddress.zipcode}} {{invoice.clientAddress.city}}</div>
+                    <div *ngIf="invoice.clientName == null && invoice.clientAddress.street == null && invoice.clientAddress.city==null && invoice.clientAddress.zipcode == null">
+                      Saisissez les coordonnées du client
+                    </div>
+                  </div>
+                  <div class="inplace-input">
+                    <md-input-container class="d-block">
+                      <input mdInput name="clientName" [(ngModel)]="invoice.clientName" type="text" placeholder="Nom du client">
+                    </md-input-container>
+                    <app-address-input [(street)]="invoice.clientAddress.street" [(city)]="invoice.clientAddress.city" [(zipcode)]="invoice.clientAddress.zipcode"></app-address-input>
+                  </div>
+                </app-inplace>
+              </div>
+            </div>
+
+            <h2 class="mt-3">Prestations</h2>
+            <div [dragula]='"lines"' [dragulaModel]='invoice.lines' class="lines-wrapper" [ngClass]="{'empty' : invoice.lines.length===0}">
+              <div *ngFor="let line of invoice.lines" class="devis-line rounded row align-items-baseline mb-2">
+                <div class="col">
+                  <md-input-container>
+                    <textarea mdInput [(ngModel)]="line.content" type="text" [ngModelOptions]="{standalone: true}" class="line-content"></textarea>
+                  </md-input-container>
+                </div>
+                <div class="col">
+                  <md-input-container>
+                    <input mdInput [(ngModel)]="line.quantity" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
+                      class="line-quantity">
+                  </md-input-container>
+                </div>
+                <div class="col">
+                  <md-input-container>
+                    <input mdInput [(ngModel)]="line.unitPrice" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
+                      class="line-unit">
+                    <span mdSuffix>€</span>
+                  </md-input-container>
+                </div>
+                <div class="col">
+                  <div class="line-total">{{line.totalPrice}}<span [hidden]="line.totalPrice == null">€</span></div>
+                </div>
+                <div class="col">
+                  <md-icon class="devis-line-drag-handle">drag_handle</md-icon>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
 
         <form #lineForm="ngForm" (ngSubmit)="submitLine(lineForm)" autocomplete="off">
-            <div class="p-5 create-line-wrapper d-flex flex-row justify-content-between align-items-center">
-                <md-input-container>
-                    <textarea mdInput ngModel name="content" type="text" placeholder="Détail de la prestation" required class="line-content"></textarea>
-                </md-input-container>
-                <md-input-container class="mx-3">
-                    <input mdInput ngModel name="quantity" type="number" placeholder="Quantité" class="line-quantity">
-                </md-input-container>
-                <md-input-container class="mx-3">
-                    <input mdInput ngModel name="unitPrice" type="number" placeholder="Prix unitaire" class="line-unit">
-                    <span mdSuffix>€</span>
-                </md-input-container>
-                <button md-button type="submit"><md-icon>add</md-icon></button>
+          <div class="create-line-wrapper row align-items-baseline">
+            <div class="col">
+              <md-input-container>
+                <textarea mdInput ngModel name="content" type="text" placeholder="Détail de la prestation" required class="line-content"></textarea>
+              </md-input-container>
             </div>
+            <div class="col">
+              <md-input-container class="mx-3">
+                <input mdInput ngModel name="quantity" type="number" placeholder="Quantité" class="line-quantity">
+              </md-input-container>
+            </div>
+            <div class="col">
+              <md-input-container class="mx-3">
+                <input mdInput ngModel name="unitPrice" type="number" placeholder="Prix unitaire" class="line-unit">
+                <span mdSuffix>€</span>
+              </md-input-container>
+            </div>
+            <div class="col">
+              <button md-button type="submit"><md-icon>add</md-icon></button>
+            </div>
+          </div>
         </form>
+      </div>
     </div>
-    <app-invoice-preview [invoice]="invoice" *ngIf="invoice" class="mat-elevation-z2 devis-preview" [@rightSlideApparitionAnimation]="'true'"></app-invoice-preview>
+    <div class="col">
+      <app-invoice-preview [invoice]="invoice" *ngIf="invoice" class="mat-elevation-z2 devis-preview"></app-invoice-preview>
+    </div>
+  </div>
 </div>

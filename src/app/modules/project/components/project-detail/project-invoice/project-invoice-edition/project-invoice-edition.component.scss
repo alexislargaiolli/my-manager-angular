@@ -1,55 +1,80 @@
 @import '../../project-details-variables';
 :host {
-    @include project-details-container;
+  @include project-details-container;
 }
 
 .devis-form {
-    background: #fff;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+app-invoice-preview {
+  margin: 0 auto;
 }
 
 app-address-input {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .title-wrapper {
-    .mat-input-container {
-        display: block;
-    }
+  .mat-input-container {
+    display: block;
+  }
 }
 
 .lines-wrapper {
-    min-height: 50px;
-    .devis-line {
-        .line-content {
-            width: 300px;
-        }
-        .line-quantity,
-        .line-unit,
-        .line-total {
-            width: 70px;
-            text-align: center;
-        }
+  min-height: 50px;
+  .devis-line {
+    background: #e4e4e4;
+    .line-content {
+      width: 300px;
     }
-    .devis-line-header {
-        padding-right: 24px;
-        font-weight: bold;
+    .line-quantity,
+    .line-unit,
+    .line-total {
+      width: 70px;
+      text-align: center;
     }
-    .devis-line-drag-handle {
-        cursor: pointer;
-    }
+  }
+  .devis-line-header {
+    padding-right: 24px;
+    font-weight: bold;
+  }
+  .devis-line-drag-handle {
+    cursor: pointer;
+  }
+  &.empty {
+    min-height: 0;
+  }
+  md-input-container {
+    display: block;
+  }
 }
 
 .create-line-wrapper {
-    .line-content {
-        width: 300px;
-    }
-    .line-quantity,
-    .line-unit {
-        width: 100px;
-    }
-    button {
-        padding: 0;
-        min-width: 24px;
-    }
+  md-input-container {
+    display: block;
+  }
+  .line-content {
+    width: 300px;
+  }
+  .line-quantity,
+  .line-unit {
+    width: 100px;
+  }
+  button {
+    padding: 0;
+    min-width: 24px;
+  }
+}
+
+:host /deep/ {
+  app-inplace,
+  app-inplace>div {
+    display: block!important;
+  }
+  app-inplace>div>button {
+    float: right;
+  }
 }
