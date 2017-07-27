@@ -104,7 +104,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
   }
 
   public save() {
-    this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().selectedProject.id);
+    this._devisActions.dispatchSave(this.devis, this._ngRedux.getState().projects.selectedId);
   }
 
   public onStateChange() {
@@ -117,7 +117,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
   public remove() {
     this.dialog.confirm('Supprimé ?', '').subscribe(confirmed => {
       if (confirmed) {
-        this._devisActions.dispatchDelete(this.devis, this._ngRedux.getState().selectedProject.id);
+        this._devisActions.dispatchDelete(this.devis, this._ngRedux.getState().projects.selectedId);
         this.goBack();
       }
     });

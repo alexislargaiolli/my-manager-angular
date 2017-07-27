@@ -7,7 +7,7 @@ import { Project, Note, HistoryEntry, ProjectState, Devis, Client } from 'app/mo
 import { leaveWorkaround } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
-import { IAppState, ProjectActions, SelectedProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions, ProjectInvoiceActions } from 'app/modules/store';
+import { IAppState, ProjectActions, ProjectNoteActions, ProjectHistoryEntryActions, ProjectTaskActions, ProjectClientActions, ProjectInvoiceActions } from 'app/modules/store';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InplaceComponent } from 'app/modules/shared/components/inplace/inplace.component';

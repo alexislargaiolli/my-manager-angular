@@ -7,7 +7,7 @@ import { ReduxSubscriptionComponent } from '../../../../core/components/redux-su
 import { IAppState } from 'app/modules/store';
 
 @Component({
-  selector: 'project-list',
+  selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
   animations: [listFadeAnim, fadeAnim],
@@ -16,7 +16,7 @@ import { IAppState } from 'app/modules/store';
 export class ProjectListComponent implements OnInit {
 
   @Input('loading')
-  loading: boolean = true;
+  loading = true;
 
   @Output()
   public select: EventEmitter<Project> = new EventEmitter<Project>();

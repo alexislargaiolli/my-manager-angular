@@ -5,7 +5,7 @@ import { RepositoriesService } from 'app/modules/core';
 import { Devis, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState } from 'app/modules/store';
+import { IAppState, ProjectActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { NgRedux } from '@angular-redux/store';
 import { ModelActions } from '../model/model.actions';
@@ -38,8 +38,8 @@ export class ProjectDevisEpics extends ModelEpics<Devis> {
     delete = this.delete;
 
     @Epic()
-    loadOnProjectSelection = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
-        .map(action => this._devisActions.load(action.payload.id));
+    loadOnProjectSelection = (action$) => action$.ofType(ProjectActions.SELECT_PROJECT)
+        .map(action => this._devisActions.load(action.payload.projectId));
 
     @Epic()
     createHistoryEntryOnCreation = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))

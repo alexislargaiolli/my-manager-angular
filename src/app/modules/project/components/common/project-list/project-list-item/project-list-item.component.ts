@@ -1,12 +1,13 @@
 import { DateUtils } from 'app/modules/shared';
 import { Project } from 'app/models';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-project-list-item',
   templateUrl: './project-list-item.component.html',
-  styleUrls: ['./project-list-item.component.scss']
+  styleUrls: ['./project-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListItemComponent implements OnInit {
 

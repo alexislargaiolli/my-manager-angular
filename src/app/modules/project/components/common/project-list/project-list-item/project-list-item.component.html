@@ -8,7 +8,7 @@
       <span class="badge badge-warning" *ngIf="deadlineWarningLevel === 1">Deadline proche</span>
       <span class="badge badge-danger" *ngIf="deadlineWarningLevel === 2">En retard</span>
     </div>
-    <span *ngFor="let note of project.notes">{{note.title}}</span>
+    <span *ngFor="let note of project.notes" class="badge mr-2" [ngClass]="{'badge-default' : note.priority === 0, 'badge-warning' : note.priority === 1, 'badge-danger': note.priority === 2}">{{note.title}}</span>
   </md-card-content>
   <md-card-footer>
     <span class="project-state">{{project.state | projectState}}</span>

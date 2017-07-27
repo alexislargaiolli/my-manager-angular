@@ -1,9 +1,9 @@
+import { ProjectActions } from 'app/modules/store';
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Project, ProjectState } from 'app/models';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
-import { SelectedProjectActions } from 'app/modules/store';
 import { slideInDownAnimation, apparitionAnimation } from 'app/animations';
 
 @Component({
@@ -14,11 +14,11 @@ import { slideInDownAnimation, apparitionAnimation } from 'app/animations';
 })
 export class ProjectDetailComponent implements OnInit {
 
-  @select(SelectedProjectActions.currentProject)
+  @select(ProjectActions.currentProject)
   currentProject$: Observable<Project>;
 
-  constructor(private _selectedProjectAction: SelectedProjectActions, private activatedRoute: ActivatedRoute) {
-    this._selectedProjectAction.dispatchSelectProject(activatedRoute.snapshot.params['projectId']);
+  constructor(private _projectAction: ProjectActions, private activatedRoute: ActivatedRoute) {
+    this._projectAction.dispatchSelectProject(activatedRoute.snapshot.params['projectId']);
   }
   public ngOnInit() { }
 }

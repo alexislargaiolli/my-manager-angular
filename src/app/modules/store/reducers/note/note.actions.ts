@@ -10,7 +10,7 @@ export class NoteActions extends ModelActions<Note> {
     public static readonly NOTE_SOURCE = 'GENERAL_NOTE';
 
     constructor(protected _repo: RepositoriesService, protected _ngRedux: NgRedux<IAppState>) {
-        super(_ngRedux, _repo, Note.REPO_KEY)
+        super(_ngRedux, _repo, Note.REPO_KEY);
     }
 
     /**

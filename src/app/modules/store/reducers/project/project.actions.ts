@@ -1,3 +1,4 @@
+import { Note } from './../../../../models/note.model';
 import { Injectable } from '@angular/core';
 import { RepositoriesService } from 'app/modules/core';
 import { Project, Client } from 'app/models';
@@ -10,7 +11,17 @@ import { ProjectState } from 'app/models';
 export class ProjectActions extends ModelActions<Project> {
     public static readonly UPDATE_STATE = 'UPDATE_STATE';
     public static readonly UPDATE_PROGRESS = 'UPDATE_PROGRESS';
-    public static readonly ASSIGN_CLIENT = 'ASSIGN_CLIENT';
+    public static readonly SELECT_PROJECT = 'SELECT_PROJECT';
+    public static readonly UPDATE_PROJECT_NOTES = 'UPDATE_PROJECT_NOTES';
+
+    /**
+     * Utils method to get current project with @select(ProjectActions.currentProject)
+     * @param state
+     */
+    public static currentProject(state: IAppState): Project {
+        const currentId = state.projects.selectedId;
+        return ProjectActions.findProject(state, currentId);
+    }
 
     public static findProject(state: IAppState, projectId) {
         return state.projects.items.find(p => p.id === projectId);
@@ -34,16 +45,6 @@ export class ProjectActions extends ModelActions<Project> {
         };
     }
 
-    public assignClient(projectId: number, client: Client) {
-        return {
-            type: ProjectActions.ASSIGN_CLIENT,
-            payload: {
-                projectId,
-                client
-            }
-        };
-    }
-
     public dispatchUpdateState(project: Project, state: ProjectState) {
         this._ngRedux.dispatch(this.updateState(project, state));
     }
@@ -52,8 +53,31 @@ export class ProjectActions extends ModelActions<Project> {
         this._ngRedux.dispatch(this.updateProgress(projectId, progress));
     }
 
-    public dispatchAssignClient(projectId: number, client: Client) {
-        this._ngRedux.dispatch(this.assignClient(projectId, client));
+    public selectProject(projectId: number) {
+        return {
+            type: ProjectActions.SELECT_PROJECT,
+            payload: {
+                projectId
+            }
+        };
+    }
+
+    public dispatchSelectProject(projectId: number) {
+        this._ngRedux.dispatch(this.selectProject(projectId));
+    }
+
+    public updateNotes(projectId: number, notes: Note[]) {
+        return {
+            type: ProjectActions.UPDATE_PROJECT_NOTES,
+            payload: {
+                projectId,
+                notes
+            }
+        };
+    }
+
+    public dispatchUpdateNotes(projectId: number, notes: Note[]) {
+        this._ngRedux.dispatch(this.updateNotes(projectId, notes));
     }
 
 }

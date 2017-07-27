@@ -5,7 +5,7 @@ import { RepositoriesService } from 'app/modules/core';
 import { Invoice, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState, ProjectHistoryEntryActions } from 'app/modules/store';
+import { IAppState, ProjectHistoryEntryActions, ProjectActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { NgRedux } from '@angular-redux/store';
 import { ActionUtils } from '../model/action.utils';
@@ -36,8 +36,8 @@ export class ProjectInvoiceEpics extends ModelEpics<Invoice> {
     delete = this.delete;
 
     @Epic()
-    loadOnProjectSelection = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
-        .map(action => this._invoiceActions.load(action.payload.id));
+    loadOnProjectSelection = (action$) => action$.ofType(ProjectActions.SELECT_PROJECT)
+        .map(action => this._invoiceActions.load(action.payload.projectId));
 
     @Epic()
     createHistoryEntryOnCreation = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))

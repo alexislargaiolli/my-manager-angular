@@ -109,7 +109,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
   }
 
   public save() {
-    this._invoiceActions.dispatchSave(this.invoice, this._ngRedux.getState().selectedProject.id);
+    this._invoiceActions.dispatchSave(this.invoice, this._ngRedux.getState().projects.selectedId);
   }
 
   public onStateChange() {

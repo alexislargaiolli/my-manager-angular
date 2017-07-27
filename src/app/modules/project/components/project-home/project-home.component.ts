@@ -10,7 +10,7 @@ import { Client } from 'app/models';
 import { Address } from 'app/models';
 import { ProjectActions } from '../../../store/reducers/project/project.actions';
 import { Observable } from 'rxjs/Rx';
-import { SelectedProjectActions, IAppState } from 'app/modules/store';
+import { IAppState } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
 import { Router } from '@angular/router';
 import { projectHomeAnimation } from './project-home.animation';

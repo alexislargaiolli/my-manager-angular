@@ -9,7 +9,6 @@ import { ModelEpics } from '../model/model.epics';
 import { Epic } from 'redux-observable-decorator';
 import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
 import { Observable } from 'rxjs/Observable';
-import { SelectedProjectActions } from '../selected-project/selected-project.actions';
 import { SessionActions } from 'app/modules/auth';
 import { ModelActions } from '../model/model.actions';
 import { ActionUtils } from '../model/action.utils';
@@ -34,8 +33,7 @@ export class ProjectEpics extends ModelEpics<Project> {
     constructor(
         protected _repo: RepositoriesService,
         protected _projectActions: ProjectActions,
-        protected _redux: NgRedux<IAppState>,
-        private _selectedProjectActions: SelectedProjectActions
+        protected _redux: NgRedux<IAppState>
     ) {
         super(Project.REPO_KEY, _repo, _projectActions);
     }
@@ -58,15 +56,6 @@ export class ProjectEpics extends ModelEpics<Project> {
             const index = this._redux.getState().projects.items.findIndex(p => p.id === action.payload.projectId);
             const project = this._redux.getState().projects.items[index];
             const updatedProject = Object.assign({}, project, { progress: action.payload.progress });
-            return this._projectActions.update(updatedProject);
-        })
-
-    @Epic()
-    assignClient = action$ => action$.ofType(ProjectActions.ASSIGN_CLIENT)
-        .map(action => {
-            const index = this._redux.getState().projects.items.findIndex(p => p.id === action.payload.projectId);
-            const project = this._redux.getState().projects.items[index];
-            const updatedProject = Object.assign({}, project, { clients: project.clients.concat(action.payload.progress) });
             return this._projectActions.update(updatedProject);
         })
 

@@ -5,11 +5,10 @@ import { MyNotification } from '../core/models/my-notification.model';
 export interface IAppState {
     profile?: IProfileState;
     dashboard?: IDashboardState;
-    projects?: IModelList<Project>;
+    projects?: IProjectState;
     session?: ISessionState;
     clients?: IClientState;
     notes?: INoteState;
-    selectedProject?: ISelectedProjectState;
     projectTasks?: IProjectTaskState;
     projectDevis?: IProjectDevisState;
     projectInvoices?: IProjectInvoiceState;
@@ -38,8 +37,8 @@ export interface IDashboardState {
     error: string;
 }
 
-export interface ISelectedProjectState {
-    id: number;
+export interface IProjectState extends IModelList<Project> {
+    selectedId?: number;
 }
 
 export interface IProjectTaskState extends IModelList<Task> {

@@ -1,6 +1,6 @@
+import { ProjectActions } from './../../../store/reducers/project/project.actions';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { SelectedProjectActions } from './../../../store/reducers/selected-project/selected-project.actions';
 import { IAppState } from 'app/modules/store';
 import { NgRedux } from '@angular-redux/store';
 import { Project } from 'app/models';
@@ -15,7 +15,7 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
     }
 
     ngOnInit(): void {
-        this.addSub(this._ngRedux.select(SelectedProjectActions.currentProject).subscribe(p => {
+        this.addSub(this._ngRedux.select(ProjectActions.currentProject).subscribe(p => {
             this.project = Object.assign(new Project(), p);
             this.title = this.project.name;
             this.initProject(this.project);

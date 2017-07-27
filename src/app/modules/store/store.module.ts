@@ -8,11 +8,9 @@ import { ProjectActions } from './reducers/project/project.actions';
 import { RootEpics } from './store.epics';
 import { ProjectEpics } from './reducers/project/project.epics';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
-import { SelectedProjectActions } from './reducers/selected-project/selected-project.actions';
 import { SessionActions } from '../auth/redux/session/session.actions';
 import { ProjectTaskActions } from './reducers/project-task/project-task.actions';
 import { ProjectTaskEpics } from './reducers/project-task/project-task.epics';
-import { SelectedProjectEpics } from './reducers/selected-project/selected-project.epics';
 import { ProjectDevisActions } from './reducers/project-devis/project-devis.actions';
 import { ProjectDevisEpics } from './reducers/project-devis/project-devis.epics';
 import { ProjectNoteEpics } from './reducers/project-note/project-note.epics';
@@ -48,8 +46,6 @@ import { NotificationActions } from './reducers/notification/notification.action
     ProjectEpics,
     NoteActions,
     NoteEpics,
-    SelectedProjectActions,
-    SelectedProjectEpics,
     ProjectTaskActions,
     ProjectTaskEpics,
     ProjectDevisActions,

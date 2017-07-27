@@ -5,7 +5,7 @@ import { RepositoriesService, User } from 'app/modules/core';
 import { Project, Profile } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState } from 'app/modules/store';
+import { IAppState } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { NgRedux } from '@angular-redux/store';
 import { SessionActions } from 'app/modules/auth';

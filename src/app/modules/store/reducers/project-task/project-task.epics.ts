@@ -4,7 +4,7 @@ import { RepositoriesService } from 'app/modules/core';
 import { Task, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions, IAppState, ProjectActions, ProjectTaskActions, ProjectHistoryEntryActions } from 'app/modules/store';
+import { IAppState, ProjectActions, ProjectTaskActions, ProjectHistoryEntryActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
 import { ActionUtils } from '../model/action.utils';
 import { ModelActions } from '../model/model.actions';
@@ -38,8 +38,8 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
     delete = this.delete;
 
     @Epic()
-    projectSelect = (action$) => action$.ofType(SelectedProjectActions.SELECT_PROJECT)
-        .map(action => this._taskActions.load(action.payload.id));
+    projectSelect = (action$) => action$.ofType(ProjectActions.SELECT_PROJECT)
+        .map(action => this._taskActions.load(action.payload.projectId));
 
     @Epic()
     updateProgress = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.UPDATE, ActionUtils.SUCCESS))

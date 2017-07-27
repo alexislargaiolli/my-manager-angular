@@ -1,3 +1,5 @@
+import { ProjectNoteActions } from 'app/modules/store';
+import { SessionActions } from './../../../auth/redux/session/session.actions';
 import { Injectable } from '@angular/core';
 import { Epic } from 'redux-observable-decorator';
 import { NoteActions } from './note.actions';
@@ -5,9 +7,7 @@ import { RepositoriesService } from 'app/modules/core';
 import { Note, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
-import { SelectedProjectActions } from 'app/modules/store';
 import { ModelEpics } from '../model/model.epics';
-import { SessionActions } from 'app/modules/auth';
 import { ActionUtils } from '../model/action.utils';
 import { ModelActions } from '../model/model.actions';
 

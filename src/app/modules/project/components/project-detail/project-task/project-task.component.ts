@@ -55,22 +55,22 @@ export class ProjectTaskComponent extends AbstractProjectComponent implements On
   public onStateChanged(event: IKabanChangeStateEvent) {
     const previousTask = this._ngRedux.getState().projectTasks.items.find(t => t.id === event.taskId);
     const task = Object.assign({}, previousTask, { state: event.nextState });
-    const projectId = this._ngRedux.getState().selectedProject.id;
+    const projectId = this._ngRedux.getState().projects.selectedId;
     this._historyActions.dispatchCreate(HistoryEntryFactory.taskStateChanged(task), projectId);
     this._taskAction.dispatchUpdate(task, projectId);
   }
 
   public createTask(task: Task) {
-    this._taskAction.dispatchCreate(task, this._ngRedux.getState().selectedProject.id);
+    this._taskAction.dispatchCreate(task, this._ngRedux.getState().projects.selectedId);
   }
 
   public updateTask(task: Task) {
-    this._taskAction.dispatchUpdate(task, this._ngRedux.getState().selectedProject.id);
+    this._taskAction.dispatchUpdate(task, this._ngRedux.getState().projects.selectedId);
     this.sidenav.close();
   }
 
   public deleteTask(task: Task) {
-    this._taskAction.dispatchDelete(task, this._ngRedux.getState().selectedProject.id);
+    this._taskAction.dispatchDelete(task, this._ngRedux.getState().projects.selectedId);
     this.sidenav.close();
   }
 
