@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row" [@centerApparitionAnimation]="'true'">
-    <div class="col-3">
-      <div class="side-menu">
+    <div class="col col-12 col-lg-3 col-xl-3 my-4 my-lg-0 my-xl-0">
+      <div class="side-menu flex-row flex-lg-column">
         <a [routerLink]="['./general']" routerLinkActive="active">
           <md-icon>info</md-icon>Général
         </a>
@@ -10,7 +10,7 @@
         </a>
       </div>
     </div>
-    <div class="col-9">
+    <div class="col col-12 col-lg-9 col-xl-9">
       <router-outlet></router-outlet>
     </div>
   </div>

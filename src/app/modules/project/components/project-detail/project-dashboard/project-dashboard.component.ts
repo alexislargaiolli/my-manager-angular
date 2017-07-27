@@ -1,3 +1,4 @@
+import { ClientDialogComponent } from './../../../../client/components/commons/client-dialog/client-dialog.component';
 import { Location } from '@angular/common';
 import { AbstractProjectComponent } from './../abstract-project.component';
 import { CreateNoteComponent } from './../../common/create-note/create-note.component';
@@ -128,6 +129,10 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
 
     public onDevisClicked(devis: Devis) {
         this._router.navigate(['../devis', devis.id], { relativeTo: this._route });
+    }
+
+    public openClientDialog() {
+        this.dialog.open(ClientDialogComponent);
     }
 
 }

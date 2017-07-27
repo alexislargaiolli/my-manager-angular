@@ -1,3 +1,13 @@
 .logo {
-  cursor: pointer;
+  color: #99bfd1;
+  text-decoration: none;
+  font-size: 25px;
+  display: inline-flex;
+  align-items: center;
+  img {
+    max-height: 100px;
+  }
+  span {
+    margin-left: 15px;
+  }
 }

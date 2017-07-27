@@ -1,13 +1,16 @@
 <div class="container-fluid" *ngIf="authenticated$ | async">
   <div class="row py-2">
     <div class="col d-flex align-items-center hidden-xs-down">
-      <span class="logo" [routerLink]="['/']">MyFreelanceManager</span>
+      <a class="logo" [routerLink]="['/']">
+        <img src="../../../../../assets/logo.png">
+        <span class="hidden-sm-down">My Freelance Manager</span>
+      </a>
     </div>
     <div class="col d-flex align-items-center justify-content-start justify-content-md-center">
       <app-gain-summary [waitingDevis]="waitingDevis$ | async" [acceptedDevis]="acceptedDevis$ | async" [waitingInvoices]="waitingInvoices$ | async"
         [paidInvoices]="paidInvoices$ | async"></app-gain-summary>
     </div>
-    <div class="col text-right">
+    <div class="col d-flex align-items-center justify-content-end">
       <app-user-menu [profile]="profile$ | async" *ngIf="(authenticated$ | async)"></app-user-menu>
       <button md-button *ngIf="!(authenticated$ | async)" [routerLink]=" ['/login'] ">Se connecter</button>
     </div>
