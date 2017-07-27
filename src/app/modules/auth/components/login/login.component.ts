@@ -11,12 +11,11 @@ import { Subscription } from 'rxjs/Rx';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { ReduxSubscriptionComponent } from '../../../core/components/redux-subscription-component/redux-subscription-component';
 import { Profile } from 'app/models';
-import { fadeAnim } from "app/animations";
+import { fadeAnim } from 'app/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./login.component.scss'],
   animations: [fadeAnim]
 })
@@ -24,10 +23,8 @@ export class LoginComponent extends ReduxSubscriptionComponent implements OnInit
 
   @select(['session', 'error'])
   error$;
-
   loading = false;
   authenticated = false;
-
   onUserLogin: Subscription;
 
   constructor(private _sessionAction: SessionActions, private _ngRedux: NgRedux<IAppState>, private _router: Router) {

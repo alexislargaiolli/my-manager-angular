@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="authenticated$ | async">
   <div class="row py-2">
     <div class="col d-flex align-items-center hidden-xs-down">
       <span class="logo" [routerLink]="['/']">MyFreelanceManager</span>
