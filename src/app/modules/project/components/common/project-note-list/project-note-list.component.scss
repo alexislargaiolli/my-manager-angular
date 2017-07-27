@@ -1,9 +1,22 @@
 @import 'components';
-
-:host{
-    text-align:center;
+:host {
+  text-align: center;
+  display: block;
 }
 
-app-note-item+app-note-item{
-    margin-left:15px;
+app-note-item+app-note-item {
+  margin-left: 15px;
+}
+
+@media (max-width: 575px) {
+   :host {
+    display: flex;
+    flex-direction: column;
+    app-note-item {
+      flex: 1;
+    }
+    app-note-item+app-note-item {
+      margin-left: 0;
+    }
+  }
 }

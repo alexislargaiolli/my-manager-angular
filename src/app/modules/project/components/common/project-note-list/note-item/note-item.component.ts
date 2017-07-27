@@ -1,6 +1,6 @@
 import { NgForm } from '@angular/forms';
 import { Note } from './../../../../../../models/note.model';
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-note-item',
@@ -45,6 +45,8 @@ export class NoteItemComponent implements OnInit {
     }
   }
 
+  @HostListener('mouseenter')
+  @HostListener('mouseleave')
   public toggleActions() {
     if (!this.edition) {
       this.actionsShown = !this.actionsShown;

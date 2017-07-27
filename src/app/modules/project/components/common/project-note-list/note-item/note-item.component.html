@@ -1,9 +1,10 @@
-<div class="note rounded priority-{{note.priority}}" (mouseenter)="toggleActions()" (mouseleave)="toggleActions()">
-  <div class="note-actions rounded" *ngIf="actionsShown">
-    <button (click)="toggleEdit()" md-button class="icon-only"><md-icon>mode_edit</md-icon></button>
-    <button (click)="delete.emit(note)" md-button class="icon-only"><md-icon>delete</md-icon></button>
-  </div>
-  <form id="editForm" #editForm="ngForm" (ngSubmit)="editNote(editForm)" *ngIf="edition; else elseTemplate" (keydown)="keyDownFunction($event, editForm)">
+<div class="note-actions rounded" *ngIf="actionsShown">
+  <button (click)="toggleEdit()" md-mini-fab class="mx-2"><md-icon>mode_edit</md-icon></button>
+  <button (click)="delete.emit(note)" md-mini-fab><md-icon>delete</md-icon></button>
+</div>
+<div class="note rounded priority-{{note.priority}}" [ngClass]="{'mat-elevation-z2': actionsShown}">
+  <form id="editForm" #editForm="ngForm" class="rounded mat-elevation-z2" (ngSubmit)="editNote(editForm)" *ngIf="edition; else elseTemplate"
+    (keydown)="keyDownFunction($event, editForm)">
     <div class="p-2 d-flex">
       <div class="d-flex flex-column">
         <md-input-container>
