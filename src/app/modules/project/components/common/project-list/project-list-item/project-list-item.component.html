@@ -1,10 +1,10 @@
 <md-card>
   <md-card-title>{{project.name}}</md-card-title>
   <md-card-content>
-    <!-- <p>{{project.description}}</p> -->
-    <div *ngIf="project.plannedEndDate" mdTooltip="Deadline du projet">
-      <md-icon class="align-middle">event</md-icon>
-      <span class="align-middle">{{project.plannedEndDate | date:fullDate}}</span>
+    <p>{{project.stateMessage}}</p>
+    <div *ngIf="project.plannedEndDate" mdTooltip="Deadline du projet" class="d-flex align-items-center mb-3">
+      <md-icon>event</md-icon>
+      <span class="mx-2">{{project.plannedEndDate | date:fullDate}}</span>
       <span class="badge badge-warning" *ngIf="deadlineWarningLevel === 1">Deadline proche</span>
       <span class="badge badge-danger" *ngIf="deadlineWarningLevel === 2">En retard</span>
     </div>

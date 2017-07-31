@@ -33,6 +33,9 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
     @ViewChild('projectNameInplace')
     projectNameInplace: InplaceComponent;
 
+    @ViewChild('statusMessageInplace')
+    statusMessageInplace: InplaceComponent;
+
     @select(['projectNotes', 'items'])
     notes$: Observable<Note[]>;
 
@@ -80,22 +83,24 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         this.addSub(this._ngRedux.select(ProjectInvoiceActions.invoiceSummary).subscribe((summary) => this.invoiceSummary = summary));
     }
 
-    public saveProject() {
-        this._projectAction.dispatchUpdate(this.project);
-    }
-
     public saveProjectName(form: NgForm) {
         if (form.valid) {
             this.project.name = form.value.name;
-            this.project.description = form.value.description;
-            this.saveProject();
+            this._projectAction.dispatchPatch(this.project.id, { 'name': form.value.name });
             this.projectNameInplace.toggle();
+        }
+    }
+
+    public saveStateMessage(form: NgForm) {
+        if (form.valid) {
+            this._projectAction.dispatchPatch(this.project.id, { 'stateMessage': form.value.stateMessage });
+            this.statusMessageInplace.toggle();
         }
     }
 
     public changeState(state: ProjectState) {
         const project = ProjectActions.findProject(this._ngRedux.getState(), this.project.id);
-        this._projectAction.dispatchUpdateState(project, state);
+        this._projectAction.dispatchPatch(project.id, { 'state': state });
     }
 
     public openCreateNote() {

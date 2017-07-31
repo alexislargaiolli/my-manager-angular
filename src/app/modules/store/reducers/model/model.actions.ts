@@ -86,8 +86,8 @@ export abstract class ModelActions<T extends IModel> {
 
     // Patch
 
-    patch(id: number, attributes, projectId?: number) {
-        return this.createAction(ModelActions.PATCH, ActionUtils.REQUEST, { id, attributes, projectId });
+    patch(id: number, attributes) {
+        return this.createAction(ModelActions.PATCH, ActionUtils.REQUEST, { id, attributes });
     }
 
     patchSuccess(model: T) {
@@ -98,8 +98,8 @@ export abstract class ModelActions<T extends IModel> {
         return this.createAction(ModelActions.PATCH, ActionUtils.ERROR, error);
     }
 
-    dispatchPatch(id: number, attributes, projectId?: number) {
-        this._ngRedux.dispatch(this.patch(id, attributes, projectId));
+    dispatchPatch(id: number, attributes) {
+        this._ngRedux.dispatch(this.patch(id, attributes));
     }
 
 

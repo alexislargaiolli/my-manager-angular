@@ -116,6 +116,9 @@ export class RepositoriesService {
             case RequestMethod.Put:
                 res = this.http.put(url, request.body, request.options);
                 break;
+            case RequestMethod.Patch:
+                res = this.http.patch(url, request.body, request.options);
+                break;
             case RequestMethod.Get:
                 res = this.http.get(url, request.options);
                 break;

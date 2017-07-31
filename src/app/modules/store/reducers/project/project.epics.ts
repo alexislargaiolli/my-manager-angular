@@ -28,6 +28,9 @@ export class ProjectEpics extends ModelEpics<Project> {
     updateProject = this.update;
 
     @Epic()
+    patchProject = this.patch;
+
+    @Epic()
     deleteProject = this.delete;
 
     constructor(
@@ -45,19 +48,6 @@ export class ProjectEpics extends ModelEpics<Project> {
     @Epic()
     onLogin = (action$) => action$.ofType(SessionActions.LOGIN_SUCCESS)
         .map(action => this._projectActions.load());
-
-    @Epic()
-    updateState = action$ => action$.ofType(ProjectActions.UPDATE_STATE)
-        .map(action => this._projectActions.update(Object.assign({}, action.payload.project, { state: action.payload.state })));
-
-    @Epic()
-    updateProgress = action$ => action$.ofType(ProjectActions.UPDATE_PROGRESS)
-        .map(action => {
-            const index = this._redux.getState().projects.items.findIndex(p => p.id === action.payload.projectId);
-            const project = this._redux.getState().projects.items[index];
-            const updatedProject = Object.assign({}, project, { progress: action.payload.progress });
-            return this._projectActions.update(updatedProject);
-        })
 
     protected loadRequest(request: RepositoryRequest<Project>) {
         request.include('notes');

@@ -62,6 +62,15 @@ export abstract class ModelEpics<T extends IModel> {
                 .catch(error => of(this._modelAction.updateError(error)));
         })
 
+    protected patch = action$ => action$
+        .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.PATCH, ActionUtils.REQUEST))
+        .switchMap(action => {
+            const request = this._repo.patch(this._modelName, action.payload.id, action.payload.attributes);
+            return request.exec()
+                .map(model => this._modelAction.patchSuccess(model))
+                .catch(error => of(this._modelAction.patchError(error)));
+        })
+
     protected delete = action$ => action$
         .ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.REQUEST))
         .switchMap(action => {

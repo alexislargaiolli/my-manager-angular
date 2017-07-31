@@ -15,16 +15,6 @@ import { HistoryEntryFactory } from 'app/models/historyentry.factory';
 @Injectable()
 export class ProjectTaskEpics extends ModelEpics<Task>{
 
-    constructor(
-        private _taskActions: ProjectTaskActions,
-        private _projectActions: ProjectActions,
-        private _ngRedux: NgRedux<IAppState>,
-        protected _repo: RepositoriesService,
-        private _historyAction: ProjectHistoryEntryActions
-    ) {
-        super(Task.REPO_KEY, _repo, _taskActions);
-    }
-
     @Epic()
     load = this.load;
 
@@ -37,6 +27,16 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
     @Epic()
     delete = this.delete;
 
+    constructor(
+        private _taskActions: ProjectTaskActions,
+        private _projectActions: ProjectActions,
+        private _ngRedux: NgRedux<IAppState>,
+        protected _repo: RepositoriesService,
+        private _historyAction: ProjectHistoryEntryActions
+    ) {
+        super(Task.REPO_KEY, _repo, _taskActions);
+    }
+
     @Epic()
     projectSelect = (action$) => action$.ofType(ProjectActions.SELECT_PROJECT)
         .map(action => this._taskActions.load(action.payload.projectId));
@@ -47,8 +47,8 @@ export class ProjectTaskEpics extends ModelEpics<Task>{
             const nbFinishedTasks = this._ngRedux.getState().projectTasks.items.reduce((previousValue, currentTask) => previousValue + (currentTask.state === 2 ? 1 : 0), 0);
             const totalTask = this._ngRedux.getState().projectTasks.items.length;
             const progress = Math.floor((nbFinishedTasks * 100) / totalTask);
-            return this._projectActions.updateProgress(action.payload.projectId, progress);
-        });
+            return this._projectActions.patch(action.payload.projectId, { 'progress': progress });
+        })
 
     @Epic()
     createHistoryOnCreate = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.CREATE, ActionUtils.SUCCESS))

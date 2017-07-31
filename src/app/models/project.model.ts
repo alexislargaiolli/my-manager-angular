@@ -16,6 +16,7 @@ export class Project implements IModel {
     public budget: number;
     public progress = 0;
     public state: ProjectState = ProjectState.PROSPECTION;
+    public stateMessage: string;
     public clients: Client[];
     public notes: Note[];
 

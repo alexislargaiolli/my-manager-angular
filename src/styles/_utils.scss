@@ -52,7 +52,8 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.mat-button.icon-only {
+.mat-button.icon-only,
+.mat-raised-button.icon-only {
   padding: 0;
   min-width: 40px;
 }
