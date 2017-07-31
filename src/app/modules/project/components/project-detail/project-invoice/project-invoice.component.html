@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <app-project-title [title]="title" (back)="goBack()" class="d-block mb-4"></app-project-title>
-  <app-square-list [loading]="loading">
+  <app-square-list [loading]="loading$ | async">
     <md-card class="pt-0 create-wrapper">
       <md-card-content class="d-flex flex-column justify-content-around h-100">
         <button [routerLink]="['./', 'create']" md-button class="blue">Créer un facture</button>
