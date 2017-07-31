@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Epic } from 'redux-observable-decorator';
 import { ProjectInvoiceActions } from './project-invoice.actions';
-import { RepositoriesService } from 'app/modules/core';
+import { RepositoriesService, RepositoryRequest } from 'app/modules/core';
 import { Invoice, Project } from 'app/models';
 import { by } from 'protractor';
 import { of } from 'rxjs/observable/of';
@@ -46,4 +46,8 @@ export class ProjectInvoiceEpics extends ModelEpics<Invoice> {
     @Epic()
     createHistoryEntryOnRemoval = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.SUCCESS))
         .map(action => this._historyActions.create(HistoryEntryFactory.invoiceDeleted(action.payload.model), action.payload.model.projectId));
+
+    protected createRequest(request: RepositoryRequest<Invoice>) {
+        request.addUserIdToBody();
+    }
 }

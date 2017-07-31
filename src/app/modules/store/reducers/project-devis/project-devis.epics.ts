@@ -1,3 +1,4 @@
+import { RepositoryRequest } from './../../../core/services/repositories/repository-request';
 import { Injectable } from '@angular/core';
 import { Epic } from 'redux-observable-decorator';
 import { ProjectDevisActions } from './project-devis.actions';
@@ -49,4 +50,7 @@ export class ProjectDevisEpics extends ModelEpics<Devis> {
     createHistoryEntryOnRemoval = (action$) => action$.ofType(ActionUtils.asyncActionType(this.getActionSource(), ModelActions.DELETE, ActionUtils.SUCCESS))
         .map(action => this._historyActions.create(HistoryEntryFactory.devisDeleted(action.payload.model), action.payload.model.projectId));
 
+    protected createRequest(request: RepositoryRequest<Devis>) {
+        request.addUserIdToBody();
+    }
 }

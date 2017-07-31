@@ -33,6 +33,13 @@ export class RepositoryRequest<T> {
         return this;
     }
 
+    public addUserIdToBody(): RepositoryRequest<T> {
+        if (this.repositoriesService.session) {
+            this.body.userId = this.repositoriesService.session.userId;
+        }
+        return this;
+    }
+
     public include(field: string): RepositoryRequest<T> {
         this._filters.push({ type: 'include', value: field });
         return this;
@@ -43,12 +50,24 @@ export class RepositoryRequest<T> {
         return this;
     }
 
-    public limit(limit: number) {
+    public limit(limit: number): RepositoryRequest<T> {
         this._filters.push({ type: 'limit', value: limit });
+        return this;
     }
 
-    public skip(skip: number) {
+    public skip(skip: number): RepositoryRequest<T> {
         this._filters.push({ type: 'skip', value: skip });
+        return this;
+    }
+
+    public field(field: string): RepositoryRequest<T> {
+        this._filters.push({ type: 'fields', property: field, value: true });
+        return this;
+    }
+
+    public where(field: string, value: any): RepositoryRequest<T> {
+        this._filters.push({ type: 'where', property: field, value: value });
+        return this;
     }
 
     public auth(token: string): RepositoryRequest<T> {

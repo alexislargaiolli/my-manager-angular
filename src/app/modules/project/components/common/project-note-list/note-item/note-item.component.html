@@ -2,7 +2,7 @@
   <button (click)="toggleEdit()" md-mini-fab class="mx-2"><md-icon>mode_edit</md-icon></button>
   <button (click)="delete.emit(note)" md-mini-fab><md-icon>delete</md-icon></button>
 </div>
-<div class="note rounded priority-{{note.priority}}" [ngClass]="{'mat-elevation-z2': actionsShown}">
+<div class="note rounded mat-elevation-z2 priority-{{note.priority}}" [ngClass]="{'mat-elevation-z3': actionsShown}">
   <form id="editForm" #editForm="ngForm" class="rounded mat-elevation-z2" (ngSubmit)="editNote(editForm)" *ngIf="edition; else elseTemplate"
     (keydown)="keyDownFunction($event, editForm)">
     <div class="p-2 d-flex">

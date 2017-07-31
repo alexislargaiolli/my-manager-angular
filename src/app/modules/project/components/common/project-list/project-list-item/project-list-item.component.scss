@@ -1,11 +1,13 @@
 md-card {
   height: 300px;
+  cursor: pointer;
+  .badge {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .project-state {
   padding-left: 24px;
-}
-
-md-card {
-  cursor: pointer;
 }

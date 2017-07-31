@@ -1,11 +1,10 @@
-<div class="square-list" [@listFadeAnim]="devisList">
-  <div class="square-list-item create-item">
-    <button (click)="create.emit()" md-button><md-icon>add</md-icon>Créer un devis</button>
-  </div>
-  <app-devis-list-item *ngFor="let devi of devisList" [devis]="devi" class="square-list-item rounded mat-elevation-z2 anim-item"
-    (click)="selectDevis(devi)">
+<app-square-list [loading]="loading">
+  <md-card class="pt-0 create-wrapper">
+    <md-card-content class="d-flex flex-column justify-content-around h-100">
+      <button (click)="create.emit()" md-button class="blue">Créer un devis</button>
+    </md-card-content>
+  </md-card>
+
+  <app-devis-list-item *ngFor="let devi of devisList" [devis]="devi" class="square-list-item pb-4" (click)="selectDevis(devi)">
   </app-devis-list-item>
-</div>
-<div *ngIf="loading">
-  Chargement
-</div>
+</app-square-list>

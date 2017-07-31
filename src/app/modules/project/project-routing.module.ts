@@ -1,5 +1,4 @@
 import { ProjectHomeComponent } from './components/project-home/project-home.component';
-import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'app/modules/auth';

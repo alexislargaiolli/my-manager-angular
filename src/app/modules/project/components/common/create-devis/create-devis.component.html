@@ -86,8 +86,10 @@
   <!-- Client selection -->
   <div class="step" *ngIf="isStepClient()">
     <p><button md-button class="icon-only" (click)="prevStep()"><md-icon>arrow_back</md-icon></button> Qui est le client ?</p>
-    <div *ngIf="clients.length > 0" class="d-flex flex-column">
-      <button md-button (click)="selectClient(client)" *ngFor="let client of clients" class="mb-2"><md-icon>person</md-icon>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></button>
+    <div class="client-list light-scrollbar">
+      <div *ngIf="clients.length > 0" class="d-flex flex-column">
+        <button md-button (click)="selectClient(client)" *ngFor="let client of clients" class="mb-2"><md-icon>person</md-icon>{{client.name}} <small>{{client.firstname}} {{client.lastname}}</small></button>
+      </div>
     </div>
     <app-client-create (create)="createClient($event)" *ngIf="clients.length === 0"></app-client-create>
   </div>

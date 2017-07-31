@@ -1,4 +1,29 @@
-<div class="container-fluid w-100 flex-1">
+<div class="container-fluid">
+  <app-project-title [title]="title" (back)="goBack()" class="d-block mb-4"></app-project-title>
+  <app-square-list [loading]="loading">
+    <md-card class="pt-0 create-wrapper">
+      <md-card-content class="d-flex flex-column justify-content-around h-100">
+        <button [routerLink]="['./', 'create']" md-button class="blue">Créer un facture</button>
+      </md-card-content>
+    </md-card>
+
+    <div *ngFor="let invoice of (invoices$ | async)" (click)="select(invoice)" class="square-list-item pb-4">
+      <md-card class="p-0">
+        <div class="devis-state" [ngClass]="{'draft': invoice.state===0, 'bg-info': invoice.state===1, 'bg-success': invoice.state===2,'bg-danger': invoice.state === 3}">
+          <span *ngIf="invoice.state === 0">Brouillon</span>
+          <span *ngIf="invoice.state === 1">En attente</span>
+          <span *ngIf="invoice.state === 2">Payée</span>
+          <span *ngIf="invoice.state === 3">Abandonnée</span>
+        </div>
+        <div class="preview-wrapper">
+          <app-invoice-preview [invoice]="invoice"></app-invoice-preview>
+        </div>
+      </md-card>
+    </div>
+  </app-square-list>
+</div>
+
+<!-- <div class="container-fluid w-100 flex-1">
   <app-project-title [title]="title" (back)="goBack()"></app-project-title>
   <div class="square-list" [@listFadeAnim]="invoices$ | async">
     <div class="square-list-item create-item">
@@ -6,17 +31,8 @@
       <md-icon>add</md-icon>Créer une facture</button>
     </div>
 
-    <div *ngFor="let invoice of (invoices$ | async)" (click)="select(invoice)" class="square-list-item rounded mat-elevation-z2 anim-item">
-      <div class="devis-state rounded-top" [ngClass]="{'draft': invoice.state===0, 'bg-info': invoice.state===1, 'bg-success': invoice.state===2,'bg-danger': invoice.state === 3}">
-        <span *ngIf="invoice.state === 0">Brouillon</span>
-        <span *ngIf="invoice.state === 1">En attente</span>
-        <span *ngIf="invoice.state === 2">Payée</span>
-        <span *ngIf="invoice.state === 3">Abandonnée</span>
-      </div>
-      <app-invoice-preview [invoice]="invoice"></app-invoice-preview>
-    </div>
   </div>
   <div *ngIf="loading$ | async">
     Chargement
   </div>
-</div>
+</div> -->

@@ -1,13 +1,13 @@
-:host {
-    flex: 1;
-    display: flex;
-}
-
-.square-list {
-    flex: 1;
+.create-wrapper {
+  height: 456px!important;
 }
 
 .square-list-item {
-    width: 300px;
-    height: 420px;
+  cursor: pointer;
+}
+
+.square-list-item,
+.item-slot {
+  width: 300px;
+  height: 480px;
 }

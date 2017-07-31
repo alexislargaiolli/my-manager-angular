@@ -1,6 +1,20 @@
-@import '../project-details-variables';
-:host {
-  @include project-details-container;
+.create-wrapper {
+  height: 456px!important;
+}
+
+.square-list-item {
+  cursor: pointer;
+}
+
+.square-list-item,
+.item-slot {
+  width: 300px;
+  height: 480px;
+}
+
+.square-list-item .preview-wrapper {
+  overflow: hidden;
+  max-height: 425px;
 }
 
 app-invoice-preview {
@@ -11,10 +25,7 @@ app-invoice-preview {
 .devis-state {
   height: 30px;
   line-height: 30px;
-  position: absolute;
   z-index: 100;
-  background: #fff;
-  width: 300px;
   color: #fff;
   font-family: 'Oswald', sans-serif;
   text-align: center;
@@ -22,14 +33,4 @@ app-invoice-preview {
 
 .draft {
   color: #222;
-}
-
-:host /deep/ .square-list {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.square-list-item {
-  width: 300px;
-  height: 420px;
 }

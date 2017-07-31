@@ -70,3 +70,8 @@ $stepNumberRadius: 30px;
     }
   }
 }
+
+.client-list {
+  max-height: 400px;
+  overflow-y: auto;
+}

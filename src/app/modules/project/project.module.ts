@@ -1,3 +1,4 @@
+import { SquareListComponent } from './components/common/square-list/square-list.component';
 import { ClientModule } from './../client/client.module';
 import { CreateDevisComponent } from './components/common/create-devis/create-devis.component';
 import { ProjectTitleComponent } from './components/common/project-title/project-title.component';
@@ -14,7 +15,6 @@ import { NavigationService } from './services/navigation.service';
 import { ProjectHomeComponent } from './components/project-home/project-home.component';
 import { ProjectListComponent } from './components/common/project-list/project-list.component';
 import { ProjectCreateComponent } from './components/common/project-create/project-create.component';
-import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
 import { ProjectTaskComponent } from './components/project-detail/project-task/project-task.component';
 import { ProjectSettingsComponent } from './components/project-detail/project-settings/project-settings.component';
 import { NoteListComponent } from './components/common/note-list/note-list.component';
@@ -61,7 +61,6 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     ProjectHomeComponent,
     ProjectListComponent,
     ProjectCreateComponent,
-    ProjectDetailComponent,
     ProjectTaskComponent,
     ProjectSettingsComponent,
     NoteListComponent,
@@ -91,7 +90,8 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     CreateProjectComponent,
     NoteItemComponent,
     ProjectTitleComponent,
-    CreateDevisComponent
+    CreateDevisComponent,
+    SquareListComponent
   ],
   providers: [
     NavigationService,

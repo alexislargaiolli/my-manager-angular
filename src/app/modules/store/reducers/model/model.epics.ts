@@ -46,6 +46,7 @@ export abstract class ModelEpics<T extends IModel> {
         .switchMap(action => {
             const request = this._repo.create(this._modelName, action.payload.model);
             action.payload.projectId == null ? request.byCurrentUser() : request.by(Project.REPO_KEY, action.payload.projectId);
+            this.createRequest(request);
             return request.exec()
                 .map(model => this._modelAction.createSuccess(model))
                 .catch(error => of(this._modelAction.createError(error)));
@@ -90,9 +91,17 @@ export abstract class ModelEpics<T extends IModel> {
 
     /**
      * Call before load request execution. Allow to add filter / sort to request.
-     * @param request 
+     * @param request
      */
     protected loadRequest(request: RepositoryRequest<IModel>) {
+
+    }
+
+    /**
+     * Call before create request execution. Allow to add filter / sort to request.
+     * @param request
+     */
+    protected createRequest(request: RepositoryRequest<IModel>) {
 
     }
 }

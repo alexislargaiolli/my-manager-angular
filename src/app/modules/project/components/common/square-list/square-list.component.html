@@ -1,0 +1,21 @@
+<div class="row no-gutters">
+  <!-- FILTER PANEL -->
+  <div class="create-column col-sm-12 col-md-12 col-lg-3 col-xl-2">
+    <ng-content select=".create-wrapper"></ng-content>
+  </div>
+
+  <div class="list-column col d-flex flex-column flex-sm-row flex-wrap" [ngClass]="{'loading' : loading}">
+    <!-- PROJECTS -->
+    <ng-content select=".square-list-item"></ng-content>
+
+    <!-- SLOTS -->
+    <div *ngFor="let slot of slots" class="item-slot pb-4">
+      <div class="item-slot-content"></div>
+    </div>
+
+    <div *ngIf="loading" class="loading-status pl-4">
+      Chargement
+      <app-spinner></app-spinner>
+    </div>
+  </div>
+</div>
