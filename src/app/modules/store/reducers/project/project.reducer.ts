@@ -1,3 +1,5 @@
+import { ModelActions } from 'app/modules/store/reducers/model/model.actions';
+import { ActionUtils } from './../model/action.utils';
 import { ModelUtils } from './../../../core/models/model.utils';
 import { IProjectState } from './../../store.types';
 import { IModelList } from '../../../core/models/generic.model';
@@ -16,8 +18,13 @@ const INITIAL_STATE: IProjectState = {
 };
 
 export function projectReducer(state: IProjectState = INITIAL_STATE, action) {
-    state = modelReducer<Project>(Project.REPO_KEY, Project.REPO_KEY, state, action);
     switch (action.type) {
+        case ActionUtils.asyncActionType(Project.REPO_KEY, ModelActions.UPDATE, ActionUtils.SUCCESS): {
+            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null });
+        }
+        case ActionUtils.asyncActionType(Project.REPO_KEY, ModelActions.PATCH, ActionUtils.SUCCESS): {
+            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null });
+        }
         case ProjectActions.SELECT_PROJECT: {
             return Object.assign({}, state, { selectedId: action.payload.projectId });
         }
@@ -27,5 +34,23 @@ export function projectReducer(state: IProjectState = INITIAL_STATE, action) {
             return Object.assign({}, state, { items: ModelUtils.immutableUpdate<Project>(state.items, project) });
         }
     }
+    state = modelReducer<Project>(Project.REPO_KEY, Project.REPO_KEY, state, action);
     return state;
+}
+
+/**
+ * Update a project in project store but keep project.notes
+ * @param projects 
+ * @param project 
+ */
+function updateProject(projects: Project[], project: Project): Project[] {
+    const i = projects.findIndex(a => a.id === project.id);
+    const previous = projects[i];
+    const p = Object.assign(new Project(), project);
+    p.notes = previous.notes;
+    return [
+        ...projects.slice(0, i),
+        p,
+        ...projects.slice(i + 1)
+    ];
 }
