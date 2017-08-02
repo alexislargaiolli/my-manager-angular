@@ -15,15 +15,6 @@ import { IAppState } from 'app/modules/store';
 @Injectable()
 export class ProjectNoteEpics extends ModelEpics<Note>{
 
-    constructor(
-        private _noteActions: ProjectNoteActions,
-        private _projectActions: ProjectActions,
-        protected _redux: NgRedux<IAppState>,
-        protected _repo: RepositoriesService
-    ) {
-        super(Note.REPO_KEY, _repo, _noteActions);
-    }
-
     @Epic()
     load = this.load;
 
@@ -35,6 +26,15 @@ export class ProjectNoteEpics extends ModelEpics<Note>{
 
     @Epic()
     delete = this.delete;
+
+    constructor(
+        private _noteActions: ProjectNoteActions,
+        private _projectActions: ProjectActions,
+        protected _redux: NgRedux<IAppState>,
+        protected _repo: RepositoriesService
+    ) {
+        super(Note.REPO_KEY, _repo, _noteActions);
+    }
 
     @Epic()
     projectSelect = (action$) => action$.ofType(ProjectActions.SELECT_PROJECT)

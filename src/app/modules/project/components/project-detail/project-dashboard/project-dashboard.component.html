@@ -1,4 +1,4 @@
-<div class="container-fluid w-100 flex-1">
+<div class="container-fluid w-100 flex-1 d-flex flex-column">
   <div class="actions-panel">
     <button md-mini-fab (click)="openClientDialog()" mdTooltip="Répertoire client"><md-icon>import_contacts</md-icon></button>
     <button (click)="openCreateNote()" md-mini-fab mdTooltip="Ajouter un pense bête" class="mt-2"><md-icon>note_add</md-icon></button>
@@ -21,7 +21,17 @@
       </span>
     </app-inplace>
   </app-project-title>
-  <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
+  <div class="row flex-1">
+    <div class="col-12 col-lg-7 progress-wrapper" *ngIf="project.progress">
+      <ngx-charts-advanced-pie-chart [view]="chartSize" [results]="taskSummary" [scheme]="colorScheme">
+      </ngx-charts-advanced-pie-chart>
+    </div>
+    <!-- <div class="col-12 col-md-4">
+    </div> -->
+    <div class="col-12 col-lg-5">
+      <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
+    </div>
+  </div>
 </div>
 
 <div class="link-squares d-flex">

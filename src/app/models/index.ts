@@ -1,3 +1,4 @@
+export { ChartData } from './chart.model';
 export { Profile } from './profile.model';
 export { Address } from './address.model';
 export { Client } from './client.model';

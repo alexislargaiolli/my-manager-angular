@@ -4,7 +4,7 @@ import { AbstractProjectComponent } from './../abstract-project.component';
 import { CreateNoteComponent } from './../../common/create-note/create-note.component';
 import { MdDialog } from '@angular/material';
 import { Component, OnInit, HostBinding, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
-import { Project, Note, HistoryEntry, ProjectState, Devis, Client } from 'app/models';
+import { Project, Note, HistoryEntry, ProjectState, Devis, Client, ChartData } from 'app/models';
 import { leaveWorkaround } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InplaceComponent } from 'app/modules/shared/components/inplace/inplace.component';
 import { NgForm } from '@angular/forms';
-import { NotificationService } from 'app/modules/core';
+import { NotificationService, BreakpointsService } from 'app/modules/core';
 import { ClientActions } from 'app/modules/store/reducers/client/client.actions';
 import { ProjectDevisActions } from '../../../../store/reducers/project-devis/project-devis.actions';
 import { ReduxSubscriptionComponent } from '../../../../core/components/redux-subscription-component/redux-subscription-component';
@@ -54,8 +54,11 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
     @select(['projectDevis', 'loading'])
     devisLoading$: Observable<boolean>;
 
-
-    taskSummary: number[];
+    colorScheme = {
+        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    };
+    chartSize = [800, 400];
+    taskSummary: ChartData[];
     devisSummary: number[];
     invoiceSummary: number[];
     clients: Client[] = [];
@@ -71,16 +74,31 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         protected _router: Router,
         private _route: ActivatedRoute,
         private dialog: MdDialog,
-        protected _location: Location
+        protected _location: Location,
+        private _breakpointsService: BreakpointsService
     ) { super(_ngRedux, _location); }
 
     public ngOnInit() {
         super.ngOnInit();
         this.addSub(this._ngRedux.select(['projectClient', 'items']).subscribe(clients => this.clients = Object.assign([], clients)));
         this.addSub(this._ngRedux.select(['clients', 'items']).subscribe(clients => this.allClients = Object.assign([], clients)));
-        this.addSub(this._ngRedux.select(ProjectTaskActions.todoTaskCount).subscribe((taskSummary: number[]) => this.taskSummary = taskSummary));
+        this.addSub(this._ngRedux.select(ProjectTaskActions.taskSummary).subscribe((taskSummary: ChartData[]) => this.taskSummary = taskSummary));
         this.addSub(this._ngRedux.select(ProjectDevisActions.devisSummary).subscribe((summary) => this.devisSummary = summary));
         this.addSub(this._ngRedux.select(ProjectInvoiceActions.invoiceSummary).subscribe((summary) => this.invoiceSummary = summary));
+        this.addSub(this._breakpointsService.breakpointChanges.subscribe(e => {
+            this.updateChartSize(e.newBreakpoint);
+        }));
+        this.updateChartSize(this._breakpointsService.currentBreakpoint);
+    }
+
+    private updateChartSize(breakpoint) {
+        if (breakpoint === 'lg' || breakpoint === 'xl') {
+            this.chartSize = [800, 400];
+        } else if (breakpoint === 'md') {
+            this.chartSize = [600, 200];
+        } else {
+            this.chartSize = [500, 200];
+        }
     }
 
     public saveProjectName(form: NgForm) {

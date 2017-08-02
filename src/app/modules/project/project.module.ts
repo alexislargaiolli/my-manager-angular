@@ -44,6 +44,7 @@ import { ProjectMenuComponent } from './components/project-detail/project-menu/p
 import { ProjectDetailResolver } from './services/project-resolver';
 import { TaskEditionComponent } from './components/project-detail/project-task/task-edition/task-edition.component';
 import { ProjectListItemComponent } from 'app/modules/project/components/common/project-list/project-list-item/project-list-item.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { ProjectListItemComponent } from 'app/modules/project/components/common/
     MyDatePickerModule,
     DatepickerModule,
     MyManagerRoutingModule,
-    ClientModule
+    ClientModule,
+    NgxChartsModule
   ],
   declarations: [
     DevisStatePipe,

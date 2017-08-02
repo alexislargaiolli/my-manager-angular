@@ -1,3 +1,4 @@
+import { ChartData } from './../../../../models/chart.model';
 import { Injectable } from '@angular/core';
 import { RepositoriesService } from 'app/modules/core';
 import { Task, TaskState } from 'app/models';
@@ -21,17 +22,21 @@ export class ProjectTaskActions extends ModelActions<Task> {
     }
 
     /**
-     * Utils method to get todo task count with @select(TaskActions.todoTaskCount)
+     * Utils method to get todo task count with @select(TaskActions.taskSummary)
      * @param state
      */
-    public static todoTaskCount(state: IAppState) {
+    public static taskSummary(state: IAppState): ChartData[] {
         return state.projectTasks.items.reduce((total, task) => {
             if (!total[task.state]) {
-                total[task.state] = 0;
+                total[task.state].value = 0;
             }
-            total[task.state] = total[task.state] + 1;
+            total[task.state].value = total[task.state].value + 1;
             return total;
-        }, [0, 0, 0]);
+        }, [
+                { name: 'Tâches à faire', value: 0 },
+                { name: 'Tâches en cours', value: 0 },
+                { name: 'Tâches terminées', value: 0 }
+            ]);
     }
 
     constructor(protected _ngRedux: NgRedux<IAppState>, protected _repo: RepositoriesService) {

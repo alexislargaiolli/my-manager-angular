@@ -1,3 +1,4 @@
+import { BreakpointsService } from './services/breakpoints.service';
 import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
 import { SharedModule } from 'app/modules/shared/shared.module';
 import { ErrorService } from './services/error.service';
@@ -10,7 +11,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { RepositoriesService } from './services/repositories/repositories.service';
 import { BaseHttpService } from './services/repositories/base-http.service';
 import { BackendConfig } from './models/backend.config';
-import { PageNotFoundComponent } from "app/modules/core/components/page-not-found/page-not-found.component";
+import { PageNotFoundComponent } from 'app/modules/core/components/page-not-found/page-not-found.component';
 
 @NgModule({
   imports: [SharedModule],
@@ -22,7 +23,7 @@ import { PageNotFoundComponent } from "app/modules/core/components/page-not-foun
   ],
   exports: [
     NotificationCenterComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
   ],
   providers: [
     NotificationService,
@@ -30,7 +31,8 @@ import { PageNotFoundComponent } from "app/modules/core/components/page-not-foun
     ErrorService,
     DialogsService,
     BaseHttpService,
-    RepositoriesService
+    RepositoriesService,
+    BreakpointsService
   ],
   entryComponents: [
     ConfirmDialogComponent

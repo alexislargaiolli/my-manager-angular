@@ -55,7 +55,6 @@ app-project-note-list {
 
 @media (max-width: 767px) {
   .link-squares {
-    flex: 2;
     flex-direction: column;
   }
   .link-square {
@@ -97,30 +96,17 @@ section {
 }
 
 .progress-wrapper {
-  md-progress-spinner,
-  .progress-wrapper-value {
-    width: 200px;
-    height: 200px;
-  }
-  .progress-wrapper-value {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    span {
-      font-family: $title-font;
-      font-size: 40px;
+  & /deep/ ngx-charts-advanced-legend {
+    .total-value,
+    .total-label {
+      display: none;
     }
   }
-  @media (max-width: 575px) {
-    md-progress-spinner,
-    .progress-wrapper-value {
-      width: 100px;
-      height: 100px;
-    }
-    .progress-wrapper-value span {
-      font-size: 30px;
-    }
+}
+
+@media (max-width: 575px) {
+  .progress-wrapper {
+    max-height: 200px;
   }
 }
 
