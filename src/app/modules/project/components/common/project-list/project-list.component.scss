@@ -3,66 +3,12 @@
   display: block;
 }
 
-.project-list-column {
-  padding-right: 15px;
+.square-list-item,
+.item-slot {
+  height: 315px;
 }
 
-.create-project,
-.project-list-column.loading .project-slot {
-  height: 300px;
-  padding-bottom: 0!important;
-}
-
-app-project-list-item,
-.project-slot {
-  width: 25%;
-  padding-left: 15px;
-}
-
-.project-slot {
-  border-radius: 2px;
-}
-
-.project-slot-content {
-  background: #e0e0e0;
-  height: 100%;
-}
-
-@media(max-width:1400px) {
-  app-project-list-item,
-  .project-slot {
-    width: 33.33%;
-  }
-}
-
-@media (min-width: 992px) {
-  .create-project-column {
-    padding-left: 15px;
-  }
-}
-
-@media(max-width:992px) {
-  .create-project-column {
-    padding: 0 15px;
-  }
-  .create-project {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 15px;
-  }
-  app-project-list-item,
-  .project-slot {
-    width: 50%;
-  }
-}
-
-@media(max-width:576px) {
-  app-project-list-item,
-  .project-slot {
-    width: 100%;
-  }
-}
-
-.loading-status {
-  margin-top: -25px;
+.create-wrapper {
+  background: none;
+  box-shadow: none!important;
 }

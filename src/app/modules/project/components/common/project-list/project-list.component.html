@@ -1,38 +1,25 @@
-<div class="row no-gutters">
-  <!-- FILTER PANEL -->
-  <div class="create-project-column col-sm-12 col-md-12 col-lg-3 col-xl-2">
-    <md-card class="create-project">
-      <md-card-content class="d-flex flex-column justify-content-around h-100">
-        <button (click)="create.emit()" md-raised-button class="blue mx-auto">Nouveau Projet</button>
-        <md-select (change)="sort($event)" placeholder="Organiser par">
-          <!-- Double options to toggle sort order -->
-          <md-option [value]="'name'" *ngIf="!(sortField === 'name' && sortOrder === 1)">Nom</md-option>
-          <md-option [value]="'name'" *ngIf="sortField === 'name' && sortOrder === 1">Nom</md-option>
-          <md-option [value]="'state'" *ngIf="!(sortField === 'state' && sortOrder === 1)">Status</md-option>
-          <md-option [value]="'state'" *ngIf="sortField === 'state' && sortOrder === 1">Status</md-option>
-          <md-option [value]="'deadline'" *ngIf="!(sortField === 'deadline' && sortOrder === 1)">Deadline</md-option>
-          <md-option [value]="'deadline'" *ngIf="sortField === 'deadline' && sortOrder === 1">Deadline</md-option>
-        </md-select>
-        <md-select [(ngModel)]="filterState" (change)="filter()" placeholder="Filter par status">
-          <md-option [value]="null">Aucun</md-option>
-          <md-option *ngFor="let state of (projectStates | myKeys)" [value]="state.key">{{state.key | projectState}}</md-option>
-        </md-select>
-      </md-card-content>
-    </md-card>
-  </div>
+<app-square-list [loading]="loading">
+  <md-card class="pt-0 create-wrapper">
+    <md-card-content class="d-flex flex-column justify-content-around h-100">
+      <button (click)="create.emit()" md-raised-button class="blue circle mx-auto">
+        <md-icon>add_circle</md-icon>        
+        Nouveau Projet
+      </button>
+      <md-select (change)="sort($event)" placeholder="Organiser par">
+        <!-- Double options to toggle sort order -->
+        <md-option [value]="'name'" *ngIf="!(sortField === 'name' && sortOrder === 1)">Nom</md-option>
+        <md-option [value]="'name'" *ngIf="sortField === 'name' && sortOrder === 1">Nom</md-option>
+        <md-option [value]="'state'" *ngIf="!(sortField === 'state' && sortOrder === 1)">Status</md-option>
+        <md-option [value]="'state'" *ngIf="sortField === 'state' && sortOrder === 1">Status</md-option>
+        <md-option [value]="'deadline'" *ngIf="!(sortField === 'deadline' && sortOrder === 1)">Deadline</md-option>
+        <md-option [value]="'deadline'" *ngIf="sortField === 'deadline' && sortOrder === 1">Deadline</md-option>
+      </md-select>
+      <md-select [(ngModel)]="filterState" (change)="filter()" placeholder="Filter par status">
+        <md-option [value]="null">Aucun</md-option>
+        <md-option *ngFor="let state of (projectStates | myKeys)" [value]="state.key">{{state.key | projectState}}</md-option>
+      </md-select>
+    </md-card-content>
+  </md-card>
 
-  <div class="project-list-column col d-flex flex-column flex-sm-row flex-wrap" [ngClass]="{'loading' : loading}">
-    <!-- PROJECTS -->
-    <app-project-list-item *ngFor="let project of projects" [project]="project" (click)="selectProject(project)" class="pb-4"></app-project-list-item>
-
-    <!-- SLOTS -->
-    <div *ngFor="let slot of slots" class="project-slot pb-4">
-      <div class="project-slot-content"></div>
-    </div>
-
-    <div *ngIf="loading" class="loading-status pl-4">
-      Chargement des projects
-      <app-spinner></app-spinner>
-    </div>
-  </div>
-</div>
+  <app-project-list-item *ngFor="let project of projects" [project]="project" (click)="selectProject(project)" class="square-list-item"></app-project-list-item>
+</app-square-list>

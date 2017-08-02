@@ -11,6 +11,7 @@
   .item-slot {
     width: 25%;
     padding-left: 15px;
+    padding-bottom: 15px;
   }
   .item-slot {
     border-radius: 2px;
@@ -52,5 +53,8 @@
   }
   .loading-status {
     margin-top: -25px;
+  }
+  .square-list-item {
+    cursor: pointer;
   }
 }
