@@ -53,9 +53,9 @@
       <md-icon>list</md-icon>
     </div>
     <div class="summary-wrapper">
-      <span class="badge badge-primary" *ngIf="taskSummary[0]">{{taskSummary[0]}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</span>
-      <span class="badge badge-warning" *ngIf="taskSummary[1]">{{taskSummary[1]}} tâche{{taskSummary[1] > 1 ? 's': ''}} en cours</span>
-      <span class="badge badge-success" *ngIf="taskSummary[2]">{{taskSummary[2]}} tâche{{taskSummary[2] > 1 ? 's': ''}} terminées</span>
+      <span class="badge badge-primary" *ngIf="taskSummary[0]">{{taskSummary[0].value}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</span>
+      <span class="badge badge-warning" *ngIf="taskSummary[1]">{{taskSummary[1].value}} tâche{{taskSummary[1] > 1 ? 's': ''}} en cours</span>
+      <span class="badge badge-success" *ngIf="taskSummary[2]">{{taskSummary[2].value}} tâche{{taskSummary[2] > 1 ? 's': ''}} terminées</span>
     </div>
   </div>
   <div class="flex-1 link-square square-invoices" [routerLink]="['../invoices']">

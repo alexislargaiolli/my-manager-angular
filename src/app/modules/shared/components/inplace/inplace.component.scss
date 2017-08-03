@@ -1,21 +1,20 @@
 .inplace-edit-icon {
-    float: right;
-    margin-right: -24px;
-    margin-top: -24px;
-    opacity: 0;
-    color: #444;
-    transition: opacity 200ms;
+  float: right;
+  margin-right: -24px;
+  margin-top: -24px;
+  opacity: 0;
+  color: #444;
+  transition: opacity 200ms;
 }
 
 .inplace-output {
-    transition: background 200ms;
+  transition: background 200ms;
 }
 
 .inplace-output:hover {
-    background-color: rgba(0, 0, 0, .12);
-    color: #aaa;
-    cursor: pointer;
-    .inplace-edit-icon {
-        opacity: 1;
-    }
+  background-color: #eee;
+  cursor: pointer;
+  .inplace-edit-icon {
+    opacity: 1;
+  }
 }

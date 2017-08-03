@@ -55,7 +55,7 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
     devisLoading$: Observable<boolean>;
 
     colorScheme = {
-        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+        domain: ['#0275d8', '#f0ad4e', '#5cb85c']
     };
     chartSize = [800, 400];
     taskSummary: ChartData[];

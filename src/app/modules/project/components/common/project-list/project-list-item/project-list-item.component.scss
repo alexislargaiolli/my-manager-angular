@@ -1,6 +1,14 @@
+@import 'variables';
 md-card {
   height: 300px;
   cursor: pointer;
+  md-card-title {
+    font-family: $title-font;
+  }
+  .state-message,
+  .project-details {
+    color: $gray-3;
+  }
   .badge {
     max-width: 100%;
     text-overflow: ellipsis;
@@ -8,6 +16,30 @@ md-card {
   }
 }
 
+.state-0 {
+  background: $project-list-color-1;
+}
+
+.state-1 {
+  background: $project-list-color-2;
+}
+
+.state-2 {
+  background: $project-list-color-3;
+}
+
+.state-3 {
+  background: $project-list-color-4;
+}
+
+.state-4 {
+  background: $project-list-color-5;
+}
+
 .project-state {
-  padding-left: 24px;
+  padding: 2px 10px 2px 20px;
+  padding: 2px 10px 2px 20px;
+  margin: 0 0 15px -5px;
+  display: inline-block;
+  color: #fff;
 }

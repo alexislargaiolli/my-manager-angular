@@ -1,10 +1,9 @@
 @import 'variables';
-@import 'components';
+@import 'utils';
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - #{$header-height} - #{$subheader-height});
   background: url('../../../../../assets/background.jpg');
   position: fixed;
   width: 100%;
@@ -15,7 +14,8 @@ $wrapper-width: 700px;
 $wrapper-height: 450px;
 $wrapper-padding: 30px;
 .login-register-wrapper {
-  @extend .default-panel;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
   width: $wrapper-width;
   height: $wrapper-height;
   padding: $wrapper-padding;

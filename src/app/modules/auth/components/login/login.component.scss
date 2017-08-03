@@ -1,26 +1,26 @@
 @import 'variables';
-@import 'components';
+@import 'utils';
 :host {
-    color: #888;
+  color: #888;
 }
 
 h1 {
-    text-transform: uppercase;
-    small {
-        text-transform: lowercase;
-        font-size: 60%;
-    }
+  text-transform: uppercase;
+  small {
+    text-transform: lowercase;
+    font-size: 60%;
+  }
 }
 
 form {
-    md-icon {
-        color: #999;
-    }
-    md-input-container {
-        display: block;
-    }
+  md-icon {
+    color: #999;
+  }
+  md-input-container {
+    display: block;
+  }
 }
 
 .progress-bar-wrapper {
-    height: 5px;
+  height: 5px;
 }

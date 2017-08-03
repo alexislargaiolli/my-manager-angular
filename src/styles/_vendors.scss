@@ -1,0 +1,59 @@
+@import 'variables';
+@import '../libs/bootstrap/scss/bootstrap-reboot';
+@import '../libs/bootstrap/scss/bootstrap-grid';
+@import '../libs/bootstrap/scss/badge';
+@import '../libs/bootstrap/scss/utilities';
+@import "../../node_modules/font-awesome/css/font-awesome.min.css";
+@import '~@angular/material/theming';
+@include mat-core();
+$md-primary: ( 50: #e9eef0, 100: #c7d4d9, 200: #a2b7c0, 300: #7d9aa7, 400: #618594, 500: #456f81, 600: #3e6779, 700: #365c6e, 800: #2e5264, 900: #1f4051, A100: #93d8ff, A200: #60c6ff, A400: #2db3ff, A700: #14aaff, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-secondary: ( 50: #e5f4f3, 100: #bee4e1, 200: #93d3cd, 300: #67c1b8, 400: #47b3a9, 500: #26a69a, 600: #229e92, 700: #1c9588, 800: #178b7e, 900: #0d7b6c, A100: #adfff3, A200: #7affec, A400: #47ffe4, A700: #2dffe0, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+// mandatory stuff for theming
+$bv-pp-primary: mat-palette($md-primary);
+$bv-pp-accent: mat-palette($md-secondary);
+// include the custom theme components into a theme object
+$bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
+// include the custom theme object into the angular material theme
+@include angular-material-theme($bv-pp-theme);
+// body or wrapper class
+.mat-button-toggle,
+.mat-button-base,
+.mat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-card,
+.mat-checkbox,
+.mat-input-container,
+.mat-list,
+.mat-menu-item,
+.mat-radio-button,
+.mat-select,
+.mat-list .mat-list-item .mat-list-item-content,
+.mat-nav-list .mat-list-item .mat-list-item-content,
+.mat-simple-snackbar,
+.mat-tab-label,
+.mat-slide-toggle-content,
+.mat-toolbar,
+.mat-tooltip {
+  // font-family: $text-font;
+  // color: $text-color;
+}
+
+.mat-button-toggle,
+.mat-button-base,
+.mat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-icon-button {
+  text-transform: uppercase;
+}
+
+.mat-input-placeholder-wrapper {
+  font-size: 13px;
+}
+
+.mat-button-toggle-label {
+  margin: 0;
+}

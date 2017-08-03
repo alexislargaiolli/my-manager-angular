@@ -1,8 +1,8 @@
 <md-card>
   <md-card-title>{{project.name}}</md-card-title>
   <md-card-content>
-    <p>{{project.stateMessage}}</p>
-    <div *ngIf="project.plannedEndDate" mdTooltip="Deadline du projet" class="d-flex align-items-center mb-3">
+    <p class="state-message">{{project.stateMessage}}</p>
+    <div *ngIf="project.plannedEndDate" mdTooltip="Deadline du projet" class="d-flex project-details align-items-center mb-3">
       <md-icon>event</md-icon>
       <span class="mx-2">{{project.plannedEndDate | date:fullDate}}</span>
       <span class="badge badge-warning" *ngIf="deadlineWarningLevel === 1">Deadline proche</span>
@@ -11,7 +11,7 @@
     <span *ngFor="let note of project.notes" class="badge mr-2" [ngClass]="{'badge-default' : note.priority === 0, 'badge-warning' : note.priority === 1, 'badge-danger': note.priority === 2}">{{note.title}}</span>
   </md-card-content>
   <md-card-footer>
-    <span class="project-state">{{project.state | projectState}}</span>
+    <span class="project-state state-{{project.state}} mat-elevation-z2 rounded-right">{{project.state | projectState}}</span>
     <md-progress-bar [value]="project.progress" color="accent"></md-progress-bar>
   </md-card-footer>
 </md-card>

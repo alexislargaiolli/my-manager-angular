@@ -1,31 +1,35 @@
 $icon-font-path: '../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
-$body-bg: #e8e8e8;
-$text-color:#A9A9A9;
+$gray-1:rgba(50, 50, 50, 1);
+$gray-2:rgba(75, 75, 75, 1);
+$gray-3:rgba(100, 100, 100, 1);
+$gray-4:rgba(125, 125, 125, 1);
+$gray-5:rgba(150, 150, 150, 1);
+$body-bg: #e7e9ea;
 $color1:#222629;
 $color2:#474B4F;
 $color3:#86c232;
 $color4:#318927;
 $color5:#5c98fb;
-$header-bg:#fff;
-$header-text: $color3;
-$primary-color:#cca121;
-$subheader-bg:$color2;
-$subheader-text:#fff;
-// $primary-color:#4ABDAC;
-$accent-color:#FC4A1A;
 $text-color:#444;
-$title-color:#333;
-$border-color:#ddd;
 $title-font:'Oswald',
 sans-serif;
 $text-font: 'Lato',
 sans-serif;
 $header-height:66px;
-$header-sm-height:56px;
-$subheader-height: 50px;
-$project-nav-bg:#282828;
-$project-nav-color:#fff;
-$project-nav-font:$title-font;
-$project-side-nav-width:120px;
-$project-side-nav-bg:$color1;
-$project-side-nav-border:$color3;
+// -------------------
+// Theme colors
+$color-primary:#456F81;
+$color-secondary:#7AC0E2;
+// -------------------
+// State colors
+$color-info:#0275d8;
+$color-warning:#f0ad4e;
+$color-danger:#d9534f;
+$color-success:#5cb85c;
+// -------------------
+// Project list colors
+$project-list-color-1:$gray-5;
+$project-list-color-2:#3399CC;
+$project-list-color-3:$color-info;
+$project-list-color-4:#336699;
+$project-list-color-5:$gray-1;

@@ -1,66 +1,63 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "project": {
-        "name": "full-manage"
-    },
-    "apps": [{
-        "root": "src",
-        "outDir": "dist",
-        "assets": [
-            "assets",
-            "favicon.ico"
-        ],
-        "index": "index.html",
-        "main": "main.ts",
-        "polyfills": "polyfills.ts",
-        "test": "test.ts",
-        "tsconfig": "tsconfig.app.json",
-        "testTsconfig": "tsconfig.spec.json",
-        "prefix": "app",
-        "styles": [
-            "styles/_fonts.scss",
-            "styles/reset.css",
-            "styles/_theme.scss",
-            "../node_modules/dragula/dist/dragula.css",
-            "styles/_utils.scss",
-            "styles/_components.scss",
-            "styles/_fixes.scss",
-            "styles.scss"
-        ],
-        "stylePreprocessorOptions": {
-            "includePaths": [
-                "styles"
-            ]
-        },
-        "scripts": ["./libs/jspdf.min.js", "./libs/html2canvas.min.js", "./libs/html2pdf.js"],
-        "environmentSource": "environments/environment.ts",
-        "environments": {
-            "dev": "environments/environment.ts",
-            "prod": "environments/environment.prod.ts"
-        }
-    }],
-    "e2e": {
-        "protractor": {
-            "config": "./protractor.conf.js"
-        }
-    },
-    "lint": [{
-            "project": "src/tsconfig.app.json"
-        },
-        {
-            "project": "src/tsconfig.spec.json"
-        },
-        {
-            "project": "e2e/tsconfig.e2e.json"
-        }
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "full-manage"
+  },
+  "apps": [{
+    "root": "src",
+    "outDir": "dist",
+    "assets": [
+      "assets",
+      "favicon.ico"
     ],
-    "test": {
-        "karma": {
-            "config": "./karma.conf.js"
-        }
+    "index": "index.html",
+    "main": "main.ts",
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": [
+      "styles/reset.css",
+      "styles/_vendors.scss",
+      "../node_modules/dragula/dist/dragula.css",
+      "styles/_utils.scss",
+      "styles.scss"
+    ],
+    "stylePreprocessorOptions": {
+      "includePaths": [
+        "styles"
+      ]
     },
-    "defaults": {
-        "styleExt": "scss",
-        "component": {}
+    "scripts": ["./libs/jspdf.min.js", "./libs/html2canvas.min.js", "./libs/html2pdf.js"],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "prod": "environments/environment.prod.ts"
     }
+  }],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [{
+      "project": "src/tsconfig.app.json"
+    },
+    {
+      "project": "src/tsconfig.spec.json"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
 }

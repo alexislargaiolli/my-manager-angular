@@ -17,7 +17,6 @@ import { ProjectListComponent } from './components/common/project-list/project-l
 import { ProjectCreateComponent } from './components/common/project-create/project-create.component';
 import { ProjectTaskComponent } from './components/project-detail/project-task/project-task.component';
 import { ProjectSettingsComponent } from './components/project-detail/project-settings/project-settings.component';
-import { NoteListComponent } from './components/common/note-list/note-list.component';
 import { ProjectClientComponent } from './components/common/project-client/project-client.component';
 import { ProjectHistoryComponent } from './components/common/project-history/project-history.component';
 import { ProjectDashboardComponent } from './components/project-detail/project-dashboard/project-dashboard.component';
@@ -25,8 +24,6 @@ import { ProjectInvoiceComponent } from './components/project-detail/project-inv
 import { ProjectDevisComponent } from './components/project-detail/project-devis/project-devis.component';
 import { ProjectDevisEditionComponent } from './components/project-detail/project-devis/project-devis-edition/project-devis-edition.component';
 import { DevisStatePipe } from './services/devisState.pipe';
-import { DevisDashboardComponent } from './components/common/devis-dashboard/devis-dashboard.component';
-import { OneValueCardComponent } from './components/common/one-value-card/one-value-card.component';
 import { ProjectStateComponent } from './components/common/project-state/project-state.component';
 import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
 import { ProjectDevisListComponent } from './components/common/project-devis-list/project-devis-list.component';
@@ -40,7 +37,6 @@ import { ProjectInvoiceEditionComponent } from './components/project-detail/proj
 import { SelectDevisComponent } from './components/project-detail/project-invoice/project-invoice-edition/select-devis/select-devis.component';
 import { CreateNoteComponent } from './components/common/create-note/create-note.component';
 import { ButtonInplaceComponent } from './components/common/button-inplace/button-inplace.component';
-import { ProjectMenuComponent } from './components/project-detail/project-menu/project-menu.component';
 import { ProjectDetailResolver } from './services/project-resolver';
 import { TaskEditionComponent } from './components/project-detail/project-task/task-edition/task-edition.component';
 import { ProjectListItemComponent } from 'app/modules/project/components/common/project-list/project-list-item/project-list-item.component';
@@ -65,15 +61,12 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ProjectCreateComponent,
     ProjectTaskComponent,
     ProjectSettingsComponent,
-    NoteListComponent,
     ProjectClientComponent,
     ProjectHistoryComponent,
     ProjectDashboardComponent,
     ProjectDevisComponent,
     ProjectInvoiceComponent,
     ProjectDevisEditionComponent,
-    DevisDashboardComponent,
-    OneValueCardComponent,
     ProjectStateComponent,
     ProjectNoteListComponent,
     ProjectDevisListComponent,
@@ -86,7 +79,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     SelectDevisComponent,
     CreateNoteComponent,
     ButtonInplaceComponent,
-    ProjectMenuComponent,
     TaskEditionComponent,
     ProjectListItemComponent,
     CreateProjectComponent,

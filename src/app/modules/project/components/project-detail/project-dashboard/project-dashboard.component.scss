@@ -1,6 +1,6 @@
 @import '../project-details-variables';
 @import 'variables';
-@import 'components';
+@import 'utils';
 :host {
   height: 100%;
   display: flex;
@@ -42,15 +42,15 @@ app-project-note-list {
 }
 
 .square-devis {
-  background: #eee;
+  background: #C7D4D9;
 }
 
 .square-tasks {
-  background: #ccc;
+  background: #A2B7C0;
 }
 
 .square-invoices {
-  background: #bbb;
+  background: #7D9AA7;
 }
 
 @media (max-width: 767px) {
@@ -108,11 +108,6 @@ section {
   .progress-wrapper {
     max-height: 200px;
   }
-}
-
-app-note-list {
-  @extend .default-panel;
-  min-width: 300px;
 }
 
 .block-link {

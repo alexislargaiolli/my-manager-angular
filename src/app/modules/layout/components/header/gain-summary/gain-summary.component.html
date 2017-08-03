@@ -1,8 +1,8 @@
 <div class="gain-summary" (mouseenter)="showDetail()" (mouseleave)="hideDetail()">
-  <div *ngIf="totalWaiting">
-    <md-icon class="text-info">hourglass_empty</md-icon><span>{{totalWaiting}}€</span>
+  <div class="total-waiting" *ngIf="totalWaiting">
+    <md-icon>hourglass_empty</md-icon><span>{{totalWaiting}}€</span>
   </div>
-  <div *ngIf="paidInvoices">
+  <div class="total-paid" *ngIf="paidInvoices">
     <md-icon class="text-success">monetization_on</md-icon><span>{{paidInvoices}}€</span>
   </div>
 </div>

@@ -11,4 +11,34 @@
     width: 36px;
     padding: 0 5px;
   }
+  .state-0 {
+    color: $project-list-color-1;
+  }
+  .state-1 {
+    color: $project-list-color-2;
+  }
+  .state-2 {
+    color: $project-list-color-3;
+  }
+  .state-3 {
+    color: $project-list-color-4;
+  }
+  .state-4 {
+    color: $project-list-color-5;
+  }
+  .mat-button-toggle-checked.state-0 {
+    background: transparentize($project-list-color-1, 0.8);
+  }
+  .mat-button-toggle-checked.state-1 {
+    background: transparentize($project-list-color-2, 0.8);
+  }
+  .mat-button-toggle-checked.state-2 {
+    background: transparentize($project-list-color-3, 0.8);
+  }
+  .mat-button-toggle-checked.state-3 {
+    background: transparentize($project-list-color-4, 0.8);
+  }
+  .mat-button-toggle-checked.state-4 {
+    background: transparentize($project-list-color-5, 0.8);
+  }
 }
