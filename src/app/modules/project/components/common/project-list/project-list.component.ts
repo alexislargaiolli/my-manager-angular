@@ -10,7 +10,6 @@ import { IAppState } from 'app/modules/store';
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
-  animations: [listFadeAnim, fadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListComponent implements OnInit {

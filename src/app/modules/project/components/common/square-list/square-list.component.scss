@@ -2,6 +2,7 @@
 :host /deep/ {
   .list-column {
     padding-right: 15px;
+    overflow-y: auto;
   }
   .create-wrapper,
   .list-column.loading .item-slot {

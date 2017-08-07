@@ -25,7 +25,7 @@ import { ModelUtils } from '../../../core/models/model.utils';
 })
 export class ProjectHomeComponent implements OnInit {
 
-  @HostBinding('@leaveWorkaround') anim = true;
+  // @HostBinding('@leaveWorkaround') anim = true;
 
   @select(['profile', 'profile'])
   profile$: Observable<Profile>;
@@ -44,8 +44,6 @@ export class ProjectHomeComponent implements OnInit {
 
   state: string = null;
 
-  creating = false;
-
   constructor(
     private _ngRedux: NgRedux<IAppState>,
     private _projectActions: ProjectActions,
@@ -58,11 +56,7 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   public toggleProjectCreation() {
-    this.creating = !this.creating;
-  }
-
-  public createProject(event) {
-    this._projectActions.dispatchCreate(event);
+    this._router.navigate(['createProject']);
   }
 
   public delete(project) {

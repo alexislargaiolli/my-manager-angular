@@ -21,14 +21,11 @@ import { ReduxSubscriptionComponent } from '../../../../core/components/redux-su
 @Component({
     selector: 'app-project-dashboard',
     templateUrl: './project-dashboard.component.html',
-    styleUrls: ['./project-dashboard.component.scss'],
-    animations: [
-        leaveWorkaround
-    ]
+    styleUrls: ['./project-dashboard.component.scss']
 })
 export class ProjectDashboardComponent extends AbstractProjectComponent implements OnInit, OnDestroy {
 
-    @HostBinding('@leaveWorkaround') anim = true;
+    // @HostBinding('@leaveWorkaround') anim = true;
 
     @ViewChild('projectNameInplace')
     projectNameInplace: InplaceComponent;

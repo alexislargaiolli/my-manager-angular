@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'general', component: UserProfileGeneralComponent, canActivate: [AuthGuard] },
+      { path: 'general', component: UserProfileGeneralComponent, canActivate: [AuthGuard], data: { animation: 'userProfileGeneral' } },
       { path: 'password', component: UserProfilePasswordComponent, canActivate: [AuthGuard] },
     ]
   },

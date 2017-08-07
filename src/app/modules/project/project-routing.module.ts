@@ -1,3 +1,4 @@
+import { CreateProjectComponent } from './components/common/create-project/create-project.component';
 import { ProjectHomeComponent } from './components/project-home/project-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,15 +15,16 @@ import { ProjectDetailResolver } from './services/project-resolver';
 
 const routes: Routes = [
     { path: 'project', component: ProjectHomeComponent, canActivate: [AuthGuard], data: { animation: 'projectHome' } },
+    { path: 'createProject', component: CreateProjectComponent, canActivate: [AuthGuard], data: { animation: 'createProject' } },
     {
         path: 'project/:projectId', resolve: { project: ProjectDetailResolver }, canActivate: [AuthGuard],
         children: [
             { path: 'dashboard', component: ProjectDashboardComponent, data: { animation: 'projectDashboard' } },
             { path: 'tasks', component: ProjectTaskComponent, data: { animation: 'projectTasks' } },
             { path: 'devis', component: ProjectDevisComponent, data: { animation: 'projectDevis' } },
-            { path: 'devis/:devisId', component: ProjectDevisEditionComponent },
+            { path: 'devis/:devisId', component: ProjectDevisEditionComponent, data: { animation: 'projectDevisSelected' } },
             { path: 'invoices', component: ProjectInvoiceComponent, data: { animation: 'projectInvoices' } },
-            { path: 'invoices/:invoiceId', component: ProjectInvoiceEditionComponent },
+            { path: 'invoices/:invoiceId', component: ProjectInvoiceEditionComponent, data: { animation: 'projectInvoiceSelected' } },
             { path: 'settings', component: ProjectSettingsComponent, data: { animation: 'projectSettings' } },
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
         ]

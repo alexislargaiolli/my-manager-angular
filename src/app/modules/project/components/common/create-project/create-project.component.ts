@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { ProjectActions } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 import { Project } from './../../../../../models/project.model';
@@ -23,7 +25,7 @@ export class CreateProjectComponent implements OnInit {
   step: number = 0;
   project: Project;
 
-  constructor() { }
+  constructor(private _location: Location, private _projectActions: ProjectActions) { }
 
   ngOnInit() {
     this.project = new Project();
@@ -38,13 +40,15 @@ export class CreateProjectComponent implements OnInit {
   prevStep() {
     this.step--;
     if (this.step < 0) {
-      this.cancel.emit();
+      this._location.back();
     }
   }
 
   createProject(ngForm: NgForm) {
     if (ngForm.valid) {
-      this.create.emit(this.project);
+
+      this._projectActions.dispatchCreate(this.project);
+      // this.create.emit(this.project);
     }
   }
 

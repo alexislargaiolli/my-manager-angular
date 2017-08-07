@@ -23,15 +23,6 @@ export class DashboardEpics {
     @Epic()
     loadTotal = (action$) => action$.ofType(DashboardActions.LOAD_TOTAL_REQUEST)
         .switchMap((action) => {
-            console.log('totyal');
-            // return this._repo.get<Devis>(Devis.REPO_KEY, null).byCurrentUser().field('totalPrice').where('state', 0).exec().map(data => {
-            //     data.reduce(total, )
-            //     console.log(data);
-            //     console.log('data');
-            //     this._dashboardActions.loadTotalSuccess({
-
-            //     });
-            // }).catch(error => of(this._dashboardActions.loadTotalError(error)));
             const request = this._repo.createCustomRequest<any>('totals', RequestMethod.Get).byCurrentUser();
             return request.exec()
                 .map(data => this._dashboardActions.loadTotalSuccess(data))

@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="!creating">
+<div class="container-fluid">
   <div class="actions-panel">
     <button md-mini-fab (click)="openClientDialog()" mdTooltip="Répertoire client"><md-icon>import_contacts</md-icon></button>
     <button (click)="openCreateNote()" md-mini-fab class="mt-2" mdTooltip="Ajouter un pense bête"><md-icon>note_add</md-icon></button>
@@ -6,7 +6,5 @@
   <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
 </div>
 <app-project-list [projects]="projects$ | async" [loading]="loading$ | async" (select)="onSelectionEnds($event)" (create)="toggleProjectCreation()"
-  class="light-scrollbar" *ngIf="!creating">
+  class="light-scrollbar">
 </app-project-list>
-
-<app-create-project (create)="createProject($event)" (cancel)="toggleProjectCreation()" *ngIf="creating"></app-create-project>

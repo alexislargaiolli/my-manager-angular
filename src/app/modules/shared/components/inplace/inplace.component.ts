@@ -1,9 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-inplace',
   templateUrl: './inplace.component.html',
-  styleUrls: ['./inplace.component.scss']
+  styleUrls: ['./inplace.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InplaceComponent implements OnInit {
 

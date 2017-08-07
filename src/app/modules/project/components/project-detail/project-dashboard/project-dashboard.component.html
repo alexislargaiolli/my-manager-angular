@@ -11,23 +11,23 @@
         <span>{{project.stateMessage ? project.stateMessage : 'Status du projet'}}</span>
       </div>
       <span class="inplace-input d-flex align-items-baseline">
-        <form #projectStatusMessageForm="ngForm" (ngSubmit)="saveStateMessage(projectStatusMessageForm)">
+         <form #projectStatusMessageForm="ngForm" (ngSubmit)="saveStateMessage(projectStatusMessageForm)">
             <md-input-container class="white-input">
                 <input mdInput type="text" placeholder="Status du projet" [ngModel]="project.stateMessage" name="stateMessage">
             </md-input-container>
-             <button md-raised-button class="icon-only green mx-2" type="submit"><md-icon>save</md-icon></button> 
+            <button md-raised-button class="icon-only green mx-2" type="submit"><md-icon>save</md-icon></button> 
         </form>
-        <button md-button (click)="statusMessageInplace.toggle()" class="icon-only"><md-icon>cancel</md-icon></button>
+        <button md-button (click)="statusMessageInplace.toggle()" class="icon-only"><md-icon>cancel</md-icon></button> 
       </span>
     </app-inplace>
   </app-project-title>
   <div class="row flex-1">
-    <div class="col-12 col-lg-7 progress-wrapper" *ngIf="project.progress">
-      <ngx-charts-advanced-pie-chart [view]="chartSize" [results]="taskSummary" [scheme]="colorScheme">
-      </ngx-charts-advanced-pie-chart>
+    <div class="col-12 col-lg-7 progress-wrapper">
+      <ng-container *ngIf="project.progress">
+        <ngx-charts-advanced-pie-chart [view]="chartSize" [results]="taskSummary" [scheme]="colorScheme">
+        </ngx-charts-advanced-pie-chart>
+      </ng-container>
     </div>
-    <!-- <div class="col-12 col-md-4">
-    </div> -->
     <div class="col-12 col-lg-5">
       <app-project-note-list [notes]="notes$ | async" [loading]="notesLoading$ | async" (edit)="editNote($event)" (delete)="deleteNote($event)"></app-project-note-list>
     </div>
