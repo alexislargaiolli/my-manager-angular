@@ -83,9 +83,9 @@ export class RepositoriesService {
     private createBaseRequest<T>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
-        if (this._ngRedux.getState().session.authenticated) {
-            request.auth(this._ngRedux.getState().session.token);
-        }
+        // if (this._ngRedux.getState().session.authenticated) {
+        request.auth(this._ngRedux.getState().session.token);
+        // }
         if (!request.url) {
             throw new Error('Try to use respositories with a non register model. Don\'t forget to register all model with addManageClass.');
         }

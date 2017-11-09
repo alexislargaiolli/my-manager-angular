@@ -23,7 +23,7 @@
     "@angular-redux/store": "^6.5.4",
     "@angular/animations": "^4.3.3",
     "@angular/cdk": "^2.0.0-beta.8",
-    "@angular/cli": "^1.0.3",
+    "@angular/cli": "^1.2.7",
     "@angular/common": "^4.3.3",
     "@angular/compiler": "^4.3.3",
     "@angular/compiler-cli": "^4.3.3",

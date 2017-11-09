@@ -22,8 +22,11 @@ export function sessionReducer(state: ISessionState = Object.assign({}, INITIAL_
         case SessionActions.LOGIN_REQUEST:
             return Object.assign({}, state, { logging_in: true, error: null });
 
+        case SessionActions.LOGIN_TOKEN_RECEIVED:
+            return Object.assign({}, state, { userId: action.payload.userId, token: action.payload.token });
+
         case SessionActions.LOGIN_SUCCESS:
-            return Object.assign({}, state, { authenticated: true, logging_in: false, userId: action.payload.userId, token: action.payload.token, error: null });
+            return Object.assign({}, state, { authenticated: true, logging_in: false, error: null });
 
         case SessionActions.LOGIN_ERROR:
             return Object.assign({}, state, { authenticated: false, logging_in: false, error: action.payload });

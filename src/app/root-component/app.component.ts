@@ -1,11 +1,13 @@
+import { IAppState } from './../modules/store/store.types';
+import { NgRedux } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
-import { RepositoriesService } from 'app/modules/core';
+import { RepositoriesService, ReduxSubscriptionComponent } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
 import { Project, Task, Devis, Note, HistoryEntry, Address, Profile, Invoice } from 'app/models';
 import { Client } from 'app/models';
 import { SessionActions } from '../modules/auth/redux/session/session.actions';
 import { routeAnimation } from './router.animation';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -15,9 +17,19 @@ import { Router } from '@angular/router';
         routeAnimation
     ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends ReduxSubscriptionComponent implements OnInit {
 
-    constructor(private repositoriesService: RepositoriesService, private _sessionActions: SessionActions, private _router: Router) { }
+    private redirectAfterLoginUrl: string = '/project';
+
+    constructor(
+        private repositoriesService: RepositoriesService,
+        private _sessionActions: SessionActions,
+        private _router: Router,
+        private _ngRedux: NgRedux<IAppState>
+    ) {
+        super();
+
+    }
 
     ngOnInit() {
         this.repositoriesService.addManageClass(User.REPO_KEY, 'mmusers');
@@ -30,8 +42,17 @@ export class AppComponent implements OnInit {
         this.repositoriesService.addManageClass(Address.REPO_KEY, 'addresses');
         this.repositoriesService.addManageClass(Profile.REPO_KEY, 'profile');
         this.repositoriesService.addManageClass(Invoice.REPO_KEY, 'invoices');
-        this._sessionActions.dispatchReadFromLocalStorage();
         // this.currentSession.initialize();
+        this._sessionActions.dispatchReadFromLocalStorage();
+        super.addSub(this._router.events.first().subscribe((e: NavigationStart) => {
+            this.redirectAfterLoginUrl = e.url;
+        }));
+
+        super.addSub(this._ngRedux.select(['session', 'authenticated']).subscribe(authenticated => {
+            if (authenticated) {
+                this._router.navigateByUrl(this.redirectAfterLoginUrl);
+            }
+        }))
     }
 
     prepRouteState(outlet: any) {

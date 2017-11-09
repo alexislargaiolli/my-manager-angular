@@ -8,15 +8,12 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router, private _ngRedux: NgRedux<IAppState>) {
+    @select(['session', 'authenticated'])
+    authenticated: Observable<boolean>;
 
-    }
+    constructor(private router: Router, private _ngRedux: NgRedux<IAppState>) { }
 
-    canActivate(): boolean {
-        if (this._ngRedux.getState().session.authenticated) {
-            return true;
-        }
-        this.router.navigate(['/login']);
-        return false;
+    canActivate(): Observable<boolean> {
+        return this.authenticated;
     }
 }

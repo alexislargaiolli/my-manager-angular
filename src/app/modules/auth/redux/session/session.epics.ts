@@ -4,16 +4,19 @@ import { RepositoriesService, User } from 'app/modules/core';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { animate } from '@angular/animations';
 import { of } from 'rxjs/observable/of';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
-import { IAppState } from 'app/modules/store';
+import { IAppState, ProfileActions } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Epic } from 'redux-observable-decorator';
 import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
+import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class SessionEpics {
+
+    private initialURL = "/"
 
     constructor(
         protected _repo: RepositoriesService,
@@ -21,21 +24,43 @@ export class SessionEpics {
         protected _auth: AuthenticationService,
         protected _router: Router,
         protected _ngRedux: NgRedux<IAppState>
-    ) { }
+    ) {
+        this._router.events.first().single().subscribe((e: NavigationStart) => {
+            this.initialURL = e.url;
+        })
+    }
 
     @Epic()
     login = action$ => action$
         .ofType(SessionActions.LOGIN_REQUEST)
         .switchMap((action) =>
             this._auth.login(action.payload.username, action.payload.password)
-                .map(data => this._sessionAction.loginSuccess(data.id, data.userId))
+                .map(data => this._sessionAction.loginTokenReceived(data.id, data.userId))
                 .catch(error => of(this._sessionAction.loginError(error)))
         );
+
 
     // @Epic()
     // redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
     //     .map((action) => {
     //         return { type: UPDATE_LOCATION, payload: `login` } });
+
+    @Epic()
+    tokenReceived = (action$, store) => action$
+        .ofType(SessionActions.LOGIN_TOKEN_RECEIVED)
+        .map((action) => this._sessionAction.loginRetriveUserInfo());
+
+    @Epic()
+    userInfoRetrivedSuccess = (action$, store) => action$
+        .ofType(ProfileActions.LOAD_PROFILE_SUCCESS)
+        .filter(action => !store.getState().session.authenticated)
+        .map((action) => this._sessionAction.loginSuccess());
+
+    @Epic()
+    userInfoRetrivedError = (action$, store) => action$
+        .ofType(ProfileActions.LOAD_PROFILE_ERROR)
+        .filter(action => !store.getState().session.authenticated)
+        .map((action) => this._sessionAction.loginError("Echec de l'authentification"));
 
     @Epic()
     storeAfterLogin = action$ => action$
@@ -76,7 +101,7 @@ export class SessionEpics {
             if (session) {
                 const sessionObj = JSON.parse(session);
                 if (sessionObj && sessionObj.userId && sessionObj.token) {
-                    return of(this._sessionAction.loginSuccess(sessionObj.token, sessionObj.userId));
+                    return of(this._sessionAction.loginTokenReceived(sessionObj.token, sessionObj.userId));
                 }
             }
             return of(this._sessionAction.readFromLocalStorageError());

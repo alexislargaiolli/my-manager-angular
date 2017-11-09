@@ -1,22 +1,22 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "outDir": "./dist/out-tsc",
-        "baseUrl": "src",
-        "sourceMap": true,
-        "declaration": false,
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "target": "es5",
-        "skipLibCheck": true, // Remove when typescript 2.4.1 whil be compatible with angular and redux
-        "noStrictGenericChecks": true, // Remove when typescript 2.4.1 whil be compatible with angular and redux
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2016",
-            "dom"
-        ]
-    }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "skipLibCheck": true, // Remove when typescript 2.4.1 whil be compatible with angular and redux
+    "noStrictGenericChecks": true, // Remove when typescript 2.4.1 whil be compatible with angular and redux
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  }
 }

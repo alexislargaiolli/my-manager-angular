@@ -6,8 +6,12 @@ import { Router } from '@angular/router';
 @Injectable()
 export class SessionActions {
     public static readonly LOGIN_REQUEST = 'LOGIN_REQUEST';
+    public static readonly LOGIN_TOKEN_RECEIVED = 'LOGIN_TOKEN_RECEIVED';
+    public static readonly LOGIN_RETRIVE_USER_INFO = 'LOGIN_RETRIVE_USER_INFO';
     public static readonly LOGIN_SUCCESS = 'LOGIN_SUCCESS';
     public static readonly LOGIN_ERROR = 'LOGIN_ERROR';
+
+    public static readonly AUTO_LOGIN = 'AUTO_LOGIN';
 
     public static readonly REGISTER_REQUEST = 'REGISTER_REQUEST';
     public static readonly REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -33,24 +37,36 @@ export class SessionActions {
         return {
             type: SessionActions.LOGIN_REQUEST,
             payload: credentials
-        }
+        };
     }
 
-    loginSuccess(token: string, userId: number) {
+    loginTokenReceived(token: string, userId: number) {
         return {
-            type: SessionActions.LOGIN_SUCCESS,
+            type: SessionActions.LOGIN_TOKEN_RECEIVED,
             payload: {
                 token,
                 userId
             }
-        }
+        };
+    }
+
+    loginRetriveUserInfo() {
+        return {
+            type: SessionActions.LOGIN_RETRIVE_USER_INFO
+        };
+    }
+
+    loginSuccess() {
+        return {
+            type: SessionActions.LOGIN_SUCCESS
+        };
     }
 
     loginError(error) {
         return {
             type: SessionActions.LOGIN_ERROR,
             payload: error
-        }
+        };
     }
 
     dispatchLogin(credentials) {
@@ -60,43 +76,49 @@ export class SessionActions {
     logout() {
         return {
             type: SessionActions.LOGOUT_REQUEST
-        }
+        };
     }
 
     logoutSuccess() {
         this._router.navigate(['/login']);
         return {
             type: SessionActions.LOGOUT_SUCCESS
-        }
+        };
     }
 
     logoutError(error) {
         return {
             type: SessionActions.LOGOUT_ERROR,
             payload: error
-        }
+        };
     }
 
     dispatchLogout() {
         this._ngRedux.dispatch(this.logout());
     }
 
+    autoLogin() {
+        return {
+
+        }
+    }
+
     storeInLocalStorage() {
         return {
             type: SessionActions.STORE_IN_LOCAL_STORAGE
-        }
+        };
     }
 
     storeInLocalStorageSuccess() {
         return {
             type: SessionActions.STORE_IN_LOCAL_STORAGE_SUCCESS
-        }
+        };
     }
 
     readFromLocalStorage() {
         return {
             type: SessionActions.READ_FROM_LOCAL_STORAGE
-        }
+        };
     }
 
     dispatchReadFromLocalStorage() {
@@ -107,45 +129,45 @@ export class SessionActions {
         return {
             type: SessionActions.READ_FROM_LOCAL_STORAGE_SUCCESS,
             payload: sessionRead
-        }
+        };
     }
 
     readFromLocalStorageError() {
         return {
             type: SessionActions.READ_FROM_LOCAL_STORAGE_ERROR
-        }
+        };
     }
 
     removeFromLocalStorage() {
         return {
             type: SessionActions.REMOVE_FROM_LOCAL_STORAGE
-        }
+        };
     }
 
     removeFromLocalStorageSucess() {
         return {
             type: SessionActions.REMOVE_FROM_LOCAL_STORAGE_SUCCESS
-        }
+        };
     }
 
     register(data) {
         return {
             type: SessionActions.REGISTER_REQUEST,
             payload: data
-        }
+        };
     }
 
     registerSuccess() {
         return {
             type: SessionActions.REGISTER_SUCCESS
-        }
+        };
     }
 
     registerError(error: string) {
         return {
             type: SessionActions.REGISTER_ERROR,
             payload: error
-        }
+        };
     }
 
     public dispatchRegister(data) {
