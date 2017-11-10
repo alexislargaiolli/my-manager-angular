@@ -24,7 +24,7 @@ import { ProjectDevisEditionComponent } from './components/project-detail/projec
 import { DevisStatePipe } from './services/devisState.pipe';
 import { ProjectStateComponent } from './components/common/project-state/project-state.component';
 import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
-import { ProjectDevisListComponent } from './components/common/project-devis-list/project-devis-list.component';
+import { DevisListComponent } from './components/common/devis-list/devis-list.component';
 import { KabanColumnComponent } from './components/common/task-kaban/kaban-column/kaban-column.component';
 import { TaskKabanComponent } from './components/common/task-kaban/task-kaban.component';
 import { DevisListItemComponent } from './components/common/devis-list-item/devis-list-item.component';
@@ -65,7 +65,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ProjectDevisEditionComponent,
     ProjectStateComponent,
     ProjectNoteListComponent,
-    ProjectDevisListComponent,
+    DevisListComponent,
     TaskKabanComponent,
     KabanColumnComponent,
     DevisListItemComponent,

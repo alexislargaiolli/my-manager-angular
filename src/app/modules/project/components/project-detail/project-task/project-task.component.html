@@ -1,9 +1,9 @@
-<md-sidenav-container>
-  <md-sidenav #sidenav align="end">
+<mat-sidenav-container>
+  <mat-sidenav #sidenav align="end">
     <app-task-edition [task]="selectedTask" (save)="updateTask($event)" (cancel)="cancelEdition($event)" (delete)="deleteTask($event)"
       *ngIf="selectedTask"></app-task-edition>
-  </md-sidenav>
+  </mat-sidenav>
   <app-project-title [title]="title" (back)="goBack()"></app-project-title>
   <app-task-kaban [todoTasks]="todoTasks$ | async" [inProgressTasks]="inProgressTasks$ | async" [finishedTasks]="finishedTasks$ | async"
     (stateChange)="onStateChanged($event)" (create)="createTask($event)" (select)="selectTask($event)"></app-task-kaban>
-</md-sidenav-container>
+</mat-sidenav-container>

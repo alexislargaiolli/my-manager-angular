@@ -23,7 +23,7 @@ app-project-note-list {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  md-icon {
+  mat-icon {
     font-size: 100px;
     width: 100px;
     height: 100px;
@@ -77,7 +77,7 @@ section {
     background: #fff;
     height: 300px;
     margin-bottom: -20px;
-    md-card-content {
+    mat-card-content {
       max-height: 240px;
       overflow-x: hidden;
       overflow-y: scroll;

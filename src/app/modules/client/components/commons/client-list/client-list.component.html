@@ -1,11 +1,11 @@
 <h2>Mes clients</h2>
 <div class="loading-bar-wrapper">
-  <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 </div>
 <div class="client-list-wrapper light-scrollbar">
   <div class="p-2" *ngIf="clients.length ===0">Aucun client</div>
-  <button *ngFor="let client of clients" md-button (click)="selectClient(client)">{{client.name}}</button>
+  <button *ngFor="let client of clients" mat-button (click)="selectClient(client)">{{client.name}}</button>
 </div>
 <div class="text-right">
-  <button md-raised-button class="blue mt-2" (click)="create.emit()">Nouveau client</button>
+  <button mat-raised-button class="blue mt-2" (click)="create.emit()">Nouveau client</button>
 </div>

@@ -29,8 +29,8 @@ export const projectHomeDisparition = [
 
 export const projectHomeApparition = [
     query('project-home', style({ opacity: 1 })),
-    query('project-home .subheader>div, project-home project-list md-card', style({ opacity: 0, transform: 'translateY(10%)' })),
-    query('project-home .subheader>div, project-home project-list md-card',
+    query('project-home .subheader>div, project-home project-list mat-card', style({ opacity: 0, transform: 'translateY(10%)' })),
+    query('project-home .subheader>div, project-home project-list mat-card',
         stagger('50ms', [
             animate('300ms ease', style({ opacity: 1, transform: 'translateY(0)' })),
         ])

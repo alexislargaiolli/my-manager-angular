@@ -1,8 +1,14 @@
 <div class="container-fluid w-100 flex-1 d-flex flex-column">
   <div class="actions-panel">
-    <button md-mini-fab (click)="openClientDialog()" mdTooltip="Répertoire client"><md-icon>import_contacts</md-icon></button>
-    <button (click)="openCreateNote()" md-mini-fab mdTooltip="Ajouter un pense bête" class="mt-2"><md-icon>note_add</md-icon></button>
-    <button [routerLink]="['../settings']" md-mini-fab class="mt-2" mdTooltip="Options du projet"><md-icon>settings</md-icon></button>
+    <button mat-mini-fab (click)="openClientDialog()" matTooltip="Répertoire client">
+      <mat-icon>import_contacts</mat-icon>
+    </button>
+    <button (click)="openCreateNote()" mat-mini-fab matTooltip="Ajouter un pense bête" class="mt-2">
+      <mat-icon>note_add</mat-icon>
+    </button>
+    <button [routerLink]="['../settings']" mat-mini-fab class="mt-2" matTooltip="Options du projet">
+      <mat-icon>settings</mat-icon>
+    </button>
   </div>
   <app-project-title [title]="title" (back)="goBack()">
     <app-project-state [state]="project.state" (change)="changeState($event)" class="ml-4"></app-project-state>
@@ -11,13 +17,17 @@
         <span>{{project.stateMessage ? project.stateMessage : 'Status du projet'}}</span>
       </div>
       <span class="inplace-input d-flex align-items-baseline">
-         <form #projectStatusMessageForm="ngForm" (ngSubmit)="saveStateMessage(projectStatusMessageForm)">
-            <md-input-container class="white-input">
-                <input mdInput type="text" placeholder="Status du projet" [ngModel]="project.stateMessage" name="stateMessage">
-            </md-input-container>
-            <button md-raised-button class="icon-only green mx-2" type="submit"><md-icon>save</md-icon></button> 
+        <form #projectStatusMessageForm="ngForm" (ngSubmit)="saveStateMessage(projectStatusMessageForm)">
+          <mat-input-container class="white-input">
+            <input matInput type="text" placeholder="Status du projet" [ngModel]="project.stateMessage" name="stateMessage">
+          </mat-input-container>
+          <button mat-raised-button class="icon-only green mx-2" type="submit">
+            <mat-icon>save</mat-icon>
+          </button>
         </form>
-        <button md-button (click)="statusMessageInplace.toggle()" class="icon-only"><md-icon>cancel</md-icon></button> 
+        <button mat-button (click)="statusMessageInplace.toggle()" class="icon-only">
+          <mat-icon>cancel</mat-icon>
+        </button>
       </span>
     </app-inplace>
   </app-project-title>
@@ -38,7 +48,7 @@
   <div class="flex-1 link-square square-devis" [routerLink]="['../devis']">
     <div class="text-center">
       <h2>Devis</h2>
-      <md-icon>assignment</md-icon>
+      <mat-icon>assignment</mat-icon>
     </div>
     <div class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="devisSummary[0]">{{devisSummary[0]}} brouillon{{devisSummary[0] > 1 ? 's': ''}}</span>
@@ -50,7 +60,7 @@
   <div class="flex-1 link-square square-tasks" [routerLink]="['../tasks']">
     <div class="text-center">
       <h2>Tâches</h2>
-      <md-icon>list</md-icon>
+      <mat-icon>list</mat-icon>
     </div>
     <div class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="taskSummary[0]">{{taskSummary[0].value}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</span>
@@ -61,7 +71,7 @@
   <div class="flex-1 link-square square-invoices" [routerLink]="['../invoices']">
     <div class="text-center">
       <h2>Factures</h2>
-      <md-icon>monetization_on</md-icon>
+      <mat-icon>monetization_on</mat-icon>
     </div>
     <div class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="invoiceSummary[0]">{{invoiceSummary[0]}} brouillon{{invoiceSummary[0] > 1 ? 's': ''}}</span>
@@ -73,27 +83,27 @@
 </div>
 
 <!--<div class="mt-4 block-links d-flex justify-content-around">
-        <md-card [routerLink]="['../tasks']" class="block-link selectable-card">
+        <mat-card [routerLink]="['../tasks']" class="block-link selectable-card">
             <h2>Tâches</h2>
-            <md-icon>list</md-icon>
+            <mat-icon>list</mat-icon>
             <ul>
                 <li>{{taskSummary[0]}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</li>
                 <li>{{taskSummary[1]}} tâche{{taskSummary[1] > 1 ? 's': ''}} en cours</li>
                 <li>{{taskSummary[2]}} tâche{{taskSummary[2] > 1 ? 's': ''}} terminées</li>
             </ul>
-        </md-card>
-        <md-card [routerLink]="['../devis']" class="block-link selectable-card">
+        </mat-card>
+        <mat-card [routerLink]="['../devis']" class="block-link selectable-card">
             <h2>Devis</h2>
-            <md-icon>assignment</md-icon>
-        </md-card>
-        <md-card [routerLink]="['../invoices']" class="block-link selectable-card">
+            <mat-icon>assignment</mat-icon>
+        </mat-card>
+        <mat-card [routerLink]="['../invoices']" class="block-link selectable-card">
             <h2>Factures</h2>
-            <md-icon>monetization_on</md-icon>
-        </md-card>
-        <md-card [routerLink]="['../settings']" class="block-link selectable-card">
+            <mat-icon>monetization_on</mat-icon>
+        </mat-card>
+        <mat-card [routerLink]="['../settings']" class="block-link selectable-card">
             <h2>Options</h2>
-            <md-icon>settings</md-icon>
-        </md-card>
+            <mat-icon>settings</mat-icon>
+        </mat-card>
     </div>-->
 
 <!-- <div class="fluid-container">
@@ -106,10 +116,10 @@
                             </span>
         <span class="inplace-input">
                                 <form #projectNameForm="ngForm" (ngSubmit)="saveProjectName(projectNameForm)">
-                                    <md-input-container class="white-input">
-                                        <input mdInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
-                                    </md-input-container>
-                                    <button md-button type="submit"><md-icon>save</md-icon></button>
+                                    <mat-input-container class="white-input">
+                                        <input matInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
+                                    </mat-input-container>
+                                    <button mat-button type="submit"><mat-icon>save</mat-icon></button>
                                 </form>
                             </span>
       </app-inplace>
@@ -119,8 +129,8 @@
         <div class="progress-wrapper-value">
           <span>{{project.progress}}%</span>
         </div>
-        <md-progress-spinner [value]="project.progress" color="accent">
-        </md-progress-spinner>
+        <mat-progress-spinner [value]="project.progress" color="accent">
+        </mat-progress-spinner>
       </div>
       <div class="project-header">
         <p class="ml-4">
@@ -139,30 +149,30 @@
 
     </div>
     <div class="col-2 d-flex flex-column justify-content-end mr-4">
-      <md-card class="note-panel custom-title">
-        <md-card-title class="mat-elevation-z4">Notes</md-card-title>
-        <md-card-content class="light-scrollbar">
+      <mat-card class="note-panel custom-title">
+        <mat-card-title class="mat-elevation-z4">Notes</mat-card-title>
+        <mat-card-content class="light-scrollbar">
           <app-button-inplace #createNoteButton label="Ajouter une note" class="d-block text-center" *ngIf="!(notesLoading$ | async)">
             <app-create-note (create)="createNote($event);createNoteButton.toggle()" (cancel)="createNoteButton.toggle()" class="d-block default-panel-item rounded"></app-create-note>
           </app-button-inplace>
           <app-list [items]="notes$ | async" [loading]="notesLoading$ | async" class="default-theme">
             <div class="flex-1 rounded d-flex align-items-center p-2" *appListItem="let note=item;let state=state;">
-              <md-icon *ngIf="note.priority == 1" class="text-warning mx-2">warning</md-icon>
-              <md-icon *ngIf="note.priority == 2" class="text-danger mx-2">priority_hight</md-icon>
+              <mat-icon *ngIf="note.priority == 1" class="text-warning mx-2">warning</mat-icon>
+              <mat-icon *ngIf="note.priority == 2" class="text-danger mx-2">priority_hight</mat-icon>
               <span class="flex-1">{{note.title}}</span>
 
               <div class="d-flex" [style.opacity]="state === 'ACTIVE' ? 1: 0">
-                <button md-button (click)="deleteNote(note)" class="icon-only">
-                  <md-icon>delete</md-icon>
+                <button mat-button (click)="deleteNote(note)" class="icon-only">
+                  <mat-icon>delete</mat-icon>
                 </button>
               </div>
             </div>
           </app-list>
-        </md-card-content>
-        <md-card-footer>
-          <md-progress-bar mode="indeterminate" *ngIf="notesLoading$ | async"></md-progress-bar>
-        </md-card-footer>
-      </md-card>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-progress-bar mode="indeterminate" *ngIf="notesLoading$ | async"></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
     </div>
   </section>
   <project-history [historyEntries]="historyEntries$ | async" [loading]="historyLoading$ | async" (create)="createHistoryEntry($event)"

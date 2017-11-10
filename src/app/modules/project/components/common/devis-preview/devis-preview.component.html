@@ -30,7 +30,8 @@
   </div>
   <div class="line lines-header d-flex flex-row align-items-center">
     <div>Libellé</div>
-    <div><span>Prix unitaire</span> TTC</div>
+    <div>
+      <span>Prix unitaire</span> TTC</div>
     <div>Quantité</div>
     <div>Unité</div>
     <div>TOTAL TTC</div>
@@ -45,7 +46,8 @@
 
   <div class="mt-5 d-flex flex-row justify-content-between">
     <div class="signature">
-      <p>Signature précédée de "Bon pour accord" <br> avec le cachet de l'établissement valant acceptation du présent devis.</p>
+      <p>Signature précédée de "Bon pour accord"
+        <br> avec le cachet de l'établissement valant acceptation du présent devis.</p>
     </div>
     <div class="total d-flex flex-column">
       <div class="total-header">MONTANT DU DEVIS</div>
@@ -59,11 +61,11 @@
 <div class="devis-footer">
   <div class="d-flex flex-row justify-content-around align-items-center">
     <div *ngIf="devis.userPhone" class="d-flex align-items-center contact-info">
-      <md-icon>contact_phone</md-icon>
+      <mat-icon>contact_phone</mat-icon>
       <div class="ml-2">{{devis.userPhone}}</div>
     </div>
     <div *ngIf="devis.userMail" class="d-flex align-items-center contact-info">
-      <md-icon>contact_mail</md-icon>
+      <mat-icon>contact_mail</mat-icon>
       <div class="ml-2">{{devis.userMail}}</div>
     </div>
   </div>

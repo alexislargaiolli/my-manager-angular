@@ -1,9 +1,9 @@
 <div class="kanban-column-wrapper p-2 d-flex flex-column">
   <h2>A faire ({{todoTasks.length}})</h2>
   <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)" class="mx-5 my-4">
-    <md-input-container class="d-block">
-      <input name="title" type="text" mdInput ngModel placeholder="Nouvelle tâche..." required>
-    </md-input-container>
+    <mat-input-container class="d-block">
+      <input name="title" type="text" matInput ngModel placeholder="Nouvelle tâche..." required>
+    </mat-input-container>
   </form>
   <app-kaban-column [tasks]="todoTasks" [name]="dragulaName" [columnId]="0" class="light-scrollbar flex-1" (select)="selectTask($event)"></app-kaban-column>
 </div>

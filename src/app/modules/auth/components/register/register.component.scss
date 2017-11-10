@@ -1,20 +1,20 @@
 h1 {
-    text-transform: uppercase;
-    small {
-        text-transform: lowercase;
-        font-size: 60%;
-    }
+  text-transform: uppercase;
+  small {
+    text-transform: lowercase;
+    font-size: 60%;
+  }
 }
 
 form {
-    md-icon {
-        color: #999;
-    }
-    md-input-container {
-        display: block;
-    }
+  mat-icon {
+    color: #999;
+  }
+  mat-input-container {
+    display: block;
+  }
 }
 
 .progress-bar-wrapper {
-    height: 5px;
+  height: 5px;
 }

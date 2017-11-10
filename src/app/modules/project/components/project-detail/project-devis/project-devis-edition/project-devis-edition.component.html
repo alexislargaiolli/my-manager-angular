@@ -4,38 +4,46 @@
       <div class="devis-form">
 
         <div class="d-flex p-2">
-          <button md-button (click)="goBack()" mdTooltip="Revenir aux devis"><md-icon>arrow_back</md-icon></button>
+          <button mat-button (click)="goBack()" matTooltip="Revenir aux devis">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
           <span class="toolbar-spacer"></span>
-          <button (click)="remove()" class="text-danger" md-button mdTooltip="Supprimer ce devis"><md-icon>delete</md-icon></button>
-          <button (click)="download()" md-button mdTooltip="Télécharger en PDF"><md-icon>file_download</md-icon></button>
-          <button form="devisForm" class="text-success" md-button mdTooltip="Sauvegarder les modifications"><md-icon>save</md-icon></button>
+          <button (click)="remove()" class="text-danger" mat-button matTooltip="Supprimer ce devis">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button (click)="download()" mat-button matTooltip="Télécharger en PDF">
+            <mat-icon>file_download</mat-icon>
+          </button>
+          <button form="devisForm" class="text-success" mat-button matTooltip="Sauvegarder les modifications">
+            <mat-icon>save</mat-icon>
+          </button>
         </div>
 
         <form id="devisForm" #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off">
           <div class="d-flex flex-column">
             <div class="title-wrapper">
               <h3>Devis</h3>
-              <md-input-container>
-                <input mdInput name="title" [(ngModel)]="devis.title" type="text" placeholder="Titre du devis" required>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput name="title" [(ngModel)]="devis.title" type="text" placeholder="Titre du devis" required>
+              </mat-input-container>
               <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-baseline">
-                <md-input-container>
-                  <input mdInput [mdDatepicker]="createDatePicker" placeholder="Date de création" [(ngModel)]="devis.createDate" name="createDate">
-                  <button mdSuffix [mdDatepickerToggle]="createDatePicker"></button>
-                </md-input-container>
-                <md-datepicker #createDatePicker></md-datepicker>
-                <md-input-container>
-                  <input mdInput [mdDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [(ngModel)]="devis.validityDate" name="validityDate">
-                  <button mdSuffix [mdDatepickerToggle]="validityDatePicker"></button>
-                </md-input-container>
-                <md-datepicker #validityDatePicker></md-datepicker>
-                <md-select class="mt-3" [(ngModel)]="devis.state" placeholder="Etat" name="state" (change)="onStateChange()">
-                  <md-option [value]="devisState.DRAFT">Brouillon</md-option>
-                  <md-option [value]="devisState.PENDING">En attente</md-option>
-                  <md-option [value]="devisState.ACCEPTED">Accepté</md-option>
-                  <md-option [value]="devisState.REFUSED">Refusé</md-option>
-                  <md-option [value]="devisState.PAID">Payé</md-option>
-                </md-select>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="createDatePicker" placeholder="Date de création" [(ngModel)]="devis.createDate" name="createDate">
+                  <mat-datepicker-toggle matSuffix [for]="createDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #createDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [(ngModel)]="devis.validityDate" name="validityDate">
+                  <mat-datepicker-toggle matSuffix [for]="validityDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #validityDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-select class="mt-3" [(ngModel)]="devis.state" placeholder="Etat" name="state" (change)="onStateChange()">
+                  <mat-option [value]="devisState.DRAFT">Brouillon</mat-option>
+                  <mat-option [value]="devisState.PENDING">En attente</mat-option>
+                  <mat-option [value]="devisState.ACCEPTED">Accepté</mat-option>
+                  <mat-option [value]="devisState.REFUSED">Refusé</mat-option>
+                  <mat-option [value]="devisState.PAID">Payé</mat-option>
+                </mat-select>
               </div>
             </div>
 
@@ -53,18 +61,18 @@
                     </div>
                   </div>
                   <div class="inplace-input d-flex flex-column">
-                    <md-input-container>
-                      <input mdInput name="userName" [(ngModel)]="devis.userName" type="text" placeholder="Nom et prénom">
-                    </md-input-container>
-                    <md-input-container>
-                      <input mdInput name="userMail" [(ngModel)]="devis.userMail" type="email" placeholder="Email">
-                    </md-input-container>
-                    <md-input-container>
-                      <input mdInput name="siret" [(ngModel)]="devis.siret" type="text" placeholder="Numéro de siret">
-                    </md-input-container>
-                    <md-input-container>
-                      <input mdInput name="userPhone" [(ngModel)]="devis.userPhone" type="tel" placeholder="Téléphone">
-                    </md-input-container>
+                    <mat-input-container>
+                      <input matInput name="userName" [(ngModel)]="devis.userName" type="text" placeholder="Nom et prénom">
+                    </mat-input-container>
+                    <mat-input-container>
+                      <input matInput name="userMail" [(ngModel)]="devis.userMail" type="email" placeholder="Email">
+                    </mat-input-container>
+                    <mat-input-container>
+                      <input matInput name="siret" [(ngModel)]="devis.siret" type="text" placeholder="Numéro de siret">
+                    </mat-input-container>
+                    <mat-input-container>
+                      <input matInput name="userPhone" [(ngModel)]="devis.userPhone" type="tel" placeholder="Téléphone">
+                    </mat-input-container>
                   </div>
                 </app-inplace>
               </div>
@@ -97,9 +105,9 @@
                     </div>
                   </div>
                   <div class="inplace-input">
-                    <md-input-container>
-                      <input mdInput name="clientName" [(ngModel)]="devis.clientName" type="text" placeholder="Nom du client">
-                    </md-input-container>
+                    <mat-input-container>
+                      <input matInput name="clientName" [(ngModel)]="devis.clientName" type="text" placeholder="Nom du client">
+                    </mat-input-container>
                     <app-address-input [(street)]="devis.clientAddress.street" [(city)]="devis.clientAddress.city" [(zipcode)]="devis.clientAddress.zipcode"></app-address-input>
                   </div>
                 </app-inplace>
@@ -110,28 +118,30 @@
             <div [dragula]='"lines"' [dragulaModel]='devis.lines' class="lines-wrapper" [ngClass]="{'empty' : devis.lines.length===0}">
               <div *ngFor="let line of devis.lines" class="devis-line rounded row align-items-baseline mb-2">
                 <div class="col">
-                  <md-input-container>
-                    <textarea mdInput [(ngModel)]="line.content" type="text" [ngModelOptions]="{standalone: true}" class="line-content"></textarea>
-                  </md-input-container>
+                  <mat-input-container>
+                    <textarea matInput [(ngModel)]="line.content" type="text" [ngModelOptions]="{standalone: true}" class="line-content"></textarea>
+                  </mat-input-container>
                 </div>
                 <div class="col">
-                  <md-input-container class="mx-3">
-                    <input mdInput [(ngModel)]="line.quantity" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
+                  <mat-input-container class="mx-3">
+                    <input matInput [(ngModel)]="line.quantity" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
                       class="line-quantity">
-                  </md-input-container>
+                  </mat-input-container>
                 </div>
                 <div class="col">
-                  <md-input-container class="mx-3">
-                    <input mdInput [(ngModel)]="line.unitPrice" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
+                  <mat-input-container class="mx-3">
+                    <input matInput [(ngModel)]="line.unitPrice" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
                       class="line-unit">
-                    <span mdSuffix>€</span>
-                  </md-input-container>
+                    <span matSuffix>€</span>
+                  </mat-input-container>
                 </div>
                 <div class="col">
-                  <div class="line-total">{{line.totalPrice}}<span [hidden]="line.totalPrice == null">€</span></div>
+                  <div class="line-total">{{line.totalPrice}}
+                    <span [hidden]="line.totalPrice == null">€</span>
+                  </div>
                 </div>
                 <div class="col">
-                  <md-icon class="devis-line-drag-handle">drag_handle</md-icon>
+                  <mat-icon class="devis-line-drag-handle">drag_handle</mat-icon>
                 </div>
               </div>
             </div>
@@ -141,23 +151,25 @@
         <form #lineForm="ngForm" (ngSubmit)="submitLine(lineForm)" autocomplete="off">
           <div class="create-line-wrapper row align-items-baseline">
             <div class="col">
-              <md-input-container>
-                <textarea mdInput ngModel name="content" type="text" placeholder="Détail de la prestation" required class="line-content"></textarea>
-              </md-input-container>
+              <mat-input-container>
+                <textarea matInput ngModel name="content" type="text" placeholder="Détail de la prestation" required class="line-content"></textarea>
+              </mat-input-container>
             </div>
             <div class="col">
-              <md-input-container class="mx-3">
-                <input mdInput ngModel name="quantity" type="number" placeholder="Quantité" class="line-quantity">
-              </md-input-container>
+              <mat-input-container class="mx-3">
+                <input matInput ngModel name="quantity" type="number" placeholder="Quantité" class="line-quantity">
+              </mat-input-container>
             </div>
             <div class="col">
-              <md-input-container class="mx-3">
-                <input mdInput ngModel name="unitPrice" type="number" placeholder="Prix unitaire" class="line-unit">
-                <span mdSuffix>€</span>
-              </md-input-container>
+              <mat-input-container class="mx-3">
+                <input matInput ngModel name="unitPrice" type="number" placeholder="Prix unitaire" class="line-unit">
+                <span matSuffix>€</span>
+              </mat-input-container>
             </div>
             <div class="col">
-              <button md-button type="submit"><md-icon>add</md-icon></button>
+              <button mat-button type="submit">
+                <mat-icon>add</mat-icon>
+              </button>
             </div>
           </div>
         </form>

@@ -10,6 +10,7 @@ import { centerApparitionAnimation, leaveWorkaround } from 'app/animations';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
 import * as moment from 'moment';
+import { DialogsService } from 'app/modules/core';
 
 @Component({
   selector: 'app-project-devis',
@@ -34,7 +35,8 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
     protected _router: Router,
     protected _location: Location,
     protected _ngRedux: NgRedux<IAppState>,
-    private _devisActions: ProjectDevisActions
+    private _devisActions: ProjectDevisActions,
+    private dialog: DialogsService,
   ) {
     super(_ngRedux, _location);
   }
@@ -61,6 +63,21 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
 
   createDevis(devis: Devis) {
     this.navigateToDevis(devis);
+  }
+
+  public remove(devis: Devis) {
+    this.dialog.confirm(`Supprimé ${devis.title} ?`, '').subscribe(confirmed => {
+      if (confirmed) {
+        this._devisActions.dispatchDelete(devis, this._ngRedux.getState().projects.selectedId);
+      }
+    });
+  }
+
+  public duplicate(devis: Devis) {
+    let copy: Devis = Object.assign(new Devis, devis);
+    copy.id = null;
+    copy.title += ' (copie)';
+    this._devisActions.dispatchCreate(copy, copy.projectId);
   }
 
 }

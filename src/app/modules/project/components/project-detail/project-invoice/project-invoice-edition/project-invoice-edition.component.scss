@@ -47,13 +47,13 @@ app-address-input {
   &.empty {
     min-height: 0;
   }
-  md-input-container {
+  mat-input-container {
     display: block;
   }
 }
 
 .create-line-wrapper {
-  md-input-container {
+  mat-input-container {
     display: block;
   }
   .line-content {

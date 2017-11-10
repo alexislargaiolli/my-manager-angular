@@ -1,28 +1,34 @@
 <div *ngIf="!selected">
-  <button class="address-list-item" md-button *ngFor="let address of addresses" (click)="select(address)">{{address | myAddress}}</button>
+  <button class="address-list-item" mat-button *ngFor="let address of addresses" (click)="select(address)">{{address | myAddress}}</button>
   <div *ngIf="addresses.length == 0" class="p-2">Aucune addresse...</div>
   <div class="d-flex justify-content-end mt-2">
-    <button (click)="create()" md-button>Nouvelle adresse</button>
+    <button (click)="create()" mat-button>Nouvelle adresse</button>
   </div>
 </div>
 <form id="addressForm" #addressForm="ngForm" (ngSubmit)="save(addressForm)" autocomplete="off" *ngIf="selected" class="d-flex flex-column">
-  <md-input-container class="translucide-input">
-    <input mdInput [ngModel]="selected?.street" name="street" type="text" required placeholder="Rue">
-  </md-input-container>
-  <md-input-container class="translucide-input">
-    <input mdInput [ngModel]="selected?.complement" name="complement" type="text" placeholder="Complément">
-  </md-input-container>
-  <md-input-container class="translucide-input">
-    <input mdInput [ngModel]="selected?.zipcode" name="zipcode" type="text" required placeholder="Code postal">
-  </md-input-container>
-  <md-input-container class="translucide-input">
-    <input mdInput [ngModel]="selected?.city" name="city" type="text" required placeholder="Ville">
-  </md-input-container>
+  <mat-input-container class="translucide-input">
+    <input matInput [ngModel]="selected?.street" name="street" type="text" required placeholder="Rue">
+  </mat-input-container>
+  <mat-input-container class="translucide-input">
+    <input matInput [ngModel]="selected?.complement" name="complement" type="text" placeholder="Complément">
+  </mat-input-container>
+  <mat-input-container class="translucide-input">
+    <input matInput [ngModel]="selected?.zipcode" name="zipcode" type="text" required placeholder="Code postal">
+  </mat-input-container>
+  <mat-input-container class="translucide-input">
+    <input matInput [ngModel]="selected?.city" name="city" type="text" required placeholder="Ville">
+  </mat-input-container>
   <div class="d-flex justify-content-between">
-    <button (click)="unselect()" md-button [hidden]="!selected"><md-icon>arrow back</md-icon></button>
+    <button (click)="unselect()" mat-button [hidden]="!selected">
+      <mat-icon>arrow back</mat-icon>
+    </button>
     <div class="d-flex justify-content-end">
-      <button class="flex-last" type="submit" md-button><md-icon>save</md-icon></button>
-      <button (click)="delete(selected)" md-button *ngIf="!creation"><md-icon>delete</md-icon></button>
+      <button class="flex-last" type="submit" mat-button>
+        <mat-icon>save</mat-icon>
+      </button>
+      <button (click)="delete(selected)" mat-button *ngIf="!creation">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </div>
 </form>

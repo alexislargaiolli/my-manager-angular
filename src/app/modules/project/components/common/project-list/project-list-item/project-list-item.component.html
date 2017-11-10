@@ -1,17 +1,17 @@
-<md-card>
-  <md-card-title>{{project.name}}</md-card-title>
-  <md-card-content>
+<mat-card class="d-flex flex-column">
+  <mat-card-title>{{project.name}}</mat-card-title>
+  <mat-card-content class="flex-1">
     <p class="state-message">{{project.stateMessage}}</p>
-    <div *ngIf="project.plannedEndDate" mdTooltip="Deadline du projet" class="d-flex project-details align-items-center mb-3">
-      <md-icon>event</md-icon>
+    <div *ngIf="project.plannedEndDate" matTooltip="Deadline du projet" class="d-flex project-details align-items-center mb-3">
+      <mat-icon>event</mat-icon>
       <span class="mx-2">{{project.plannedEndDate | date:fullDate}}</span>
       <span class="badge badge-warning" *ngIf="deadlineWarningLevel === 1">Deadline proche</span>
       <span class="badge badge-danger" *ngIf="deadlineWarningLevel === 2">En retard</span>
     </div>
     <span *ngFor="let note of project.notes" class="badge mr-2" [ngClass]="{'badge-default' : note.priority === 0, 'badge-warning' : note.priority === 1, 'badge-danger': note.priority === 2}">{{note.title}}</span>
-  </md-card-content>
-  <md-card-footer>
+  </mat-card-content>
+  <mat-card-footer>
     <span class="project-state state-{{project.state}} mat-elevation-z2 rounded-right">{{project.state | projectState}}</span>
-    <md-progress-bar [value]="project.progress" color="accent"></md-progress-bar>
-  </md-card-footer>
-</md-card>
+    <mat-progress-bar [value]="project.progress" color="accent"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

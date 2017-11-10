@@ -1,7 +1,7 @@
 <span *ngIf="notification.type > 0" class="rounded-left text-white" [ngClass]="{'bg-warning': notification.type === 1, 'bg-danger': notification.type === 2}">
-    <md-icon *ngIf="notification.type === 1" class="align-middle">warning</md-icon>
-    <md-icon *ngIf="notification.type === 2" class="align-middle">error_outline</md-icon>
+  <mat-icon *ngIf="notification.type === 1" class="align-middle">warning</mat-icon>
+  <mat-icon *ngIf="notification.type === 2" class="align-middle">error_outline</mat-icon>
 </span>
 <p>
-    {{notification.message}}
+  {{notification.message}}
 </p>

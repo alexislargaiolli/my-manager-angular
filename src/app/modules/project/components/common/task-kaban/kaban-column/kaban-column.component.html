@@ -1,8 +1,8 @@
 <div class="kaban-column flex-1" [dragula]="name" [dragulaModel]='tasks' [attr.column-id]="columnId">
-  <md-card class="kaban-column-list-item" *ngFor='let task of tasks' [attr.task-id]="task.id" (click)="selectTask(task)">
-    <md-icon [hidden]="task.state != state.TODO">check_box_outline_blank</md-icon>
-    <md-icon [hidden]="task.state != state.IN_PROGRESS" class="text-info">update</md-icon>
-    <md-icon class="state_finished text-success" [hidden]="task.state != state.FINISHED">check_box</md-icon>
+  <mat-card class="kaban-column-list-item" *ngFor='let task of tasks' [attr.task-id]="task.id" (click)="selectTask(task)">
+    <mat-icon [hidden]="task.state != state.TODO">check_box_outline_blank</mat-icon>
+    <mat-icon [hidden]="task.state != state.IN_PROGRESS" class="text-info">update</mat-icon>
+    <mat-icon class="state_finished text-success" [hidden]="task.state != state.FINISHED">check_box</mat-icon>
     {{task.title}}
-  </md-card>
+  </mat-card>
 </div>

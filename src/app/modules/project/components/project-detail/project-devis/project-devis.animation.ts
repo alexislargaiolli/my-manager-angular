@@ -7,10 +7,10 @@ export const projectDevisIdle = [
 
 export const projectDevisApparition = [
     query('app-project-devis', style({ opacity: 1, overflow: 'hidden' })),
-    query('app-project-devis app-project-devis-list', [
+    query('app-project-devis app-devis-list', [
         style({ opacity: 0, transform: 'translateY(10%)' }),
     ]),
-    query('app-project-devis app-project-devis-list',
+    query('app-project-devis app-devis-list',
         stagger('50ms', [
             animate('300ms ease', style({ opacity: 1, transform: 'translateY(0)' })),
         ])
@@ -19,8 +19,8 @@ export const projectDevisApparition = [
 
 export const projectDevisDisparition = [
     query('app-project-devis', style({ overflow: 'hidden' })),
-    query('app-project-devis app-project-devis-list', style({ opacity: 1, transform: 'translateY(0%)' })),
-    query('app-project-devis app-project-devis-list',
+    query('app-project-devis app-devis-list', style({ opacity: 1, transform: 'translateY(0%)' })),
+    query('app-project-devis app-devis-list',
         stagger('100ms', [
             animate('300ms ease', style({ opacity: 0, transform: 'translateY(-10%)' })),
         ])

@@ -11,7 +11,7 @@ $icon-size:30px;
     &>div>* {
       vertical-align: middle;
     }
-    md-icon {
+    mat-icon {
       margin-right: 5px;
       font-size: $icon-size;
       width: $icon-size;
@@ -42,7 +42,7 @@ $icon-size:30px;
   p>* {
     vertical-align: middle;
   }
-  p>md-icon {
+  p>mat-icon {
     margin-right: 10px;
   }
   p:last-child {

@@ -24,7 +24,7 @@ $height: 30px;
   .note-content {
     color: #fff;
   }
-  .note-actions md-icon {
+  .note-actions mat-icon {
     color: #444;
   }
 }
@@ -43,6 +43,6 @@ form {
   position: absolute;
 }
 
-md-button-toggle-group {
+mat-button-toggle-group {
   box-shadow: none;
 }

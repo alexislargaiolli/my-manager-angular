@@ -1,16 +1,16 @@
 <div class="container-fluid">
   <app-project-title [title]="title" (back)="goBack()" class="d-block mb-4"></app-project-title>
   <app-square-list [loading]="loading$ | async">
-    <md-card class="pt-0 create-wrapper">
-      <md-card-content class="d-flex flex-column justify-content-around align-items-center  h-100">
-        <button [routerLink]="['./', 'create']" md-raised-button class="blue circle">
-          <md-icon>add_circle</md-icon>
+    <mat-card class="pt-0 create-wrapper">
+      <mat-card-content class="d-flex flex-column justify-content-around align-items-center  h-100">
+        <button [routerLink]="['./', 'create']" mat-raised-button class="blue circle">
+          <mat-icon>add_circle</mat-icon>
           Créer un facture</button>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
 
     <div *ngFor="let invoice of (invoices$ | async)" (click)="select(invoice)" class="square-list-item">
-      <md-card class="p-0">
+      <mat-card class="p-0">
         <div class="devis-state" [ngClass]="{'draft': invoice.state===0, 'bg-info': invoice.state===1, 'bg-success': invoice.state===2,'bg-danger': invoice.state === 3}">
           <span *ngIf="invoice.state === 0">Brouillon</span>
           <span *ngIf="invoice.state === 1">En attente</span>
@@ -20,7 +20,7 @@
         <div class="preview-wrapper">
           <app-invoice-preview [invoice]="invoice"></app-invoice-preview>
         </div>
-      </md-card>
+      </mat-card>
     </div>
   </app-square-list>
 </div>

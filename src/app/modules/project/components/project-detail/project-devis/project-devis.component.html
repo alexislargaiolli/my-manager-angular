@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <app-project-title [title]="title" (back)="goBack()" class="d-block mb-4"></app-project-title>
-  <app-project-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (create)="toggleCreation()" (select)="onDevisClick($event)"
-    *ngIf="!creation">
-  </app-project-devis-list>
+  <app-devis-list [devisList]="devis$ | async" [loading]="loading$ | async" (create)="toggleCreation()" (select)="onDevisClick($event)"
+    (delete)="remove($event)" (duplicate)="duplicate($event)" *ngIf="!creation">
+  </app-devis-list>
   <app-create-devis [project]="project" (create)="createDevis($event)" (cancel)="toggleCreation()" *ngIf="creation"></app-create-devis>
 </div>

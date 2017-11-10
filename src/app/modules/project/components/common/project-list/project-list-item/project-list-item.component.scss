@@ -1,8 +1,8 @@
 @import 'variables';
-md-card {
+mat-card {
   height: 300px;
   cursor: pointer;
-  md-card-title {
+  mat-card-title {
     font-family: $title-font;
   }
   .state-message,

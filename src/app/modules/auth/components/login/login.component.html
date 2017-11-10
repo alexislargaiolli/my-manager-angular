@@ -4,17 +4,17 @@
     <small class="text-success" *ngIf="!loading && authenticated" [@fadeAnim]="'true'"> réussie...</small>
   </h1>
   <div class="progress-bar-wrapper">
-    <md-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></md-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></mat-progress-bar>
   </div>
   <form id="loginForm" #loginForm="ngForm" name="loginForm" (ngSubmit)="login(loginForm)">
-    <md-input-container>
-      <input mdInput ngModel name="username" placeholder="Nom d'utilisateur" required [disabled]="loading">
-      <md-icon mdSuffix>person_outline</md-icon>
-    </md-input-container>
-    <md-input-container class="mt-4">
-      <input mdInput ngModel name="password" placeholder="Mot de passe" type="password" required [disabled]="loading">
-      <md-icon mdSuffix>lock</md-icon>
-    </md-input-container>
+    <mat-input-container>
+      <input matInput ngModel name="username" placeholder="Nom d'utilisateur" required [disabled]="loading">
+      <mat-icon matSuffix>person_outline</mat-icon>
+    </mat-input-container>
+    <mat-input-container class="mt-4">
+      <input matInput ngModel name="password" placeholder="Mot de passe" type="password" required [disabled]="loading">
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-input-container>
   </form>
-  <button form="loginForm" md-button class="blue align-self-end" [disabled]="loading">Connexion</button>
+  <button form="loginForm" mat-button class="blue align-self-end" [disabled]="loading">Connexion</button>
 </div>

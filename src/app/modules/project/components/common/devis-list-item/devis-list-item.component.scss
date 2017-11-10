@@ -1,0 +1,15 @@
+@import 'variables';
+mat-card {
+  height: 300px;
+  mat-card-title {
+    font-family: $title-font;
+    font-size: 20px;
+  }
+  mat-card-actions {
+    color: #666;
+    text-align: right;
+  }
+  .devis-price {
+    font-size: 17px;
+  }
+}

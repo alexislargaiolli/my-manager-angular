@@ -1,5 +1,5 @@
 <div class="items-wrapper">
-    <app-list-item #listItem *ngFor="let item of items" [item]="item">
-        <ng-container *ngTemplateOutlet="appListItemTemplate;context: {item: item, state: listItem.state}"></ng-container>
-    </app-list-item>
+  <app-list-item #listItem *ngFor="let item of items" [item]="item">
+    <ng-container *ngTemplateOutlet="appListItemTemplate;context: {item: item, state: listItem.state}"></ng-container>
+  </app-list-item>
 </div>

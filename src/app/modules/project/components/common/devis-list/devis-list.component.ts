@@ -12,13 +12,13 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-project-devis-list',
-  templateUrl: './project-devis-list.component.html',
-  styleUrls: ['./project-devis-list.component.scss'],
+  selector: 'app-devis-list',
+  templateUrl: './devis-list.component.html',
+  styleUrls: ['./devis-list.component.scss'],
   animations: [listFadeAnim],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDevisListComponent implements OnInit {
+export class DevisListComponent implements OnInit {
 
   @Input()
   devisList: Devis[];
@@ -28,6 +28,12 @@ export class ProjectDevisListComponent implements OnInit {
 
   @Output()
   select: EventEmitter<Devis> = new EventEmitter<Devis>();
+
+  @Output()
+  delete: EventEmitter<Devis> = new EventEmitter<Devis>();
+
+  @Output()
+  duplicate: EventEmitter<Devis> = new EventEmitter<Devis>();
 
   @Output()
   create: EventEmitter<any> = new EventEmitter<any>();

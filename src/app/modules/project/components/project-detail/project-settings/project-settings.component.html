@@ -3,47 +3,47 @@
 </div>
 <div class="container">
   <form id="settingsForm" #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-mat-center">
       <div class="col d-flex flex-column">
-        <md-input-container>
-          <input name="name" type="text" mdInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
-        </md-input-container>
-        <md-input-container>
-          <textarea name="description" mdInput placeholder="Description" [(ngModel)]="project.description"></textarea>
-        </md-input-container>
+        <mat-input-container>
+          <input name="name" type="text" matInput placeholder="Nom du projet" [(ngModel)]="project.name" required>
+        </mat-input-container>
+        <mat-input-container>
+          <textarea name="description" matInput placeholder="Description" [(ngModel)]="project.description"></textarea>
+        </mat-input-container>
         <!-- <project-client [clients]="clients$ | async" [allClients]="allClients$ | async" [loading]="loadingClient$ | async" (add)="addClient($event)"
           (create)="createClient($event)" (remove)="removeClient($event)" class="ml-4"></project-client> -->
       </div>
       <div class="col">
-        <md-input-container>
-          <input mdInput [mdDatepicker]="plannedStartDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedStartDate"
+        <mat-form-field>
+          <input matInput [matDatepicker]="plannedStartDate" placeholder="Date de départ prévu" [(ngModel)]="project.plannedStartDate"
             name="plannedStartDate">
-          <button mdSuffix [mdDatepickerToggle]="plannedStartDate"></button>
-        </md-input-container>
-        <md-datepicker #plannedStartDate></md-datepicker>
-        <md-input-container>
-          <input mdInput [mdDatepicker]="startDate" placeholder="Date de départ effectif" [(ngModel)]="project.startDate" name="startDate">
-          <button mdSuffix [mdDatepickerToggle]="startDate"></button>
-        </md-input-container>
-        <md-datepicker #startDate></md-datepicker>
-        <md-input-container>
-          <input mdInput [mdDatepicker]="plannedEndDate" placeholder="Date de fin prévu" [(ngModel)]="project.plannedEndDate" name="plannedEndDate">
-          <button mdSuffix [mdDatepickerToggle]="plannedEndDate"></button>
-        </md-input-container>
-        <md-datepicker #plannedEndDate></md-datepicker>
-        <md-input-container>
-          <input mdInput [mdDatepicker]="endDate" placeholder="Date de fin effective" [(ngModel)]="project.endDate" name="endDate">
-          <button mdSuffix [mdDatepickerToggle]="endDate"></button>
-        </md-input-container>
-        <md-datepicker #endDate></md-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="plannedStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #plannedStartDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="startDate" placeholder="Date de départ effectif" [(ngModel)]="project.startDate" name="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="plannedEndDate" placeholder="Date de fin prévu" [(ngModel)]="project.plannedEndDate" name="plannedEndDate">
+          <mat-datepicker-toggle matSuffix [for]="plannedEndDate"></mat-datepicker-toggle>
+          <mat-datepicker #plannedEndDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="endDate" placeholder="Date de fin effective" [(ngModel)]="project.endDate" name="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+        </mat-form-field>
       </div>
     </div>
 
     <div class="d-flex flex-row-reverse justify-content-start">
-      <button class="blue" md-raised-button type="submit">
+      <button class="blue" mat-raised-button type="submit">
         Sauvegarder
       </button>
-      <button md-button (click)="deleteProject()">
+      <button mat-button (click)="deleteProject()">
         Supprimer ce projet
       </button>
     </div>

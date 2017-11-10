@@ -3,12 +3,12 @@
   <app-register *ngIf="state === 'register'" [@popupApparition]="'true'"></app-register>
   <div class="register-panel d-flex flex-column justify-content-around align-items-start" *ngIf="state === 'login'" [@fadeApparition]="'true'">
     <h1>Pas de compte ?</h1>
-    <button md-raised-button color="accent" (click)="register()">Inscription</button>
+    <button mat-raised-button color="accent" (click)="register()">Inscription</button>
   </div>
 
   <div class="login-panel d-flex flex-column justify-content-around align-items-start" *ngIf="state === 'register'" [@fadeApparition]="'true'">
     <h1>Déjà inscrit ?</h1>
-    <button md-raised-button color="accent" (click)="login()">Connexion</button>
+    <button mat-raised-button color="accent" (click)="login()">Connexion</button>
   </div>
   <app-login *ngIf="state === 'login'" [@popupApparition]="'true'"></app-login>
 

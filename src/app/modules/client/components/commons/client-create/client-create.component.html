@@ -1,18 +1,18 @@
 <form #clientForm="ngForm" (ngSubmit)="createClient(clientForm);" autocomplete="off">
-  <md-input-container>
-    <input mdInput [(ngModel)]="client.name" name="name" type="text" placeholder="Nom..." required>
-  </md-input-container>
-  <md-input-container>
-    <input mdInput [(ngModel)]="client.firstname" name="firstname" type="text" placeholder="Prénom...">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput [(ngModel)]="client.lastname" name="lastname" type="text" placeholder="Nom de famille...">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput [(ngModel)]="client.email" name="email" type="email" placeholder="Email...">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput [(ngModel)]="client.tel" name="tel" type="tel" placeholder="Téléphone...">
-  </md-input-container>
-  <button md-button type="submit">{{createButtonLabel}}</button>
+  <mat-input-container>
+    <input matInput [(ngModel)]="client.name" name="name" type="text" placeholder="Nom..." required>
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput [(ngModel)]="client.firstname" name="firstname" type="text" placeholder="Prénom...">
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput [(ngModel)]="client.lastname" name="lastname" type="text" placeholder="Nom de famille...">
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput [(ngModel)]="client.email" name="email" type="email" placeholder="Email...">
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput [(ngModel)]="client.tel" name="tel" type="tel" placeholder="Téléphone...">
+  </mat-input-container>
+  <button mat-button type="submit">{{createButtonLabel}}</button>
 </form>

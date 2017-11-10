@@ -1,35 +1,35 @@
 <div *ngIf="state === 'default'" class="d-inline-block">
-    <md-icon class="align-middle">assignment_ind</md-icon>
-    <button md-button (click)="showMenu()">
-        <span *ngIf="clients.length === 0">Assignez un client</span>
-        <span *ngFor="let client of clients">
-            {{client.name}}
-        </span>            
-    </button>
+  <mat-icon class="align-middle">assignment_ind</mat-icon>
+  <button mat-button (click)="showMenu()">
+    <span *ngIf="clients.length === 0">Assignez un client</span>
+    <span *ngFor="let client of clients">
+      {{client.name}}
+    </span>
+  </button>
 </div>
 <div *ngIf="state === 'menu'" class="d-inline-block">
-    <md-progress-bar mode="indeterminate" [hidden]="!(loading$ | async)"></md-progress-bar>
-    <md-checkbox *ngFor="let client of allClients" (change)="toggleClient($event, client)" [checked]="isSelected(client)" class="d-block default-panel-item selectable p-2 mb-2">
-        {{client.name}}
-    </md-checkbox>
-    <button md-button (click)="cancel()">
-        <md-icon>arrow_back</md-icon>
-    </button>
-    <button md-button (click)="showCreate()">
-        <md-icon>add</md-icon>
-    </button>
+  <mat-progress-bar mode="indeterminate" [hidden]="!(loading$ | async)"></mat-progress-bar>
+  <mat-checkbox *ngFor="let client of allClients" (change)="toggleClient($event, client)" [checked]="isSelected(client)" class="d-block default-panel-item selectable p-2 mb-2">
+    {{client.name}}
+  </mat-checkbox>
+  <button mat-button (click)="cancel()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button mat-button (click)="showCreate()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
 
 <form #createClientForm="ngForm" *ngIf="state === 'create'" (ngSubmit)="createClient(createClientForm)" class="d-flex flex-column">
-    <md-input-container>
-        <input mdInput placeholder="Nom du client" type="text" ngModel name="name" required>
-    </md-input-container>
-    <div>
-        <button md-button (click)="showMenu()">
-            <md-icon>cancel</md-icon>
-        </button>
-        <button md-button type="submit">
-            <md-icon>check_circle</md-icon>
-        </button>
-    </div>
+  <mat-input-container>
+    <input matInput placeholder="Nom du client" type="text" ngModel name="name" required>
+  </mat-input-container>
+  <div>
+    <button mat-button (click)="showMenu()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button type="submit">
+      <mat-icon>check_circle</mat-icon>
+    </button>
+  </div>
 </form>

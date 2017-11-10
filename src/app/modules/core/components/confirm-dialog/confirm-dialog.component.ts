@@ -5,8 +5,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
     selector: 'confirm-dialog',
     template: ` <p>{{title}}<p>
                 <p>{{message}}</p>                
-                <button md-button (click)="accept()"><md-icon class="mr-2 text-success">check_circle</md-icon>Ok</button>
-                <button md-button (click)="decline()"><md-icon class="mr-2 text-danger">cancel</md-icon>Annuler</button>`,
+                <button mat-button (click)="accept()"><mat-icon class="mr-2 text-success">check_circle</mat-icon>Ok</button>
+                <button mat-button (click)="decline()"><mat-icon class="mr-2 text-danger">cancel</mat-icon>Annuler</button>`,
 })
 export class ConfirmDialogComponent {
     public title: string;

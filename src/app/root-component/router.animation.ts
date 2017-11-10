@@ -181,7 +181,7 @@ export const routeAnimation: AnimationMetadata =
                 style({ opacity: 1 }),
             ], { optional: true }),
             group([
-                query(':enter p, :enter md-input-container, :enter button', [
+                query(':enter p, :enter mat-input-container, :enter button', [
                     style({ opacity: 0, transform: 'translateX(-5%)' }),
                     stagger('60ms', animate('200ms cubic-bezier(.3,.6,.5,1)', style({ opacity: 1, transform: 'translateX(0%)' })))
                 ]),

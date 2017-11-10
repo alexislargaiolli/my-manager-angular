@@ -1,4 +1,4 @@
-<button md-button *ngFor="let devis of (devisList$ | async)" (click)="selectDevis(devis)">
-    <md-icon>note_add</md-icon>
-    {{devis.title}}
+<button mat-button *ngFor="let devis of (devisList$ | async)" (click)="selectDevis(devis)">
+  <mat-icon>note_add</mat-icon>
+  {{devis.title}}
 </button>

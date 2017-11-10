@@ -1,18 +1,22 @@
 <div *ngIf="!display">
-    <md-icon class="align-middle">today</md-icon>
-    <button md-button (click)="toggle()">
-      <span *ngIf="date">{{valueLabel != null ? valueLabel : (date | date)}}</span>
-      <span *ngIf="!date">{{noValueLabel != null ? noValueLabel : 'Définir une date'}}</span>
-    </button>
+  <mat-icon class="align-middle">today</mat-icon>
+  <button mat-button (click)="toggle()">
+    <span *ngIf="date">{{valueLabel != null ? valueLabel : (date | date)}}</span>
+    <span *ngIf="!date">{{noValueLabel != null ? noValueLabel : 'Définir une date'}}</span>
+  </button>
 </div>
 <div *ngIf="display">
-    <form #dateForm="ngForm" (ngSubmit)="save(dateForm)" autocomplete="off">
-        <md-input-container [ngClass]="inputClass">
-            <button mdPrefix [mdDatepickerToggle]="datePicker" class="mr-2"></button>
-            <input name="date" mdInput [ngModel]="date" [mdDatepicker]="datePicker" placeholder="Sélectionner une date" required>
-        </md-input-container>
-        <md-datepicker #datePicker></md-datepicker>
-        <button md-button (click)="cancel(dateForm)"><md-icon>cancel</md-icon></button>
-        <button md-button type="submit"><md-icon>save</md-icon></button>
-    </form>
+  <form #dateForm="ngForm" (ngSubmit)="save(dateForm)" autocomplete="off">
+    <mat-form-field [ngClass]="inputClass">
+      <input matInput [matDatepicker]="datePicker" name="date" [ngModel]="date" placeholder="Sélectionner une date" required>
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+    <button mat-button (click)="cancel(dateForm)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button type="submit">
+      <mat-icon>save</mat-icon>
+    </button>
+  </form>
 </div>

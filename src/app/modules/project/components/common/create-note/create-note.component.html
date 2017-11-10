@@ -1,27 +1,27 @@
 <div>
   <form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)" autocomplete="false">
     <div class="p-2 d-flex flex-column">
-      <md-button-toggle-group [ngModel]="0" value="0" name="priority">
-        <md-button-toggle value="0" mdTooltip="Priorité normale" class="text-info">
-          <md-icon>arrow_downward</md-icon>
+      <mat-button-toggle-group [ngModel]="0" value="0" name="priority">
+        <mat-button-toggle value="0" matTooltip="Priorité normale" class="text-info">
+          <mat-icon>arrow_downward</mat-icon>
           <span>Normal</span>
-        </md-button-toggle>
-        <md-button-toggle value="1" mdTooltip="Priorité importante" class="text-warning">
-          <md-icon>arrow_upward</md-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="1" matTooltip="Priorité importante" class="text-warning">
+          <mat-icon>arrow_upward</mat-icon>
           <span>Important</span>
-        </md-button-toggle>
-        <md-button-toggle value="2" mdTooltip="Priorité urgente" class="text-danger">
-          <md-icon>arrow_upward</md-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="2" matTooltip="Priorité urgente" class="text-danger">
+          <mat-icon>arrow_upward</mat-icon>
           <span>Urgent</span>
-        </md-button-toggle>
-      </md-button-toggle-group>
-      <md-input-container>
-        <input name="title" type="text" mdInput ngModel placeholder="Nouvelle note..." required>
-      </md-input-container>
-      <!--<button md-button (click)="cancelCreation(noteForm)">
-        <md-icon>cancel</md-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <mat-input-container>
+        <input name="title" type="text" matInput ngModel placeholder="Nouvelle note..." required>
+      </mat-input-container>
+      <!--<button mat-button (click)="cancelCreation(noteForm)">
+        <mat-icon>cancel</mat-icon>
       </button>-->
-      <button md-raised-button type="submit" class="align-self-end">
+      <button mat-raised-button type="submit" class="align-self-end">
         Ajouter
       </button>
     </div>

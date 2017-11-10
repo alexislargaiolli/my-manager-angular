@@ -1,25 +1,29 @@
 <app-square-list [loading]="loading">
-  <md-card class="pt-0 create-wrapper">
-    <md-card-content class="d-flex flex-column justify-content-around h-100">
-      <button (click)="create.emit()" md-raised-button class="blue circle mx-auto">
-        <md-icon>add_circle</md-icon>        
+  <mat-card class="pt-0 create-wrapper">
+    <mat-card-content class="d-flex flex-column justify-content-around h-100">
+      <button (click)="create.emit()" mat-raised-button class="blue circle mx-auto">
+        <mat-icon>add_circle</mat-icon>
         Nouveau Projet
       </button>
-      <md-select (change)="sort($event)" placeholder="Organiser par">
-        <!-- Double options to toggle sort order -->
-        <md-option [value]="'name'" *ngIf="!(sortField === 'name' && sortOrder === 1)">Nom</md-option>
-        <md-option [value]="'name'" *ngIf="sortField === 'name' && sortOrder === 1">Nom</md-option>
-        <md-option [value]="'state'" *ngIf="!(sortField === 'state' && sortOrder === 1)">Status</md-option>
-        <md-option [value]="'state'" *ngIf="sortField === 'state' && sortOrder === 1">Status</md-option>
-        <md-option [value]="'deadline'" *ngIf="!(sortField === 'deadline' && sortOrder === 1)">Deadline</md-option>
-        <md-option [value]="'deadline'" *ngIf="sortField === 'deadline' && sortOrder === 1">Deadline</md-option>
-      </md-select>
-      <md-select [(ngModel)]="filterState" (change)="filter()" placeholder="Filter par status">
-        <md-option [value]="null">Aucun</md-option>
-        <md-option *ngFor="let state of (projectStates | myKeys)" [value]="state.key">{{state.key | projectState}}</md-option>
-      </md-select>
-    </md-card-content>
-  </md-card>
+      <mat-form-field>
+        <mat-select (change)="sort($event)" placeholder="Organiser par">
+          <!-- Double options to toggle sort order -->
+          <mat-option [value]="'name'" *ngIf="!(sortField === 'name' && sortOrder === 1)">Nom</mat-option>
+          <mat-option [value]="'name'" *ngIf="sortField === 'name' && sortOrder === 1">Nom</mat-option>
+          <mat-option [value]="'state'" *ngIf="!(sortField === 'state' && sortOrder === 1)">Status</mat-option>
+          <mat-option [value]="'state'" *ngIf="sortField === 'state' && sortOrder === 1">Status</mat-option>
+          <mat-option [value]="'deadline'" *ngIf="!(sortField === 'deadline' && sortOrder === 1)">Deadline</mat-option>
+          <mat-option [value]="'deadline'" *ngIf="sortField === 'deadline' && sortOrder === 1">Deadline</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select [(ngModel)]="filterState" (change)="filter()" placeholder="Filter par status">
+          <mat-option [value]="null">Aucun</mat-option>
+          <mat-option *ngFor="let state of (projectStates | myKeys)" [value]="state.key">{{state.key | projectState}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
 
   <app-project-list-item *ngFor="let project of projects" [project]="project" (click)="selectProject(project)" class="square-list-item"></app-project-list-item>
 </app-square-list>
