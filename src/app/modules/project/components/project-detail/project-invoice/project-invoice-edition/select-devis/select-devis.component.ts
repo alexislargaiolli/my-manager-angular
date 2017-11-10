@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Devis } from 'app/models';
 import { select } from '@angular-redux/store';
@@ -14,7 +14,7 @@ export class SelectDevisComponent implements OnInit {
   @select(['projectDevis', 'items'])
   public devisList$: Observable<Devis[]>;
 
-  constructor(public dialogRef: MdDialogRef<SelectDevisComponent>) { }
+  constructor(public dialogRef: MatDialogRef<SelectDevisComponent>) { }
 
   ngOnInit() {
   }

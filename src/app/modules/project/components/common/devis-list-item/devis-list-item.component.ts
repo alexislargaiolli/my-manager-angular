@@ -12,7 +12,9 @@ export class DevisListItemComponent implements OnInit {
   @Input()
   devis: Devis;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

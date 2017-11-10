@@ -4,7 +4,7 @@ import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgForm } from '@angular/forms';
 import { centerApparitionAnimation, listSlideAnim } from 'app/animations';
-import { MdSidenav } from "@angular/material";
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-task-kaban',

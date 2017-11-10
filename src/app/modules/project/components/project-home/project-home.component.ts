@@ -1,6 +1,6 @@
 import { ClientDialogComponent } from './../../../client/components/commons/client-dialog/client-dialog.component';
 import { CreateNoteComponent } from './../common/create-note/create-note.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { RepositoriesService } from 'app/modules/core';
@@ -49,7 +49,7 @@ export class ProjectHomeComponent implements OnInit {
     private _projectActions: ProjectActions,
     private _noteActions: NoteActions,
     private _router: Router,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) { }
 
   public ngOnInit() {

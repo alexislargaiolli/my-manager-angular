@@ -1,12 +1,18 @@
 <md-card class="p-0">
-  <div class="devis-state" [ngClass]="{'draft': devis.state===0, 'bg-info': devis.state===1, 'bg-success': devis.state===2,'bg-error': devis.state === 3}">
-    <span *ngIf="devis.state === 0">Brouillon</span>
-    <span *ngIf="devis.state === 1">En attente</span>
-    <span *ngIf="devis.state === 2">Accepté</span>
-    <span *ngIf="devis.state === 3">Refusé</span>
-    <span *ngIf="devis.state === 4">Payé</span>
-  </div>
-  <div class="preview-wrapper">
-    <app-devis-preview [devis]="devis"></app-devis-preview>
-  </div>
+  <md-card-header>
+    <md-card-title>{{devis.title}}</md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <div class="badge" [ngClass]="{'badge-default': devis.state===0, 'badge-info': devis.state===1, 'badge-success': devis.state===2,'badge-error': devis.state === 3}">
+      <span *ngIf="devis.state === 0">Brouillon</span>
+      <span *ngIf="devis.state === 1">En attente</span>
+      <span *ngIf="devis.state === 2">Accepté</span>
+      <span *ngIf="devis.state === 3">Refusé</span>
+      <span *ngIf="devis.state === 4">Payé</span>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>LIKE</button>
+    <button md-button>SHARE</button>
+  </md-card-actions>
 </md-card>

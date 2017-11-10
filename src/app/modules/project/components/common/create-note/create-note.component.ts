@@ -1,4 +1,4 @@
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Component, OnInit, EventEmitter, Output, HostBinding } from '@angular/core';
 import { Note } from 'app/models';
 import { NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class CreateNoteComponent implements OnInit {
 
-  constructor(public dialogRef: MdDialogRef<CreateNoteComponent>) { }
+  constructor(public dialogRef: MatDialogRef<CreateNoteComponent>) { }
 
   ngOnInit() {
   }

@@ -9,7 +9,7 @@ import { IAppState, ProjectInvoiceActions, ProjectHistoryEntryActions } from 'ap
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as moment from 'moment';
 import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SelectDevisComponent } from './select-devis/select-devis.component';
 import { HistoryEntryFactory } from "app/models/historyentry.factory";
 
@@ -38,7 +38,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
     private _dragulaService: DragulaService,
     private _historyActions: ProjectHistoryEntryActions,
     private _elementRef: ElementRef,
-    public _mdDialog: MdDialog
+    public _MatDialog: MatDialog
   ) {
     super();
     _dragulaService.setOptions('lines', {
@@ -120,7 +120,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
   }
 
   public importDevis() {
-    let dialogRef = this._mdDialog.open(SelectDevisComponent);
+    let dialogRef = this._MatDialog.open(SelectDevisComponent);
     dialogRef.afterClosed().subscribe((devis: Devis) => {
       if (devis) {
         this.invoice.importDevis(devis);

@@ -11,7 +11,7 @@ import { select, NgRedux } from '@angular-redux/store';
 import { IKabanChangeStateEvent } from '../../common/task-kaban/task-kaban.component';
 import { HistoryEntryFactory } from '../../../../../models/historyentry.factory';
 import { leaveWorkaround } from 'app/animations';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-project-task',
@@ -35,8 +35,8 @@ export class ProjectTaskComponent extends AbstractProjectComponent implements On
   @select(['projectTasks', 'loading'])
   loading: Observable<boolean>;
 
-  @ViewChild(MdSidenav)
-  sidenav: MdSidenav;
+  @ViewChild(MatSidenav)
+  sidenav: MatSidenav;
 
   selectedTask: Task;
 

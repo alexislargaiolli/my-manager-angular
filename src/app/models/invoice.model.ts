@@ -1,6 +1,8 @@
+import { Client } from './client.model';
+import { Profile } from './profile.model';
+import { DevisLine, Devis } from './devis.model';
 import { IModel } from 'app/modules/core';
 import { Address } from './address.model';
-import { DevisLine, Profile, Client, Devis } from 'app/models';
 import * as moment from 'moment';
 
 export class Invoice implements IModel {

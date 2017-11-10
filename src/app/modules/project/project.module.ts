@@ -6,8 +6,6 @@ import { NoteItemComponent } from './components/common/project-note-list/note-it
 import { ProjectStatePipe } from './services/projectState.pipe';
 import { CreateProjectComponent } from './components/common/create-project/create-project.component';
 import { NgModule } from '@angular/core';
-import { MyDatePickerModule } from 'mydatepicker';
-import { DatepickerModule } from 'angular2-material-datepicker';
 import { DragulaModule } from 'ng2-dragula';
 import { SharedModule } from 'app/modules/shared/shared.module';
 import { MyManagerRoutingModule } from './project-routing.module';
@@ -46,8 +44,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   imports: [
     SharedModule,
     DragulaModule,
-    MyDatePickerModule,
-    DatepickerModule,
     MyManagerRoutingModule,
     ClientModule,
     NgxChartsModule

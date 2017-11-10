@@ -1,7 +1,7 @@
 import { ClientActions } from './../../../../store/reducers/client/client.actions';
 import { Location } from '@angular/common';
 import { AbstractProjectComponent } from './../abstract-project.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output, HostBinding } from '@angular/core';

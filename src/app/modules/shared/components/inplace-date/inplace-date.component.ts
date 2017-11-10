@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MdDatepicker } from "@angular/material";
+import { MatDatepicker } from '@angular/material';
 
 @Component({
   selector: 'app-inplace-date',

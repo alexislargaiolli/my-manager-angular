@@ -2,7 +2,7 @@ import { ClientDialogComponent } from './../../../../client/components/commons/c
 import { Location } from '@angular/common';
 import { AbstractProjectComponent } from './../abstract-project.component';
 import { CreateNoteComponent } from './../../common/create-note/create-note.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Component, OnInit, HostBinding, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
 import { Project, Note, HistoryEntry, ProjectState, Devis, Client, ChartData } from 'app/models';
 import { leaveWorkaround } from 'app/animations';
@@ -70,7 +70,7 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         private _projectClientActions: ProjectClientActions,
         protected _router: Router,
         private _route: ActivatedRoute,
-        private dialog: MdDialog,
+        private dialog: MatDialog,
         protected _location: Location,
         private _breakpointsService: BreakpointsService
     ) { super(_ngRedux, _location); }
