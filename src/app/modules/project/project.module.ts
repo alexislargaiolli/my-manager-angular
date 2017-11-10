@@ -39,6 +39,7 @@ import { ProjectDetailResolver } from './services/project-resolver';
 import { TaskEditionComponent } from './components/project-detail/project-task/task-edition/task-edition.component';
 import { ProjectListItemComponent } from 'app/modules/project/components/common/project-list/project-list-item/project-list-item.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   ],
   providers: [
     NavigationService,
-    ProjectDetailResolver
+    ProjectDetailResolver,
+    DevisGuard
   ],
   entryComponents: [
     SelectDevisComponent,

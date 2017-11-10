@@ -1,4 +1,4 @@
-<div class="header d-flex flex-row align-items-center">
+<div class="header d-flex flex-row align-items-center" *ngIf="devis">
   <div class="header-info d-flex flex-column justify-content-around">
     <div class="devis-id">N° {{devis.devisId}}</div>
     <div class="devis-date">{{devis.createDate | date:'mediumDate'}}</div>
@@ -9,7 +9,7 @@
     <span class="big-title">DEVIS</span>
   </div>
 </div>
-<div class="content">
+<div class="content" *ngIf="devis">
   <div class="d-flex flex-row justify-content-between">
     <div class="user-coord">
       <div class="coord-name">{{devis.userName}}</div>
@@ -58,7 +58,7 @@
     </div>
   </div>
 </div>
-<div class="devis-footer">
+<div class="devis-footer" *ngIf="devis">
   <div class="d-flex flex-row justify-content-around align-items-center">
     <div *ngIf="devis.userPhone" class="d-flex align-items-center contact-info">
       <mat-icon>contact_phone</mat-icon>

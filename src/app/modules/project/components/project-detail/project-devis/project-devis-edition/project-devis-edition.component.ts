@@ -34,7 +34,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
     private _devisActions: ProjectDevisActions,
     private _historyActions: ProjectHistoryEntryActions,
     private _dragulaService: DragulaService,
-    private _elementRef: ElementRef
+    private _notificationService: NotificationService
   ) {
     super();
     _dragulaService.setOptions('lines', {
@@ -47,6 +47,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
 
   ngOnInit() {
     const devisId = +this.route.snapshot.params['devisId'];
+    this.devis = null;
     this.loadDevis(devisId);
   }
 
@@ -60,12 +61,17 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
       this.addSub(
         this._ngRedux.select(['projectDevis', 'items']).subscribe((devisList: Devis[]) => {
           const storeDevis = devisList.find(devis => devis.id === devisId);
-          if (this.devis && this.stateHasChanged) {
-            this._historyActions.dispatchCreate(HistoryEntryFactory.devisStateUpdated(this.devis), this.devis.projectId);
+          if (storeDevis) {
+            if (this.devis && this.stateHasChanged) {
+              this._historyActions.dispatchCreate(HistoryEntryFactory.devisStateUpdated(this.devis), this.devis.projectId);
+            }
+            if (this.devis !== null) {
+              this._notificationService.addSaveSuccess('Devis sauvegardé');
+            }
+            this.devis = new Devis();
+            this.devis = Object.assign(this.devis, storeDevis);
+            this.stateHasChanged = false;
           }
-          this.devis = new Devis();
-          this.devis = Object.assign(this.devis, storeDevis);
-          this.stateHasChanged = false;
         })
       );
     } else {
