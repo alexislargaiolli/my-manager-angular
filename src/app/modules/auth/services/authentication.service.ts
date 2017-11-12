@@ -3,7 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AppSettings } from 'app/app-settings';
-import { NotificationService, EventsService, BaseHttpService, ErrorService, BackendConfig } from 'app/modules/core';
+import { NotificationService, BaseHttpService, ErrorService, BackendConfig } from 'app/modules/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store/store.types';
 
@@ -14,7 +14,6 @@ export class AuthenticationService {
     constructor(
         protected http: Http,
         protected notificationService: NotificationService,
-        protected eventsService: EventsService,
         protected baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
     }
 

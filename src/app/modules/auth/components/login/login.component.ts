@@ -7,11 +7,11 @@ import { SessionActions } from '../../redux/session/session.actions';
 import { select, NgRedux } from '@angular-redux/store';
 import { NgForm } from '@angular/forms';
 import { IAppState } from '../../../store/store.types';
-import { Subscription } from 'rxjs/Rx';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { ReduxSubscriptionComponent } from '../../../core/components/redux-subscription-component/redux-subscription-component';
 import { Profile } from 'app/models';
 import { fadeAnim } from 'app/animations';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',

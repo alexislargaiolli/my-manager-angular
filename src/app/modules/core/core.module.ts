@@ -3,7 +3,6 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { SharedModule } from 'app/modules/shared/shared.module';
 import { ErrorService } from './services/error.service';
 import { NotificationService } from './services/notification.service';
-import { EventsService } from './services/event.service';
 import { DialogsService } from './services/dialog.service';
 import { NotificationCenterComponent } from './components/notification-center/notification-center.component';
 import { MyNotificationComponent } from './components/notification-center/my-notification/my-notification.component';
@@ -27,7 +26,6 @@ import { PageNotFoundComponent } from 'app/modules/core/components/page-not-foun
   ],
   providers: [
     NotificationService,
-    EventsService,
     ErrorService,
     DialogsService,
     BaseHttpService,

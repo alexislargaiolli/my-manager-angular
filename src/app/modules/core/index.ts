@@ -4,7 +4,6 @@ export { RepositoryRequest } from './services/repositories/repository-request';
 export { BaseHttpService } from './services/repositories/base-http.service';
 export { DialogsService } from './services/dialog.service';
 export { ErrorService } from './services/error.service';
-export { EventsService } from './services/event.service';
 export { NotificationService } from './services/notification.service';
 export { BreakpointsService } from './services/breakpoints.service';
 

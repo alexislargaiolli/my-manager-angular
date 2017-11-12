@@ -1,6 +1,7 @@
-import { Observable, Subscription } from 'rxjs/Rx';
 import { Component, OnInit, Input, EventEmitter, Output, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { MyNotification } from '../../../models/my-notification.model';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'my-notification',

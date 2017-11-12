@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy, HostBinding, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { Task } from 'app/models';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgForm } from '@angular/forms';

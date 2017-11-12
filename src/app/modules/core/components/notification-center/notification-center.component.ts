@@ -1,4 +1,3 @@
-import { Observable, Subscription } from 'rxjs/Rx';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { MyNotification } from '../../models/my-notification.model';

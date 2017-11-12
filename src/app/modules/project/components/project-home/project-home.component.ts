@@ -9,13 +9,13 @@ import { User } from 'app/modules/core/models/user.model';
 import { Client } from 'app/models';
 import { Address } from 'app/models';
 import { ProjectActions } from '../../../store/reducers/project/project.actions';
-import { Observable } from 'rxjs/Rx';
 import { IAppState } from 'app/modules/store';
 import { NoteActions } from '../../../store/reducers/note/note.actions';
 import { Router } from '@angular/router';
 import { projectHomeAnimation } from './project-home.animation';
 import { leaveWorkaround } from 'app/animations';
 import { ModelUtils } from '../../../core/models/model.utils';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'project-home',

@@ -1,7 +1,6 @@
 import { NotificationSaveSuccess, NotificationWarning } from './../models/my-notification.model';
 import { MyNotification, NotificationType, NotificationError } from '../models/my-notification.model';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
 import { NotificationActions } from '../../store/reducers/notification/notification.actions';
 import { NgRedux } from '@angular-redux/store';
 

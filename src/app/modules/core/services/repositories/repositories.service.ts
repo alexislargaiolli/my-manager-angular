@@ -6,7 +6,6 @@ import { AppSettings } from 'app/app-settings';
 import { RepositoryRequest } from './repository-request';
 import { ErrorService } from '../error.service';
 import { BaseHttpService } from './base-http.service';
-import { EventsService, AppEvent } from '../event.service';
 import { ISessionState } from '../../models/user-session.model';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from 'app/modules/store';

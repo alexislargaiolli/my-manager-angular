@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
 import { ProfileActions } from 'app/modules/store';
 import { IAppState } from '../../../store/store.types';
-import { Subscription } from 'rxjs/Rx';
 import { slideApparitionAnimation } from 'app/animations';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   templateUrl: './user-profile-general.component.html',
