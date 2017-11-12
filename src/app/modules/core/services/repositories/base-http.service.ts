@@ -1,6 +1,7 @@
 import { Injectable, Optional } from '@angular/core';
 import { RequestMethod, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 import { AppSettings } from 'app/app-settings';
 import { BackendConfig } from '../../models/backend.config';
 import { ErrorService } from '../error.service';

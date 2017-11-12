@@ -22,7 +22,6 @@ export class ProfileEpics {
 
     @Epic()
     onLogin = (action$) => action$.ofType(SessionActions.LOGIN_RETRIVE_USER_INFO)
-        .delay(100)
         .map(action => this._profileActions.load());
 
     @Epic()

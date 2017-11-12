@@ -16,19 +16,13 @@ import 'rxjs/add/operator/filter';
 @Injectable()
 export class SessionEpics {
 
-    private initialURL = "/"
-
     constructor(
         protected _repo: RepositoriesService,
         protected _sessionAction: SessionActions,
         protected _auth: AuthenticationService,
         protected _router: Router,
         protected _ngRedux: NgRedux<IAppState>
-    ) {
-        this._router.events.first().single().subscribe((e: NavigationStart) => {
-            this.initialURL = e.url;
-        })
-    }
+    ) { }
 
     @Epic()
     login = action$ => action$

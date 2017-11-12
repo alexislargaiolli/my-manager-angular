@@ -8,6 +8,7 @@ import { Client } from 'app/models';
 import { SessionActions } from '../modules/auth/redux/session/session.actions';
 import { routeAnimation } from './router.animation';
 import { Router, NavigationStart } from '@angular/router';
+import 'rxjs/add/operator/first';
 
 @Component({
     selector: 'app-root',
