@@ -1,0 +1,19 @@
+{
+  "name": "my-freelancer-manager",
+  "version": "1.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": "6.10.x",
+    "npm": "3.10.10"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "private": true,
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    
+  }
+}
