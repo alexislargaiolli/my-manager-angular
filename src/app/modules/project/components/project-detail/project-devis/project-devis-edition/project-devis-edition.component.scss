@@ -30,14 +30,13 @@ app-address-input {
 .lines-wrapper {
   min-height: 50px;
   .devis-line {
-    background: #e4e4e4;
+    // background: #e4e4e4;
     .line-content {
       height: 15px;
     }
     .line-quantity,
     .line-unit,
     .line-total {
-      // width: 70px;
       text-align: center;
     }
   }

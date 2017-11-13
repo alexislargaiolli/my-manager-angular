@@ -5,30 +5,30 @@
   <mat-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></mat-progress-bar>
 </div>
 <form #registerForm="ngForm" name="registerForm" (ngSubmit)="register(registerForm)" class="d-flex flex-column" *ngIf="!registered">
-  <mat-input-container>
+  <mat-form-field>
     <input matInput ngModel name="lastname" placeholder="Nom" required [disabled]="loading">
     <mat-icon matSuffix>person_outline</mat-icon>
-  </mat-input-container>
-  <mat-input-container>
+  </mat-form-field>
+  <mat-form-field>
     <input matInput ngModel name="firstname" placeholder="Prénom" required [disabled]="loading">
     <mat-icon matSuffix>person_outline</mat-icon>
-  </mat-input-container>
-  <mat-input-container>
+  </mat-form-field>
+  <mat-form-field>
     <input matInput ngModel name="username" placeholder="Nom d'utilisateur" required [disabled]="loading">
     <mat-icon matSuffix>person_outline</mat-icon>
-  </mat-input-container>
-  <mat-input-container>
+  </mat-form-field>
+  <mat-form-field>
     <input #email="ngModel" matInput ngModel name="email" placeholder="Email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
       [disabled]="loading">
     <mat-icon matSuffix>mail_outline</mat-icon>
     <mat-error *ngIf="email.errors?.pattern">Adresse email invalide</mat-error>
-  </mat-input-container>
-  <mat-input-container>
+  </mat-form-field>
+  <mat-form-field>
     <input #password="ngModel" matInput ngModel name="password" placeholder="Mot de passe" type="password" minlength="6" required
       [disabled]="loading">
     <mat-icon matSuffix>lock_outline</mat-icon>
     <mat-error *ngIf="password.errors?.minlength">6 caractères minimum</mat-error>
-  </mat-input-container>
+  </mat-form-field>
 
   <button mat-button class="blue align-self-end" [disabled]="loading">Inscription</button>
 </form>

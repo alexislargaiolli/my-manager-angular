@@ -6,6 +6,7 @@
 
 h1 {
   text-transform: uppercase;
+  color: #555;
   small {
     text-transform: lowercase;
     font-size: 60%;
@@ -13,11 +14,18 @@ h1 {
 }
 
 form {
+  color: #444;
   mat-icon {
     color: #999;
   }
-  mat-input-container {
+  mat-form-field {
     display: block;
+  }
+  /deep/ .mat-form-field-underline {
+    background-color: #999;
+  }
+  /deep/ .mat-form-field-empty.mat-form-field-placeholder {
+    color: #999;
   }
 }
 

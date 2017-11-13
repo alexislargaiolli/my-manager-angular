@@ -38,10 +38,7 @@ export class LoginComponent extends ReduxSubscriptionComponent implements OnInit
 
     this.addSub(this._ngRedux.select(['session', 'authenticated']).subscribe((authenticated: boolean) => {
       this.authenticated = authenticated;
-    }));
-
-    this.addSub(this._ngRedux.select(['profile', 'profile']).subscribe((profile: Profile) => {
-      if (profile) {
+      if (authenticated) {
         this._router.navigate(['project']);
       }
     }));

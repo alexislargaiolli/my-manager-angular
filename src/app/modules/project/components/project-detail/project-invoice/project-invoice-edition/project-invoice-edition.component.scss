@@ -17,23 +17,20 @@ app-address-input {
   flex-direction: column;
 }
 
-.title-wrapper {
-  .mat-input-container {
-    display: block;
-  }
+.mat-form-field {
+  display: block;
 }
 
 .lines-wrapper {
   min-height: 50px;
   .devis-line {
-    background: #e4e4e4;
+    // background: #e4e4e4;
     .line-content {
-      width: 300px;
+      height: 15px;
     }
     .line-quantity,
     .line-unit,
     .line-total {
-      width: 70px;
       text-align: center;
     }
   }
@@ -47,25 +44,11 @@ app-address-input {
   &.empty {
     min-height: 0;
   }
-  mat-input-container {
-    display: block;
-  }
 }
 
 .create-line-wrapper {
-  mat-input-container {
-    display: block;
-  }
   .line-content {
-    width: 300px;
-  }
-  .line-quantity,
-  .line-unit {
-    width: 100px;
-  }
-  button {
-    padding: 0;
-    min-width: 24px;
+    height: 15px;
   }
 }
 

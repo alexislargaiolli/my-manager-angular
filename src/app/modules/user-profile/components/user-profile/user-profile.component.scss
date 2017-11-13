@@ -1,23 +1,5 @@
-:host {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-}
-
-.side-menu {
-  display: flex;
-  flex-direction: column;
-  a {
-    display: flex;
-    align-items: center;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #444;
-    mat-icon {
-      margin-right: 10px;
-    }
-    &.active {
-      font-weight: bold;
-    }
-  }
+a:focus,
+a:hover {
+  color: #fff;
+  text-decoration: none;
 }

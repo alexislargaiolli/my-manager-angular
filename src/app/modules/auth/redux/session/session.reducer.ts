@@ -26,10 +26,10 @@ export function sessionReducer(state: ISessionState = Object.assign({}, INITIAL_
             return Object.assign({}, state, { userId: action.payload.userId, token: action.payload.token });
 
         case SessionActions.LOGIN_SUCCESS:
-            return Object.assign({}, state, { authenticated: true, logging_in: false, error: null });
+            return Object.assign({}, state, { authenticated: true, logging_in: false, auto_login: false, error: null });
 
         case SessionActions.LOGIN_ERROR:
-            return Object.assign({}, state, { authenticated: false, logging_in: false, error: action.payload });
+            return Object.assign({}, state, { authenticated: false, logging_in: false, auto_login: false, error: action.payload });
 
         case SessionActions.LOGOUT_REQUEST:
             return Object.assign({}, state, { logging_out: true, error: null });
@@ -48,6 +48,13 @@ export function sessionReducer(state: ISessionState = Object.assign({}, INITIAL_
 
         case SessionActions.REGISTER_ERROR:
             return Object.assign({}, state, { register: { registering: false, registered: false, error: action.payload } });
+
+        case SessionActions.READ_FROM_LOCAL_STORAGE:
+            return Object.assign({}, state, { auto_login: true });
+
+        case SessionActions.READ_FROM_LOCAL_STORAGE_ERROR:
+            return Object.assign({}, state, { auto_login: false });
+
     }
 
     return state;

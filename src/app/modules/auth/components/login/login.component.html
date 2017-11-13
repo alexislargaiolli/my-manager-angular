@@ -7,14 +7,14 @@
     <mat-progress-bar mode="indeterminate" *ngIf="loading" [@fadeAnim]="'true'"></mat-progress-bar>
   </div>
   <form id="loginForm" #loginForm="ngForm" name="loginForm" (ngSubmit)="login(loginForm)">
-    <mat-input-container>
+    <mat-form-field>
       <input matInput ngModel name="username" placeholder="Nom d'utilisateur" required [disabled]="loading">
       <mat-icon matSuffix>person_outline</mat-icon>
-    </mat-input-container>
-    <mat-input-container class="mt-4">
+    </mat-form-field>
+    <mat-form-field class="mt-4">
       <input matInput ngModel name="password" placeholder="Mot de passe" type="password" required [disabled]="loading">
       <mat-icon matSuffix>lock</mat-icon>
-    </mat-input-container>
+    </mat-form-field>
   </form>
   <button form="loginForm" mat-button class="blue align-self-end" [disabled]="loading">Connexion</button>
 </div>

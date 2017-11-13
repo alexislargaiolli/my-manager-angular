@@ -33,7 +33,7 @@ $icon-size:30px;
 .gain-details {
   position: absolute;
   text-align: left;
-  background: #fff;
+  background: $card-bg;
   z-index: 1000;
   width: 400px;
   margin-left: -100px;

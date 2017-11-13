@@ -4,6 +4,7 @@ export interface ISessionState {
     userId: number;
     token: string;
     authenticated: boolean;
+    auto_login?: boolean;
     logging_in: boolean;
     logging_out: boolean;
     gettingUserInfo: boolean;

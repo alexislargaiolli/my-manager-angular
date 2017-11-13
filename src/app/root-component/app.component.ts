@@ -1,24 +1,30 @@
 import { IAppState } from './../modules/store/store.types';
-import { NgRedux } from '@angular-redux/store';
-import { Component, OnInit } from '@angular/core';
+import { NgRedux, select } from '@angular-redux/store';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { RepositoriesService, ReduxSubscriptionComponent } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
 import { Project, Task, Devis, Note, HistoryEntry, Address, Profile, Invoice } from 'app/models';
 import { Client } from 'app/models';
 import { SessionActions } from '../modules/auth/redux/session/session.actions';
 import { routeAnimation } from './router.animation';
+import { startAnimation } from './start.animation';
 import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/first';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['app.component.scss'],
     animations: [
-        routeAnimation
+        routeAnimation,
+        startAnimation
     ]
 })
 export class AppComponent extends ReduxSubscriptionComponent implements OnInit {
+
+    @select(['session', 'auto_login'])
+    autoLogin: Observable<boolean>;
 
     private redirectAfterLoginUrl: string = '/project';
 
@@ -53,7 +59,7 @@ export class AppComponent extends ReduxSubscriptionComponent implements OnInit {
             if (authenticated) {
                 this._router.navigateByUrl(this.redirectAfterLoginUrl);
             }
-        }))
+        }));
     }
 
     prepRouteState(outlet: any) {

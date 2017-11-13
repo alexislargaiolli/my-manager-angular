@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Epic } from 'redux-observable-decorator';
 import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class SessionEpics {
