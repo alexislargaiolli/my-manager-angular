@@ -48,6 +48,7 @@ $bv-pp-theme: mat-light-theme($bv-pp-primary, $bv-pp-accent);
 .mat-fab,
 .mat-icon-button {
   text-transform: uppercase;
+  outline: none;
 }
 
 .mat-input-placeholder-wrapper {

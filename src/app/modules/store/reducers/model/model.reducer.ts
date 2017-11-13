@@ -39,10 +39,10 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
         // -----------  CREATE  -------------- //
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.CREATE, ActionUtils.REQUEST):
-            return Object.assign({}, state, { creating: true, lastCreated: null });
+            return Object.assign({}, state, { creating: true });
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.CREATE, ActionUtils.SUCCESS):
-            return Object.assign({}, state, { items: state.items.concat(action.payload), loading: false, error: null, creating: false, lastCreated: action.payload });
+            return Object.assign({}, state, { items: state.items.concat(action.payload), error: null, creating: false, lastCreated: action.payload });
 
 
 
@@ -50,8 +50,11 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
 
         // -----------  UPDATE  -------------- //
 
+        case ActionUtils.asyncActionType(actionSource, ModelActions.UPDATE, ActionUtils.REQUEST):
+            return Object.assign({}, state, { updating: true });
+
         case ActionUtils.asyncActionType(actionSource, ModelActions.UPDATE, ActionUtils.SUCCESS):
-            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), loading: false, error: null });
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), error: null, updating: false, lastUpdated: action.payload });
 
 
 
@@ -59,8 +62,13 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
 
         // -----------  PATCH  -------------- //
 
+        case ActionUtils.asyncActionType(actionSource, ModelActions.PATCH, ActionUtils.REQUEST):
+            return Object.assign({}, state, { updating: true });
+
         case ActionUtils.asyncActionType(actionSource, ModelActions.PATCH, ActionUtils.SUCCESS):
-            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), loading: false, error: null });
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, action.payload), error: null, updating: false, lastUpdated: action.payload });
+
+
 
 
 
@@ -70,10 +78,10 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.DELETE, ActionUtils.REQUEST):
             const elt = Object.assign({}, action.payload.model, { removing: true });
-            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, elt), loading: false, error: null });
+            return Object.assign({}, state, { items: ModelUtils.immutableUpdate(state.items, elt), error: null, deleting: true });
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.DELETE, ActionUtils.SUCCESS):
-            return Object.assign({}, state, { items: ModelUtils.immutableRemove(state.items, action.payload.model.id), loading: false, error: null });
+            return Object.assign({}, state, { items: ModelUtils.immutableRemove(state.items, action.payload.model.id), error: null, deleting: false, lastDeleted: action.payload.model });
     }
     return state;
 }

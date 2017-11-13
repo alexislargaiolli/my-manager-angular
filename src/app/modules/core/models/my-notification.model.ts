@@ -12,12 +12,13 @@ export enum NotificationType {
     INFO,
     WARNING,
     ERROR,
-    SAVE
+    SAVE,
+    SUCCESS
 }
 
 export class NotificationWarning extends MyNotification {
     constructor(public message: String) {
-        super(NotificationType.INFO, message);
+        super(NotificationType.WARNING, message);
         this.icon = 'warning';
         this.iconBackgroundClass = 'bg-warning';
     }
@@ -25,7 +26,7 @@ export class NotificationWarning extends MyNotification {
 
 export class NotificationError extends MyNotification {
     constructor(public message: String) {
-        super(NotificationType.INFO, message);
+        super(NotificationType.ERROR, message);
         this.icon = 'error_outline';
         this.iconBackgroundClass = 'bg-danger';
     }
@@ -33,8 +34,24 @@ export class NotificationError extends MyNotification {
 
 export class NotificationSaveSuccess extends MyNotification {
     constructor(public message: String) {
-        super(NotificationType.INFO, message);
+        super(NotificationType.SUCCESS, message);
         this.icon = 'save';
+        this.iconBackgroundClass = 'bg-success';
+    }
+}
+
+export class NotificationCreateSuccess extends MyNotification {
+    constructor(public message: String) {
+        super(NotificationType.SUCCESS, message);
+        this.icon = 'check_circle';
+        this.iconBackgroundClass = 'bg-success';
+    }
+}
+
+export class NotificationDeleteSuccess extends MyNotification {
+    constructor(public message: String) {
+        super(NotificationType.SUCCESS, message);
+        this.icon = 'delete';
         this.iconBackgroundClass = 'bg-success';
     }
 }

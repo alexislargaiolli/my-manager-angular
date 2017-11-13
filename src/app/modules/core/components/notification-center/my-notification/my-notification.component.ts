@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, HostBinding, ChangeDete
 import { MyNotification } from '../../../models/my-notification.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'my-notification',

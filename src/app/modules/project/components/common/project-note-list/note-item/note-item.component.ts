@@ -30,6 +30,12 @@ export class NoteItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  public clickOnNote() {
+    if (!this.edition) {
+      this.toggleEdit();
+    }
+  }
+
   public toggleEdit() {
     this.edition = !this.edition;
     if (this.edition) {

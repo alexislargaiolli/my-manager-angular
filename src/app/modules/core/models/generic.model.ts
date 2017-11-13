@@ -13,6 +13,10 @@ export interface IModelList<T extends IModel> {
     limit: number;
     creating?: boolean;
     lastCreated?: T;
+    updating?: boolean;
+    lastUpdated?: T;
+    deleting?: boolean;
+    lastDeleted?: boolean;
 }
 
 /**

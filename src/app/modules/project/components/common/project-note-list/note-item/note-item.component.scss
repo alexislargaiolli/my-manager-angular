@@ -1,7 +1,8 @@
 $height: 30px;
 :host {
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 5px;
+  align-items: center;
 }
 
 .note {
@@ -37,10 +38,16 @@ form {
   background: #fff;
 }
 
-.note-actions {
+.delete-note-button {
   height: 30px;
-  margin-top: 26px;
-  position: absolute;
+  width: 30px;
+  /deep/ .mat-button-wrapper,
+  /deep/ .mat-icon {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    display: block;
+  }
 }
 
 mat-button-toggle-group {

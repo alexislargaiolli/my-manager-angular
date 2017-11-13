@@ -13,8 +13,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-heroku":"ng build --prod -aot --output-path=heroku/dist",
-    "deploy-heroku":"git subtree split --branch heroku --prefix heroku/ && git push origin heroku",
+    "build-heroku": "ng build --prod -aot --output-path=heroku/dist",
+    "deploy-heroku": "git subtree split --branch heroku --prefix heroku/ && git push origin heroku",
+    "build-deploy-heroku": "npm run build-heroku && npm run deploy-heroku",
     "prod-start": "node server.js",
     "postinstall": "ng build --aot -prod"
   },

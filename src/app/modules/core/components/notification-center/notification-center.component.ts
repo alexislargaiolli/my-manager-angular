@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { MyNotification } from '../../models/my-notification.model';
-import { NgRedux } from '@angular-redux/store';
+import { select } from '@angular-redux/store';
 import { IAppState } from '../../../store/store.types';
 import { ReduxSubscriptionComponent } from '../redux-subscription-component/redux-subscription-component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'notification-center',
@@ -41,20 +42,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class NotificationCenterComponent extends ReduxSubscriptionComponent implements OnInit {
 
-  public notifications: MyNotification[];
+  @select(['notifications', 'items'])
+  public notifications$: Observable<MyNotification[]>;
 
-  constructor(private notificationService: NotificationService, private _ngRedux: NgRedux<IAppState>) {
+  constructor(private notificationService: NotificationService) {
     super();
-    this.notifications = [];
   }
 
-  ngOnInit() {
-    this.addSub(
-      this._ngRedux.select(['notifications', 'items']).subscribe((notifications: MyNotification[]) => {
-        this.notifications = notifications;
-      })
-    );
-  }
+  ngOnInit() { }
 
   public removeNotification(notification: MyNotification) {
     this.notificationService.removeNotification(notification);
