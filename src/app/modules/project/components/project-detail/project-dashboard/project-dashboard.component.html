@@ -45,137 +45,40 @@
   </div>
 </div>
 
-<div class="link-squares d-flex">
-  <div class="flex-1 link-square square-devis" [routerLink]="['../devis']">
-    <div class="text-center">
-      <h2>Devis</h2>
+<div class="link-squares d-flex justify-content-around align-items-center">
+  <mat-card class="link-square square-devis" [routerLink]="['../devis']">
+    <mat-card-header class="flex-column align-items-center">
       <mat-icon>assignment</mat-icon>
-    </div>
-    <div class="summary-wrapper">
+      <mat-card-title>Devis</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="devisSummary[0]">{{devisSummary[0]}} brouillon{{devisSummary[0] > 1 ? 's': ''}}</span>
       <span class="badge badge-warning" *ngIf="devisSummary[1]">{{devisSummary[1]}} en attente</span>
       <span class="badge badge-success" *ngIf="devisSummary[2]">{{devisSummary[2]}} accepté{{devisSummary[2] > 1 ? 's': ''}}</span>
       <span class="badge badge-danger" *ngIf="devisSummary[3]">{{devisSummary[3]}} refusé{{devisSummary[3] > 1 ? 's': ''}}</span>
-    </div>
-  </div>
-  <div class="flex-1 link-square square-tasks" [routerLink]="['../tasks']">
-    <div class="text-center">
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="link-square square-tasks" [routerLink]="['../tasks']">
+    <mat-card-header class="flex-column align-items-center">
       <h2>Tâches</h2>
       <mat-icon>list</mat-icon>
-    </div>
-    <div class="summary-wrapper">
+    </mat-card-header>
+    <mat-card-content class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="taskSummary[0]">{{taskSummary[0].value}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</span>
       <span class="badge badge-warning" *ngIf="taskSummary[1]">{{taskSummary[1].value}} tâche{{taskSummary[1] > 1 ? 's': ''}} en cours</span>
       <span class="badge badge-success" *ngIf="taskSummary[2]">{{taskSummary[2].value}} tâche{{taskSummary[2] > 1 ? 's': ''}} terminées</span>
-    </div>
-  </div>
-  <div class="flex-1 link-square square-invoices" [routerLink]="['../invoices']">
-    <div class="text-center">
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="link-square square-invoices" [routerLink]="['../invoices']">
+    <mat-card-header class="flex-column align-items-center">
       <h2>Factures</h2>
       <mat-icon>monetization_on</mat-icon>
-    </div>
-    <div class="summary-wrapper">
+    </mat-card-header>
+    <mat-card-content class="summary-wrapper">
       <span class="badge badge-primary" *ngIf="invoiceSummary[0]">{{invoiceSummary[0]}} brouillon{{invoiceSummary[0] > 1 ? 's': ''}}</span>
       <span class="badge badge-warning" *ngIf="invoiceSummary[1]">{{invoiceSummary[1]}} en attente de paiement</span>
       <span class="badge badge-success" *ngIf="invoiceSummary[2]">{{invoiceSummary[2]}} payée{{invoiceSummary[2] > 1 ? 's': ''}}</span>
       <span class="badge badge-danger" *ngIf="invoiceSummary[3]">{{invoiceSummary[3]}} abandonnée{{invoiceSummary[3] > 1 ? 's': ''}}</span>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<!--<div class="mt-4 block-links d-flex justify-content-around">
-        <mat-card [routerLink]="['../tasks']" class="block-link selectable-card">
-            <h2>Tâches</h2>
-            <mat-icon>list</mat-icon>
-            <ul>
-                <li>{{taskSummary[0]}} tâche{{taskSummary[0] > 1 ? 's': ''}} à faire</li>
-                <li>{{taskSummary[1]}} tâche{{taskSummary[1] > 1 ? 's': ''}} en cours</li>
-                <li>{{taskSummary[2]}} tâche{{taskSummary[2] > 1 ? 's': ''}} terminées</li>
-            </ul>
-        </mat-card>
-        <mat-card [routerLink]="['../devis']" class="block-link selectable-card">
-            <h2>Devis</h2>
-            <mat-icon>assignment</mat-icon>
-        </mat-card>
-        <mat-card [routerLink]="['../invoices']" class="block-link selectable-card">
-            <h2>Factures</h2>
-            <mat-icon>monetization_on</mat-icon>
-        </mat-card>
-        <mat-card [routerLink]="['../settings']" class="block-link selectable-card">
-            <h2>Options</h2>
-            <mat-icon>settings</mat-icon>
-        </mat-card>
-    </div>-->
-
-<!-- <div class="fluid-container">
-  <app-project-menu></app-project-menu>
-  <section class="row no-gutters subheader">
-    <div class="col d-flex flex-column justify-content-between ml-4">
-      <app-inplace #projectNameInplace [showSaveButton]="false">
-        <span class="inplace-output">
-                                <h1>{{project.name}}</h1>
-                            </span>
-        <span class="inplace-input">
-                                <form #projectNameForm="ngForm" (ngSubmit)="saveProjectName(projectNameForm)">
-                                    <mat-input-container class="white-input">
-                                        <input matInput type="text" placeholder="Nom du projet" [ngModel]="project.name" name="name" required>
-                                    </mat-input-container>
-                                    <button mat-button type="submit"><mat-icon>save</mat-icon></button>
-                                </form>
-                            </span>
-      </app-inplace>
-    </div>
-    <div class="col">
-      <div class="progress-wrapper">
-        <div class="progress-wrapper-value">
-          <span>{{project.progress}}%</span>
-        </div>
-        <mat-progress-spinner [value]="project.progress" color="accent">
-        </mat-progress-spinner>
-      </div>
-      <div class="project-header">
-        <p class="ml-4">
-          <app-inplace-date [(date)]="project.plannedStartDate" (dateChange)="saveProject()" noValueLabel="Définir une date de commencement"
-            valueLabel="Commence le {{project.plannedStartDate | date}}" inputClass="white-input"></app-inplace-date>
-        </p>
-        <p class="ml-4">
-          <app-inplace-date [(date)]="project.plannedEndDate" (dateChange)="saveProject()" noValueLabel="Définir une deadline" valueLabel="Prend fin le {{project.plannedEndDate | date}}"
-            inputClass="white-input"></app-inplace-date>
-        </p>
-        <project-client [clients]="clients" [allClients]="allClients" [loading]="loadingClient$" (add)="addClient($event)" (create)="createClient($event)"
-          (remove)="removeClient($event)" class="ml-4"></project-client>
-
-        <app-project-state [state]="project.state" (change)="changeState($event)" class="p-3"></app-project-state>
-      </div>
-
-    </div>
-    <div class="col-2 d-flex flex-column justify-content-end mr-4">
-      <mat-card class="note-panel custom-title">
-        <mat-card-title class="mat-elevation-z4">Notes</mat-card-title>
-        <mat-card-content class="light-scrollbar">
-          <app-button-inplace #createNoteButton label="Ajouter une note" class="d-block text-center" *ngIf="!(notesLoading$ | async)">
-            <app-create-note (create)="createNote($event);createNoteButton.toggle()" (cancel)="createNoteButton.toggle()" class="d-block default-panel-item rounded"></app-create-note>
-          </app-button-inplace>
-          <app-list [items]="notes$ | async" [loading]="notesLoading$ | async" class="default-theme">
-            <div class="flex-1 rounded d-flex align-items-center p-2" *appListItem="let note=item;let state=state;">
-              <mat-icon *ngIf="note.priority == 1" class="text-warning mx-2">warning</mat-icon>
-              <mat-icon *ngIf="note.priority == 2" class="text-danger mx-2">priority_hight</mat-icon>
-              <span class="flex-1">{{note.title}}</span>
-
-              <div class="d-flex" [style.opacity]="state === 'ACTIVE' ? 1: 0">
-                <button mat-button (click)="deleteNote(note)" class="icon-only">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-          </app-list>
-        </mat-card-content>
-        <mat-card-footer>
-          <mat-progress-bar mode="indeterminate" *ngIf="notesLoading$ | async"></mat-progress-bar>
-        </mat-card-footer>
-      </mat-card>
-    </div>
-  </section>
-  <project-history [historyEntries]="historyEntries$ | async" [loading]="historyLoading$ | async" (create)="createHistoryEntry($event)"
-    (loadMore)="loadMoreHistoryEntry()"></project-history>
-</div> -->
