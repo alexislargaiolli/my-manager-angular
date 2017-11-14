@@ -41,6 +41,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   public ngOnInit() {
+
   }
 
   public selectProject(p: Project) {
@@ -51,6 +52,7 @@ export class ProjectListComponent implements OnInit {
     const field = event.value;
     this.sortOrder = field === this.sortField ? this.sortOrder * -1 : 1;
     this.sortField = field;
+
     if (this.sortField === 'name') {
       this.projects = this.projects.sort((p1, p2) => {
         return p1.name.localeCompare(p2.name) * this.sortOrder;
@@ -61,8 +63,14 @@ export class ProjectListComponent implements OnInit {
       });
     } else if (this.sortField === 'deadline') {
       this.projects = this.projects.sort((p1, p2) => {
-        if (!p1.plannedEndDate || !p2.plannedEndDate) {
-          return 1 * this.sortOrder;
+        if (!p1.plannedEndDate && !p2.plannedEndDate) {
+          return 0;
+        }
+        if (!p2.plannedEndDate) {
+          return -1;
+        }
+        if (!p1.plannedEndDate) {
+          return 1;
         }
         return (new Date(p1.plannedEndDate).getTime() - new Date(p2.plannedEndDate).getTime()) * this.sortOrder;
       });

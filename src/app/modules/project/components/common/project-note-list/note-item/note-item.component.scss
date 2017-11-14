@@ -8,8 +8,8 @@ $height: 30px;
 
 .note {
   background: $card-bg;
-  min-height: $height;
   padding: 0;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -36,13 +36,13 @@ $height: 30px;
 }
 
 .delete-note-button {
-  height: 30px;
-  width: 30px;
+  height: 23px;
+  width: 23px;
   /deep/ .mat-button-wrapper,
   /deep/ .mat-icon {
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
+    height: 23px;
+    width: 23px;
+    line-height: 23px;
     display: block;
   }
 }

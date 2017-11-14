@@ -1,17 +1,25 @@
 <mat-card class="d-flex flex-column">
-  <mat-card-title>{{project.name}}</mat-card-title>
+  <mat-card-header>
+    <mat-card-title>{{project.name}}</mat-card-title>
+    <mat-card-subtitle *ngIf="project.plannedEndDate">
+      Prévu pour le
+      <span [ngClass]="{'text-danger': deadlineWarningLevel === 2, 'text-warning': deadlineWarningLevel === 1}">
+        {{project.plannedEndDate | date:'fullDate'}}
+      </span>
+    </mat-card-subtitle>
+    <mat-card-subtitle *ngIf="!project.plannedEndDate">Aucune date de livraison prévu</mat-card-subtitle>
+  </mat-card-header>
   <mat-card-content class="flex-1">
-    <p class="state-message">{{project.stateMessage}}</p>
-    <div *ngIf="project.plannedEndDate" matTooltip="Deadline du projet" class="d-flex project-details align-items-center mb-3">
-      <mat-icon>event</mat-icon>
-      <span class="mx-2">{{project.plannedEndDate | date:fullDate}}</span>
-      <span class="badge badge-warning" *ngIf="deadlineWarningLevel === 1">Deadline proche</span>
-      <span class="badge badge-danger" *ngIf="deadlineWarningLevel === 2">En retard</span>
+    <div class="project-state badge state-{{project.state}}">{{project.state | projectState}}</div>
+    <div class="state-message">{{project.stateMessage}}</div>
+    <div class="note-list-wrapper" *ngIf="project.notes?.length > 0">
+      <span class="note-list-title">Penser à :</span>
+      <ul class="note-list">
+        <li *ngFor="let note of project.notes" [ngClass]="{'text-warning' : note.priority === 1, 'text-danger': note.priority === 2}">{{note.title}}</li>
+      </ul>
     </div>
-    <span *ngFor="let note of project.notes" class="badge mr-2" [ngClass]="{'badge-default' : note.priority === 0, 'badge-warning' : note.priority === 1, 'badge-danger': note.priority === 2}">{{note.title}}</span>
   </mat-card-content>
   <mat-card-footer>
-    <span class="project-state state-{{project.state}} mat-elevation-z2 rounded-right">{{project.state | projectState}}</span>
     <mat-progress-bar [value]="project.progress" color="primary"></mat-progress-bar>
   </mat-card-footer>
 </mat-card>

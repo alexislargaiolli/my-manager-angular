@@ -57,3 +57,9 @@ $bv-pp-theme: mat-dark-theme($bv-pp-primary, $bv-pp-accent);
 .mat-button-toggle-label {
   margin: 0;
 }
+
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+  color: $body-bg;
+}
