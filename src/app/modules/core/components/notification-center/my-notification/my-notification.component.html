@@ -1,6 +1,6 @@
-<span *ngIf="notification.icon" class="rounded-left text-white" [ngClass]="notification.iconBackgroundClass">
+<span *ngIf="notification.icon" class="notif-icon rounded-left text-white" [ngClass]="notification.type">
   <mat-icon class="align-middle">{{notification.icon}}</mat-icon>
 </span>
-<p>
+<span class="notif-message">
   {{notification.message}}
-</p>
+</span>

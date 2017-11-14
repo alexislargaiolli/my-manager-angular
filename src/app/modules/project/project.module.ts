@@ -22,6 +22,7 @@ import { ProjectInvoiceComponent } from './components/project-detail/project-inv
 import { ProjectDevisComponent } from './components/project-detail/project-devis/project-devis.component';
 import { ProjectDevisEditionComponent } from './components/project-detail/project-devis/project-devis-edition/project-devis-edition.component';
 import { DevisStatePipe } from './services/devisState.pipe';
+import { InvoiceStatePipe } from './services/invoiceState.pipe';
 import { ProjectStateComponent } from './components/common/project-state/project-state.component';
 import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
 import { DevisListComponent } from './components/common/devis-list/devis-list.component';
@@ -50,6 +51,7 @@ import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
     NgxChartsModule
   ],
   declarations: [
+    InvoiceStatePipe,
     DevisStatePipe,
     DevisLinePipe,
     ProjectStatePipe,

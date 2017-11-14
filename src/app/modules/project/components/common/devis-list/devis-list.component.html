@@ -1,11 +1,10 @@
 <app-square-list [loading]="loading">
-  <mat-card class="pt-0 create-wrapper">
-    <mat-card-content class="d-flex flex-column justify-content-around align-items-center h-100">
-      <button (click)="create.emit()" mat-raised-button class="blue circle">
-        <mat-icon>add_circle</mat-icon>
-        Créer un devis</button>
-    </mat-card-content>
-  </mat-card>
+  <div class="create-wrapper text-center">
+    <button (click)="create.emit()" mat-raised-button class="blue circle">
+      <mat-icon>add_circle</mat-icon>
+      Créer un devis
+    </button>
+  </div>
 
   <app-devis-list-item *ngFor="let devi of devisList" [devis]="devi" class="square-list-item" (click)="selectDevis(devi)" (delete)="delete.emit(devi)"
     (duplicate)="duplicate.emit(devi)">

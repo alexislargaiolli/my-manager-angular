@@ -20,10 +20,10 @@ const INITIAL_STATE: IProjectState = {
 export function projectReducer(state: IProjectState = INITIAL_STATE, action) {
     switch (action.type) {
         case ActionUtils.asyncActionType(Project.REPO_KEY, ModelActions.UPDATE, ActionUtils.SUCCESS): {
-            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null });
+            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null, updating: false, lastUpdated: action.payload });
         }
         case ActionUtils.asyncActionType(Project.REPO_KEY, ModelActions.PATCH, ActionUtils.SUCCESS): {
-            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null });
+            return Object.assign({}, state, { items: updateProject(state.items, action.payload), loading: false, error: null, updating: false, lastUpdated: action.payload });
         }
         case ProjectActions.SELECT_PROJECT: {
             return Object.assign({}, state, { selectedId: action.payload.projectId });

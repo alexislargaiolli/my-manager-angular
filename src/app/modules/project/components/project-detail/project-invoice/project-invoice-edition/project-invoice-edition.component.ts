@@ -37,6 +37,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
     private _invoiceActions: ProjectInvoiceActions,
     private _dragulaService: DragulaService,
     private _historyActions: ProjectHistoryEntryActions,
+    private _notificationService: NotificationService,
     private _elementRef: ElementRef,
     public _MatDialog: MatDialog
   ) {
@@ -52,6 +53,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
   ngOnInit() {
     const invoiceId = +this.route.snapshot.params['invoiceId'];
     this.loadInvoice(invoiceId);
+    this.addSub(this._notificationService.addStoreChangeSaveNotif<Devis>(['projectInvoices', 'lastUpdated'], devis => `${devis.title} sauvegardé`));
   }
 
   ngOnDestroy(): void {

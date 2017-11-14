@@ -40,13 +40,15 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
     private _projectClientActions: ProjectClientActions,
     private _clientActions: ClientActions,
     private _router: Router,
-    private _dialogsService: DialogsService
+    private _dialogsService: DialogsService,
+    private _notificationService: NotificationService
   ) {
     super(_ngRedux, _location);
   }
 
   public ngOnInit() {
     super.ngOnInit();
+    this.addSub(this._notificationService.addStoreChangeSaveNotif<Project>(['projects', 'lastUpdated'], project => `${project.name} sauvegardé`));
   }
 
   public saveSettings(form: NgForm) {

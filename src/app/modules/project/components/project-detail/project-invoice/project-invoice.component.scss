@@ -1,41 +1,19 @@
-.create-wrapper {
-  height: 456px!important;
-}
-
+@import 'variables';
 .square-list-item {
   cursor: pointer;
 }
 
-.square-list-item,
-.item-slot {
-  width: 300px;
-  height: 470px;
-}
-
-.square-list-item .preview-wrapper {
-  overflow: hidden;
-  max-height: 425px;
-}
-
-.create-wrapper {
-  background: none;
-  box-shadow: none!important;
-}
-
-app-invoice-preview {
-  transform: scale(0.38);
-  transform-origin: top left;
-}
-
-.devis-state {
-  height: 30px;
-  line-height: 30px;
-  z-index: 100;
-  color: #fff;
-  font-family: 'Oswald', sans-serif;
-  text-align: center;
-}
-
-.draft {
-  color: #222;
+.square-list-item mat-card {
+  height: 300px;
+  mat-card-title {
+    font-family: $title-font;
+    font-size: 20px;
+  }
+  mat-card-actions {
+    color: #666;
+    text-align: right;
+  }
+  .devis-price {
+    font-size: 17px;
+  }
 }

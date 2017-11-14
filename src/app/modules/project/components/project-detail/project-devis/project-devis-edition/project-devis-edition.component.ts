@@ -49,6 +49,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
     const devisId = +this.route.snapshot.params['devisId'];
     this.devis = null;
     this.loadDevis(devisId);
+    this.addSub(this._notificationService.addStoreChangeSaveNotif<Devis>(['projectDevis', 'lastUpdated'], devis => `${devis.title} sauvegardé`));
   }
 
   ngOnDestroy(): void {
@@ -64,9 +65,6 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
           if (storeDevis) {
             if (this.devis && this.stateHasChanged) {
               this._historyActions.dispatchCreate(HistoryEntryFactory.devisStateUpdated(this.devis), this.devis.projectId);
-            }
-            if (this.devis !== null) {
-              this._notificationService.addSaveSuccess('Devis sauvegardé');
             }
             this.devis = new Devis();
             this.devis = Object.assign(this.devis, storeDevis);

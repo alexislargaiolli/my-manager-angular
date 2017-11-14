@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { IModel } from 'app/modules/core/models/generic.model';
 
 export abstract class ReduxSubscriptionComponent implements OnDestroy {
 

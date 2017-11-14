@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
 import * as moment from 'moment';
 import { DialogsService } from 'app/modules/core';
+import { NotificationService } from 'app/modules/core/services/notification.service';
 
 @Component({
   selector: 'app-project-devis',
@@ -35,6 +36,7 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
     protected _router: Router,
     protected _location: Location,
     protected _ngRedux: NgRedux<IAppState>,
+    private _notificationService: NotificationService,
     private _devisActions: ProjectDevisActions,
     private dialog: DialogsService,
   ) {
@@ -43,6 +45,8 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
 
   ngOnInit() {
     super.ngOnInit();
+    this.addSub(this._notificationService.addStoreChangeCreateNotif<Devis>(['projectDevis', 'lastCreated'], devis => `${devis.title} créé`));
+    this.addSub(this._notificationService.addStoreChangeDeleteNotif<Devis>(['projectDevis', 'lastDeleted'], devis => `${devis.title} supprimé`));
   }
 
   onDevisClick(devis: Devis) {
@@ -74,7 +78,7 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
   }
 
   public duplicate(devis: Devis) {
-    let copy: Devis = Object.assign(new Devis, devis);
+    let copy: Devis = Object.assign(new Devis(), devis);
     copy.id = null;
     copy.title += ' (copie)';
     this._devisActions.dispatchCreate(copy, copy.projectId);
