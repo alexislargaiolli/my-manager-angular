@@ -4,7 +4,6 @@
   display: block;
   margin-bottom: 10px;
   display: flex;
-  align-items: center;
 }
 
 .notif-icon {
@@ -17,6 +16,12 @@
 
 .notif-message {
   font-size: 13px;
-  padding: 5px 10px;
+  padding: 8px;
   color: #666;
+  align-self: center;
+}
+
+.close-icon {
+  color: #666;
+  margin: 8px 8px 0 0;
 }

@@ -12,6 +12,7 @@ import { ProjectClientEpics } from './reducers/project-client/project-client.epi
 import { ProfileEpics } from './reducers/profile/profile.epics';
 import { DashboardEpics } from './reducers/dashboard/dashboard.epics';
 import { ProjectInvoiceEpics } from './reducers/project-invoices/project-invoice.epics';
+import { RouterEpics } from 'app/modules/store/reducers/router/router.epics';
 
 @Injectable()
 export class RootEpics {
@@ -27,7 +28,8 @@ export class RootEpics {
         private _projectClientEpics: ProjectClientEpics,
         private _profileEpics: ProfileEpics,
         private _dashboardEpics: DashboardEpics,
-        private _projectInvoiceEpics: ProjectInvoiceEpics
+        private _projectInvoiceEpics: ProjectInvoiceEpics,
+        private _routerEpics: RouterEpics
     ) { }
 
     public createEpics() {
@@ -43,7 +45,8 @@ export class RootEpics {
             this._projectClientEpics,
             this._profileEpics,
             this._dashboardEpics,
-            this._projectInvoiceEpics
+            this._projectInvoiceEpics,
+            this._routerEpics
         );
     }
 }

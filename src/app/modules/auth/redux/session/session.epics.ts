@@ -10,12 +10,14 @@ import { IAppState, ProfileActions } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Epic } from 'redux-observable-decorator';
-import { UPDATE_LOCATION } from '@angular-redux/router/lib/es5';
+import { UPDATE_LOCATION } from '@angular-redux/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class SessionEpics {
+
+    private initialURL: String;
 
     constructor(
         protected _repo: RepositoriesService,
@@ -23,7 +25,14 @@ export class SessionEpics {
         protected _auth: AuthenticationService,
         protected _router: Router,
         protected _ngRedux: NgRedux<IAppState>
-    ) { }
+    ) {
+        this._router.events.first().subscribe((e: NavigationStart) => {
+            this.initialURL = e.url != null ? e.url : '';
+            if (this.initialURL === '/login') {
+                this.initialURL = '/project';
+            }
+        });
+    }
 
     @Epic()
     login = action$ => action$
@@ -34,11 +43,11 @@ export class SessionEpics {
                 .catch(error => of(this._sessionAction.loginError(error)))
         );
 
-
-    // @Epic()
-    // redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
-    //     .map((action) => {
-    //         return { type: UPDATE_LOCATION, payload: `login` } });
+    @Epic()
+    redirectAfterLogin = action$ => action$.ofType(SessionActions.LOGIN_SUCCESS)
+        .map((action) => {
+            return { type: UPDATE_LOCATION, payload: this.initialURL };
+        })
 
     @Epic()
     tokenReceived = (action$, store) => action$
@@ -103,6 +112,11 @@ export class SessionEpics {
         })
 
     @Epic()
+    readFromLocalStorageError = action$ => action$
+        .ofType(SessionActions.READ_FROM_LOCAL_STORAGE_ERROR)
+        .map((action) => { return { type: UPDATE_LOCATION, payload: `login` }; });
+
+    @Epic()
     removeFromLocalStorage = action$ => action$.ofType(SessionActions.REMOVE_FROM_LOCAL_STORAGE)
         .switchMap(() => {
             localStorage.removeItem('currentSession');
@@ -117,8 +131,7 @@ export class SessionEpics {
             this._auth.register(action.payload)
                 .map(data => this._sessionAction.registerSuccess())
                 .catch(error => {
-                    console.log(error);
-                    return of(this._sessionAction.registerError(error))
+                    return of(this._sessionAction.registerError(error));
                 })
         );
 }

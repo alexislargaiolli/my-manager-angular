@@ -36,6 +36,10 @@ export class MyNotificationComponent implements OnInit {
     })
   }
 
+  close() {
+    this.onLifetimeOver.emit(this.notification);
+  }
+
   ngOnDestroy() {
     this.timerSubscription$.unsubscribe();
   }

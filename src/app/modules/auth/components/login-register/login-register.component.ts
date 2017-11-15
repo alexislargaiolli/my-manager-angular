@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { trigger, style, state, transition, animate, keyframes, useAnimation, group, animateChild, query, stagger } from '@angular/animations';
 
 @Component({
@@ -6,6 +6,16 @@ import { trigger, style, state, transition, animate, keyframes, useAnimation, gr
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.scss'],
   animations: [
+    trigger('inOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.9)' }),
+        animate('250ms ease', style({ opacity: 1, transform: 'scale(1)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'scale(1)' }),
+        animate('500ms ease', style({ opacity: 0, transform: 'scale(0.9)' }))
+      ])
+    ]),
     trigger('whiteBackgroundAnim', [
       state('*', style({
 
@@ -77,6 +87,9 @@ import { trigger, style, state, transition, animate, keyframes, useAnimation, gr
   ]
 })
 export class LoginRegisterComponent implements OnInit {
+
+  @HostBinding('@inOut')
+  private hostAnimations = 'in';
 
   state = 'login';
 

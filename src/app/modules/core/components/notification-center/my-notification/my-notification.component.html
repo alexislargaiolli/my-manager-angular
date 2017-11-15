@@ -1,6 +1,7 @@
 <span *ngIf="notification.icon" class="notif-icon rounded-left text-white" [ngClass]="notification.type">
   <mat-icon class="align-middle">{{notification.icon}}</mat-icon>
 </span>
-<span class="notif-message">
+<span class="notif-message flex-1">
   {{notification.message}}
 </span>
+<mat-icon (click)="close()" class="close-icon" aria-label="Close notification">close</mat-icon>

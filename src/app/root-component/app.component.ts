@@ -26,13 +26,9 @@ export class AppComponent extends ReduxSubscriptionComponent implements OnInit {
     @select(['session', 'auto_login'])
     autoLogin: Observable<boolean>;
 
-    private redirectAfterLoginUrl: string = '/project';
-
     constructor(
         private repositoriesService: RepositoriesService,
         private _sessionActions: SessionActions,
-        private _router: Router,
-        private _ngRedux: NgRedux<IAppState>
     ) {
         super();
 
@@ -51,15 +47,6 @@ export class AppComponent extends ReduxSubscriptionComponent implements OnInit {
         this.repositoriesService.addManageClass(Invoice.REPO_KEY, 'invoices');
         // this.currentSession.initialize();
         this._sessionActions.dispatchReadFromLocalStorage();
-        super.addSub(this._router.events.first().subscribe((e: NavigationStart) => {
-            this.redirectAfterLoginUrl = e.url;
-        }));
-
-        super.addSub(this._ngRedux.select(['session', 'authenticated']).subscribe(authenticated => {
-            if (authenticated) {
-                this._router.navigateByUrl(this.redirectAfterLoginUrl);
-            }
-        }));
     }
 
     prepRouteState(outlet: any) {

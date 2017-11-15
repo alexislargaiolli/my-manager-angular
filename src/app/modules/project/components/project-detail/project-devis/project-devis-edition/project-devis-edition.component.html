@@ -1,24 +1,23 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col mb-2">
-      <div class="devis-form">
+    <div class="col">
+      <mat-toolbar class="mat-elevation-z2 mb-4">
+        <button mat-button (click)="goBack()" matTooltip="Revenir aux devis">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="toolbar-spacer"></span>
+        <button (click)="remove()" class="text-danger" mat-button matTooltip="Supprimer ce devis">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button (click)="download()" mat-button matTooltip="Télécharger en PDF">
+          <mat-icon>file_download</mat-icon>
+        </button>
+        <button form="devisForm" class="text-success" mat-button matTooltip="Sauvegarder les modifications">
+          <mat-icon>save</mat-icon>
+        </button>
+      </mat-toolbar>
 
-        <div class="d-flex p-2" *ngIf="devis">
-          <button mat-button (click)="goBack()" matTooltip="Revenir aux devis">
-            <mat-icon>arrow_back</mat-icon>
-          </button>
-          <span class="toolbar-spacer"></span>
-          <button (click)="remove()" class="text-danger" mat-button matTooltip="Supprimer ce devis">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button (click)="download()" mat-button matTooltip="Télécharger en PDF">
-            <mat-icon>file_download</mat-icon>
-          </button>
-          <button form="devisForm" class="text-success" mat-button matTooltip="Sauvegarder les modifications">
-            <mat-icon>save</mat-icon>
-          </button>
-        </div>
-
+      <div class="devis-form mb-4">
         <form id="devisForm" #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off" *ngIf="devis">
           <div class="d-flex flex-column">
             <div class="title-wrapper">

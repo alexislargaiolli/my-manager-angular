@@ -4,7 +4,7 @@ import { MyNotification } from '../../models/my-notification.model';
 import { select } from '@angular-redux/store';
 import { IAppState } from '../../../store/store.types';
 import { ReduxSubscriptionComponent } from '../redux-subscription-component/redux-subscription-component';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, group, query } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -22,20 +22,28 @@ import { Observable } from 'rxjs/Observable';
           transform: 'translate(100%)',
           opacity: 0
         }),
-        animate('400ms cubic-bezier(.06,.5,.27,1.3)')
+        animate('300ms cubic-bezier(.06,.5,.27,1.3)')
       ]),
       transition(':leave', [
         style({
-          height: '*',
-          margin: '*'
+          opacity: 1
         }),
-        animate('100ms ease-in',
-          style({
-            opacity: 0,
-            height: 0,
-            margin: 0
-          })
-        )
+        group([
+          query('.notif-icon',
+            animate('200ms ease-in',
+              style({
+                opacity: 0,
+                height: 0
+              })
+            )
+          ),
+          animate('200ms ease-in',
+            style({
+              opacity: 0,
+              height: 0
+            })
+          )
+        ])
       ])
     ])
   ]

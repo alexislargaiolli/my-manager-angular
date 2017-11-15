@@ -5,7 +5,10 @@ export const routeAnimation: AnimationMetadata =
         transition('* => projectHome', [
             query(':enter, :leave', style({ position: 'fixed', width: '100%', opacity: 0 })
                 , { optional: true }),
-            query(':leave', animate('200ms ease', style({ opacity: 0 })), { optional: true }),
+            query(':leave', [
+                animateChild(),
+                animate('200ms ease', style({ opacity: 0 }))
+            ], { optional: true }),
             query(':enter', [
                 style({ opacity: 1 }),
             ], { optional: true }),
@@ -28,7 +31,7 @@ export const routeAnimation: AnimationMetadata =
         transition('* => projectDashboard', [
             query(':enter', [
                 style({ opacity: 0 }),
-            ]),
+            ], { optional: true }),
             query(':leave', [
                 style({ position: 'fixed', width: '100%', opacity: 1 }),
                 animate('200ms ease', style({ opacity: 0 }))

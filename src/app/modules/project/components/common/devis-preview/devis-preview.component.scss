@@ -4,8 +4,23 @@ $font-title: 'Oswald',
 sans-serif;
 $font-text: 'Lato',
 sans-serif;
-$primary-color:#b3b3b3;
-$secondary-color:#ececec;
+$c1: #E1E1E1;
+$c2:#575E61;
+$c3: #E1E1E1;
+$primary-color:$c2;
+$secondary-color:$c3;
+$title-bg:$secondary-color;
+$title-text:#444;
+$header-left-bg:$primary-color;
+$header-left-text:#fff;
+$header-right-bg: $secondary-color;
+$header-right-text: #fff;
+$line-header-bg: $primary-color;
+$line-header-text:#fff;
+$line-item-bg:$c1;
+$line-item-text: #444;
+$footer-bg: $secondary-color;
+$footer-text: #444;
 :host {
   // Original 800 * 1117
   width: 800px;
@@ -18,35 +33,41 @@ $secondary-color:#ececec;
 }
 
 .header {
-  background: #ececec;
-  border-bottom: 1px solid #ccc;
+  background: $header-right-bg;
   height: 65px;
   overflow: hidden;
   .header-info {
     font-size: 13px;
-    background: #f9f9f9;
-    height: 100%;
+    background: $header-left-bg;
+    color: $header-left-text;
     font-family: $font-title;
+    height: 100%;
     padding: 0 60px 0 50px;
     text-transform: uppercase;
   }
   .header-spacer {
-    margin-left: -10px;
-    background: #ccc;
-    width: 20px;
-    height: 100px;
-    transform: skewX(-15deg);
+    border-bottom: 100px solid $header-right-bg;
+    border-left: 50px solid transparent;
+    border-right: 0px solid transparent;
+    height: 0;
+    width: 100px;
+    margin-left: -42px;
   }
   .header-type {
     flex: 1;
     height: 65px;
     text-align: right;
     .big-title {
-      font-size: 89px;
+      font-size: 92px;
       line-height: 60px;
-      color: #f9f9f9;
+      color: $header-right-text;
     }
   }
+}
+
+.header-separator {
+  background: #ccc;
+  height: 1px;
 }
 
 .content {
@@ -68,13 +89,13 @@ $secondary-color:#ececec;
     font-size: 13px;
   }
   .devis-title {
-    background: $secondary-color;
+    background: $title-bg;
+    color: $title-text;
     padding: 8px;
     font-family: $font-title;
-    color: $title-color;
     font-size: 18px;
     text-align: center;
-    margin: 40px 0;
+    margin: 40px -50px;
   }
   .line {
     &>div {
@@ -96,8 +117,8 @@ $secondary-color:#ececec;
       font-size: 13px;
       padding: 10px;
       margin: 2px 0 0 2px;
-      background: $secondary-color;
-      color: $title-color;
+      background: $line-item-bg;
+      color: $line-item-text;
     }
     &>div:not(:first-child) {
       text-align: center;
@@ -107,15 +128,15 @@ $secondary-color:#ececec;
     &>div {
       padding: 0;
     }
-    background: $primary-color;
+    background: $line-header-bg;
     font-family: $font-title;
-    color: #fff;
+    color: $line-header-text;
     &>div {
       text-align: center;
     }
   }
   .signature {
-    border: 1px dashed #ececec;
+    border: 1px dashed $primary-color;
     padding: 10px;
     p {
       font-size: 10px;
@@ -125,18 +146,19 @@ $secondary-color:#ececec;
   }
   .total {
     .total-header {
-      background: $primary-color;
+      background: $line-header-bg;
       text-align: center;
       padding: 10px;
       width: 215px;
       font-family: $font-title;
-      color: #fff;
+      color: $line-header-text;
     }
     .total-label,
     .total-price {
       margin-top: 2px;
       padding: 10px 20px;
-      background: $secondary-color;
+      background: $line-item-bg;
+      color: $line-item-text;
       font-family: $font-title;
     }
     .total-price {
@@ -148,8 +170,8 @@ $secondary-color:#ececec;
 
 .devis-footer {
   padding: 10px;
-  background: $secondary-color;
-  margin: 0 50px 50px 50px;
+  background: $footer-bg;
+  color: $footer-text;
   .contact-info {
     font-family: $font-title;
     margin-bottom: 10px;

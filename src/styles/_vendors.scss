@@ -40,6 +40,10 @@ $bv-pp-theme: mat-dark-theme($bv-pp-primary, $bv-pp-accent);
   font-family: $text-font; // color: $text-color;
 }
 
+.mat-toolbar {
+  background: $card-bg;
+}
+
 .mat-button-toggle,
 .mat-button-base,
 .mat-button,
