@@ -22,7 +22,7 @@
 
       <div class="devis-form mb-4">
 
-        <form id="invoiceForm" #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)" autocomplete="off">
+        <form id="invoiceForm" #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)" autocomplete="off" *ngIf="invoice">
           <div class="d-flex flex-column">
             <div>
               <h3>Facture</h3>
@@ -156,7 +156,7 @@
           </div>
         </form>
 
-        <form #lineForm="ngForm" (ngSubmit)="submitLine(lineForm)" autocomplete="off">
+        <form #lineForm="ngForm" (ngSubmit)="submitLine(lineForm)" autocomplete="off" *ngIf="invoice">
           <div class="create-line-wrapper row align-items-baseline">
             <div class="col-5">
               <mat-form-field>

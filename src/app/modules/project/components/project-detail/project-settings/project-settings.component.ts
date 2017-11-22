@@ -35,15 +35,15 @@ export class ProjectSettingsComponent extends AbstractProjectComponent implement
 
   constructor(
     protected _ngRedux: NgRedux<IAppState>,
-    protected _location: Location,
     private _projectActions: ProjectActions,
     private _projectClientActions: ProjectClientActions,
     private _clientActions: ClientActions,
-    private _router: Router,
+    protected _router: Router,
+    protected _route: ActivatedRoute,
     private _dialogsService: DialogsService,
     private _notificationService: NotificationService
   ) {
-    super(_ngRedux, _location);
+    super(_ngRedux, _router, _route);
   }
 
   public ngOnInit() {

@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { AbstractProjectComponent } from './../abstract-project.component';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Component, OnInit, Inject, Input, HostBinding, ViewChild } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Task, TaskState, TaskKaban } from 'app/models';
@@ -41,11 +41,12 @@ export class ProjectTaskComponent extends AbstractProjectComponent implements On
   selectedTask: Task;
 
   constructor(
+    protected _router: Router,
+    protected _route: ActivatedRoute,
     private _taskAction: ProjectTaskActions,
     protected _ngRedux: NgRedux<IAppState>,
-    protected _location: Location,
     private _historyActions: ProjectHistoryEntryActions) {
-    super(_ngRedux, _location);
+    super(_ngRedux, _router, _route);
   }
 
   public ngOnInit() {

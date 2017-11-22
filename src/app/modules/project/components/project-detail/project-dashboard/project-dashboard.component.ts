@@ -68,11 +68,10 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         private _projectHistoryActions: ProjectHistoryEntryActions,
         private _projectClientActions: ProjectClientActions,
         protected _router: Router,
-        private _route: ActivatedRoute,
+        protected _route: ActivatedRoute,
         private dialog: MatDialog,
-        protected _location: Location,
         private _breakpointsService: BreakpointsService
-    ) { super(_ngRedux, _location); }
+    ) { super(_ngRedux, _router, _route); }
 
     public ngOnInit() {
         super.ngOnInit();
@@ -152,6 +151,10 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
 
     public openClientDialog() {
         this.dialog.open(ClientDialogComponent);
+    }
+
+    public goBack() {
+        this._router.navigate(['/project']);
     }
 
 }

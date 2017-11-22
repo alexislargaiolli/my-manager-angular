@@ -11,7 +11,10 @@ import * as moment from 'moment';
 import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/animations';
 import { MatDialog } from '@angular/material';
 import { SelectDevisComponent } from './select-devis/select-devis.component';
-import { HistoryEntryFactory } from "app/models/historyentry.factory";
+import { HistoryEntryFactory } from 'app/models/historyentry.factory';
+import { NavigationService } from 'app/modules/project/services/navigation.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-project-invoice-edition',
@@ -31,6 +34,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
 
   constructor(
     private location: Location,
+    private _router: Router,
     private route: ActivatedRoute,
     private dialog: DialogsService,
     private _ngRedux: NgRedux<IAppState>,
@@ -54,6 +58,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
     const invoiceId = +this.route.snapshot.params['invoiceId'];
     this.loadInvoice(invoiceId);
     this.addSub(this._notificationService.addStoreChangeSaveNotif<Devis>(['projectInvoices', 'lastUpdated'], devis => `${devis.title} sauvegardé`));
+    this.addSub(this._notificationService.addStoreChangeCreateNotif<Devis>(['projectInvoices', 'lastCreated'], devis => `${devis.title} sauvegardé`));
   }
 
   ngOnDestroy(): void {
@@ -63,19 +68,24 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
 
   public loadInvoice(invoiceId) {
     if (invoiceId) {
-      this.addSub(
-        this._ngRedux.select(['projectInvoices', 'items']).subscribe((invoiceList: Invoice[]) => {
+      this.addSub(this._ngRedux.select<Invoice[]>(['projectInvoices', 'items']).subscribe(invoiceList => {
+        if (!this._ngRedux.getState().projectInvoices.loading) {
           const storeInvoice = invoiceList.find(invoice => invoice.id === invoiceId);
-          if (this.invoice && this.stateHasChanged) {
-            this._historyActions.dispatchCreate(HistoryEntryFactory.invoiceStateUpdated(this.invoice), this.invoice.projectId);
+          if (storeInvoice) {
+            this.invoice = Object.assign(new Invoice(), storeInvoice);
+          } else {
+            this._notificationService.addError('Facture introuvable');
+            this._router.navigate(['../'], { relativeTo: this.route });
           }
-          this.invoice = new Invoice();
-          this.invoice = Object.assign(this.invoice, storeInvoice);
-          this.stateHasChanged = false;
-        })
-      );
+        }
+      }));
     } else {
       this.createInvoice();
+      this.addSub(this._ngRedux.select<Invoice>(['projectInvoices', 'lastCreated']).subscribe(invoice => {
+        if (invoice) {
+          this.invoice.id = invoice.id;
+        }
+      }));
     }
   }
 
@@ -155,7 +165,7 @@ export class ProjectInvoiceEditionComponent extends ReduxSubscriptionComponent i
   }
 
   goBack(): void {
-    this.location.back();
+    this._router.navigate(['../'], { relativeTo: this.route });
   }
 }
 

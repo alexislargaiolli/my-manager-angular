@@ -1,6 +1,6 @@
 import { ProjectActions } from './../../../store/reducers/project/project.actions';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { IAppState } from 'app/modules/store';
 import { NgRedux } from '@angular-redux/store';
 import { Project } from 'app/models';
@@ -10,7 +10,7 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
     public project: Project;
     public title: string;
 
-    constructor(protected _ngRedux: NgRedux<IAppState>, protected _location: Location) {
+    constructor(protected _ngRedux: NgRedux<IAppState>, protected _router: Router, protected _route: ActivatedRoute) {
         super();
     }
 
@@ -27,6 +27,7 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
     }
 
     public goBack() {
-        this._location.back();
+        this._router.navigate(['../'], { relativeTo: this._route });
     }
+}
 }

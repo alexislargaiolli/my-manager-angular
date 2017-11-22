@@ -32,15 +32,14 @@ export class ProjectDevisComponent extends AbstractProjectComponent implements O
   creation = false;
 
   constructor(
-    private _route: ActivatedRoute,
+    protected _route: ActivatedRoute,
     protected _router: Router,
-    protected _location: Location,
     protected _ngRedux: NgRedux<IAppState>,
     private _notificationService: NotificationService,
     private _devisActions: ProjectDevisActions,
     private dialog: DialogsService,
   ) {
-    super(_ngRedux, _location);
+    super(_ngRedux, _router, _route);
   }
 
   ngOnInit() {

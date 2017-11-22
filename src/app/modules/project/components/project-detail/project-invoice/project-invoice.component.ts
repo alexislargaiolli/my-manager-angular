@@ -27,15 +27,15 @@ export class ProjectInvoiceComponent extends AbstractProjectComponent implements
   loading$: Observable<boolean>;
 
   constructor(
-    private _router: Router,
-    private _route: ActivatedRoute,
+    protected _router: Router,
+    protected _route: ActivatedRoute,
     protected _ngRedux: NgRedux<IAppState>,
     protected _location: Location,
     private _dialogsService: DialogsService,
     private _invoiceActions: ProjectInvoiceActions,
     private _notificationService: NotificationService
   ) {
-    super(_ngRedux, _location);
+    super(_ngRedux, _router, _route);
   }
 
   ngOnInit() {

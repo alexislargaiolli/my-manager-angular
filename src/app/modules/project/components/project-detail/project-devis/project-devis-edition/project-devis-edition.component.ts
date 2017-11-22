@@ -13,6 +13,7 @@ import { rightSlideApparitionAnimation, slideApparitionAnimation } from 'app/ani
 import { ReduxSubscriptionComponent } from '../../../../../core/components/redux-subscription-component/redux-subscription-component';
 import { ProjectHistoryEntryActions } from '../../../../../store/reducers/project-history/project-history.actions';
 import { HistoryEntryFactory } from '../../../../../../models/historyentry.factory';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-devis-edition',
@@ -29,6 +30,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
   constructor(
     private location: Location,
     private route: ActivatedRoute,
+    private _router: Router,
     private dialog: DialogsService,
     private _ngRedux: NgRedux<IAppState>,
     private _devisActions: ProjectDevisActions,
@@ -59,21 +61,24 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
 
   public loadDevis(devisId) {
     if (devisId) {
-      this.addSub(
-        this._ngRedux.select(['projectDevis', 'items']).subscribe((devisList: Devis[]) => {
-          const storeDevis = devisList.find(devis => devis.id === devisId);
+      this.addSub(this._ngRedux.select<Devis[]>(['projectDevis', 'items']).subscribe(devisList => {
+        if (!this._ngRedux.getState().projectDevis.loading) {
+          const storeDevis = devisList.find(d => d.id === devisId);
           if (storeDevis) {
-            if (this.devis && this.stateHasChanged) {
-              this._historyActions.dispatchCreate(HistoryEntryFactory.devisStateUpdated(this.devis), this.devis.projectId);
-            }
-            this.devis = new Devis();
-            this.devis = Object.assign(this.devis, storeDevis);
-            this.stateHasChanged = false;
+            this.devis = Object.assign(new Devis(), storeDevis);
+          } else {
+            this._notificationService.addError('Devis introuvable');
+            this._router.navigate(['../'], { relativeTo: this.route });
           }
-        })
-      );
+        }
+      }));
     } else {
       this.createDevis();
+      this.addSub(this._ngRedux.select<Devis>(['projectDevis', 'lastCreated']).subscribe(devis => {
+        if (devis) {
+          this.devis.id = devis.id;
+        }
+      }));
     }
   }
 
@@ -143,7 +148,7 @@ export class ProjectDevisEditionComponent extends ReduxSubscriptionComponent imp
   }
 
   goBack(): void {
-    this.location.back();
+    this._router.navigate(['../'], { relativeTo: this.route });
   }
 }
 

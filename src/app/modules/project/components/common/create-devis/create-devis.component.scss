@@ -48,8 +48,7 @@ $stepNumberRadius: 30px;
     }
     &.active {
       .step-number {
-        background: $color-primary;
-        ;
+        background: $color-primary;        
         color: #fff;
       }
       .step-title {
