@@ -16,6 +16,7 @@ import { NotificationService, BreakpointsService } from 'app/modules/core';
 import { ClientActions } from 'app/modules/store/reducers/client/client.actions';
 import { ProjectDevisActions } from '../../../../store/reducers/project-devis/project-devis.actions';
 import { ReduxSubscriptionComponent } from '../../../../core/components/redux-subscription-component/redux-subscription-component';
+import { CreateHistoryEntryDialogComponent } from 'app/modules/project/components/common/create-history-entry-dialog/create-history-entry-dialog.component';
 
 @Component({
     selector: 'app-project-dashboard',
@@ -139,6 +140,15 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
 
     public createHistoryEntry(entry: HistoryEntry) {
         this._projectHistoryActions.dispatchCreate(entry, this.project.id);
+    }
+
+    public openCreateHistoryEntry() {
+        const ref = this.dialog.open(CreateHistoryEntryDialogComponent, { width: '300px' });
+        ref.afterClosed().subscribe(entry => {
+            if (entry) {
+                this._projectHistoryActions.dispatchCreate(entry, this.project.id);
+            }
+        });
     }
 
     public loadMoreHistoryEntry() {

@@ -23,6 +23,7 @@ import { ProjectDevisComponent } from './components/project-detail/project-devis
 import { ProjectDevisEditionComponent } from './components/project-detail/project-devis/project-devis-edition/project-devis-edition.component';
 import { DevisStatePipe } from './services/devisState.pipe';
 import { InvoiceStatePipe } from './services/invoiceState.pipe';
+import { HistoryEnrtyPipe } from './services/history-entry.pipe';
 import { ProjectStateComponent } from './components/common/project-state/project-state.component';
 import { ProjectNoteListComponent } from './components/common/project-note-list/project-note-list.component';
 import { DevisListComponent } from './components/common/devis-list/devis-list.component';
@@ -41,6 +42,7 @@ import { TaskEditionComponent } from './components/project-detail/project-task/t
 import { ProjectListItemComponent } from 'app/modules/project/components/common/project-list/project-list-item/project-list-item.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
+import { CreateHistoryEntryDialogComponent } from 'app/modules/project/components/common/create-history-entry-dialog/create-history-entry-dialog.component';
 
 @NgModule({
   imports: [
@@ -55,6 +57,7 @@ import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
     DevisStatePipe,
     DevisLinePipe,
     ProjectStatePipe,
+    HistoryEnrtyPipe,
     ProjectHomeComponent,
     ProjectListComponent,
     ProjectCreateComponent,
@@ -84,7 +87,8 @@ import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
     NoteItemComponent,
     ProjectTitleComponent,
     CreateDevisComponent,
-    SquareListComponent
+    SquareListComponent,
+    CreateHistoryEntryDialogComponent
   ],
   providers: [
     NavigationService,
@@ -93,7 +97,8 @@ import { DevisGuard } from 'app/modules/project/components/guards/devis.guard';
   ],
   entryComponents: [
     SelectDevisComponent,
-    CreateNoteComponent
+    CreateNoteComponent,
+    CreateHistoryEntryDialogComponent
   ],
   exports: [
   ]

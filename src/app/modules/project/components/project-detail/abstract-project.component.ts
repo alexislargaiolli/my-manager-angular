@@ -30,4 +30,3 @@ export class AbstractProjectComponent extends ReduxSubscriptionComponent impleme
         this._router.navigate(['../'], { relativeTo: this._route });
     }
 }
-}

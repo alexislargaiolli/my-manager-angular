@@ -6,3 +6,7 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+@mixin main-height() {
+  min-height: calc(100vh - #{$header-height});
+}
