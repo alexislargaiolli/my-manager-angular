@@ -12,3 +12,8 @@
   background: none;
   box-shadow: none!important;
 }
+
+app-square-list{
+  display: flex;
+  flex-direction: column;
+}

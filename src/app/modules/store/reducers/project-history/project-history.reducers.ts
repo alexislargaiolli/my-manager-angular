@@ -18,12 +18,13 @@ const INITIAL_STATE = {
 export function projectHistoryEntryReducer(state: IProjectHistoryState = INITIAL_STATE, action) {
     switch (action.type) {
         case ActionUtils.asyncActionType(HistoryEntry.REPO_KEY, ModelActions.CREATE, ActionUtils.SUCCESS):
-            let items = Object.assign([], state.items);
-            let index = items.findIndex(entry => entry.date < action.payload.date);
-            if (index != -1 && state.items.length > 1) {
-                items = [...items.slice(0, index), action.payload, ...items.slice(index + 1, items.length)];
+            let items = null;
+            const index = state.items.findIndex(entry => entry.date < action.payload.date);
+            if (index !== -1 && state.items.length > 1) {
+                items = ModelUtils.immutableInsert(state.items, action.payload, index);
+                // items = [...state.items.slice(0, index), action.payload, ...state.items.slice(index)];
             } else {
-                items = [...items, action.payload];
+                items = [...state.items, action.payload];
             }
             // const items = ModelUtils.immutableInsert(state.items, action.payload, 0);
             // items.sort((a: HistoryEntry, b: HistoryEntry) => a.date > b.date);

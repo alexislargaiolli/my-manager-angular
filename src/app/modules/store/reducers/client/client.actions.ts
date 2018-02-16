@@ -11,6 +11,7 @@ export class ClientActions extends ModelActions<Client> {
     public static readonly SELECT_CLIENT = 'SELECT_CLIENT';
     public static readonly UNSELECT_CLIENT = 'UNSELECT_CLIENT';
     public static readonly ADD_ADDRESS = 'ADD_ADDRESS';
+    
     public static findSelectedClient(state: IAppState) {
         return state.clients.items.find(c => c.id === state.clients.selectedId);
     }

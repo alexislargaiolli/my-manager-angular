@@ -24,7 +24,7 @@ export class BreakpointsService {
     private _currentBreakpoint: string;
 
     constructor() {
-        Observable.fromEvent(window, 'resize').subscribe(e => {
+        Observable.fromEvent(window, 'resize').debounceTime(300).subscribe(e => {
             this.detectBreakpointChanges();
         });
         this.detectBreakpointChanges();

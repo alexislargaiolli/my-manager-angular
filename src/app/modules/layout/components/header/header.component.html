@@ -1,16 +1,18 @@
-<div class="row">
-  <div class="col d-flex align-items-center hidden-xs-down">
-    <a class="logo" [routerLink]="['/']">
-      <img src="../../../../../assets/logo.png">
-      <span class="hidden-sm-down">My Freelance Manager</span>
-    </a>
-  </div>
-  <div class="col d-flex align-items-center justify-content-center justify-content-mat-center" *ngIf="authenticated$ | async">
-    <app-gain-summary [waitingDevis]="waitingDevis$ | async" [acceptedDevis]="acceptedDevis$ | async" [waitingInvoices]="waitingInvoices$ | async"
-      [paidInvoices]="paidInvoices$ | async"></app-gain-summary>
-  </div>
-  <div class="col d-flex align-items-center justify-content-end" *ngIf="authenticated$ | async">
-    <app-user-menu [profile]="profile$ | async" *ngIf="(authenticated$ | async)"></app-user-menu>
-    <button mat-button *ngIf="!(authenticated$ | async)" [routerLink]=" ['/login'] ">Se connecter</button>
-  </div>
-</div>
+<a class="logo"
+   [routerLink]="['/']">
+  <img src="../../../../../assets/logo.png">
+  <span class="hidden-sm-down">My Freelance Manager</span>
+</a>
+<app-gain-summary [waitingDevis]="waitingDevis$ | async"
+                  [acceptedDevis]="acceptedDevis$ | async"
+                  [waitingInvoices]="waitingInvoices$ | async"
+                  [paidInvoices]="paidInvoices$ | async"
+                  *ngIf="authenticated$ | async"></app-gain-summary>
+
+<app-user-menu [profile]="profile$ | async"
+               *ngIf="(authenticated$ | async); else notAuthTemplate"></app-user-menu>
+
+<ng-template #notAuthTemplate>
+  <button mat-button
+          [routerLink]=" ['/login'] ">Se connecter</button>
+</ng-template>

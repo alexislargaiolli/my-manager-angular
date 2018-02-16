@@ -25,6 +25,9 @@ export class ProjectHistoryComponent implements OnInit {
   create: EventEmitter<HistoryEntry> = new EventEmitter<HistoryEntry>();
 
   @Output()
+  edit: EventEmitter<HistoryEntry> = new EventEmitter<HistoryEntry>();
+
+  @Output()
   loadMore: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private _changeDetector: ChangeDetectorRef) { }
@@ -37,6 +40,10 @@ export class ProjectHistoryComponent implements OnInit {
 
   public loadMoreEntry() {
     this.loadMore.emit();
+  }
+
+  public editEntry(entry: HistoryEntry) {
+    this.edit.emit(entry);
   }
 
 }

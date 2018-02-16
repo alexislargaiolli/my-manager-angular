@@ -4,16 +4,19 @@
     <ng-content select=".create-wrapper"></ng-content>
   </div>
 
-  <div class="list-column col d-flex flex-column flex-sm-row flex-wrap" [ngClass]="{'loading' : loading}">
+  <div class="list-column col d-flex flex-column flex-sm-row flex-wrap light-scrollbar"
+       [ngClass]="{'loading' : loading}">
     <!-- PROJECTS -->
     <ng-content select=".square-list-item"></ng-content>
 
     <!-- SLOTS -->
-    <div *ngFor="let slot of slots" class="item-slot">
+    <div *ngFor="let slot of slots"
+         class="item-slot">
       <div class="item-slot-content"></div>
     </div>
 
-    <div *ngIf="loading" class="loading-status pl-4">
+    <div *ngIf="loading"
+         class="loading-status pl-4">
       Chargement
       <app-spinner></app-spinner>
     </div>
