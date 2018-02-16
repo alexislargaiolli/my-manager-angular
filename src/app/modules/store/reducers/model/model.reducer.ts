@@ -11,7 +11,9 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
         // -----------  LOAD  -------------- //
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD, ActionUtils.REQUEST):
-            return Object.assign({}, state, { loading: true, items: [], error: null, skip: action.payload.skip, limit: action.payload.skip });
+
+        // /!\ problème deux fois skip
+            return Object.assign({}, state, { loading: true, items: [], error: null, skip: action.payload.skip, limit: action.payload.limit });
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD, ActionUtils.SUCCESS):
             return Object.assign({}, state, { items: action.payload, loading: false });
@@ -25,7 +27,7 @@ export function modelReducer<T extends IModel>(modelName: string, actionSource: 
         // -----------  LOAD MORE  -------------- //
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD_MORE, ActionUtils.REQUEST):
-            return Object.assign({}, state, { loading: true, error: null, skip: action.payload.skip, limit: action.payload.skip });
+            return Object.assign({}, state, { loading: true, error: null, skip: action.payload.skip, limit: action.payload.limit });
 
         case ActionUtils.asyncActionType(actionSource, ModelActions.LOAD_MORE, ActionUtils.SUCCESS):
             return Object.assign({}, state, { loading: false, error: null, items: state.items.concat(action.payload) });

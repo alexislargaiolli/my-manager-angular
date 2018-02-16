@@ -1,6 +1,19 @@
 @import 'variables';
 @import 'utils';
+:host {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
 app-project-note-list {
   padding: 20px 60px 15px 0;
   min-height: 100px;
+  max-height: 100px;
+}
+
+app-project-list{
+  max-height: calc(100% - 100px);
+  display: flex;
+  flex-direction: column;
 }

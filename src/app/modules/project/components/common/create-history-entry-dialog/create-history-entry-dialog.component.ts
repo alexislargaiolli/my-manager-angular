@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { HistoryEntryType, HistoryEntry } from 'app/models/historyentry.model';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HistoryEntryType, HistoryEntry } from 'app/models';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
@@ -10,15 +10,23 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 })
 export class CreateHistoryEntryDialogComponent implements OnInit {
 
-  entry = new HistoryEntry();
+  entry: HistoryEntry;
 
   selectableEntries = [HistoryEntryType.WORK_TRACKING, HistoryEntryType.CONTACT_MAIL, HistoryEntryType.CONTACT_PHONE, HistoryEntryType.CONTACT_RDV, HistoryEntryType.OTHER];
 
   entryTypes = HistoryEntryType;
 
-  constructor(public dialogRef: MatDialogRef<CreateHistoryEntryDialogComponent>) {
-    this.entry.type = HistoryEntryType.WORK_TRACKING;
-    this.entry.title = 'Journée travaillée ';
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: HistoryEntry,
+    public dialogRef: MatDialogRef<CreateHistoryEntryDialogComponent>
+  ) {
+    if (data) {
+      this.entry = data;
+    } else {
+      this.entry = new HistoryEntry();
+      this.entry.type = HistoryEntryType.WORK_TRACKING;
+      this.entry.title = 'Journée travaillée ';
+    }
   }
 
   ngOnInit() {

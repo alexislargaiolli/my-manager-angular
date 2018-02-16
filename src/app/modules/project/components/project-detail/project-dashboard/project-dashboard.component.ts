@@ -142,6 +142,15 @@ export class ProjectDashboardComponent extends AbstractProjectComponent implemen
         this._projectHistoryActions.dispatchCreate(entry, this.project.id);
     }
 
+    public editEntry(entry: HistoryEntry) {
+        const ref = this.dialog.open(CreateHistoryEntryDialogComponent, { width: '300px', data: entry });
+        ref.afterClosed().subscribe(entry => {
+            if (entry) {
+                this._projectHistoryActions.dispatchUpdate(entry, this.project.id);
+            }
+        });
+    }
+
     public openCreateHistoryEntry() {
         const ref = this.dialog.open(CreateHistoryEntryDialogComponent, { width: '300px' });
         ref.afterClosed().subscribe(entry => {

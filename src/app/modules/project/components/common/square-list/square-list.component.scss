@@ -1,5 +1,6 @@
 @import 'variables';
 :host /deep/ {
+  display: block;
   .list-column {
     padding-right: 15px;
     overflow-y: auto;
