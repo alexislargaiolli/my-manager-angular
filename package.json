@@ -9,5 +9,9 @@
   "scripts": {
     "start": "node server.js"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.3",
+    "path": "^0.12.7"
+  }
 }
