@@ -1,26 +1,63 @@
 <div [@slideApparitionAnimation]="'true'">
   <h2>Informations générales</h2>
-  <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" autocomplete="off" *ngIf="!(loading$ | async)" class="d-flex flex-column">
+  <form #profileForm="ngForm"
+        (ngSubmit)="saveProfile(profileForm)"
+        autocomplete="off"
+        *ngIf="!(loading$ | async)"
+        class="d-flex flex-column">
     <mat-input-container class="translucide-input">
-      <input matInput name="lastname" type="text" placeholder="Nom" [(ngModel)]="profile.lastname" required>
+      <input matInput
+             name="lastname"
+             type="text"
+             placeholder="Nom"
+             [(ngModel)]="profile.lastname"
+             required>
     </mat-input-container>
     <mat-input-container class="translucide-input">
-      <input matInput name="firstname" type="text" placeholder="Prénom" [(ngModel)]="profile.firstname" required>
+      <input matInput
+             name="firstname"
+             type="text"
+             placeholder="Prénom"
+             [(ngModel)]="profile.firstname"
+             required>
     </mat-input-container>
     <mat-input-container class="translucide-input">
-      <input matInput name="email" type="email" placeholder="Email" [(ngModel)]="profile.email" required>
+      <input matInput
+             name="email"
+             type="email"
+             placeholder="Email"
+             [(ngModel)]="profile.email"
+             required>
     </mat-input-container>
     <mat-input-container class="translucide-input">
-      <input matInput name="firstname" type="tel" placeholder="Téléphone" [(ngModel)]="profile.phone">
+      <input matInput
+             name="firstname"
+             type="tel"
+             placeholder="Téléphone"
+             [(ngModel)]="profile.phone">
     </mat-input-container>
     <mat-input-container class="translucide-input">
-      <input matInput name="siret" placeholder="Numéro de siret" [(ngModel)]="profile.siret">
+      <input matInput
+             name="siret"
+             placeholder="Numéro de siret"
+             [(ngModel)]="profile.siret">
+    </mat-input-container>
+    <mat-input-container class="translucide-input">
+      <input matInput
+             name="tvaIntra"
+             placeholder="N° TVA Intra"
+             [(ngModel)]="profile.tvaIntra">
     </mat-input-container>
     <div class="text-right">
-      <button mat-raised-button class="blue" type="submit">Sauvegarder</button>
+      <button mat-raised-button
+              class="blue"
+              type="submit">Sauvegarder</button>
     </div>
   </form>
   <h2>Mes adresses</h2>
-  <app-address-list [addresses]="profile.addresses" (onCreate)="createAdresse($event)" (onSaved)="saveAddress($event)" (onDelete)="deleteAddress($event)"
-    *ngIf="!(loading$ | async)"></app-address-list>
+  <app-address-list [addresses]="profile.addresses"
+                    (onCreate)="createAdresse($event)"
+                    (onSaved)="saveAddress($event)"
+                    (onDelete)="deleteAddress($event)"
+                    *ngIf="!(loading$ | async)"></app-address-list>
 </div>

@@ -2,42 +2,67 @@
   <div class="row">
     <div class="col">
       <mat-toolbar class="mat-elevation-z2 mb-4">
-        <button mat-button (click)="goBack()" matTooltip="Revenir aux devis">
+        <button mat-button
+                (click)="goBack()"
+                matTooltip="Revenir aux devis">
           <mat-icon>arrow_back</mat-icon>
         </button>
         <span class="toolbar-spacer"></span>
-        <button (click)="remove()" class="text-danger" mat-button matTooltip="Supprimer ce devis">
+        <button (click)="remove()"
+                class="text-danger"
+                mat-button
+                matTooltip="Supprimer ce devis">
           <mat-icon>delete</mat-icon>
         </button>
-        <button (click)="download()" mat-button matTooltip="Télécharger en PDF">
+        <button (click)="download()"
+                mat-button
+                matTooltip="Télécharger en PDF">
           <mat-icon>file_download</mat-icon>
         </button>
-        <button form="devisForm" class="text-success" mat-button matTooltip="Sauvegarder les modifications">
+        <button form="devisForm"
+                class="text-success"
+                mat-button
+                matTooltip="Sauvegarder les modifications">
           <mat-icon>save</mat-icon>
         </button>
       </mat-toolbar>
 
       <div class="devis-form mb-4">
-        <form id="devisForm" #devisForm="ngForm" (ngSubmit)="submitForm(devisForm)" autocomplete="off" *ngIf="devis">
+        <form id="devisForm"
+              #devisForm="ngForm"
+              (ngSubmit)="submitForm(devisForm)"
+              autocomplete="off"
+              *ngIf="devis">
           <div class="d-flex flex-column">
             <div class="title-wrapper">
               <h3>Devis</h3>
               <mat-form-field>
-                <input matInput name="title" [(ngModel)]="devis.title" type="text" placeholder="Titre du devis" required>
+                <input matInput
+                       name="title"
+                       [(ngModel)]="devis.title"
+                       type="text"
+                       placeholder="Titre du devis"
+                       required>
               </mat-form-field>
               <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-baseline">
                 <mat-form-field>
-                  <input matInput [matDatepicker]="createDatePicker" placeholder="Date de création" [(ngModel)]="devis.createDate" name="createDate">
-                  <mat-datepicker-toggle matSuffix [for]="createDatePicker"></mat-datepicker-toggle>
-                  <mat-datepicker #createDatePicker></mat-datepicker>
+                  <input matInput
+                         placeholder="Numéro de devis"
+                         [(ngModel)]="devis.devisId"
+                         name="devisId"
+                         required>
                 </mat-form-field>
+
+                <mat-slide-toggle [(ngModel)]="devis.tvaActive"
+                                  name="tvaActive"
+                                  (ngModelChange)="devis.updateTotalPrice()">TVA</mat-slide-toggle>
+
                 <mat-form-field>
-                  <input matInput [matDatepicker]="validityDatePicker" placeholder="Valide jusqu'à" [(ngModel)]="devis.validityDate" name="validityDate">
-                  <mat-datepicker-toggle matSuffix [for]="validityDatePicker"></mat-datepicker-toggle>
-                  <mat-datepicker #validityDatePicker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select class="mt-3" [(ngModel)]="devis.state" placeholder="Etat" name="state" (change)="onStateChange()">
+                  <mat-select class="mt-3"
+                              [(ngModel)]="devis.state"
+                              placeholder="Etat"
+                              name="state"
+                              (change)="onStateChange()">
                     <mat-option [value]="devisState.DRAFT">Brouillon</mat-option>
                     <mat-option [value]="devisState.PENDING">En attente</mat-option>
                     <mat-option [value]="devisState.ACCEPTED">Accepté</mat-option>
@@ -45,6 +70,30 @@
                     <mat-option [value]="devisState.PAID">Payé</mat-option>
                   </mat-select>
                 </mat-form-field>
+              </div>
+
+              <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-baseline">
+                <mat-form-field>
+                  <input matInput
+                         [matDatepicker]="createDatePicker"
+                         placeholder="Date de création"
+                         [(ngModel)]="devis.createDate"
+                         name="createDate">
+                  <mat-datepicker-toggle matSuffix
+                                         [for]="createDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #createDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput
+                         [matDatepicker]="validityDatePicker"
+                         placeholder="Valide jusqu'à"
+                         [(ngModel)]="devis.validityDate"
+                         name="validityDate">
+                  <mat-datepicker-toggle matSuffix
+                                         [for]="validityDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #validityDatePicker></mat-datepicker>
+                </mat-form-field>
+
               </div>
             </div>
 
@@ -55,24 +104,48 @@
                   <div class="inplace-output">
                     <div>{{devis.userName}}</div>
                     <div>{{devis.siret}}</div>
+                    <div>{{devis.tvaIntra}}</div>
                     <div>{{devis.userPhone}}</div>
                     <div>{{devis.userMail}}</div>
-                    <div *ngIf="devis.userName == null && devis.userPhone == null && devis.userMail == null && devis.siret == null">
+                    <div *ngIf="devis.userName == null && devis.userPhone == null && devis.userMail == null && devis.siret == null && devis.tvaIntra == null">
                       Saisissez vos coordonnées
                     </div>
                   </div>
                   <div class="inplace-input d-flex flex-column">
                     <mat-form-field>
-                      <input matInput name="userName" [(ngModel)]="devis.userName" type="text" placeholder="Nom et prénom">
+                      <input matInput
+                             name="userName"
+                             [(ngModel)]="devis.userName"
+                             type="text"
+                             placeholder="Nom et prénom">
                     </mat-form-field>
                     <mat-form-field>
-                      <input matInput name="userMail" [(ngModel)]="devis.userMail" type="email" placeholder="Email">
+                      <input matInput
+                             name="userMail"
+                             [(ngModel)]="devis.userMail"
+                             type="email"
+                             placeholder="Email">
                     </mat-form-field>
                     <mat-form-field>
-                      <input matInput name="siret" [(ngModel)]="devis.siret" type="text" placeholder="Numéro de siret">
+                      <input matInput
+                             name="siret"
+                             [(ngModel)]="devis.siret"
+                             type="text"
+                             placeholder="Numéro de siret">
                     </mat-form-field>
                     <mat-form-field>
-                      <input matInput name="userPhone" [(ngModel)]="devis.userPhone" type="tel" placeholder="Téléphone">
+                      <input matInput
+                             name="tvaIntra"
+                             [(ngModel)]="devis.tvaIntra"
+                             type="text"
+                             placeholder="N° TVA Intra">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput
+                             name="userPhone"
+                             [(ngModel)]="devis.userPhone"
+                             type="tel"
+                             placeholder="Téléphone">
                     </mat-form-field>
                   </div>
                 </app-inplace>
@@ -89,7 +162,9 @@
                     </div>
                   </div>
                   <div class="inplace-input">
-                    <app-address-input [(street)]="devis.userAddress.street" [(city)]="devis.userAddress.city" [(zipcode)]="devis.userAddress.zipcode"></app-address-input>
+                    <app-address-input [(street)]="devis.userAddress.street"
+                                       [(city)]="devis.userAddress.city"
+                                       [(zipcode)]="devis.userAddress.zipcode"></app-address-input>
                   </div>
                 </app-inplace>
               </div>
@@ -107,32 +182,54 @@
                   </div>
                   <div class="inplace-input">
                     <mat-form-field>
-                      <input matInput name="clientName" [(ngModel)]="devis.clientName" type="text" placeholder="Nom du client">
+                      <input matInput
+                             name="clientName"
+                             [(ngModel)]="devis.clientName"
+                             type="text"
+                             placeholder="Nom du client">
                     </mat-form-field>
-                    <app-address-input [(street)]="devis.clientAddress.street" [(city)]="devis.clientAddress.city" [(zipcode)]="devis.clientAddress.zipcode"></app-address-input>
+                    <app-address-input [(street)]="devis.clientAddress.street"
+                                       [(city)]="devis.clientAddress.city"
+                                       [(zipcode)]="devis.clientAddress.zipcode"></app-address-input>
                   </div>
                 </app-inplace>
               </div>
             </div>
 
             <h2 class="mt-3">Prestations</h2>
-            <div [dragula]='"lines"' [dragulaModel]='devis.lines' class="lines-wrapper" [ngClass]="{'empty' : devis.lines.length===0}">
-              <div *ngFor="let line of devis.lines" class="devis-line rounded row align-items-center mb-2">
+            <div [dragula]='"lines"'
+                 [dragulaModel]='devis.lines'
+                 class="lines-wrapper"
+                 [ngClass]="{'empty' : devis.lines.length===0}">
+              <div *ngFor="let line of devis.lines"
+                   class="devis-line rounded row align-items-center mb-2">
                 <div class="col-5">
                   <mat-form-field>
-                    <textarea matInput [(ngModel)]="line.content" type="text" [ngModelOptions]="{standalone: true}" class="line-content"></textarea>
+                    <textarea matInput
+                              [(ngModel)]="line.content"
+                              type="text"
+                              [ngModelOptions]="{standalone: true}"
+                              class="line-content"></textarea>
                   </mat-form-field>
                 </div>
                 <div class="col-2">
                   <mat-form-field>
-                    <input matInput [(ngModel)]="line.quantity" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
-                      class="line-quantity">
+                    <input matInput
+                           [(ngModel)]="line.quantity"
+                           (ngModelChange)="updateLinePrice(line)"
+                           type="number"
+                           [ngModelOptions]="{standalone: true}"
+                           class="line-quantity">
                   </mat-form-field>
                 </div>
                 <div class="col-2">
                   <mat-form-field>
-                    <input matInput [(ngModel)]="line.unitPrice" (ngModelChange)="updateLinePrice(line)" type="number" [ngModelOptions]="{standalone: true}"
-                      class="line-unit">
+                    <input matInput
+                           [(ngModel)]="line.unitPrice"
+                           (ngModelChange)="updateLinePrice(line)"
+                           type="number"
+                           [ngModelOptions]="{standalone: true}"
+                           class="line-unit">
                     <span matSuffix>€</span>
                   </mat-form-field>
                 </div>
@@ -149,26 +246,46 @@
           </div>
         </form>
 
-        <form #lineForm="ngForm" (ngSubmit)="submitLine(lineForm)" autocomplete="off" *ngIf="devis">
+        <form #lineForm="ngForm"
+              (ngSubmit)="submitLine(lineForm)"
+              autocomplete="off"
+              *ngIf="devis">
           <div class="create-line-wrapper row align-items-center">
             <div class="col-5">
               <mat-form-field>
-                <textarea matInput ngModel name="content" type="text" placeholder="Détail de la prestation" required class="line-content"></textarea>
+                <textarea matInput
+                          ngModel
+                          name="content"
+                          type="text"
+                          placeholder="Détail de la prestation"
+                          required
+                          class="line-content"></textarea>
               </mat-form-field>
             </div>
             <div class="col-2">
               <mat-form-field>
-                <input matInput ngModel name="quantity" type="number" placeholder="Quantité" class="line-quantity">
+                <input matInput
+                       ngModel
+                       name="quantity"
+                       type="number"
+                       placeholder="Quantité"
+                       class="line-quantity">
               </mat-form-field>
             </div>
             <div class="col-2">
               <mat-form-field>
-                <input matInput ngModel name="unitPrice" type="number" placeholder="Prix unitaire" class="line-unit">
+                <input matInput
+                       ngModel
+                       name="unitPrice"
+                       type="number"
+                       placeholder="Prix unitaire"
+                       class="line-unit">
                 <span matSuffix>€</span>
               </mat-form-field>
             </div>
             <div class="col-3 text-right">
-              <button mat-button type="submit">
+              <button mat-button
+                      type="submit">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
@@ -177,7 +294,8 @@
       </div>
     </div>
     <div class="col">
-      <app-devis-preview [devis]="devis" class="mat-elevation-z2 devis-preview"></app-devis-preview>
+      <app-devis-preview [devis]="devis"
+                         class="mat-elevation-z2 devis-preview"></app-devis-preview>
     </div>
   </div>
 </div>

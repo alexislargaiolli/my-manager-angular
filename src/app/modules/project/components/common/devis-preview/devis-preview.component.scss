@@ -79,6 +79,7 @@ $footer-text: #444;
     color: $title-color;
     font-size: $title-size;
   }
+  .coord-tva,
   .coord-street,
   .coord-siret,
   .coord-complement,
@@ -160,10 +161,17 @@ $footer-text: #444;
       background: $line-item-bg;
       color: $line-item-text;
       font-family: $font-title;
+      text-align: center;
+    }
+    .total-net{
+      background: $line-header-bg;
+      color: $line-header-text;
+    }
+    .total-label{
+      width:110px;
     }
     .total-price {
       margin-left: 2px;
-      text-align: center;
     }
   }
 }
@@ -173,13 +181,13 @@ $footer-text: #444;
   background: $footer-bg;
   color: $footer-text;
   .contact-info {
-    font-family: $font-title;
-    margin-bottom: 10px;
+    font-family: $font-title;    
     &>div {
       font-size: 18px;
     }
   }
   p {
+    margin-top: 10px;
     text-align: center;
     font-size: 13px;
     margin: 0;

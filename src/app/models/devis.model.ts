@@ -15,7 +15,11 @@ export class Devis implements IModel {
     public siret: string;
     public projectId: number;
     public budget: number;
+    public tvaIntra: string;
+    public tvaActive: boolean;
     public totalPrice: number;
+    public totalTVA: number;
+    public totalNet: number;
     public paid: boolean;
     public paidDate: Date;
     public accepted: boolean;
@@ -36,6 +40,8 @@ export class Devis implements IModel {
         this.state = DevisState.DRAFT;
         this.createDate = new Date();
         this.validityDate = moment().add(1, 'month').toDate();
+        this.totalPrice = 0;
+        this.totalTVA = 0;
     }
 
     public addLine(line: DevisLine) {
@@ -55,6 +61,12 @@ export class Devis implements IModel {
                 this.totalPrice += line.totalPrice;
             }
         }
+        if (this.tvaActive) {
+            this.totalTVA = Number((this.totalPrice * 0.2).toFixed(2));
+        } else {
+            this.totalTVA = 0;
+        }
+        this.totalNet = this.totalPrice + this.totalTVA;
     }
 
     public importProfile(profile: Profile) {
@@ -103,7 +115,7 @@ export class DevisLine {
     public totalPrice: number;
     public static updateTotalPrice(line: DevisLine) {
         if (line.quantity && line.unitPrice) {
-            line.totalPrice = line.quantity * line.unitPrice;
+            line.totalPrice = Number(((line.quantity * line.unitPrice * 100) / 100).toFixed(2));
         } else {
             line.totalPrice = null;
         }

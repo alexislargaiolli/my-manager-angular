@@ -1,4 +1,5 @@
-<div class="header d-flex flex-row align-items-center" *ngIf="invoice">
+<div class="header d-flex flex-row align-items-center"
+     *ngIf="invoice">
   <div class="header-info d-flex flex-column justify-content-around">
     <div class="devis-id">N° {{invoice.invoiceId}}</div>
     <div class="devis-date">{{invoice.createDate | date:'mediumDate'}}</div>
@@ -10,11 +11,14 @@
   </div>
 </div>
 <div class="header-separator"></div>
-<div class="content" *ngIf="invoice">
+<div class="content"
+     *ngIf="invoice">
   <div class="d-flex flex-row justify-content-between">
     <div class="user-coord">
       <div class="coord-name">{{invoice.userName}}</div>
       <div class="coord-siret">SIRET {{invoice.siret}}</div>
+      <div class="coord-tva"
+           *ngIf="invoice.tvaIntra">N° TVA Intra {{invoice.tvaIntra}}</div>
       <div class="coord-street">{{invoice.userAddress?.street}}</div>
       <div class="coord-complement">{{invoice.userAddress?.complement}}</div>
       <div class="coord-city">{{invoice.userAddress?.zipcode}} {{invoice.userAddress?.city}}</div>
@@ -37,35 +41,55 @@
     <div>Unité</div>
     <div>TOTAL TTC</div>
   </div>
-  <div *ngFor="let line of invoice.lines" class="line line-content d-flex flex-row">
-    <div class="content" [innerHtml]="line.content | devisLine"></div>
-    <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.unitPrice}}€</div>
-    <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.quantity}}</div>
-    <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">jour</div>
-    <div class="d-flex align-items-center justify-content-center" [hidden]="line.totalPrice == null">{{line.totalPrice}}€</div>
+  <div *ngFor="let line of invoice.lines"
+       class="line line-content d-flex flex-row">
+    <div class="content"
+         [innerHtml]="line.content | devisLine"></div>
+    <div class="d-flex align-items-center justify-content-center"
+         [hidden]="line.totalPrice == null">{{line.unitPrice}}€</div>
+    <div class="d-flex align-items-center justify-content-center"
+         [hidden]="line.totalPrice == null">{{line.quantity}}</div>
+    <div class="d-flex align-items-center justify-content-center"
+         [hidden]="line.totalPrice == null">jour</div>
+    <div class="d-flex align-items-center justify-content-center"
+         [hidden]="line.totalPrice == null">{{line.totalPrice}}€</div>
   </div>
 
   <div class="mt-5 d-flex flex-row justify-content-between">
     <div></div>
     <div class="total d-flex flex-column">
-      <div class="total-header">MONTANT À PAYER</div>
+      <div class="total-header"
+           *ngIf="!invoice.tvaActive">MONTANT À PAYER</div>
       <div class="d-flex flex-row">
         <div class="total-label">TOTAL</div>
         <div class="total-price grow-1">{{invoice.totalPrice}}€</div>
       </div>
+      <ng-container *ngIf="invoice.tvaActive">
+        <div class="d-flex flex-row">
+          <div class="total-label">TVA</div>
+          <div class="total-price grow-1">{{invoice.totalTVA}}€</div>
+        </div>
+        <div class="d-flex flex-row">
+          <div class="total-label total-net">TOTAL NET</div>
+          <div class="total-price grow-1 total-net">{{invoice.totalNet}}€</div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
-<div class="devis-footer" *ngIf="invoice">
+<div class="devis-footer"
+     *ngIf="invoice">
   <div class="d-flex flex-row justify-content-around align-items-center">
-    <div *ngIf="invoice.userPhone" class="d-flex align-items-center contact-info">
+    <div *ngIf="invoice.userPhone"
+         class="d-flex align-items-center contact-info">
       <mat-icon>contact_phone</mat-icon>
       <div class="ml-2">{{invoice.userPhone}}</div>
     </div>
-    <div *ngIf="invoice.userMail" class="d-flex align-items-center contact-info">
+    <div *ngIf="invoice.userMail"
+         class="d-flex align-items-center contact-info">
       <mat-icon>contact_mail</mat-icon>
       <div class="ml-2">{{invoice.userMail}}</div>
     </div>
   </div>
-  <p>Dispensé d'immatriculation au registre du commerce et des sociétés et au répertoire des métiers</p>
+  <p *ngIf="!invoice.tvaIntra">Dispensé d'immatriculation au registre du commerce et des sociétés et au répertoire des métiers</p>
 </div>

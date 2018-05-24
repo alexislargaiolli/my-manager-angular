@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Address, Profile } from 'app/models';
-import { ModelUtils, RepositoriesService } from 'app/modules/core';
+import { ModelUtils, RepositoriesService, ReduxSubscriptionComponent, NotificationService } from 'app/modules/core';
 import { User } from 'app/modules/core/models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { select, NgRedux } from '@angular-redux/store';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./user-profile-general.component.css'],
   animations: [slideApparitionAnimation]
 })
-export class UserProfileGeneralComponent implements OnInit, OnDestroy {
+export class UserProfileGeneralComponent extends ReduxSubscriptionComponent implements OnInit, OnDestroy {
 
   @select(['profile', 'loading'])
   public loading$: Observable<boolean>;
@@ -24,14 +24,20 @@ export class UserProfileGeneralComponent implements OnInit, OnDestroy {
 
   profileSubscription: Subscription;
 
-  constructor(private _profileActions: ProfileActions, private _redux: NgRedux<IAppState>) {
+  constructor(
+    private _profileActions: ProfileActions,
+    private _redux: NgRedux<IAppState>,
+    private _notificationService: NotificationService) {
+    super();
     this.profileSubscription = this._redux.select<Profile>(['profile', 'profile'])
       .subscribe(p => {
         this.profile = Object.assign({}, p);
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.addSub(this._notificationService.addStoreChangeSaveNotif<Profile>(['profile', 'profile'], p => `Profil sauvegardé`));
+  }
 
   ngOnDestroy(): void {
     this.profileSubscription.unsubscribe();

@@ -14,10 +14,14 @@ export class Invoice implements IModel {
     public createDate: Date;
     public validityDate: Date;
     public invoiceId: string;
+    public projectId: number;
     public title: string;
     public siret: string;
-    public projectId: number;
+    public tvaIntra: string;
+    public tvaActive: boolean;
     public totalPrice: number;
+    public totalTVA: number;
+    public totalNet: number;
     public paidDate: Date;
     public state: InvoiceState = InvoiceState.DRAFT;
     public clientName: string;
@@ -35,6 +39,8 @@ export class Invoice implements IModel {
         this.state = InvoiceState.DRAFT;
         this.createDate = new Date();
         this.validityDate = moment().add(1, 'month').toDate();
+        this.totalPrice = 0;
+        this.totalTVA = 0;
     }
 
     public addLine(line: DevisLine) {
@@ -54,6 +60,12 @@ export class Invoice implements IModel {
                 this.totalPrice += line.totalPrice;
             }
         }
+        if (this.tvaActive) {
+            this.totalTVA = Number((this.totalPrice * 0.2).toFixed(2));
+        } else {
+            this.totalTVA = 0;
+        }
+        this.totalNet = this.totalPrice + this.totalTVA;
     }
 
     public importProfile(profile: Profile) {
@@ -62,6 +74,7 @@ export class Invoice implements IModel {
         }
         this.userName = `${profile.firstname}  ${profile.lastname}`;
         this.siret = profile.siret;
+        this.tvaIntra = profile.tvaIntra;
         this.userPhone = profile.phone;
         this.userMail = profile.email;
     }

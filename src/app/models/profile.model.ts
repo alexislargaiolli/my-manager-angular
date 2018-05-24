@@ -11,6 +11,7 @@ export class Profile implements IModel {
     public email: string;
     public phone: string;
     public siret: string;
+    public tvaIntra: string;
     public addresses: Address[];
     constructor() {
         this.addresses = [];
