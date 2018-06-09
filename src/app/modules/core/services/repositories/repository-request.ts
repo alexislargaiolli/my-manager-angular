@@ -1,22 +1,21 @@
-import { RequestOptions, RequestMethod, Http, Headers } from '@angular/http';
-import { RepositoriesService } from './repositories.service';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Injector } from '@angular/core';
 import { User } from '../../models/user.model';
-import { RequestFilter } from './filter.type';
+import { RepositoriesService } from './repositories.service';
+import { RequestMethod } from '@angular/http';
 
 export class RepositoryRequest<T> {
     url: string;
-    options: RequestOptions;
+    headers: HttpHeaders;
+    params = new HttpParams();
+    query = "";
     method: RequestMethod;
-    private _filters: RequestFilter[] = [];
     body: any;
 
     constructor(private repositoriesService: RepositoriesService) {
-        const headers: Headers = new Headers({
+        this.headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
-        this.options = new RequestOptions({ headers: headers });
     }
 
     public by(className: string, id: number): RepositoryRequest<T> {
@@ -28,7 +27,7 @@ export class RepositoryRequest<T> {
     public byCurrentUser(): RepositoryRequest<T> {
         if (this.repositoriesService.session) {
             const prefix = this.repositoriesService.getApiUrl(User.REPO_KEY);
-            this.url = `${prefix}/${this.repositoriesService.session.userId}/${this.url}`;
+            this.url = `${prefix}/me/${this.url}`;
         }
         return this;
     }
@@ -40,38 +39,38 @@ export class RepositoryRequest<T> {
         return this;
     }
 
+    public param(name: string, value: any): RepositoryRequest<T> {
+        this.addQuery(`${name}=${value}`);
+        return this;
+    }
+
     public include(field: string): RepositoryRequest<T> {
-        this._filters.push({ type: 'include', value: field });
+        this.addQuery(`[filter][include]=${field}`);
         return this;
     }
 
     public orderBy(field: string, desc?: boolean): RepositoryRequest<T> {
-        this._filters.push({ type: 'order', value: `${field}${desc ? ' DESC' : ' ASC'}` });
+        this.addQuery(`[filter][order]=${field}${desc ? ' DESC' : ' ASC'}`);
         return this;
     }
 
     public limit(limit: number): RepositoryRequest<T> {
-        this._filters.push({ type: 'limit', value: limit });
+        this.addQuery(`[filter][limit]=${limit}`);
         return this;
     }
 
     public skip(skip: number): RepositoryRequest<T> {
-        this._filters.push({ type: 'skip', value: skip });
+        this.addQuery(`[filter][limit]=${skip}`);
         return this;
     }
 
     public field(field: string): RepositoryRequest<T> {
-        this._filters.push({ type: 'fields', property: field, value: true });
+        this.addQuery(`[filter][fields][${field}]=true`);
         return this;
     }
 
     public where(field: string, value: any): RepositoryRequest<T> {
-        this._filters.push({ type: 'where', property: field, value: value });
-        return this;
-    }
-
-    public auth(token: string): RepositoryRequest<T> {
-        this.options.headers.append('Authorization', token);
+        this.addQuery(`[filter][where][${field}]=${value}`);
         return this;
     }
 
@@ -81,13 +80,16 @@ export class RepositoryRequest<T> {
         return this;
     }
 
-    public disableAuth(): RepositoryRequest<T> {
-        this.options.headers.delete('Authorization');
-        return this;
+    public exec(): Observable<any> {
+        return this.repositoriesService.execute(this);
     }
 
-    public exec(): Observable<any> {
-        this.url = this._filters.reduce((previousUrl: string, filter: RequestFilter, i) => `${previousUrl}${i > 0 ? '&' : '?'}filter[${filter.type}]${filter.property ? '[' + filter.property + ']' : ''}=${filter.value}`, this.url);
-        return this.repositoriesService.execute(this);
+    private addQuery(queryItem: string) {
+        if (this.query.length === 0) {
+            this.query = '?';
+        } else {
+            this.query += '&';
+        }
+        this.query += queryItem;
     }
 }

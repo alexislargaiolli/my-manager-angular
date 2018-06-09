@@ -1,20 +1,19 @@
+import { NgRedux } from '@angular-redux/store';
 import { Injectable } from '@angular/core';
-import { RequestMethod, Http, Response } from '@angular/http';
+import { RequestMethod, Response } from '@angular/http';
+import { IAppState } from 'app/modules/store';
 import { Observable } from 'rxjs/Observable';
 import { IModel } from '../../models/generic.model';
-import { AppSettings } from 'app/app-settings';
-import { RepositoryRequest } from './repository-request';
-import { ErrorService } from '../error.service';
-import { BaseHttpService } from './base-http.service';
 import { ISessionState } from '../../models/user-session.model';
-import { NgRedux } from '@angular-redux/store';
-import { IAppState } from 'app/modules/store';
+import { BaseHttpService } from './base-http.service';
+import { RepositoryRequest } from './repository-request';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RepositoriesService {
     private manageClasses: Map<string, string> = new Map();
 
-    constructor(protected http: Http, private baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
+    constructor(protected http: HttpClient, private baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
     }
 
     public addManageClass(className: string, apiUrl: string) {
@@ -82,9 +81,6 @@ export class RepositoriesService {
     private createBaseRequest<T>(className: string, id: number, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = this.getApiUrl(className);
-        // if (this._ngRedux.getState().session.authenticated) {
-        request.auth(this._ngRedux.getState().session.token);
-        // }
         if (!request.url) {
             throw new Error('Try to use respositories with a non register model. Don\'t forget to register all model with addManageClass.');
         }
@@ -98,31 +94,28 @@ export class RepositoriesService {
     public createCustomRequest<T>(url, method: RequestMethod): RepositoryRequest<T> {
         const request = new RepositoryRequest<T>(this);
         request.url = url;
-        if (this._ngRedux.getState().session.authenticated) {
-            request.auth(this._ngRedux.getState().session.token);
-        }
         request.method = method;
         return request;
     }
 
     public execute(request: RepositoryRequest<any>): Observable<any> {
-        let res: Observable<Response>;
-        const url = `${this.baseHttpService.config.baseUrl}/${request.url}`;
+        let res: Observable<any>;
+        const url = `${this.baseHttpService.config.baseUrl}/${request.url}${request.query}`;
         switch (request.method) {
             case RequestMethod.Post:
-                res = this.http.post(url, request.body, request.options);
+                res = this.http.post(url, request.body, { headers: request.headers });
                 break;
             case RequestMethod.Put:
-                res = this.http.put(url, request.body, request.options);
+                res = this.http.put(url, request.body, { headers: request.headers });
                 break;
             case RequestMethod.Patch:
-                res = this.http.patch(url, request.body, request.options);
+                res = this.http.patch(url, request.body, { headers: request.headers });
                 break;
             case RequestMethod.Get:
-                res = this.http.get(url, request.options);
+                res = this.http.get(url, { headers: request.headers });
                 break;
             case RequestMethod.Delete:
-                res = this.http.delete(url, request.options);
+                res = this.http.delete(url, { headers: request.headers });
                 break;
         }
 

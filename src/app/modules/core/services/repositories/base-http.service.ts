@@ -5,13 +5,14 @@ import 'rxjs/add/operator/catch';
 import { AppSettings } from 'app/app-settings';
 import { BackendConfig } from '../../models/backend.config';
 import { ErrorService } from '../error.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class BaseHttpService {
     protected debug = false;
     protected _config: BackendConfig;
 
-    constructor( @Optional() config: BackendConfig, protected http: Http, protected errorService: ErrorService) {
+    constructor(@Optional() config: BackendConfig, protected http: Http, protected errorService: ErrorService) {
         this._config = config;
         if (!this._config) {
             this._config = new BackendConfig();
@@ -26,13 +27,8 @@ export class BaseHttpService {
         }
     }
 
-    public handleResponse(response: Observable<Response>) {
-        return response.map((res: Response) => {
-            const data = res.json();
-            this.trace(data);
-            return data;
-        })
-            .catch(err => this.handleError(err));
+    public handleResponse(response: Observable<any>) {
+        return response.pipe(catchError(err => this.handleError(err)));
     }
 
     public handleError(error: Response) {

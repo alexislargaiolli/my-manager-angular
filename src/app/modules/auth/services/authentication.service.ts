@@ -1,52 +1,37 @@
-import { Injectable, Optional } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BackendConfig, BaseHttpService, NotificationService } from 'app/modules/core';
 import 'rxjs/add/operator/map';
-import { AppSettings } from 'app/app-settings';
-import { NotificationService, BaseHttpService, ErrorService, BackendConfig } from 'app/modules/core';
-import { NgRedux } from '@angular-redux/store';
-import { IAppState } from '../../store/store.types';
 
 @Injectable()
 export class AuthenticationService {
     private config: BackendConfig;
 
     constructor(
-        protected http: Http,
+        protected http: HttpClient,
         protected notificationService: NotificationService,
-        protected baseHttpService: BaseHttpService, private _ngRedux: NgRedux<IAppState>) {
+        protected baseHttpService: BaseHttpService) {
     }
 
     login(username: string, password: string) {
-        const options = new RequestOptions({
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
         });
         const url = `${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.loginEndpoint}`;
         const body = JSON.stringify({ email: username, password: password });
-        return this.baseHttpService.handleResponse(this.http.post(url, body, options));
+        return this.baseHttpService.handleResponse(this.http.post(url, body, { headers }));
     }
 
     logout() {
-        //To replace by BaseToken implementation
-        const options = new RequestOptions({
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': this._ngRedux.getState().session.token
-            })
-        });
-        return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {}, options);
+        return this.http.post(`${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.logoutEndpoint}`, {});
     }
 
     register(data) {
-        const options = new RequestOptions({
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
         });
         const url = `${this.baseHttpService.config.baseUrl}/${this.baseHttpService.config.registerEndpoint}`;
         const body = JSON.stringify(data);
-        return this.baseHttpService.handleResponse(this.http.post(url, body, options));
+        return this.baseHttpService.handleResponse(this.http.post(url, body, { headers }));
     }
 }

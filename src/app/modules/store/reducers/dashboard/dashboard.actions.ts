@@ -8,16 +8,17 @@ export class DashboardActions {
 
     constructor() { }
 
-    loadTotal() {
+    loadTotal(from: Date, to: Date) {
         return {
             type: DashboardActions.LOAD_TOTAL_REQUEST,
+            payload: { from, to }
         };
     }
 
-    loadTotalSuccess(data) {
+    loadTotalSuccess(data, from: Date, to: Date) {
         return {
             type: DashboardActions.LOAD_TOTAL_SUCCESS,
-            payload: data
+            payload: { data, from, to }
         };
     }
 

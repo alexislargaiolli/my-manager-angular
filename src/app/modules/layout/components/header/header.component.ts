@@ -29,6 +29,12 @@ export class HeaderComponent implements OnInit {
   @select(['dashboard', 'paidInvoices'])
   paidInvoices$: Observable<number>;
 
+  @select(['dashboard', 'from'])
+  fromDate$: Observable<Date>;
+
+  @select(['dashboard', 'to'])
+  toDate$: Observable<Date>;
+
   constructor() { }
 
   ngOnInit() {

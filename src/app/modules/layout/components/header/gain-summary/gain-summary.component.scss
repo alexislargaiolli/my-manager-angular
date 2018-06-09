@@ -1,64 +1,64 @@
 @import '_variables';
 $icon-size:30px;
 :host {
-  display: block;
-  text-align: center;
-  .gain-summary {
-    width: 200px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    &>div>* {
-      vertical-align: middle;
+    display: block;
+    text-align: center;
+    .gain-summary {
+        width: 300px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        &>div>* {
+            vertical-align: middle;
+        }
+        mat-icon {
+            margin-right: 5px;
+            font-size: $icon-size;
+            width: $icon-size;
+            height: $icon-size;
+        }
+        span {
+            font-size: 20px;
+            font-family: $title-font;
+        }
+        .total-waiting {
+            color: $color-secondary;
+        }
+        .total-paid {
+            color: $color-success;
+        }
     }
-    mat-icon {
-      margin-right: 5px;
-      font-size: $icon-size;
-      width: $icon-size;
-      height: $icon-size;
-    }
-    span {
-      font-size: 20px;
-      font-family: $title-font;
-    }
-    .total-waiting {
-      color: $color-secondary;
-    }
-    .total-paid {
-      color: $color-success;
-    }
-  }
 }
 
 .gain-details {
-  position: absolute;
-  text-align: left;
-  background: $card-bg;
-  z-index: 1000;
-  width: 400px;
-  margin-left: -100px;
-  margin-top: 10px;
-  font-size: 13px;
-  p>* {
-    vertical-align: middle;
-  }
-  p>mat-icon {
-    margin-right: 10px;
-  }
-  p:last-child {
-    margin-bottom: 0;
-  }
+    position: absolute;
+    text-align: left;
+    background: $card-bg;
+    z-index: 1000;
+    width: 400px;
+    margin-left: -100px;
+    margin-top: 10px;
+    font-size: 13px;
+    p>* {
+        vertical-align: middle;
+    }
+    p>mat-icon {
+        margin-right: 10px;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
 }
 
 @media (max-width: 575px) {
-  .gain-details {
-    margin-left: 0;
-    width: 300px;
-  }
+    .gain-details {
+        margin-left: 0;
+        width: 300px;
+    }
 }
 
 @media (max-width: 767px) {
-  .gain-summary {
-    text-align: left;
-  }
+    .gain-summary {
+        text-align: left;
+    }
 }

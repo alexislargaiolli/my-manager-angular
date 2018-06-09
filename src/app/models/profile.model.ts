@@ -13,6 +13,7 @@ export class Profile implements IModel {
     public siret: string;
     public tvaIntra: string;
     public addresses: Address[];
+    public startFiscalYear: Date;
     constructor() {
         this.addresses = [];
     }

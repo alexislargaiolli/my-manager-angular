@@ -7,6 +7,8 @@
                   [acceptedDevis]="acceptedDevis$ | async"
                   [waitingInvoices]="waitingInvoices$ | async"
                   [paidInvoices]="paidInvoices$ | async"
+                  [fromDate]="fromDate$ | async"
+                  [toDate]="toDate$ | async"
                   *ngIf="authenticated$ | async"></app-gain-summary>
 
 <app-user-menu [profile]="profile$ | async"

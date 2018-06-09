@@ -7,6 +7,8 @@ import { SessionActions } from './redux/session/session.actions';
 import { SessionEpics } from './redux/session/session.epics';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   imports: [SharedModule],
@@ -24,7 +26,12 @@ import { LoginRegisterComponent } from './components/login-register/login-regist
     AuthenticationService,
     SessionActions,
     SessionEpics,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class AuthModule { }

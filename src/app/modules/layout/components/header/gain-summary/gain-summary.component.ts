@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { NgRedux } from '@angular-redux/store';
+import { IAppState, DashboardActions } from '../../../../store';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-gain-summary',
@@ -29,11 +32,17 @@ export class GainSummaryComponent implements OnInit, OnChanges {
   @Input()
   paidInvoices: number;
 
+  @Input()
+  fromDate: Date;
+
+  @Input()
+  toDate: Date;
+
   totalWaiting: number;
 
   detailState = 'HIDDEN';
 
-  constructor() { }
+  constructor(private _dashboardActions: DashboardActions, private _redux: NgRedux<IAppState>) { }
 
   ngOnInit() {
     this.totalWaiting = this.waitingDevis + this.acceptedDevis + this.waitingInvoices;
@@ -53,5 +62,11 @@ export class GainSummaryComponent implements OnInit, OnChanges {
 
   hideDetail() {
     this.detailState = 'HIDDEN';
+  }
+
+  changeDate(form: NgForm) {
+    if (form.valid) {
+      this._redux.dispatch(this._dashboardActions.loadTotal(form.value.fromDate, form.value.toDate));
+    }
   }
 }

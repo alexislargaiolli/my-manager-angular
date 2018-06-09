@@ -14,6 +14,7 @@ import { StoreModule } from './modules/store/store.module';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr);
 
@@ -24,6 +25,7 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     CoreModule.forRoot({
       baseUrl: AppSettings.API_ENDPOINT,
       loginEndpoint: AppSettings.LOGIN_ENDPOINT,
