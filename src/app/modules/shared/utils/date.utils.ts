@@ -1,4 +1,3 @@
-import { IMyDateModel } from 'mydatepicker';
 
 export class DateUtils {
     public static jsDateToMyDate(date: Date): Object {

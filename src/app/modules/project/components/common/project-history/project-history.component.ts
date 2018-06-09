@@ -1,11 +1,5 @@
-import { NgForm } from '@angular/forms';
-import { IMyOptions } from 'mydatepicker';
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy, OnChanges, SimpleChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HistoryEntry } from 'app/models';
-import { trigger, state, style, transition, animate } from "@angular/animations";
-import { Observable } from 'rxjs/Observable';
-import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'project-history',
