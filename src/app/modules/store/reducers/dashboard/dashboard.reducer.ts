@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     acceptedDevis: null,
     waitingInvoices: null,
     paidInvoices: null,
+    toDeclareInvoices: null,
     from: null,
     to: null,
     loading: false,
@@ -25,6 +26,7 @@ export function dashboardReducer(state: IDashboardState = INITIAL_STATE, action)
                     acceptedDevis: action.payload.data.acceptedDevis,
                     waitingInvoices: action.payload.data.waitingInvoices,
                     paidInvoices: action.payload.data.paidInvoices,
+                    toDeclareInvoices: action.payload.data.toDeclareInvoices,
                     from: action.payload.from,
                     to: action.payload.to
                 });

@@ -33,6 +33,9 @@ export class GainSummaryComponent implements OnInit, OnChanges {
   paidInvoices: number;
 
   @Input()
+  toDeclareInvoices: number;
+
+  @Input()
   fromDate: Date;
 
   @Input()

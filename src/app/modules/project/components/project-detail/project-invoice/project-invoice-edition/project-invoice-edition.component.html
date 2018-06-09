@@ -100,6 +100,9 @@
                                          [for]="validityDatePicker"></mat-datepicker-toggle>
                   <mat-datepicker #validityDatePicker></mat-datepicker>
                 </mat-form-field>
+
+                <mat-slide-toggle [(ngModel)]="invoice.declared"
+                                  name="declared">Déclarée aux impôts</mat-slide-toggle>
               </div>
             </div>
 

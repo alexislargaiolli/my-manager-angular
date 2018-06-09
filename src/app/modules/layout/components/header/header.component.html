@@ -8,6 +8,7 @@
                   [waitingInvoices]="waitingInvoices$ | async"
                   [paidInvoices]="paidInvoices$ | async"
                   [fromDate]="fromDate$ | async"
+                  [toDeclareInvoices]="toDeclareInvoices$ | async"
                   [toDate]="toDate$ | async"
                   *ngIf="authenticated$ | async"></app-gain-summary>
 

@@ -4,19 +4,28 @@
   <div class="total-waiting"
        *ngIf="totalWaiting != null">
     <mat-icon>hourglass_empty</mat-icon>
-    <span>{{totalWaiting}}€</span>
+    <span> {{ totalWaiting }}€</span>
+  </div>
+  <div class="text-warning"
+       *ngIf="waitingInvoices != null">
+    <mat-icon>hourglass_full</mat-icon>
+    <span> {{ waitingInvoices }} €</span>
   </div>
   <div class="total-paid"
        *ngIf="paidInvoices != null">
-    <mat-icon class="text-success">monetization_on</mat-icon>
-    <span>{{paidInvoices}}€</span>
+    <mat-icon>monetization_on</mat-icon>
+    <span> {{ paidInvoices }} €</span>
+  </div>
+  <div class="text-danger"
+       *ngIf="toDeclareInvoices != null">
+    <mat-icon>account_balance</mat-icon>
+    <span> {{ toDeclareInvoices }} €</span>
   </div>
   <button mat-icon-button
           [matMenuTriggerFor]="appMenu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #appMenu="matMenu">
-
     <form #form="ngForm"
           style="text-align: center"
           (ngSubmit)="changeDate(form)">
@@ -31,7 +40,6 @@
                                [for]="fromPicker"></mat-datepicker-toggle>
         <mat-datepicker #fromPicker></mat-datepicker>
       </mat-form-field>
-
       <mat-form-field (click)="$event.stopPropagation();">
         <input matInput
                [ngModel]="toDate"
@@ -47,29 +55,33 @@
               [disabled]="!form.valid"
               mat-button>Valider</button>
     </form>
-
   </mat-menu>
 </div>
 <div class="gain-details rounded mat-elevation-z4 p-2"
      [@detailAnim]="detailState">
   <p *ngIf="waitingDevis">
     <mat-icon class="text-info">hourglass_empty</mat-icon>
-    <span>Devis en attente de validation : </span>
-    <span class="small">{{waitingDevis}}€</span>
+    <span>Devis en attente de validation: </span>
+    <span class="small"> {{ waitingDevis }} € </span>
   </p>
   <p *ngIf="acceptedDevis">
     <mat-icon class="text-success">check_circle</mat-icon>
-    <span>Devis validés : </span>
-    <span>{{acceptedDevis}}€</span>
+    <span>Devis validés: </span>
+    <span> {{ acceptedDevis }} € </span>
   </p>
   <p *ngIf="waitingInvoices">
     <mat-icon class="text-warning">hourglass_empty</mat-icon>
-    <span>Factures en attente de paiement : </span>
-    <span class="small">{{waitingInvoices}}€</span>
+    <span>Factures en attente de paiement: </span>
+    <span class="small"> {{ waitingInvoices }} € </span>
   </p>
   <p *ngIf="paidInvoices">
     <mat-icon class="text-success">monetization_on</mat-icon>
     <span>Chiffre d'affaire : </span>
-    <span class="small">{{paidInvoices}}€</span>
+    <span class="small"> {{ paidInvoices }} € </span>
+  </p>
+  <p *ngIf="toDeclareInvoices">
+    <mat-icon class="text-danger">account_balance</mat-icon>
+    <span>Somme à déclarer : </span>
+    <span class="small"> {{ toDeclareInvoices }} € </span>
   </p>
 </div>

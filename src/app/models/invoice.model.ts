@@ -6,7 +6,6 @@ import { Address } from './address.model';
 import * as moment from 'moment';
 
 export class Invoice implements IModel {
-    invoice: any;
     public static readonly REPO_KEY = 'Invoice';
     public id: number;
     public createdAt: Date;
@@ -31,6 +30,7 @@ export class Invoice implements IModel {
     public clientAddress: Address;
     public userAddress: Address;
     public lines: DevisLine[];
+    public declared: boolean;
 
     constructor() {
         this.userAddress = new Address();

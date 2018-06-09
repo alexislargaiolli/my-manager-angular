@@ -29,6 +29,9 @@ export class HeaderComponent implements OnInit {
   @select(['dashboard', 'paidInvoices'])
   paidInvoices$: Observable<number>;
 
+  @select(['dashboard', 'toDeclareInvoices'])
+  toDeclareInvoices$: Observable<number>;
+
   @select(['dashboard', 'from'])
   fromDate$: Observable<Date>;
 
